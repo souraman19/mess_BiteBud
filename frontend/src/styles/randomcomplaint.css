@@ -1,0 +1,64 @@
+/* .review-outer-outermost-box{
+    border: 2px solid rgb(0, 41, 128);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+    width: 100vw;
+} */
+
+.button-group-complaint{
+    display: flex;
+}
+.uparrow-complaint{
+    
+}
+.downarrow-complaint{
+
+}
+
+.upbutton-group-box{
+    /* border: 2px solid green; */
+    /* background-color: aliceblue; */
+    border-radius: 10px;
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 170px;
+}
+.downbutton-group-box{
+    /* border: 2px solid green; */
+    /* background-color: aliceblue; */
+    border-radius: 10px;
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.review-outermost-box-randomcomplaint{
+    /* border: 5px solid palegreen; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 270px; */
+    height: 450px;
+    width: 350px;
+    /* background-color: rgb(249, 249, 249); */
+    background-image: url("https://img.freepik.com/free-photo/clear-empty-photographer-studio-background-abstract-background-texture-beauty-dark-light-clear-blue-cold-gray-snowy-white-gradient-flat-wall-floor-empty-spacious-room-winter-interior_1258-53070.jpg");
+    border-top-left-radius: 10%;
+    border-bottom-right-radius: 10%;
+    border-bottom-left-radius: 10%;
+    border-top-right-radius: 10%;
+}
+
+.cardclass-randomcomplaint{
+    height: 280px;
+    width: 400px;
+    /* border: 2px solid red; */
+}
+.comment-text-randomcomplaint{
+    font-size: medium;
+    font-weight: 450;
+}

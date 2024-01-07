@@ -1,0 +1,35 @@
+/* .review-outer-outermost-box{
+    border: 2px solid rgb(0, 41, 128);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+    width: 100vw;
+} */
+
+
+.review-outermost-box{
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 270px; */
+    height: 450px;
+    width: 350px;
+    background-color: aqua;
+    background-image: url("https://getwallpapers.com/wallpaper/full/2/c/9/301416.jpg");
+    border-top-left-radius: 10%;
+    border-bottom-right-radius: 10%;
+    border-bottom-left-radius: 10%;
+    border-top-right-radius: 10%;
+}
+
+.cardclass{
+    height: 280px;
+    width: 400px;
+    /* border: 2px solid red; */
+}
+.comment-text{
+    font-size: medium;
+    font-weight: 450;
+}

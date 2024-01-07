@@ -1,0 +1,45 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.commentlist-second-outer{
+    /* border: 2px solid blueviolet; */
+    /* display: grid;
+    grid-template-columns: 1fr 1fr 1fr; */
+    margin-left: 20px;
+}
+.commentlist-outer{
+    border: 2px solid green;
+    background-color: rgb(241, 236, 229);
+    padding-left: 24px;
+}
+
+.commentlist-second-outer > h1, .add-new-comment-heading {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 3.5rem;
+    font-weight: 500;
+    /* border: 2px solid black; */
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-image: linear-gradient(90deg,#00c4cc,#7d2ae8);
+    color: transparent;
+    font-style: normal;
+}
+
+.add-comment-section{
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding-right: 20px;
+    /* border: 2px solid blue; */
+    /* background-color: blanchedalmond; */
+}
+.add-comment-section .submit-section{
+    display: flex;
+    justify-content: end;
+    margin-top: 5px;
+}
+.add-comment-section .submit-section input{
+    font-size: 1.5rem;
+}
+

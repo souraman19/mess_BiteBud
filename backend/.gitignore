@@ -1,0 +1,71 @@
+# Node.js dependencies
+node_modules/
+
+# npm lock file
+package-lock.json
+
+# Yarn lock file
+yarn.lock
+
+# Python virtual environment
+venv/
+__pycache__/
+
+# Java build artifacts
+target/
+*.class
+
+# Compiled files
+*.pyc
+*.class
+
+# IntelliJ IDEA settings
+.idea/
+
+# Visual Studio Code settings
+.vscode/
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
+
+# Environment configuration files
+.env
+
+# Temporary files
+*.tmp
+
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+
+
+# Node.js dependencies
+node_modules/
+
+# npm lock file
+package-lock.json
+
+# Yarn lock file
+yarn.lock
+
+# Express.js generated files
+dist/
+
+# MongoDB data directory
+data/
+
+# Logs
+*.log
+
+# Environment configuration files
+.env
+
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db

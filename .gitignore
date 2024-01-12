@@ -10,6 +10,7 @@ backend/node_modules/
 /node_modules
 /.pnp
 .pnp.js
+theory.txt
 
 # testing
 /coverage

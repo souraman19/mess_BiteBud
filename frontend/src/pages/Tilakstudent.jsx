@@ -4,7 +4,7 @@ import Gallary from "../components/Gallery.jsx";
 import Comment from "../components/Currentmessmenu.jsx"
 import Currentmenu from "./../components/Currentmessmenu.jsx"
 import Review from "../components/Review.jsx";
-import Feedback from "../components/Comment.jsx";
+import Feedback from "../components/CommentSegment.jsx";
 import Tilakintro from "./../components/Tilakintro.jsx";
 import Complaint from "../components/Complaint.jsx";
 

@@ -1,5 +1,4 @@
 // src/pages/Home.js
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -7,10 +6,6 @@ import { Link } from 'react-router-dom';
 function Home() {
   return (
     <div >
-<h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-
       <h2>Home Page</h2>
       <h3>Welcome to Webster Event! <br/></h3>
       <h2>

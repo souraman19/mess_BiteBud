@@ -33,7 +33,7 @@ export default function Complaint() {
             modules={[Pagination]}
             className="mySwiper"
           >
-            <SwiperSlide>
+            <SwiperSlide >
               <Randomcomplaintchiefwarden />
             </SwiperSlide>
 

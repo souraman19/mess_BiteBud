@@ -1,25 +1,36 @@
 import React from "react";
 import Navbar from "./../components/Navbar.jsx";
 import Gallary from "../components/Gallery.jsx";
-import Currentmenu from "./../components/Currentmessmenu.jsx"
+import Currentmessmenu from "./../components/Currentmessmenu.jsx";
 import Review from "../components/Review.jsx";
-import Comment from "../components/Comment.jsx";
+import CommentSegment from "../components/CommentSegment.jsx";
 import Patelintro from "./../components/Patelintro.jsx";
 import Complaint from "../components/Complaint.jsx";
 import Randomcomplaint from "./../components/Randomcomplaint.jsx";
+
+//style for whole patel main or first page
+import "./../styles/patelmainpagestyle.css";
 
 function Patelstudent(){
     return(
         <div>
         <Navbar />
         <Patelintro />
+
+         {/* //working on ui*/}
+        <Currentmessmenu />  
+
+
+        <Gallary />
+
+        
+        <CommentSegment />
+
+        
         {/* <Randomcomplaint /> */}
         {/* <Review /> */}
-        <Comment />
-        <Currentmenu />
         {/* <Comment /> */}
-        <Gallary />
-        <Complaint />
+        {/* <Complaint /> */}
     </div>
     );
 }

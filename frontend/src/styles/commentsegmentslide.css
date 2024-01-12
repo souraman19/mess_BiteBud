@@ -1,0 +1,73 @@
+:root {
+    --shadow00001: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --helper-tint: #badff3;
+}
+
+.outer-swiper-plate{
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    /* border: 2px solid black; */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.swiper-client-message::before{
+    content: "";
+    position: absolute;
+    bottom: -10rem;
+    left: 50%;
+    transform: translateX(-76%);
+    border: 5rem solid white;
+    border-color: transparent;
+    border-top-color: rgb(225 224 246);
+}
+.swiper-client-message p::before{
+    content: "\f10d";
+    position: absolute;
+    top: 0;
+    left: 2rem;
+    font-size: 5rem;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #ced3ff;
+
+}
+.swiper-client-message p::after{
+    content: "\f10e";
+    position: absolute;
+    bottom: 0;
+    right: 3rem;
+    font-size: 5rem;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #ced3ff;
+
+}
+
+
+.swiper-client-message{
+    padding: 5rem 8rem;
+    background: var(--white);
+    border-radius: 1rem;
+    text-align: left;
+    box-shadow: var(--shadow00001);
+    position: relative;
+    /* adjust height accoding to req  this is manual   change it later */
+    height: 19rem;   
+
+}
+
+.swiper-client-data {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+.swiper-client-data img{
+     /* adjust height and width accoding to req  this is manual   change it later */
+    width: 8rem;
+    height: 8rem;
+    border-radius: 100%;
+    /* border: 0.5rem solid var(--helper-tint); */
+}

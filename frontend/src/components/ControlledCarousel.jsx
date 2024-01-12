@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Carousel from "react-bootstrap/Carousel";
-import "./../styles/styles.css";
+import "./../styles/controlledcarousel.css";
 
 function ExampleCarouselImage(props) {
   return (
     <img
-      className="d-block w-100"
+      className="mx-auto d-block w-75 vh-50"
       src={props.mysrc} // Replace with the actual image URL
       alt={props.text}
     />
@@ -22,13 +22,13 @@ function ControlledCarousel() {
   };
 
   return (
-    <div className="outermost-gallary">
-      <h1 className="gallary-heading">Explore scenes from our mess</h1>
-      <div className="mycarousel">
+    <div className="outermost-gallary-cc">
+      <h1 className="gallary-heading-cc">Explore scenes from our mess</h1>
+      <div className="mycarousel-cc">
         <Carousel
           activeIndex={index}
           onSelect={handleSelect}
-          className="carousel-messmenu"
+          className="carousel-messmenu-cc"
         >
           <Carousel.Item>
             <ExampleCarouselImage
@@ -53,7 +53,7 @@ function ControlledCarousel() {
           <Carousel.Item>
             <ExampleCarouselImage
               text="Third slide"
-              mysrc="./images/food3.jpg"
+              mysrc="./images/food1.jpg"
             />
             <Carousel.Caption>
               <h3>Third slide label</h3>

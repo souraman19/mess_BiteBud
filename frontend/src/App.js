@@ -6,7 +6,7 @@ import Login from './pages/Login';
 // import Navbar from './components/Navbar.jsx'
 import Patelstudent from './pages/Patelstudent';
 import Tilakstudent from './pages/Tilakstudent';
-import Patelgallery from "./pages/patelstudent/Patelgallery"
+import Patelgallery from "./pages/patelstudent/Patelgallery";
 import Patelcomment from './pages/patelstudent/Patelcomment';
 import Patelfullmenu from './pages/patelstudent/Patelfullmenu';
 import Cheifwarden from './pages/Cheifwarden';

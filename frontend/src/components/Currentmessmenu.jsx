@@ -2,6 +2,7 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom";
 
+import "./../styles/currentmessmenu.css";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -34,12 +35,12 @@ function Comment() {
         grabCursor={true}
         centeredSlides={true}
         loop={true}
-        slidesPerView={"auto"}
+        slidesPerView={3}
         coverflowEffect={{
           rotate: 0,
-          stretch: 0,
-          depth: 100,
-          modifier: 2.5,
+          stretch: 20,
+          depth: 170,
+          modifier: 1.5,
         }}
         pagination={{ el: ".swiper-pagination", clickable: true }}
         navigation={{

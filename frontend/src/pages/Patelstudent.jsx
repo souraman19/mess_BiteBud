@@ -21,7 +21,7 @@ function Patelstudent(){
         <Currentmessmenu />  
 
 
-        <Gallary />
+    <Gallary />
 
         
         <CommentSegment />

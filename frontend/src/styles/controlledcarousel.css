@@ -1,38 +1,56 @@
-.carousel-messmenu-cc{
-    /* border: 3px solid red; */
-    /* padding: 20px 100px; */
+.carousel-messmenu-cc {
+    /* Your styles for larger screens */
+    padding: 20px; /* Add any other styles you need */
 }
-.outermost-gallary-cc{
+
+/* Existing styles remain unchanged */
+
+.outermost-gallary-cc {
     display: flex;
     flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
 }
-.gallary-heading-cc{
+
+.gallary-heading-cc {
     text-align: center;
     padding: 1.5rem 0;
     font-size: 3.5rem;
     text-align: center;
     display: block;
-    font-family: Canva Sans,Noto Sans Variable,Noto Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
+    font-family: Canva Sans, Noto Sans Variable, Noto Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
     border-radius: 20px;
 }
-.mycarousel-cc{
-    /* box-sizing: border-box; */
-    /* padding: 10px; */
-    /* border: 2px solid red; */
+
+.mycarousel-cc {
     height: 100%;
     width: 100%;
-
 }
 
-.gallary-button-cc{
+.gallary-button-cc {
     width: 28rem;
     padding-top: 10px;
     padding-bottom: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 1.5rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .gallary-button-cc {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .gallary-heading-cc {
+        font-size: 2.5rem;
+    }
+
+    .gallary-button-cc {
+        font-size: 1.2rem;
+    }
 }

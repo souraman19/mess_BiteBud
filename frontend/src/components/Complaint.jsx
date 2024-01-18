@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+import { EffectCards } from 'swiper/modules';
 
 import "./../styles/complaint.css";
 import Randomcomplaint from "./Randomcomplaint";
@@ -18,41 +19,38 @@ export default function Complaint() {
     <div className="outermost-box-complaint">
       <div>
         <div className="upper-section1">
-          <h1 className="heading1">Read the complaints</h1>
+          <h1 className="heading1">Complaints</h1>
         </div>
       </div>
-      <div className="swiper-complaint">
+      <div className="swiper">
         <>
           <Swiper
-            slidesPerView={3}
-            spaceBetween={30}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Pagination]}
-            className="mySwiper"
+            effect={'cards'}
+            grabCursor={true}
+            modules={[EffectCards]}
+            className="swiper-complaint"
           >
-            <SwiperSlide>
+            <SwiperSlide className="swiper-slide-complaint">
               <Randomcomplaint />
             </SwiperSlide>
 
-            <SwiperSlide>
+            <SwiperSlide className="swiper-slide-complaint">
               <Randomcomplaint />
             </SwiperSlide>
 
-            <SwiperSlide>
+            <SwiperSlide className="swiper-slide-complaint">
               <Randomcomplaint />
             </SwiperSlide>
 
-            <SwiperSlide>
+            <SwiperSlide className="swiper-slide-complaint">
               <Randomcomplaint />
             </SwiperSlide>
 
-            <SwiperSlide>
+            <SwiperSlide className="swiper-slide-complaint">
               <Randomcomplaint />
             </SwiperSlide>
 
-            <SwiperSlide>
+            <SwiperSlide className="swiper-slide-complaint">
               <Randomcomplaint />
             </SwiperSlide>
           </Swiper>

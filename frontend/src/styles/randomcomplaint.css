@@ -44,7 +44,7 @@
     align-items: center;
     /* height: 270px; */
     height: 450px;
-    width: 350px;
+    width: 35px;
     /* background-color: rgb(249, 249, 249); */
     background-image: url("https://img.freepik.com/free-photo/clear-empty-photographer-studio-background-abstract-background-texture-beauty-dark-light-clear-blue-cold-gray-snowy-white-gradient-flat-wall-floor-empty-spacious-room-winter-interior_1258-53070.jpg");
     border-top-left-radius: 10%;
@@ -55,10 +55,64 @@
 
 .cardclass-randomcomplaint{
     height: 280px;
-    width: 400px;
+    /* width: 4002px; */
     /* border: 2px solid red; */
 }
 .comment-text-randomcomplaint{
     font-size: medium;
     font-weight: 450;
 }
+
+
+.review-outermost-box-randomcomplaint {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 450px;
+    width: 400px;
+    background-image: url("https://img.freepik.com/free-photo/clear-empty-photographer-studio-background-abstract-background-texture-beauty-dark-light-clear-blue-cold-gray-snowy-white-gradient-flat-wall-floor-empty-spacious-room-winter-interior_1258-53070.jpg");
+    border-radius: 10px;
+  }
+  
+  .cardclass-randomcomplaint {
+    height: 280px;
+  }
+  
+  .comment-text-randomcomplaint {
+    font-size: medium;
+    font-weight: 450;
+  }
+  
+  .button-group-complaint {
+    display: flex;
+  }
+  
+  .uparrow-complaint {
+    /* Add styles if needed */
+  }
+  
+  .downarrow-complaint {
+    /* Add styles if needed */
+  }
+  
+  .upbutton-group-box,
+  .downbutton-group-box {
+    border-radius: 10px;
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add smooth transition */
+  }
+  
+  .upbutton-group-box:hover,
+  .downbutton-group-box:hover {
+    background-color: #4caf50; /* Change color on hover; you can customize this */
+  }
+  
+  .vote-count {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 6px;
+  }

@@ -1,6 +1,7 @@
 import "./../styles/randomcomplaint.css";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import { useState } from "react";
 
 import {
   Card,
@@ -28,6 +29,17 @@ function StarIcon() {
 }
 
 export default function Review(props) {
+  const [upvotes, setUpvotes] = useState(0);
+  const [downvotes, setDownvotes] = useState(0);
+
+  const handleUpvote = () => {
+    setUpvotes(upvotes + 1);
+  };
+
+  const handleDownvote = () => {
+    setDownvotes(downvotes + 1);
+  };
+
   return (
     <div>
       <div className="review-outermost-box-randomcomplaint">
@@ -42,12 +54,6 @@ export default function Review(props) {
             shadow={false}
             className="mx-0 flex items-center gap-4 pt-0 pb-8"
           >
-            {/* <Avatar
-              size="xl"
-              variant="circular"
-              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-              alt="tania andrew"
-            /> */}
             <div className="flex w-full flex-col gap-0.5">
               <div className="flex items-center justify-between">
                 <Typography variant="h2" color="blue-grey">
@@ -72,16 +78,21 @@ export default function Review(props) {
             </Typography>
           </CardBody>
         </Card>
-      </div><div className="button-group-complaint">
-
-<div className="upbutton-group-box">
-      <ArrowCircleUpIcon className="uparrow-complaint" style={{ fontSize: '40px' }}/>
-</div>
-<div className="downbutton-group-box">
-      <ArrowCircleDownIcon className="downarrow-complaint" style={{ fontSize: '40px' }}/>
-</div>
-
-</div>
+      </div>
+      <div className="button-group-complaint">
+        <div className="upbutton-group-box" onClick={handleUpvote}>
+          <ArrowCircleUpIcon className="uparrow-complaint" style={{ fontSize: '40px' }} />
+          <Typography variant="h6" color="blue-grey" className="vote-count">
+            {upvotes}
+          </Typography>
+        </div>
+        <div className="downbutton-group-box" onClick={handleDownvote}>
+          <ArrowCircleDownIcon className="downarrow-complaint" style={{ fontSize: '40px' }} />
+          <Typography variant="h6" color="blue-grey" className="vote-count">
+            {downvotes}
+          </Typography>
+        </div>
+      </div>
     </div>
   );
 }

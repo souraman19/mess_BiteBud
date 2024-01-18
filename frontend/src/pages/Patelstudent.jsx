@@ -30,7 +30,7 @@ function Patelstudent(){
         {/* <Randomcomplaint /> */}
         {/* <Review /> */}
         {/* <Comment /> */}
-        {/* <Complaint /> */}
+        <Complaint />
     </div>
     );
 }

@@ -17,12 +17,13 @@ import slide_image_4 from "./../srcimages/food4.jpg";
 import slide_image_5 from "./../srcimages/food1.jpg";
 import slide_image_6 from "./../srcimages/food2.jpg";
 import slide_image_7 from "./../srcimages/food3.jpg";
+import "./../styles/randomdaymessmenu.css";
 
 function Comment(props) {
   return (
-    <div className="container">
-      <div className="upper-section1">
-        <h1 className="heading1">{props.day}</h1>
+    <div className="container-randommessmenu">
+      <div className="upper-section-randommessmenu">
+        <h1 className="heading1-randommessmenu">{props.day}</h1>
       </div>
       <Swiper
         effect={"coverflow"}
@@ -43,53 +44,53 @@ function Comment(props) {
           clickable: true,
         }}
         modules={[EffectCoverflow, Pagination, Navigation]}
-        className="swiper_container"
+        className="swiper_container-randommessmenu"
       >
-        <SwiperSlide>
+        <SwiperSlide className="swiper-slide-randommessmenu">
           <img src={slide_image_1} alt="slide_image" />
-          <div className="text-overlay">
+          <div className="text-overlay-randommessmenu">
             <h2>Title 1</h2>
             <p>Description 1</p>
           </div>
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className="swiper-slide-randommessmenu">
           <img src={slide_image_2} alt="slide_image" />
-          <div className="text-overlay">
+          <div className="text-overlay-randommessmenu">
             <h2>Title 1</h2>
             <p>Description 1</p>
           </div>
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className="swiper-slide-randommessmenu">
           <img src={slide_image_3} alt="slide_image" />
-          <div className="text-overlay">
+          <div className="text-overlay-randommessmenu">
             <h2>Title 1</h2>
             <p>Description 1</p>
           </div>
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className="swiper-slide-randommessmenu">
           <img src={slide_image_4} alt="slide_image" />
-          <div className="text-overlay">
+          <div className="text-overlay-randommessmenu">
             <h2>Title 1</h2>
             <p>Description 1</p>
           </div>
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className="swiper-slide-randommessmenu">
           <img src={slide_image_5} alt="slide_image" />
-          <div className="text-overlay">
+          <div className="text-overlay-randommessmenu">
             <h2>Title 1</h2>
             <p>Description 1</p>
           </div>
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className="swiper-slide-randommessmenu">
           <img src={slide_image_6} alt="slide_image" />
-          <div className="text-overlay">
+          <div className="text-overlay-randommessmenu">
             <h2>Title 1</h2>
             <p>Description 1</p>
           </div>
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className="swiper-slide-randommessmenu">
           <img src={slide_image_7} alt="slide_image" />
-          <div className="text-overlay">
+          <div className="text-overlay-randommessmenu">
             <h2>Title 1</h2>
             <p>Description 1</p>
           </div>

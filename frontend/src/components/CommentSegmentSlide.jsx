@@ -1,12 +1,12 @@
 import React from "react";
 import "./../styles/commentsegmentslide.css";
 
-function CommentSegmentSlide(){
+function CommentSegmentSlide(props){
     return(
         <div className="outer-swiper-plate">
             <div className="swiper-client-message">
                 <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi porro in eum quam reiciendis. Voluptatum vel nihil ratione enim facere veniam eveniet soluta repellat porro!
+                {props.comment}
                 </p>
             </div>
             <div className="swiper-client-data grid grid-two-column">

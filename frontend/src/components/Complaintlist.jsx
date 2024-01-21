@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./../styles/complaintlist.css";
-import Randomcomplaintchiefwarden from "./Randomcomplaintchiefwarden";
+import ComplaintSlide from "./ComplaintSlide";
 
 function Complaintlist() {
   const [commentText, setCommentText] = useState("");
@@ -38,40 +38,40 @@ function Complaintlist() {
       <div className="commentlist-second-outer container">
         <h1>Complaint List</h1>
         <div className="row">
-          <div className="comment-card col-12 col-sm-6 col-md-6 col-lg-4 mb-4">
-            <Randomcomplaintchiefwarden comment="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
+          <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
+            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
           </div>
 
-          <div className="comment-card col-12 col-sm-6 col-md-6 col-lg-4 mb-4">
-            <Randomcomplaintchiefwarden comment="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
+          <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
+            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
           </div>
 
-          <div className="comment-card col-12 col-sm-6 col-md-6 col-lg-4 mb-4">
-            <Randomcomplaintchiefwarden comment="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
+          <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
+            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
           </div>
 
-          <div className="comment-card col-12 col-sm-6 col-md-6 col-lg-4 mb-4">
-            <Randomcomplaintchiefwarden comment="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
+          <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
+            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
           </div>
 
-          <div className="comment-card col-12 col-sm-6 col-md-6 col-lg-4 mb-4">
-            <Randomcomplaintchiefwarden comment="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
+          <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
+            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
           </div>
 
-          <div className="comment-card col-12 col-sm-6 col-md-6 col-lg-4 mb-4">
-            <Randomcomplaintchiefwarden comment="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
+          <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
+            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
           </div>
 
-          <div className="comment-card col-12 col-sm-6 col-md-6 col-lg-4 mb-4">
-            <Randomcomplaintchiefwarden comment="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
+          <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
+            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
           </div>
 
           {comments.map((comment, index) => (
             <div
               key={index}
-              className="comment-card col-12 col-sm-6 col-md-6 col-lg-4 mb-4"
+              className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8"
             >
-              <Randomcomplaintchiefwarden comment={comment} />
+              <ComplaintSlide complaint={comment} />
             </div>
           ))}
         </div>

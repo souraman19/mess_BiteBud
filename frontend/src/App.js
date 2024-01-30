@@ -15,6 +15,7 @@ import Patelallcomplaint from "./pages/patelstudent/Patelallcomplaint";
 import Signup from './pages/Signup';
 import Otpverification from "./pages/Otpverification";
 import Passwordcreate from './pages/Passwordcreate';
+import EditExpensePage from './pages/accountant/EditExpensePage';
 
 function App() {
     return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/cheifwarden" element={<Cheifwarden />} />
 
           <Route path="/accountant" element={<Accountant />} />
+          <Route path="/editexpensepage" element={<EditExpensePage/>}/>
         </Routes>
       </Router>
     );

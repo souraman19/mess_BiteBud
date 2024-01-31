@@ -2,12 +2,13 @@ import React from "react";
 import "./../styles/complaintslide.css";
 import CommentModal from "./CommentModal";
 import { useState } from "react";
+
 import { useUser } from "./../UserContext";
 
 function ComplaintSlide(props) {
   const { user } = useUser();
   const { username, identity, gmail } = user;
-
+  
     const [upvotes, setUpvotes] = useState(0);
     const [downvotes, setDownvotes] = useState(0);
     const [isUpvoteBlinking, setIsUpvoteBlinking] = useState(false);
@@ -50,7 +51,7 @@ function ComplaintSlide(props) {
 
   return (
     <div className="outer-swiper-plate-complaintslide">
-      <div className="complaintslide-username">
+    <div className="complaintslide-username">
         {/* Display the username */}
         {/* <p>{props.username}</p> */}
         <p>{username}</p>

@@ -42,12 +42,12 @@
   
   .owncomments89376273{
     width: 80%;
-    background-color: rgb(221, 229, 238);
+     background-color: rgb(221, 229, 238);
+
   }
   .outer-owncomments89376273{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+        gap: 2rem;
   }
-  

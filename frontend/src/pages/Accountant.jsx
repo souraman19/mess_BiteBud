@@ -1,27 +1,17 @@
 import React from "react";
-import Navbar from "./../components/Navbar.jsx";
-import Gallary from "../components/Gallery.jsx";
-import Comment from "../components/Currentmessmenu.jsx"
-import Currentmenu from "./../components/Currentmessmenu.jsx"
-import Review from "../components/Review.jsx";
-import Feedback from "../components/CommentSegment.jsx";
-import Accountantintro from "./../components/Accountantintro.jsx";
-import Dailyexpense from "./../components/Dailyexpense.jsx";
+import Navbar from "./../components/Navbar";
+import AccountantIntro from "./accountant/AccountantIntro";
+import { Link } from "react-router-dom";
 
-function Patelstudent(){
+function Accountant(){
     return(
         <div>
-        <Navbar />
-        <Accountantintro />
-        <Dailyexpense />
-        {/* <Review /> */}
-        {/* <Feedback /> */}
-
-        {/* <Currentmenu /> */}
-        {/* <Comment /> */}
-        {/* <Gallary /> */}
-        {/* <Complaint /> */}
-    </div>
+            <Navbar />
+            <AccountantIntro />
+            <h1>
+                <Link to="/editexpensepage"> Go to expense edit page </Link>
+            </h1>
+        </div>
     );
 }
-export default Patelstudent;
+export default Accountant;

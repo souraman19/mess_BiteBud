@@ -17,7 +17,7 @@ import slide_image_4 from "./../srcimages/food4.jpg";
 import slide_image_5 from "./../srcimages/food1.jpg";
 import slide_image_6 from "./../srcimages/food2.jpg";
 import slide_image_7 from "./../srcimages/food3.jpg";
-import "./../styles/randomdaymessmenu.css";
+import "./../styles/RandomDayMessMenu.css";
 
 function Comment(props) {
   return (

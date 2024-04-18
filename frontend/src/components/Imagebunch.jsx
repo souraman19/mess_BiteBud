@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { StyledEngineProvider } from "@mui/material/styles";
-import Imageinnerbunch from "./../components/Imageinnerbunch";
-import "./../styles/imagebunch.css"
+import Imageinnerbunch from "./ImageInnerBunch";
+import "./../styles/ImageBunch.css";
 
 function Imagebunch() {
   return (

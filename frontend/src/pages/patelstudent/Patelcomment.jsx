@@ -1,12 +1,19 @@
 import React from "react";
-import Navbar from "./../../components/Navbar";
-import Commentlist from "../../components/Commentlist";
+import Navbar from "../../components/Navbar";
+import CommentList from "../../components/CommentList";
+import "./../../styles/PatelComment.css";
+import {Link} from "react-router-dom";
 
 function Patelcomment(){
     return(
-        <div>
+        <div className="patelCommentPage_outermost_box">
             <Navbar />
-            <Commentlist />
+            <div className="myComments_div">
+               <Link to="/myallcomments" style={{ color: "inherit", textDecoration: "none" }}>
+                    My Comments
+               </Link>
+            </div>
+            <CommentList />
         </div>
     );
 }

@@ -4,8 +4,7 @@ import ControlledCarousel from "./ControlledCarousel";
 function Messmenu() {
     return (
         <div>
-           <ControlledCarousel />
-           
+           <ControlledCarousel /> 
         </div>
     );
 }

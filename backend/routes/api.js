@@ -1,7 +1,58 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
+const Comment = require("../models/comment");
 const OTPService = require("./../otpService");
+
+
+
+// Your existing routes using the Comment and User models
+router.get("/patelcomments", async (req, res) => {
+  try {
+    const comments = await Comment.find();
+    res.json(comments);
+  } catch (error) {
+    console.error("Error fetching comments:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.post("/addpatelcomments", async(req, res)=>{
+  try{
+    // Assuming req.body contains the new comment data
+    const {_id, name, username, regNo, year, comment} = req.body;
+
+    // Create a new Comment document
+    const newComment = new Comment({
+      _id,
+      name,
+      username, 
+      regNo,
+      year,
+      comment,
+    });
+
+    // Save the new comment to the database
+    await newComment.save();
+
+    res.status(201).json({message: "comment added successfully"});
+  }catch(error){
+    console.log("Error in saving comment", error);
+    res.status(500).json({error: "Internal server error"});
+  }
+});
+
+router.delete("/deletecomment/:id", async(req, res) => {
+  try{
+    const commentId = req.params.id;
+    // console.log("hello", commentId);
+    await Comment.findByIdAndDelete(commentId);
+    res.json({ message: "Comment deleted successfully" });
+  }catch(error){
+    console.error("Error deleting comment:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 router.post("/createPassword", async (req, res) => {
   const { email, password } = req.body;
@@ -92,16 +143,6 @@ router.post("/sendOTP", async (req, res) => {
   }
 });
 
-// Your existing routes using the Comment and User models
-router.get("/patelcomment", async (req, res) => {
-  try {
-    const comments = await Comment.find();
-    res.json(comments);
-  } catch (error) {
-    console.error("Error fetching comments:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
 
 router.post("/login", async (req, res) => {
   try {

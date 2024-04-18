@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./../../components/Navbar";
-import EditExpenseTable from "./EditExpenseTable";
+import EditExpenseTable from "../../components/accountantComponents/EditExpenseTable";
 
 function EditExpensePage(){
     return(

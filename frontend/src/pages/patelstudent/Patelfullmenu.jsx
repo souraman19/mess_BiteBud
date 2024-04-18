@@ -1,7 +1,7 @@
 import React from "react";
-import Randomdaymessmenu from "./../../components/Randomdaymessmenu";
-import Navbar from "./../../components/Navbar";
-import "./patelfullmenu.css";
+import Randomdaymessmenu from "../../components/RandomDayMessMenu";
+import Navbar from "../../components/Navbar";
+import "./../../styles/PatelFullMenu.css";
 
 
 function Patelfullmenu(){

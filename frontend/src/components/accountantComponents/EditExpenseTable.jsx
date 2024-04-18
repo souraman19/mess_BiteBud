@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "../../components/Navbar.jsx";
-import Dailyexpense from "../../components/Dailyexpense.jsx";
+import Navbar from "../Navbar.jsx";
+import Dailyexpense from "./DailyExpense.jsx";
 
 function EditExpenseTable(){
     return(

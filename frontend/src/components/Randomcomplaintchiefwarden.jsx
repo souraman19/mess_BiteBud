@@ -1,4 +1,4 @@
-import "./../styles/randomcomplaintchiefwarden.css";
+import "./../styles/RandomComplaintChiefWarden.css";
 import { pink } from '@mui/material/colors';
 import Checkbox from '@mui/material/Checkbox';
 

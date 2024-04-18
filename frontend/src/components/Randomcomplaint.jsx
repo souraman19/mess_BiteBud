@@ -1,4 +1,4 @@
-import "./../styles/randomcomplaint.css";
+import "./../styles/RandomComplaint.css";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import { useState } from "react";

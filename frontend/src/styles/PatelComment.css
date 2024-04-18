@@ -1,0 +1,17 @@
+.patelCommentPage_outermost_box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+.patelCommentPage_outermost_box .myComments_div{
+    height: 7rem;
+    font-size: 2.5rem;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(201, 196, 188);
+}
+
+

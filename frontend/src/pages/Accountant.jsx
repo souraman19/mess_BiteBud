@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./../components/Navbar";
-import AccountantIntro from "./accountant/AccountantIntro";
+import AccountantIntro from "../components/accountantComponents/AccountantIntro";
 import { Link } from "react-router-dom";
 
 function Accountant(){

@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./../styles/dailyexpense.css";
+import "./../../styles/DailyExpense.css";
 
 function Dailyexpense() {
   return (

@@ -2,7 +2,7 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom";
 
-import "./../styles/currentmessmenu.css";
+import "./../styles/CurrentMessMenu.css";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";

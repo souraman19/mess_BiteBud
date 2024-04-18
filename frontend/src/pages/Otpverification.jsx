@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./../styles/otpverification.css";
-import "./otpverificationjs";
+import "./../styles/OtpVerification.css";
+import "./OtpVerificationJs";
 import { useNavigate, useLocation } from "react-router-dom";
 
 function OtpVerification() {

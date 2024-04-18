@@ -73,3 +73,14 @@
     /* border: 0.5rem solid var(--helper-tint); */
 }
 
+.comment_slide_lower_box_delete_button{
+    margin-right: 15rem;
+}
+.comment_slide_lower_box_edit_button{
+    margin-left: 15rem;
+}
+
+.comment_slide_lower_box_middle_box{
+    display: flex;
+    gap: 2rem;
+}

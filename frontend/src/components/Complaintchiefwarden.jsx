@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom';
 import "swiper/css";
 import "swiper/css/pagination";
 
-import "./../styles/complaintchiefwarden.css";
+import "./../styles/ComplaintChiefWarden.css";
 // import Randomcomplaint from "./Randomcomplaint";
-import Randomcomplaintchiefwarden from "./Randomcomplaintchiefwarden";
+import Randomcomplaintchiefwarden from "./RandomComplaintChiefWarden";
 
 // import required modules
 import { Pagination } from "swiper/modules";

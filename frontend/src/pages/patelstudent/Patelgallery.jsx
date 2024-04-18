@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "./../../components/Navbar";
-import Imagebunch from "../../components/Imagebunch";
+import Navbar from "../../components/Navbar";
+import Imagebunch from "../../components/ImageBunch";
 
 function Patelgallery(){
     return(

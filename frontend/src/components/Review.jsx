@@ -1,4 +1,4 @@
-import "./../styles/review.css";
+import "./../styles/Review.css";
 
 import {
   Card,

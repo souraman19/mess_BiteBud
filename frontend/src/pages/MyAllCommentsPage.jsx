@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import CommentSegmentSlide from "./CommentSegmentSlide";
+import Navbar from "./../components/Navbar";
+import CommentSegmentSlideWithButtons from "./../components/CommentSegmentSlideWithButtons";
 import "./../styles/CommentList.css";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import {useUser} from "./../UserContext";
 
 function Commentlist() { 
+
   const {user, updateUser} = useUser();
   const name = user.name;
-  const regNo = user.regNo;
   const username = user.username;
-  const year = user.year;
+  const regNo = user.regNo;
 
   const [singleComment, setSingleComment] = useState("");
   const [allComments, setAllComments] = useState([]);
@@ -20,8 +21,8 @@ function Commentlist() {
       const fetchData = async () => {
         const response = await axios.get("http://localhost:5000/api/patelcomments");
         console.log(response.data);
-        // const commentInfoArray = response.data.map((commentObj) => commentObj);
-        setAllComments(response.data);
+        const filteredComments = response.data.filter((comment) => comment.regNo == regNo);
+        setAllComments(filteredComments);
       };
       fetchData();
     } catch (error) {
@@ -29,6 +30,11 @@ function Commentlist() {
     }
   }, []);
   
+
+  const updateAllComments = (updatedComments) =>{
+    setAllComments(updatedComments);
+  };
+
 
   const handleCommentChange = (event) => {
     setSingleComment(event.target.value);
@@ -41,9 +47,9 @@ function Commentlist() {
 
       const newComment = {
         _id : _id,
-        name: name, 
-        username: username, 
-        regNo: regNo, year:year, 
+        name: "soura", 
+        username: "iug", 
+        regNo: "20", year:"3rd", 
         comment:singleComment
       };
   
@@ -60,12 +66,14 @@ function Commentlist() {
   };
 
   return (
+      <div>
+        <Navbar />
     <div className="commentlist-outer">
       <div className="commentlist-second-outer container">
-        <h1>Comment List</h1>
+        <h1>My All Comments</h1>
         <div className="row">
           <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
-            <CommentSegmentSlide 
+            <CommentSegmentSlideWithButtons 
             comment="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." 
             name = "Sourajit Mandal"
             year = "4th"
@@ -77,12 +85,17 @@ function Commentlist() {
               key={index}
               className="col-12 col-sm-8 col-md-8 col-lg-8 mb-8"
             >
-              <CommentSegmentSlide 
+                {/* {console.log(singleCommentMap._id)} */}
+              <CommentSegmentSlideWithButtons 
+              _id = {singleCommentMap._id}
               name = {singleCommentMap.name} 
               username = {singleCommentMap.username}
               regNo = {singleCommentMap.regNo}
               year = {singleCommentMap.year}
-              comment={singleCommentMap.comment} />
+              comment={singleCommentMap.comment}
+              updateAllComments = {updateAllComments}
+              allComments = {allComments}
+               />
             </div>
           ))}
 
@@ -107,6 +120,7 @@ function Commentlist() {
         </div>
       </div>
     </div>
+      </div>
   );
 }
 

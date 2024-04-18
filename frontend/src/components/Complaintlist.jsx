@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./../styles/complaintlist.css";
+import "./../styles/ComplaintList.css";
 import ComplaintSlide from "./ComplaintSlide";
 
 function Complaintlist() {

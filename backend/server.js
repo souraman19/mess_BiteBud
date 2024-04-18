@@ -7,14 +7,14 @@ const apiRoutes = require('./routes/api');
 // Set proxy environment variables
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 // Middleware
 app.use(express.json());
 app.use(cors());
 
 // Connect to MongoDB (replace 'your-mongodb-uri' with your actual MongoDB URI)
-mongoose.connect('mongodb+srv://Sourajit:7811069775@clusterwebster.ugk1voi.mongodb.net/Students', {
+mongoose.connect('mongodb+srv://Sourajit:Cybersoura@clusterwebster.ugk1voi.mongodb.net/Students', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

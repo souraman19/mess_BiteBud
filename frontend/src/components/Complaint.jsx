@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from 'react-router-dom';
 
@@ -8,10 +7,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { EffectCards } from 'swiper/modules';
 
-import "./../styles/complaint.css";
-import Randomcomplaint from "./Randomcomplaint";
+import "./../styles/Complaint.css";
+import Randomcomplaint from "./RandomComplaint";
 
-// import required modules
+
 import { Pagination } from "swiper/modules";
 
 export default function Complaint() {

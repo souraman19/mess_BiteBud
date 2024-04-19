@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
-import img1 from "./srcimages/food3.jpg";
+import img1 from "./srcimages/image1.png";
+import img2 from "./srcimages/image2.png";
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -156,6 +157,7 @@ export const UserProvider = ({ children }) => {
     regNo: "20223268",
     year:"2nd",
     email: "souraj67&gmail.com",
+    profilePic:img1,
   };
 
   const [user, setUser] = useState(initialState);

@@ -20,7 +20,7 @@ router.get("/patelcomments", async (req, res) => {
 router.post("/addpatelcomments", async(req, res)=>{
   try{
     // Assuming req.body contains the new comment data
-    const {_id, name, username, regNo, year, comment} = req.body;
+    const {_id, name, username, regNo, year, comment, profilePic} = req.body;
 
     // Create a new Comment document
     const newComment = new Comment({
@@ -30,6 +30,7 @@ router.post("/addpatelcomments", async(req, res)=>{
       regNo,
       year,
       comment,
+      profilePic,
     });
 
     // Save the new comment to the database

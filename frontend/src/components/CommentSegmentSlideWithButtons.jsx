@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from "axios";
 
-function CommentSegmentSlideWithButtons({ _id, name, username, regNo, year, comment, updateAllComments, allComments, setAllComments, singleComment, setSingleComment }) {
+function CommentSegmentSlideWithButtons({ _id, name, username, regNo, year, comment, updateAllComments, allComments, setAllComments, singleComment, setSingleComment, profilePic }) {
     const [editedComment, setEditedComment] = useState(comment);
     const [isEditing, setIsEditing] = useState(false);
 
@@ -61,7 +61,7 @@ function CommentSegmentSlideWithButtons({ _id, name, username, regNo, year, comm
         </button>
         <div className="comment_slide_lower_box_middle_box">
           <img
-            src="https://images.lifestyleasia.com/wp-content/uploads/sites/6/2023/08/21181242/best-zhao-lusi-dramas-chinese-tv-shows-hidden-love-the-roance-of-tiger-and-rose-dating-in-the-kitchen-rosy-zhao-1234x900.jpg?tr=w-1600"
+            src= {profilePic}
             alt=""
             srcset=""
           />

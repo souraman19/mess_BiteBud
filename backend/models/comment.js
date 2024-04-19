@@ -9,7 +9,7 @@ const commentSchema = new mongoose.Schema({
   regNo: {type: String},
   year:{type: String},
   comment: { type: String},
-  // Add other fields as needed
+  profilePic: {type: String, required: true},
 });
 
 const Comment = mongoose.model('Comment', commentSchema);

@@ -13,6 +13,7 @@ function Commentlist() {
   const username = user.username;
   const regNo = user.regNo;
   const year = user.year;
+  const profilePic = user.profilePic;
 
   const [singleComment, setSingleComment] = useState("");
   const [allComments, setAllComments] = useState([]);
@@ -56,7 +57,8 @@ function Commentlist() {
         name: name, 
         username: username, 
         regNo: regNo, year: year, 
-        comment:singleComment
+        comment:singleComment,
+        profilePic: profilePic,
       };
   
       try{
@@ -83,6 +85,7 @@ function Commentlist() {
             comment="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." 
             name = "Sourajit Mandal"
             year = "4th"
+            profilePic = {profilePic}
             />
           </div>
 
@@ -104,6 +107,7 @@ function Commentlist() {
               setAllComment = {setAllComments}
               singleComment = {singleComment}
               setSingleComment = {setSingleComment}
+              profilePic = {profilePic}
                />
             </div>
           ))}

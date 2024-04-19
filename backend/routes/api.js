@@ -54,6 +54,23 @@ router.delete("/deletecomment/:id", async(req, res) => {
   }
 });
 
+router.put("/updatecomment/:id", async(req, res) => {
+  try{
+    const commentId = req.params.id;
+    const {comment} = req.body;
+
+    const updatedComment = await Comment.findByIdAndUpdate(commentId, {comment}, {new: true});
+
+    if(!updatedComment){
+      res.status(404).json({error: "comment not found"});
+    }
+    res.json(updatedComment);
+  }catch(error){
+    console.error('Error updating comment:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
+
 router.post("/createPassword", async (req, res) => {
   const { email, password } = req.body;
 

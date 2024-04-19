@@ -12,6 +12,7 @@ function Commentlist() {
   const name = user.name;
   const username = user.username;
   const regNo = user.regNo;
+  const year = user.year;
 
   const [singleComment, setSingleComment] = useState("");
   const [allComments, setAllComments] = useState([]);
@@ -21,7 +22,12 @@ function Commentlist() {
       const fetchData = async () => {
         const response = await axios.get("http://localhost:5000/api/patelcomments");
         console.log(response.data);
-        const filteredComments = response.data.filter((comment) => comment.regNo == regNo);
+        const filteredComments = response.data.filter((comment) => {
+          // console.log(comment.regNo);
+          // console.log(regNo);
+          return comment.regNo === regNo;
+        });
+        
         setAllComments(filteredComments);
       };
       fetchData();
@@ -47,9 +53,9 @@ function Commentlist() {
 
       const newComment = {
         _id : _id,
-        name: "soura", 
-        username: "iug", 
-        regNo: "20", year:"3rd", 
+        name: name, 
+        username: username, 
+        regNo: regNo, year: year, 
         comment:singleComment
       };
   
@@ -95,6 +101,9 @@ function Commentlist() {
               comment={singleCommentMap.comment}
               updateAllComments = {updateAllComments}
               allComments = {allComments}
+              setAllComment = {setAllComments}
+              singleComment = {singleComment}
+              setSingleComment = {setSingleComment}
                />
             </div>
           ))}

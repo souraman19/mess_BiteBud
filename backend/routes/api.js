@@ -2,11 +2,12 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const Comment = require("../models/comment");
+const Complaint = require("./../models/complaint");
 const OTPService = require("./../otpService");
 
 
 
-// Your existing routes using the Comment and User models
+
 router.get("/patelcomments", async (req, res) => {
   try {
     const comments = await Comment.find();
@@ -16,6 +17,16 @@ router.get("/patelcomments", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+router.get("/patelcomplaints", async(req, res) => {
+  try{
+    const complaints = await Complaint.find();
+    res.json(complaints);
+  } catch(error) {
+    console.log("Error in fetching comments", error);
+    res.status(500).json({error: "Internal Server Error"});
+  }
+})
 
 router.post("/addpatelcomments", async(req, res)=>{
   try{
@@ -42,6 +53,28 @@ router.post("/addpatelcomments", async(req, res)=>{
     res.status(500).json({error: "Internal server error"});
   }
 });
+
+router.post("/addpatelcomplaints", async(req, res) => {
+  try{
+    const {_id, name, username, regNo, year, complaint, commentsOnComplaint, upVoteCount, downVoteCount} = req.body;
+    const newComplaint = new Complaint({
+      _id,
+      name,
+      username, 
+      regNo, 
+      year,
+      complaint,
+      commentsOnComplaint,
+      upVoteCount,
+      downVoteCount,
+    });
+    await newComplaint.save();
+    res.status(201).json({message: "complaint added successfully"});
+  }catch(error){
+    console.log("Error in saving comment", error);
+    res.status(500).json({error: "Internal server error"});
+  }
+})
 
 router.delete("/deletecomment/:id", async(req, res) => {
   try{
@@ -71,6 +104,63 @@ router.put("/updatecomment/:id", async(req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 })
+
+router.put("/upvote/:id", async(req, res)=> {
+  const id = req.params.id;
+  const myRegNo = req.body.myRegNo;
+  // console.log(myRegNo);
+
+  try{
+    const findcomplaint = await Complaint.findById(id);
+    // console.log("findcom ",findcomplaint);
+    if(!findcomplaint){
+      return res.status(404).json({error: "Complaint not found"});
+    } 
+
+    const isUpVoted = findcomplaint.upVotedMembers.includes(myRegNo);
+    // console.log("upvoted ", isUpVoted);
+    if(!isUpVoted){
+      findcomplaint.upVotedMembers.push(myRegNo);
+      findcomplaint.upVoteCount++;
+      await findcomplaint.save();
+      res.json(findcomplaint);  //send back the updated complaint if needed
+    } else {
+      return res.status(400).json({error: "User already upvoted this complaint"});
+    }
+  }catch(error){
+    console.error("Errorr in upvoting:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+router.put("/downvote/:id", async(req, res)=> {
+  const id = req.params.id;
+  const myRegNo = req.body.myRegNo;
+  // console.log(myRegNo);
+
+  try{
+    const findcomplaint = await Complaint.findById(id);
+    // console.log("findcom ",findcomplaint);
+    if(!findcomplaint){
+      return res.status(404).json({error: "Complaint not found"});
+    } 
+
+    const isDownVoted = findcomplaint.downVotedMembers.includes(myRegNo);
+    // console.log("upvoted ", isDownVoted);
+    if(!isDownVoted){
+      findcomplaint.downVotedMembers.push(myRegNo);
+      findcomplaint.downVoteCount++;
+      await findcomplaint.save();
+      res.json(findcomplaint);  //send back the updated complaint if needed
+    } else {
+      return res.status(400).json({error: "User already upvoted this complaint"});
+    }
+  }catch(error){
+    console.error("Errorr in upvoting:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 router.post("/createPassword", async (req, res) => {
   const { email, password } = req.body;

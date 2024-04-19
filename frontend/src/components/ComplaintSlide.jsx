@@ -2,17 +2,23 @@ import React from "react";
 import "./../styles/ComplaintSlide.css";
 import CommentModal from "./CommentModal";
 import { useState } from "react";
-
 import { useUser } from "./../UserContext";
+import axios from "axios";
 
-function ComplaintSlide(props) {
-  const { user } = useUser();
-  const { username, identity, gmail } = user;
+function ComplaintSlide({_id, name, username, regNo, year, complaint, commentsOnComplaint, upVoteCount, downVoteCount, upVotedMembers ,downVotedMembers}) {
+
   
-    const [upvotes, setUpvotes] = useState(0);
-    const [downvotes, setDownvotes] = useState(0);
-    const [isUpvoteBlinking, setIsUpvoteBlinking] = useState(false);
-    const [isDownvoteBlinking, setIsDownvoteBlinking] = useState(false);
+  const {user, updateUser} = useUser();
+  const myName = user.name;
+  const myUsername = user.username;
+  const myRegNo = user.regNo;
+  const myYear = user.year;
+  const myProfilePic = user.profilePic;
+  
+    const [upVotes, setUpVotes] = useState(upVoteCount);
+    const [downVotes, setDownVotes] = useState(downVoteCount);
+    const [isUpVoteBlinking, setIsUpVoteBlinking] = useState(false);
+    const [isDownVoteBlinking, setIsDownVoteBlinking] = useState(false);
     const [isReplying, setIsReplying] = useState(false);
     const [commentText, setCommentText] = useState("");
     const [comments, setComments] = useState([]);
@@ -21,16 +27,38 @@ function ComplaintSlide(props) {
     setComments([...comments, newComment]);
   };
   
-    const handleUpvote = () => {
-      setUpvotes(upvotes + 1);
-      setIsUpvoteBlinking(true);
-      setTimeout(() => setIsUpvoteBlinking(false), 1000);
+    const handleUpVote = async() => {
+      try{
+        const response = await axios.put(`http://localhost:5000/api/upvote/${_id}`, {myRegNo: myRegNo})
+        console.log("Successfull at sending put request to server");
+        // console.log(response.data.upVoteCount);
+        if(response.data.upVoteCount !== upVoteCount){
+          setIsUpVoteBlinking(true);
+          setTimeout(() => {
+            setIsUpVoteBlinking(false)
+            setUpVotes(response.data.upVoteCount);
+          }, 1800);
+        }
+      }catch(error){
+        console.log("Error in upvoting", error);
+      }
     };
   
-    const handleDownvote = () => {
-      setDownvotes(downvotes + 1);
-      setIsDownvoteBlinking(true);
-      setTimeout(() => setIsDownvoteBlinking(false), 1000);
+    const handleDownVote = async() => {
+      try{
+        const response = await axios.put(`http://localhost:5000/api/downvote/${_id}`, {myRegNo: myRegNo})
+        console.log("Successfull at sending put request to server");
+        // console.log(response.data.upVoteCount);
+        if(response.data.downVoteCount !== downVoteCount){
+          setIsDownVoteBlinking(true);
+          setTimeout(() => {
+            setIsDownVoteBlinking(false)
+            setDownVotes(response.data.upVoteCount);
+          }, 1800);
+        }
+      }catch(error){
+        console.log("Error in upvoting", error);
+      }
     };
 
     const handleReplyClick = () => {
@@ -54,10 +82,10 @@ function ComplaintSlide(props) {
     <div className="complaintslide-username">
         {/* Display the username */}
         {/* <p>{props.username}</p> */}
-        <p>{username}</p>
+        <p>{name}</p>
       </div>
       <div className="swiper-client-message-complaintslide">
-        <p>{props.complaint}</p>
+        <p>{complaint}</p>
       </div>
       {/* <div className="swiper-client-data-complaintslide grid grid-two-column">
                  
@@ -72,18 +100,18 @@ function ComplaintSlide(props) {
         <div className="comment-buttons">
           <div className="voting-button">
           <button
-              className={`upvote-button ${isUpvoteBlinking ? "blinking" : ""}`}
-              onClick={handleUpvote}
+              className={`upvote-button ${isUpVoteBlinking ? "blinking" : ""}`}
+              onClick={handleUpVote}
             >
               {/* Replace with your upvote icon */}
-              <span>&#9650;</span> {upvotes}
+              <span>&#9650;</span> {upVotes}
             </button>
             <button
-              className={`downvote-button ${isDownvoteBlinking ? "blinking" : ""}`}
-              onClick={handleDownvote}
+              className={`downvote-button ${isDownVoteBlinking ? "blinking" : ""}`}
+              onClick={handleDownVote}
             >
               {/* Replace with your downvote icon */}
-              <span>&#9660;</span>  {downvotes}
+              <span>&#9660;</span>  {downVotes}
             </button>
           </div>
           <div className="replyysectiion">

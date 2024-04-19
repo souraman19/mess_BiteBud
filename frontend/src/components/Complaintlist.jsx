@@ -1,35 +1,64 @@
 import React, { useState, useEffect } from "react";
 import "./../styles/ComplaintList.css";
 import ComplaintSlide from "./ComplaintSlide";
+import {useUser} from "./../UserContext";
+import { v4 as uuidv4 } from 'uuid';
+import axios from "axios";
 
 function Complaintlist() {
-  const [commentText, setCommentText] = useState("");
-  const [comments, setComments] = useState([]);
+  const {user, updateUser} = useUser();
+  const name = user.name;
+  const username = user.username;
+  const regNo = user.regNo;
+  const year = user.year;
+  const profilePic = user.profilePic;
+
+  const [singleComplaint, setSingleComplaint] = useState("");
+  const [allComplaints, setAllComplaints] = useState([]);
 
   useEffect(() => {
-    // Load comments from local storage when the component mounts
-    const storedComments = localStorage.getItem("comments");
-    if (storedComments) {
-      setComments(JSON.parse(storedComments));
+    try{
+      const fetchData = async() => {
+        const response = await axios.get("http://localhost:5000/api/patelcomplaints");
+        console.log(response.data);
+        setAllComplaints(response.data);
+      };
+      fetchData();
+    }catch(error){
+      console.error("Error in fetching comments", error);
     }
   }, []);
 
-  useEffect(() => {
-    // Save comments to local storage whenever the comments state changes
-    localStorage.setItem("comments", JSON.stringify(comments));
-  }, [comments]);
 
-  const handleCommentChange = (event) => {
-    setCommentText(event.target.value);
+  const handleComplaintChange = (event) => {
+    setSingleComplaint(event.target.value);
   };
 
-  const handleCommentSubmit = () => {
-    if (commentText.trim() !== "") {
-      // Add the new comment to the list
-      setComments([...comments, commentText]);
+  const handleComplaintSubmit = async() => {
+    if (singleComplaint.trim() !== "") {
+      const _id = uuidv4();
+      const newComplaint = {
+        _id : _id,
+        name: name,
+        username: username,
+        regNo: regNo, 
+        year: year,
+        complaint: singleComplaint,
+        commentsOnComplaint: [],
+        upVoteCount: 0,
+        downVoteCount: 0,
+        upVotedMembers: [],
+        downVotedMembers: [],
+      };
 
-      // Clear the input field
-      setCommentText("");
+      try{
+        const response = await axios.post("http://localhost:5000/api/addpatelcomplaints", newComplaint);
+        setAllComplaints([...allComplaints, newComplaint]);
+        setSingleComplaint("");
+        console.log("Comment added successfully");
+      }catch(error){
+        console.log("Error in adding new comment", error);
+      }
     }
   };
 
@@ -41,37 +70,25 @@ function Complaintlist() {
           <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
             <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
           </div>
-
-          <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
-            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
-          </div>
-
-          <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
-            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
-          </div>
-
-          <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
-            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
-          </div>
-
-          <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
-            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
-          </div>
-
-          <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
-            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
-          </div>
-
-          <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
-            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
-          </div>
-
-          {comments.map((comment, index) => (
+        
+          {allComplaints.map((singleCommentMap, index) => (
             <div
               key={index}
               className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8"
             >
-              <ComplaintSlide complaint={comment} />
+              <ComplaintSlide 
+              _id = {singleCommentMap._id}
+              name = {singleCommentMap.name}
+              username = {singleCommentMap. username}
+              regNo = {singleCommentMap. regNo}
+              year = {singleCommentMap.year}
+              complaint={singleCommentMap.complaint}
+              commentsOnComplaint = {singleCommentMap.singleCommentMap}
+              upVoteCount = {singleCommentMap.upVoteCount}
+              downVoteCount = {singleCommentMap.downVoteCount}
+              upVotedMembers = {singleCommentMap.upVotedMembers}
+              downVotedMembers = {singleCommentMap.downVotedMembers}
+              />
             </div>
           ))}
         </div>
@@ -84,12 +101,12 @@ function Complaintlist() {
             className="form-control"
             id="exampleFormControlTextarea1"
             rows="10"
-            value={commentText}
-            onChange={handleCommentChange}
+            value={singleComplaint}
+            onChange={handleComplaintChange}
           ></textarea>
         </div>
         <div className="submit-section">
-        <button className="btn btn-primary" onClick={handleCommentSubmit}>
+        <button className="btn btn-primary" onClick={handleComplaintSubmit}>
             Submit
           </button>
 

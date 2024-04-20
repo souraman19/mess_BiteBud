@@ -1,14 +1,17 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
 import ComplaintList from "../../components/ComplaintList";
+import "./../../styles/PatelAllComplaint.css";
 
-function Patelallcomplaint(){
+function PatelAllComplaint(){
+
         return (
-            <div>
+            <div id="PatelAllComplaint_outermost_div" className="">
                 <Navbar />
-                <ComplaintList />
+                <ComplaintList 
+                />
             </div>
         );
 }
 
-export default Patelallcomplaint;
+export default PatelAllComplaint;

@@ -68,7 +68,8 @@ function Complaintlist() {
         <h1>Complaint List</h1>
         <div className="row">
           <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
-            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." />
+            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." 
+            />
           </div>
         
           {allComplaints.map((singleCommentMap, index) => (
@@ -83,7 +84,7 @@ function Complaintlist() {
               regNo = {singleCommentMap. regNo}
               year = {singleCommentMap.year}
               complaint={singleCommentMap.complaint}
-              commentsOnComplaint = {singleCommentMap.singleCommentMap}
+              commentsOnComplaint = {singleCommentMap.commentsOnComplaint}
               upVoteCount = {singleCommentMap.upVoteCount}
               downVoteCount = {singleCommentMap.downVoteCount}
               upVotedMembers = {singleCommentMap.upVotedMembers}

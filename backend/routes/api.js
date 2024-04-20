@@ -162,6 +162,38 @@ router.put("/downvote/:id", async(req, res)=> {
   }
 });
 
+router.get("/commentsofcomplaint/:complaintId", async(req, res) => {
+  const complaintId = req.params.complaintId;
+  try{
+    const findComplaint = await Complaint.findById(complaintId);
+    if(!findComplaint) {
+      return res.status(404).json({error: "Complaint not found"});
+    }
+    res.json(findComplaint);
+  }catch(error){
+    console.log("Error in getting comments on complaint", error);
+    res.status(500).json({error: "Internal server error"});
+  }
+});
+
+router.post("/addcommentsofcomplaint/:complaintId", async(req, res) => {
+  const complaintId = req.params.complaintId;
+  const newComment = req.body;
+  try{
+    const findComplaint = await Complaint.findById(complaintId);
+    if(!findComplaint) {
+      return res.status(404).json({error: "Complaint not found"});
+    }
+    findComplaint.commentsOnComplaint.push(newComment);
+    await findComplaint.save();
+    res.json(findComplaint);
+  } catch(error){
+    console.log("Error in getting comments on complaint", error);
+    res.status(500).json({error: "Internal server error"});
+  }
+
+})
+
 router.post("/createPassword", async (req, res) => {
   const { email, password } = req.body;
 

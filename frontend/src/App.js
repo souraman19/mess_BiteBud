@@ -17,6 +17,7 @@ import Otpverification from "./pages/Otpverification";
 import Passwordcreate from './pages/Passwordcreate';
 import EditExpensePage from './pages/accountant/EditExpensePage';
 import MyAllCommentsPage from "./pages/MyAllCommentsPage";
+import MyAllComplaintsPage from "./pages/MyAllComplaintsPage";
 
 function App() {
     return (
@@ -41,6 +42,7 @@ function App() {
 
           <Route path="/patelfullmenu" element={<Patelfullmenu />} />
           <Route path="/patelallcomplaint" element={<Patelallcomplaint />} />
+          <Route path="/myallcomplaints" element={<MyAllComplaintsPage />} />
 
 
           <Route path="/tilakstudent" element={<Tilakstudent />} />

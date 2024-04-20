@@ -154,7 +154,7 @@ export const UserProvider = ({ children }) => {
   const initialState = {
     name: "Sourajit Mandal",
     username: "soura",
-    regNo: "20223268",
+    regNo: "20223267",
     year:"2nd",
     email: "souraj67&gmail.com",
     profilePic:img1,

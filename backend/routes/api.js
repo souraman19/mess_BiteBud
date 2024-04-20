@@ -176,6 +176,31 @@ router.get("/commentsofcomplaint/:complaintId", async(req, res) => {
   }
 });
 
+router.post("/deletecommentofcomplaint", async(req, res) => {
+  const commentId = req.body.commentId;
+  const complaintId = req.body.complaintId;
+  console.log(commentId);
+  console.log(complaintId);
+  try{
+    const findComplaint = await Complaint.findById(complaintId);
+    if(!findComplaint) {
+      return res.status(404).json({error: "Complaint not found"});
+    }
+
+    const updatedComplaint = findComplaint.commentsOnComplaint.filter(comment => {
+      if(comment._id !== commentId)
+      return comment;
+    });
+    findComplaint.commentsOnComplaint = updatedComplaint;
+    updatedComplaint = await findComplaint.save();
+    console.log("Comment of complaint deleted successfullly");
+    res.status(200).json({ message: "Comment replaced successfully", comment: replacedComment });
+  }catch(error){
+    console.log("Error in deleting comments of complaint", error);
+    res.status(500).json({error: "Internal server error"});
+  }
+});
+
 router.post("/addcommentsofcomplaint/:complaintId", async(req, res) => {
   const complaintId = req.params.complaintId;
   const newComment = req.body;
@@ -184,7 +209,7 @@ router.post("/addcommentsofcomplaint/:complaintId", async(req, res) => {
     if(!findComplaint) {
       return res.status(404).json({error: "Complaint not found"});
     }
-    findComplaint.commentsOnComplaint.push(newComment);
+    findComplaint.commentsOnComplaint.unshift(newComment);
     await findComplaint.save();
     res.json(findComplaint);
   } catch(error){

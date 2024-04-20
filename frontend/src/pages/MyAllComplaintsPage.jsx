@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./../styles/ComplaintList.css";
-import ComplaintSlide from "./ComplaintSlide";
+import ComplaintSlide from "./../components/ComplaintSlide";
 import {useUser} from "./../UserContext";
 import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
+import NavBar from "./../components/Navbar";
 
 function Complaintlist() {
   const {user, updateUser} = useUser();
-  const name = user.name;
-  const username = user.username;
-  const regNo = user.regNo;
-  const year = user.year;
-  const profilePic = user.profilePic;
+  const myName = user.name;
+  const myUsername = user.username;
+  const myRegNo = user.regNo;
+  const myYear = user.year;
+  const myProfilePic = user.profilePic;
 
   const [singleComplaint, setSingleComplaint] = useState("");
   const [allComplaints, setAllComplaints] = useState([]);
@@ -21,7 +22,11 @@ function Complaintlist() {
       const fetchData = async() => {
         const response = await axios.get("http://localhost:5000/api/patelcomplaints");
         console.log(response.data);
-        setAllComplaints(response.data);
+        const allReceivedComplaints = response.data;
+        const myAllComplaints = allReceivedComplaints.filter((c) => {
+            return c.regNo == myRegNo; 
+        })
+        setAllComplaints(myAllComplaints);
       };
       fetchData();
     }catch(error){
@@ -39,10 +44,10 @@ function Complaintlist() {
       const _id = uuidv4();
       const newComplaint = {
         _id : _id,
-        name: name,
-        username: username,
-        regNo: regNo, 
-        year: year,
+        name: myName,
+        username: myUsername,
+        regNo: myRegNo, 
+        year: myYear,
         complaint: singleComplaint,
         commentsOnComplaint: [],
         upVoteCount: 0,
@@ -63,9 +68,11 @@ function Complaintlist() {
   };
 
   return (
+       <div>
+         <NavBar />
     <div className="commentlist-outer">
       <div className="commentlist-second-outer container">
-        <h1>All Complaint List</h1>
+        <h1>My Complaints</h1>
         <div className="row">
           <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
             <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." 
@@ -114,6 +121,7 @@ function Complaintlist() {
         </div>
       </div>
     </div>
+       </div>
   );
 }
 

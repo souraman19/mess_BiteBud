@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./../styles/CommentModal.css"; 
-import { useUser } from "./../UserContext";
+import "./../styles/CommentSeeAllCommentsModal.css"; 
+import { useUser } from "../UserContext";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -83,7 +83,7 @@ function CommentModal({ onClose, complaintId, commentsOnComplaint, onAddComment}
           <span>&times;</span>
         </button>
         <div className="existing-comments">
-          <h2>Comments</h2>
+          <h2>All Comments</h2>
           <ul>
             <div className="outer-owncomments89376273">
               {allComments.map((singleComment, index) => (
@@ -100,7 +100,7 @@ function CommentModal({ onClose, complaintId, commentsOnComplaint, onAddComment}
           value={singleComment}
           onChange={handleCommentChange}
         />
-        <button onClick={handleCommenttSubmit}>Post</button>
+        <button className="post_button" onClick={handleCommenttSubmit}>Post</button>
       </div>
     </div>
   );

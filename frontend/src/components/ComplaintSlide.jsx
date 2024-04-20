@@ -1,6 +1,7 @@
 import React from "react";
 import "./../styles/ComplaintSlide.css";
-import CommentModal from "./CommentModal";
+import CommentReplyModal from "./CommentReplyModal";
+import CommentSeeAllCommentsModal from "./CommentSeeAllCommentsModal"
 import { useState } from "react";
 import { useUser } from "./../UserContext";
 import axios from "axios";
@@ -30,6 +31,7 @@ function ComplaintSlide({
   const [isUpVoteBlinking, setIsUpVoteBlinking] = useState(false);
   const [isDownVoteBlinking, setIsDownVoteBlinking] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
+  const [isSeeAllComments, setIsSeeAllComments] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
 
@@ -91,10 +93,18 @@ function ComplaintSlide({
     addDisplayNoneClass();
     setIsReplying(true);
   };
+  const handleSeeAllCommentsClick = () => {
+    addDisplayNoneClass();
+    setIsSeeAllComments(true);
+  };
 
-  const handleCloseCommentModal = () => {
+  const handleCloseReplyModal = () => {
     removeDisplayNoneClass();
     setIsReplying(false);
+  };
+  const handleCloseSeeAllCommentsModal = () => {
+    removeDisplayNoneClass();
+    setIsSeeAllComments(false);
   };
 
   //   const handleAddComment = (commentText) => {
@@ -145,9 +155,9 @@ function ComplaintSlide({
               </button>
             </div>
             <div className="replyysectiion">
-              <button className="reply-button">
+              <button className="reply-button" onClick={handleSeeAllCommentsClick}>
                 {/* Replace with your reply icon */}
-                <span></span> See All Comments
+                <span>&#8617;</span> See All Comments 
               </button>
               <button className="reply-button" onClick={handleReplyClick}>
                 {/* Replace with your reply icon */}
@@ -158,8 +168,16 @@ function ComplaintSlide({
         </div>
       </div>
       {isReplying && (
-        <CommentModal
-          onClose={handleCloseCommentModal}
+        <CommentReplyModal
+          onClose={handleCloseReplyModal}
+          complaintId = {_id}
+          commentsOnComplaint={commentsOnComplaint}
+          onAddComment={handleAddComment}
+        />
+      )}
+      {isSeeAllComments && (
+        <CommentSeeAllCommentsModal
+          onClose={handleCloseSeeAllCommentsModal}
           complaintId = {_id}
           commentsOnComplaint={commentsOnComplaint}
           onAddComment={handleAddComment}

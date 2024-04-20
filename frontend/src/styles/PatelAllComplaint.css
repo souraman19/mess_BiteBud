@@ -1,3 +1,10 @@
 .dull_background{
     filter: brightness(0.4);
 }
+
+#PatelAllComplaint_outermost_div .my_complaints{
+    text-align: center;
+    padding: 1rem;
+    background-color: azure;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}

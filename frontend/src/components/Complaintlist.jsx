@@ -49,6 +49,7 @@ function Complaintlist() {
         downVoteCount: 0,
         upVotedMembers: [],
         downVotedMembers: [],
+        isResolved: false,
       };
 
       try{

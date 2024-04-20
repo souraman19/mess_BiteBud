@@ -56,7 +56,7 @@ router.post("/addpatelcomments", async(req, res)=>{
 
 router.post("/addpatelcomplaints", async(req, res) => {
   try{
-    const {_id, name, username, regNo, year, complaint, commentsOnComplaint, upVoteCount, downVoteCount} = req.body;
+    const {_id, name, username, regNo, year, complaint, commentsOnComplaint, upVoteCount, downVoteCount, isResolved} = req.body;
     const newComplaint = new Complaint({
       _id,
       name,
@@ -67,6 +67,7 @@ router.post("/addpatelcomplaints", async(req, res) => {
       commentsOnComplaint,
       upVoteCount,
       downVoteCount,
+      isResolved,
     });
     await newComplaint.save();
     res.status(201).json({message: "complaint added successfully"});
@@ -102,6 +103,21 @@ router.put("/updatecomment/:id", async(req, res) => {
   }catch(error){
     console.error('Error updating comment:', error);
     res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.put("/updatecomplaint/:id", async(req, res) => {
+  try{
+    const complaintId = req.params.id;
+    const {complaint} = req.body;
+    const updatedComplaint = await Complaint.findByIdAndUpdate(complaintId, {complaint}, {new: true});
+    if(!updatedComplaint){
+      res.status(404).json({error: "complaint not found"});
+    }
+    res.json(updatedComplaint);
+  }catch(error){
+    console.log("Error in updating complaint");
+    res.status(500).json({ error:"Internal server error" });
   }
 })
 

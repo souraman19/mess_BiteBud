@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./../styles/ComplaintList.css";
-import ComplaintSlide from "./../components/ComplaintSlide";
+import ComplaintSlideWithEditDelete from "./../components/ComplaintSlideWithEditDelete";
 import {useUser} from "./../UserContext";
 import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
@@ -39,6 +39,10 @@ function Complaintlist() {
     setSingleComplaint(event.target.value);
   };
 
+  const updateAllComplaints = (updatedComplaints) => {
+    setAllComplaints(updatedComplaints);
+  }
+
   const handleComplaintSubmit = async() => {
     if (singleComplaint.trim() !== "") {
       const _id = uuidv4();
@@ -54,6 +58,7 @@ function Complaintlist() {
         downVoteCount: 0,
         upVotedMembers: [],
         downVotedMembers: [],
+        isResolved: false,
       };
 
       try{
@@ -75,7 +80,7 @@ function Complaintlist() {
         <h1>My Complaints</h1>
         <div className="row">
           <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
-            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." 
+            <ComplaintSlideWithEditDelete complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." 
             />
           </div>
         
@@ -84,7 +89,7 @@ function Complaintlist() {
               key={index}
               className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8"
             >
-              <ComplaintSlide 
+              <ComplaintSlideWithEditDelete 
               _id = {singleCommentMap._id}
               name = {singleCommentMap.name}
               username = {singleCommentMap. username}
@@ -96,6 +101,9 @@ function Complaintlist() {
               downVoteCount = {singleCommentMap.downVoteCount}
               upVotedMembers = {singleCommentMap.upVotedMembers}
               downVotedMembers = {singleCommentMap.downVotedMembers}
+              isResolved = {singleCommentMap.isResolved}
+              allComplaints = {allComplaints}
+              updateAllComplaints = {updateAllComplaints}
               />
             </div>
           ))}

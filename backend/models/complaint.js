@@ -12,6 +12,7 @@ const complaintschema = new mongoose.Schema({
     downVoteCount:{type: Number},
     upVotedMembers:{type: Array},
     downVotedMembers:{type: Array},
+    isResolved:{type: Boolean, default: false},
 });
 
 const Complaint = mongoose.model('Complaint', complaintschema);

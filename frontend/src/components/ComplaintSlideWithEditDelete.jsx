@@ -137,6 +137,19 @@ function ComplaintSlide({
   }
 
 
+  const handleComplaintDelete = async() => {
+    try{
+        await axios.delete(`http://localhost:5000/api/deletecomplaint/${_id}`);
+        updateAllComplaints(allComplaints.filter((com) => 
+            com._id !== _id
+        ));
+        console.log("complaint deletion successful");
+    } catch(error){
+        console.log("Error while deleting complaints", error);
+    }
+  }
+
+
 
 
 
@@ -179,7 +192,9 @@ function ComplaintSlide({
             </div> */}
         <div className="swiper-client-message-complaintslide2">
           <div className="comment-buttons">
-            <button className="delete_button_icon">
+            <button className="delete_button_icon"
+            onClick={handleComplaintDelete}
+            >
                 <DeleteIcon />
             </button>
             <div className="voting-button">

@@ -89,6 +89,17 @@ router.delete("/deletecomment/:id", async(req, res) => {
   }
 });
 
+router.delete("/deletecomplaint/:id", async(req, res) => {
+  try{
+    const complaintId = req.params.id;
+    await Complaint.findByIdAndDelete(complaintId);
+    res.json({message: "complaint delete complete"});
+  }catch(error){
+    console.log("Error in deleting complaint", error);
+    res.status(500).json({error: "Internal server error"});
+  }
+});
+
 router.put("/updatecomment/:id", async(req, res) => {
   try{
     const commentId = req.params.id;

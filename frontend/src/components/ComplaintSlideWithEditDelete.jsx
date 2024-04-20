@@ -142,11 +142,16 @@ function ComplaintSlide({
 
   return (
     <div className="outer-swiper-plate-complaintslide">
+
       <div id="complaintslide_comaplintdetails_with_buttons" className="">
         <div className="complaintslide-username">
           {/* Display the username */}
           {/* <p>{props.username}</p> */}
-          <p>{name}</p>
+          <p>~ {name}</p>
+                  {/* Resolved status */}
+          <div className={`resolved-status ${isResolved ? 'resolved' : 'not-resolved'}`}>
+            {isResolved ? 'Resolved' : 'Not Resolved'}
+          </div>
         </div>
         <div className="swiper-client-message-complaintslide">
           {(isEditing && (!isResolved)) ? (

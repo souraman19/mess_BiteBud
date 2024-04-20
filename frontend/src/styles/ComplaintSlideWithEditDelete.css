@@ -72,7 +72,7 @@
   /* border: 2px solid rgb(224, 201, 231); */
   box-shadow: var(--shadow00001);
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 }
 .swiper-client-message-complaintslide2{
@@ -152,7 +152,23 @@
     gap: 1rem;
   }
   
-
+  .resolved-status {
+    /* margin-left: 25rem; */
+    padding: 0.3rem;
+    border-radius: 0.5rem;
+    color: white;
+    font-size: small;
+    /* font-weight: bold; */
+  }
+  
+  .resolved {
+    background-color: rgb(151, 245, 151);
+  }
+  
+  .not-resolved {
+    background-color: rgb(233, 132, 132);
+  }
+  
 
 
 

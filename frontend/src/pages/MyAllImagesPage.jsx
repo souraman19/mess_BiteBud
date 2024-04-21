@@ -39,6 +39,7 @@ function MyAllImagesPage() {
   return (
     <div className="MyAllImagesPage_outermost_box">
         <Navbar />
+        <h1>My All Images</h1>
         <div className="my-all-images-container">
       {allImages.map((image) => (
         // console.log(`../uploads/${image.img}`),

@@ -1,6 +1,13 @@
 /* MyAllImagesPage.css */
 
 /* Container styles */
+.MyAllImagesPage_outermost_box > h1{
+    text-align: center;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-bottom: 2rem;
+}
+
+
 .my-all-images-container {
     display: flex;
     flex-direction: column;

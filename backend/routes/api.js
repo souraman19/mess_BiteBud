@@ -13,8 +13,21 @@ const { AsyncResource } = require("async_hooks");
 router.delete("/deletemyimage/:id", async(req, res) => {
   try{
     const imageId = req.params.id;
-    const x = await Image.findByIdAndDelete(imageId);
-    res.json(x);
+    const deltedImg = await Image.findByIdAndDelete(imageId);
+
+    //Delete the file from uploads folder
+    const filePath = path.join(__dirname, "./../../frontend/src/uploads/", deltedImg.img);
+    console.log("The path of file is ", filePath);
+    console.log("delted", deltedImg);
+    fs.unlink(filePath, (err) => {
+      if(err){
+        console.error("Error deleting image file from folder", err);
+        return res.status(500).json({ error: "Internal server error" });
+      }
+      console.log("Image file deleted successfully from the folder");
+    })
+
+    res.json(deltedImg);
   }catch(error){
     console.error("Error in deleting images:", error);
     res.status(500).json({ error: "Internal server error" });

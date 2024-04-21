@@ -1,0 +1,25 @@
+/* MyAllImagesPage.css */
+
+/* Container styles */
+.my-all-images-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+  }
+  
+  /* Image styles */
+  .my-image-button-div {
+    padding: 1rem;
+    width: 40%;
+    max-width: calc(50% - 10px);
+    height: auto; 
+    object-fit: contain; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: bisque;
+  }
+  

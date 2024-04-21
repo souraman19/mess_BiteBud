@@ -47,19 +47,14 @@ const Imageinnerbunch = () => {
     }
     const formData = new FormData();
     formData.append("image", image);
-
-    // const _id = uuidv4();
-    // const time = new Date();
-    // const newImage = {
-    //   _id: _id,
-    //   name: myName,
-    //   username: myUsername,
-    //   regNo: myRegNo,
-    //   year: myYear,
-    //   img: formData,
-    //   description: "hello, this is an image description",
-    //   time: time,
-    // }
+    formData.append("_id", uuidv4());
+    formData.append("name", myName);
+    formData.append("username", myUsername);
+    formData.append("regNo", myRegNo);
+    formData.append("year", myYear);
+    formData.append("description", "hello, this is an image description");
+    formData.append("time", new Date());
+    
 
     const result = await axios.post(
       "http://localhost:5000/api/upload-image",

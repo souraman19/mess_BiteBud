@@ -18,6 +18,7 @@ import Passwordcreate from './pages/Passwordcreate';
 import EditExpensePage from './pages/accountant/EditExpensePage';
 import MyAllCommentsPage from "./pages/MyAllCommentsPage";
 import MyAllComplaintsPage from "./pages/MyAllComplaintsPage";
+import MyAllImagesPage from "./pages/MyAllImagesPage.jsx";
 
 function App() {
     return (
@@ -36,7 +37,11 @@ function App() {
 
 
           <Route path="/patelstudent" element={<Patelstudent />} />
+
           <Route path="/patelgallery" element={<Patelgallery />} />
+          <Route path="/myallimages" element={<MyAllImagesPage />} />
+
+
           <Route path="/patelcomment" element={<Patelcomment />} />
           <Route path="/myallcomments" element={<MyAllCommentsPage />}/>
 

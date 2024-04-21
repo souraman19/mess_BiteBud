@@ -8,6 +8,31 @@ const OTPService = require("./../otpService");
 const fs = require("fs");
 const multer = require("multer");
 const path = require("path");
+const { AsyncResource } = require("async_hooks");
+
+router.delete("/deletemyimage/:id", async(req, res) => {
+  try{
+    const imageId = req.params.id;
+    const x = await Image.findByIdAndDelete(imageId);
+    res.json(x);
+  }catch(error){
+    console.error("Error in deleting images:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/getmyimages", async(req, res) => {
+  try{
+    const images = await Image.find();
+    // console.log(images);
+    res.status(200).json(images);
+  }catch(error){
+    console.error("Error fetching images:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
 
 
 
@@ -29,18 +54,43 @@ const upload = multer({ storage: storage });
 
 
 // Route for uploading an image
-router.post("/upload-image", upload.single("image"), (req, res) => {
+router.post("/upload-image", upload.single("image"), async(req, res) => {
   try {
     // Check if file exists in the request
     console.log(req.file);
+    console.log(req.body);
     if (!req.file) {
       return res.status(400).json({ error: "No image uploaded" });
     }
 
-    // File uploaded successfully
+     // Access other fields from the form data (newImage object)
+     const _id = req.body._id;
+     const name = req.body.name;
+     const username = req.body.username;
+     const regNo = req.body.regNo;
+     const year = req.body.year;
+     const description = req.body.description;
+     const time = req.body.time;
+    
+     const img = req.file.filename;
+     console.log("filename => ",img);
+
+     const newImage = new Image({
+      _id,
+      name, 
+      username,
+      regNo,
+      year,
+      img,
+      description,
+      time,
+     });
+     await newImage.save();
+
     res.json({
       message: "Image uploaded successfully",
       filename: req.file.filename,
+      imageData: { _id, name, username, regNo, year, description, time },
     });
 
   } catch (error) {

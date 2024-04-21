@@ -90,6 +90,7 @@ function Complaintlist() {
               downVoteCount = {singleCommentMap.downVoteCount}
               upVotedMembers = {singleCommentMap.upVotedMembers}
               downVotedMembers = {singleCommentMap.downVotedMembers}
+              isResolved = {singleCommentMap.isResolved}
               />
             </div>
           ))}

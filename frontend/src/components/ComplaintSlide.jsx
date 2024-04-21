@@ -18,6 +18,7 @@ function ComplaintSlide({
   downVoteCount,
   upVotedMembers,
   downVotedMembers,
+  isResolved,
 }) {
   const { user, updateUser } = useUser();
   const myName = user.name;
@@ -119,6 +120,10 @@ function ComplaintSlide({
           {/* Display the username */}
           {/* <p>{props.username}</p> */}
           <p>{name}</p>
+          {/* Resolved status */}
+          <div className={`resolved-status ${isResolved ? 'resolved' : 'not-resolved'}`}>
+            {isResolved ? 'Resolved' : 'Not Resolved'}
+          </div>
         </div>
         <div className="swiper-client-message-complaintslide">
           <p>{complaint}</p>

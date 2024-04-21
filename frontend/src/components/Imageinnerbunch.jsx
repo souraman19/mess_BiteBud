@@ -1,10 +1,15 @@
-import React from "react";
+// Import useState, useEffect, and Modal components from Material-UI
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-
-import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { styled } from "@mui/material/styles";
+import Modal from "@mui/material/Modal";
+import CloseIcon from "@mui/icons-material/Close";
+import { useUser } from "../UserContext";
+import {v4 as uuidv4} from "uuid";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -18,112 +23,179 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-function srcset(image, size, rows = 1, cols = 1) {
-  return {
-    src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
-    srcSet: `${image}?w=${size * cols}&h=${
-      size * rows
-    }&fit=crop&auto=format&dpr=2 2x`,
-  };
-}
-
 const Imageinnerbunch = () => {
+  const {user, updateUser} = useUser();
+  const myName = user.name;
+  const myUsername = user.username;
+  const myRegNo = user.regNo;
+  const myYear = user.year;
+
+  const [image, setImage] = useState();
+  const [allImage, setAllImage] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false); // State to manage modal open/close
+  const [selectedImage, setSelectedImage] = useState(null); // State to track selected image for modal
+
+  useEffect(() => {
+    getImage();
+  }, []);
+
+  const submitImage = async (e) => {
+    e.preventDefault();
+    if(!image){
+      alert("Please select any image from your device");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("image", image);
+
+    // const _id = uuidv4();
+    // const time = new Date();
+    // const newImage = {
+    //   _id: _id,
+    //   name: myName,
+    //   username: myUsername,
+    //   regNo: myRegNo,
+    //   year: myYear,
+    //   img: formData,
+    //   description: "hello, this is an image description",
+    //   time: time,
+    // }
+
+    const result = await axios.post(
+      "http://localhost:5000/api/upload-image",
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+    setImage();
+  };
+
+  const onInputChange = (e) => {
+    console.log(e.target.files[0]);
+    setImage(e.target.files[0]);
+  };
+
+  const getImage = async () => {
+    const result = await axios.get("http://localhost:5000/api/get-images");
+    setAllImage(result.data.data);
+  };
+
+  const openModal = (selectedImg) => {
+    setSelectedImage(selectedImg);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+    setModalOpen(false);
+  };
+
   return (
     <div>
-      <ImageList variant="quilted" cols={4} rowHeight={121}>
-        {itemData.map((item) => (
-          <ImageListItem
-            key={item.img}
-            cols={item.cols || 1}
-            rows={item.rows || 1}
-          >
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: "5px",
+          marginBottom: "20px",
+        }}
+      >
+        {allImage && allImage.map((data, index) => (
+          <div key={index} style={{ cursor: "pointer" }} onClick={() => openModal(data.image)}>
             <img
-              {...srcset(item.img, 121, item.rows, item.cols)}
-              alt={item.title}
-              loading="lazy"
+              src={require(`./../uploads/${data.image}`)}
+              alt={data.image}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                marginBottom: "10px",
+              }}
             />
-          </ImageListItem>
+          </div>
         ))}
-      </ImageList>
-      <div style={{display:"flex", alignItems: "center", justifyContent:"center"}}>
-        <Button
-          component="label"
-          variant="contained"
-          size="large"
-          startIcon={<CloudUploadIcon />}
+      </div>
+
+      <Modal open={modalOpen} onClose={closeModal}>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+          {selectedImage && (
+            <>
+              <img
+                src={require(`./../uploads/${selectedImage}`)}
+                alt={selectedImage}
+                style={{ maxWidth: "90%", maxHeight: "90%", objectFit: "contain" }}
+              />
+              <Button
+                variant="contained"
+                color="secondary"
+                style={{ position: "absolute", top: 10, right: 10 }}
+                onClick={closeModal}
+              >
+                <CloseIcon />
+              </Button>
+            </>
+          )}
+        </div>
+      </Modal>
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "",
+        }}
+      >
+        <form
+          onSubmit={submitImage}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "20px",
+            border: "1px solid #ccc",
+            borderRadius: "8px",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+            backgroundColor: "#fff",
+          }}
         >
-          Upload Image
-          <VisuallyHiddenInput type="file" />
-        </Button>
+          <label
+            style={{
+              marginBottom: "10px",
+              padding: "10px",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+              cursor: "pointer",
+              backgroundColor: "#f0f0f0",
+            }}
+          >
+            Choose Image
+            <input
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={onInputChange}
+              style={{ display: "none" }}
+            />
+          </label>
+          <button
+            type="submit"
+            style={{
+              backgroundColor: "#4caf50",
+              color: "white",
+              padding: "10px 20px",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
+            Submit
+          </button>
+        </form>
       </div>
     </div>
   );
 };
-
-const itemData = [
-  {
-    img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-    title: "Breakfast",
-    rows: 2,
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-    title: "Burger",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-    title: "Camera",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-    title: "Coffee",
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-    title: "Hats",
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-    title: "Honey",
-    author: "@arwinneil",
-    rows: 2,
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
-    title: "Basketball",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-    title: "Fern",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
-    title: "Mushrooms",
-    rows: 2,
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
-    title: "Tomato basil",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
-    title: "Sea star",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
-    title: "Bike",
-    cols: 2,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
-    title: "Bike",
-    cols: 2,
-  },
-];
 
 export default Imageinnerbunch;

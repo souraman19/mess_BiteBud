@@ -3,9 +3,82 @@ const router = express.Router();
 const User = require("../models/user");
 const Comment = require("../models/comment");
 const Complaint = require("./../models/complaint");
+const Image = require("./../models/image");
 const OTPService = require("./../otpService");
+const fs = require("fs");
+const multer = require("multer");
+const path = require("path");
 
 
+
+//<-------------------------for image upload and fetch [START]------------------------->
+// Multer configuration for handling file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // Specify the absolute path for storing uploaded images
+    cb(null, path.join(__dirname, "./../../frontend/src/uploads/"));
+  },
+  filename: (req, file, cb) => {
+    // Generate a unique filename for the uploaded image
+    const ext = path.extname(file.originalname);
+    cb(null, Date.now() + ext);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+
+// Route for uploading an image
+router.post("/upload-image", upload.single("image"), (req, res) => {
+  try {
+    // Check if file exists in the request
+    console.log(req.file);
+    if (!req.file) {
+      return res.status(400).json({ error: "No image uploaded" });
+    }
+
+    // File uploaded successfully
+    res.json({
+      message: "Image uploaded successfully",
+      filename: req.file.filename,
+    });
+
+  } catch (error) {
+    console.log("Error uploading image:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Route for fetching all uploaded images
+router.get("/get-images", (req, res) => {
+  try {
+    // Read the directory containing uploaded images
+    fs.readdir(path.join(__dirname, "./../../frontend/src/uploads/"), (err, files) => {
+      if (err) {
+        console.log("Error reading directory:", err);
+        return res.status(500).json({ error: "Internal server error" });
+      }
+      // Filter only images from directory
+      const imageFiles = files.filter((file) =>
+        /\.(webp|jpg|jpeg|png|gif)$/i.test(file)
+      );
+
+      // Prepare response data with image filenames
+      const imageData = imageFiles.map((file) => ({
+        image: file,
+      }));
+
+      // Send the array of imageData as response
+      res.json({ data: imageData });
+    });
+  } catch (error) {
+    console.log("Error retrieving images:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
+//<-------------------------for image upload and fetch [END]------------------------->
 
 
 router.get("/patelcomments", async (req, res) => {

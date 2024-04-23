@@ -6,13 +6,6 @@ function EditExpenseTable(){
     return(
         <div>
         <Dailyexpense />
-        {/* <Review /> */}
-        {/* <Feedback /> */}
-
-        {/* <Currentmenu /> */}
-        {/* <Comment /> */}
-        {/* <Gallary /> */}
-        {/* <Complaint /> */}
     </div>
     );
 }

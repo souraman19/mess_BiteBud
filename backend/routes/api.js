@@ -4,12 +4,86 @@ const User = require("../models/user");
 const Comment = require("../models/comment");
 const Complaint = require("./../models/complaint");
 const Image = require("./../models/image");
+const Expense = require("./../models/expense");
 const OTPService = require("./../otpService");
 const fs = require("fs");
 const multer = require("multer");
 const path = require("path");
 const { AsyncResource } = require("async_hooks");
 const MessMenu = require("./../models/messMenu");
+const { v4: uuidv4 } = require('uuid');
+
+
+//<--------------------Expense Routes-------------------------------->
+router.get("/fetchtodaysexpenses", async(req, res) => {
+  try{
+    const allExpenses = await Expense.find();
+    console.log(allExpenses);
+    res.status(200).json(allExpenses);
+  }catch(error){
+    console.error("Error fetching mess menu:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+})
+
+router.post("/addnewexpense", async(req, res) => {
+  try{
+    console.log("kvhsd______________________ksdcvs");
+    console.log(req.body);
+    const itemName = req.body.itemName;
+    const quantity = req.body.itemQuantity;
+    const totalCost = req.body.totalItemCost;
+    const itemUnit = req.body.itemUnit;
+    console.log(itemName);
+    console.log(quantity);
+    console.log(totalCost);
+    console.log(itemUnit);
+
+    const foundItem = await Expense.findOne({itemName: itemName});
+    console.log("found",foundItem);
+    if(!foundItem){
+      const _id = uuidv4();
+      const newExpenseItem = new Expense({
+        _id: _id,
+        itemName: itemName,
+        expenseArray:[
+          {
+            quantity: quantity,
+            itemUnit: itemUnit,
+            costPerPiece: totalCost/quantity, 
+            totalCost: totalCost,
+            date: new Date(),
+            year: new Date().getFullYear(),
+            month: new Date().getMonth(),
+            monthDay: new Date().getDay(),
+            time: new Date().toLocaleTimeString(),
+          },
+        ],
+      });
+      await newExpenseItem.save();
+    } else {
+      foundItem.expenseArray.push({
+            quantity: quantity,
+            itemUnit: itemUnit,
+            costPerPiece: totalCost/quantity, 
+            totalCost: totalCost,
+            date: new Date(),
+            year: new Date().getFullYear(),
+            month: new Date().getMonth(),
+            monthDay: new Date().getDay(),
+            time: new Date().toLocaleTimeString(),
+      });
+      await foundItem.save();
+    }
+    res.status(200).json({ message: "Expense added successfully" });
+  }catch(error){
+    console.error("Error in adding expense item:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
+
 
 
 

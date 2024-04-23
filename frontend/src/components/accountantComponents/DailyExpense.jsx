@@ -1,97 +1,110 @@
 import React from "react";
-
+import {useState, useEffect} from "react";
 import "./../../styles/DailyExpense.css";
+import axios from "axios";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+
 
 function Dailyexpense() {
+  const[itemName, setItemName] = useState("");
+  const[itemQuantity, setItemQuantity] = useState("");
+  const[totalItemCost, setTotalItemCost] = useState("");
+  const[itemUnit, setItemUnit] = useState("");
+  const [todaysExpenses, setTodaysExpenses] = useState([]);
+  
+  useEffect(() => {
+    fetchTodaysExpenses();
+  }, []);
+
+  useEffect(() => {
+    console.log("Updated Todays Expenses:", todaysExpenses);
+  }, [todaysExpenses]);
+
+  async function fetchTodaysExpenses() {
+    try {
+      console.log("helloe");
+      const response = await axios.get("http://localhost:5000/api/fetchtodaysexpenses");
+      setTodaysExpenses(response.data);
+    } catch (error) {
+      console.error("Error fetching today's expenses:", error);
+    }
+  }
+
+  async function handleExpenseSubmit(e){
+    try{
+      e.preventDefault();
+    const response = await axios.post("http://localhost:5000/api/addnewexpense", 
+    { itemName: itemName, itemQuantity: itemQuantity, totalItemCost: totalItemCost, itemUnit: itemUnit});
+    setItemName("");
+    setItemQuantity("");
+    setItemUnit("");
+    setTotalItemCost("");
+    fetchTodaysExpenses();
+    } catch(error){
+      console.log("error while adding");
+    }
+
+  }
+
   return (
-    <div className="daily-expenses-outermost-box">
-      <h1>Daily Expenses</h1>
-      <div className="daily-expense-table">
-        <table class="table table-hover">
+   <div className="daily_expense_outermost_div">
+      <div className="todays_expense_section">
+        <h2>Todays expense</h2>
+        <table>
           <thead>
             <tr>
-              <th scope="col">Item</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Price</th>
-              <th scope="col">Action</th>
+              <th>Item Name</th>
+              <th>Quantity</th>
+              <th>Total Cost</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">Milk</th>
-              <td>1 Lr</td>
-              <td>Rs. 45</td>
-              <td><button type="button" class="btn btn-secondary">Delete</button>
-</td>
-            </tr>
-            <tr>
-              <th scope="row">Cylinder</th>
-              <td>5</td>
-              <td>Rs. 5000</td>
-              <td><button type="button" class="btn btn-secondary">Delete</button>
-</td>
-            </tr>
-            <tr>
-              <th scope="row">Banana</th>
-              <td>5 dozen</td>
-              <td>Rs. 150</td>
-              <td><button type="button" class="btn btn-secondary">Delete</button>
-</td>
-            </tr>
-            <tr>
-              <th>
-                <form action="/" method="post">
-                  <div className="input-text-item-div">
-                  <input
-                    type="text"
-                    name="newItem"
-                    autocomplete="off"
-                    required
-                  />
-                  <button class="btn btn-light" type="submit" name="list" value="<%= listTitle %>">
-                    Add
+            {todaysExpenses.map((expenseItem) => (
+              expenseItem.expenseArray.map((singleExpense) => (
+                <tr key={singleExpense._id}>
+                <td>{expenseItem.itemName}</td>
+                <td>{singleExpense.quantity}</td>
+                <td>{singleExpense.totalCost} {singleExpense.itemUnit}</td>
+                <td className="singleExpense_action_buttons">
+                  <button>
+                    <DeleteIcon />
                   </button>
-                  </div>
-                </form>
-              </th>
-              <td>
-              <form action="/" method="post">
-              <div className="input-text-item-div">
-                  <input
-                    type="text"
-                    name="newItem"
-                    autocomplete="off"
-                    required
-                  />
-                  <button class="btn btn-light" type="submit" name="list" value="<%= listTitle %>">
-                    Add
+                  <button>
+                    <EditIcon />
                   </button>
-                  </div>
-                </form>
-              </td>
-              <td>
-              <form action="/" method="post">
-              <div className="input-text-item-div">
-                  <input
-                    type="text"
-                    name="newItem"
-                    autocomplete="off"
-                    required
-                  />
-                  <button class="btn btn-light" type="submit" name="list" value="<%= listTitle %>">
-                    Add
-                  </button>
-                  </div>
-                </form>
-              </td>
-              <td>
-              
-              </td>
-            </tr>
+                </td>
+              </tr>
+              ))
+            ))}
           </tbody>
         </table>
       </div>
-    </div>
+      <form className="add_new_expense_section" onSubmit={handleExpenseSubmit}>
+        <h2>Add expense</h2>
+        <div>
+          <label htmlFor="itemName">Item name </label>
+          <input value= {itemName} type="text" id="itemName" name="itemName" placeholder="Enter item name" onChange={(e) => setItemName(e.target.value)}/>
+        </div>
+        <div>
+          <label htmlFor="quantity">Quantity </label>
+          <input value= {itemQuantity} type="text" id="quantity" name="quantity" placeholder="Enter item quantity" onChange={(e) => setItemQuantity(e.target.value)}/>
+        </div>
+        <div>
+          <label htmlFor="totalCost">Total Cost </label>
+          <input value={totalItemCost} type="text" id="totalCost" name="totalCost" placeholder="Enter total cost" onChange={(e) => setTotalItemCost(e.target.value)}/>
+        </div>
+        <div>
+          <label htmlFor="itemUnit">Item Unit</label>
+          <input value={itemUnit} type="text" id="itemUnit" name="itemUnit" placeholder="Enter item unit" onChange={(e) => setItemUnit(e.target.value)}/>
+        </div>
+        <button type="submit">
+          Submit
+        </button>
+
+      </form>
+   </div>
   );
 }
 

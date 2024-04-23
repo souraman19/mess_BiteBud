@@ -6,11 +6,12 @@ const expenseschema = new mongoose.Schema({
     itemName: String,
     expenseArray:[
         {
+            _id: String,
             quantity: Number,
             itemUnit: String,
             costPerPiece: Number, 
             totalCost: Number,
-            date: Date,
+            date: String,
             year: Number,
             month: Number,
             monthDay: Number,

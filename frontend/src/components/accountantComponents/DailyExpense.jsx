@@ -47,6 +47,19 @@ function Dailyexpense() {
 
   }
 
+  async function handleTodayExpenseDelete(itemName, expenseId){
+    try{
+      const response = await axios.delete(`http://localhost:5000/api/deletedailyexpense?itemName=${itemName}&expenseId=${expenseId}`);
+      console.log("Deletion success");
+      fetchTodaysExpenses();
+    } catch(error){
+      console.log("Error in deleting daily expense item");
+    }
+  }
+
+  const currentFullDate =  `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDay()}`;
+
+
   return (
    <div className="daily_expense_outermost_div">
       <div className="todays_expense_section">
@@ -63,19 +76,19 @@ function Dailyexpense() {
           <tbody>
             {todaysExpenses.map((expenseItem) => (
               expenseItem.expenseArray.map((singleExpense) => (
-                <tr key={singleExpense._id}>
-                <td>{expenseItem.itemName}</td>
-                <td>{singleExpense.quantity}</td>
-                <td>{singleExpense.totalCost} {singleExpense.itemUnit}</td>
-                <td className="singleExpense_action_buttons">
-                  <button>
-                    <DeleteIcon />
-                  </button>
-                  <button>
-                    <EditIcon />
-                  </button>
-                </td>
-              </tr>
+                ((currentFullDate === singleExpense.date) && (<tr key={singleExpense._id}>
+                  <td>{expenseItem.itemName}</td>
+                  <td>{singleExpense.quantity} {singleExpense.itemUnit}</td>
+                  <td>{singleExpense.totalCost} </td>
+                  <td className="singleExpense_action_buttons">
+                    <button onClick={() => handleTodayExpenseDelete(expenseItem.itemName, singleExpense._id)}>
+                      <DeleteIcon />
+                    </button>
+                    <button>
+                      <EditIcon />
+                    </button>
+                  </td>
+                </tr>))
               ))
             ))}
           </tbody>

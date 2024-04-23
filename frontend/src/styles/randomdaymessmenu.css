@@ -1,3 +1,5 @@
+/* some style has been overwritten */
+
 .container-randommessmenu {
     max-width: 100%;
     padding: 2rem;
@@ -88,3 +90,105 @@
   .text-overlay-randommessmenu p {
     margin: 0;
   }
+
+
+
+  
+
+
+
+
+
+
+  /* ////-----------------------some style added and updated below this -----------------------------------------*/
+  .container-randommessmenu {
+    max-width: 100%;
+    padding: 2rem;
+    margin: 0 auto;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  }
+  
+  /* Heading styles */
+  .heading-randommessmenu {
+    padding: 1.5rem 0;
+    font-size: 3.5rem;
+    text-align: center;
+    display: block;
+    font-family: Canva Sans, Noto Sans Variable, Noto Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
+    border-radius: 20px;
+  }
+  
+  /* Upper section styles */
+  .upper-section-randommessmenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 10px;
+  }
+  
+  .upper-section-randommessmenu h1 {
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Swiper container styles */
+  .swiper_container-randommessmenu {
+    margin-top: 3rem;
+    height: 52rem;
+    padding: 2rem 0;
+    position: relative;
+  }
+  
+  /* Swiper slide styles */
+  .swiper-slide-randommessmenu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(246, 230, 243);
+    width: 37rem;
+    height: 46rem;
+  }
+  
+  .swiper-slide-randommessmenu img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 2rem;
+    object-fit: cover;
+  }
+  
+  .text-overlay-randommessmenu {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3));
+    color: white;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem;
+  }
+  .text-overlay-randommessmenu > button{
+    /* background-color: black; */
+  }
+  
+  .text-overlay-randommessmenu h2 {
+    margin-bottom: 5px;
+  }
+  
+  .text-overlay-randommessmenu p {
+    margin: 0;
+  }
+  

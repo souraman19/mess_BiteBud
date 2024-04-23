@@ -9,6 +9,95 @@ const fs = require("fs");
 const multer = require("multer");
 const path = require("path");
 const { AsyncResource } = require("async_hooks");
+const MessMenu = require("./../models/messMenu");
+
+
+
+//<--------------------Mess Menu Routes-------------------------------->
+
+router.delete("/deletemessmenu", async(req, res) => {
+  try{
+    const day = req.body.day;
+    const messItem = req.body.singlefood;
+    const name = messItem.name;
+    const mealtime = messItem.time;
+    
+    const result = await MessMenu.updateOne(
+      {day: day},
+      {$pull: {allFoodItems: {name: name, time: mealtime}}}
+    );
+
+    const updatedMenu = await MessMenu.find();
+    res.status(200).json(updatedMenu);
+
+  } catch(error){
+    console.error("Error deleting item:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+})
+
+router.get("/getmessmenu", async(req, res) => {
+  try{
+    const messmenu = await MessMenu.find();
+    res.status(200).json(messmenu);
+  }catch(error){
+    console.error("Error fetching mess menu:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
+//for adding new meal with images
+
+const storage2 = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "./../../frontend/src/uploadmenus/"));
+  }, 
+  filename: (req, file, cb) => {
+    const ext2 = path.extname(file.originalname);
+    cb(null, Date.now()+ext2);
+  }
+});
+
+const upload2 = multer({storage: storage2});
+
+router.post("/addnewmeal", upload2.single("image") ,async(req, res) => {
+  try{
+    if(!req.file){
+      return res.status(400).json({ error: "No image uploaded" });
+    }
+  
+    console.log("req.body", req.body);
+    const day = req.body.day;
+    const img = req.file.filename;
+    const name = req.body.name;
+    const time = req.body.mealTime;
+  
+    const foundedMeal = await MessMenu.find({day: day}); //getting an array
+
+    console.log("foundedMeal", foundedMeal[0]);
+    if(!foundedMeal[0]){
+      return res.status(400).json({error: "Meal not found"});
+    }
+    
+    foundedMeal[0].allFoodItems.push({img: img, name: name, time: time});
+    await foundedMeal[0].save();
+  
+    res.json({message:"new meal Item added", item: {img, name, time}});
+  }catch(error){
+    console.error("Error in adding meal items:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+
+});
+
+
+
+
+
+
+//<--------------------Gallery routes-------------------------------->
+
 
 router.delete("/deletemyimage/:id", async(req, res) => {
   try{
@@ -142,6 +231,12 @@ router.get("/get-images", (req, res) => {
 
 
 //<-------------------------for image upload and fetch [END]------------------------->
+
+
+
+
+
+//<--------------------Comment and complaint routes-------------------------------->
 
 
 router.get("/patelcomments", async (req, res) => {

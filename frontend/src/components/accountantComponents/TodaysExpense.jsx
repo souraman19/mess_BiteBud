@@ -94,6 +94,11 @@ function Dailyexpense() {
           </tbody>
         </table>
       </div>
+
+      <div className="all_months_this_year_section">
+
+      </div>
+
       <form className="add_new_expense_section" onSubmit={handleExpenseSubmit}>
         <h2>Add expense</h2>
         <div>

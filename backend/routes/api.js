@@ -15,6 +15,46 @@ const { v4: uuidv4 } = require('uuid');
 
 
 //<--------------------Expense Routes-------------------------------->
+router.get("/fetchallmonthsexpenses", async (req, res) => {
+  try {
+    // Fetch all expenses from the database
+    const allExpenses = await Expense.find();
+    
+    // Group expenses by month
+    const groupedExpenses = groupExpensesByMonth(allExpenses);
+    // console.log(groupedExpenses);
+    res.status(200).json(groupedExpenses);
+  } catch (error) {
+    console.error("Error fetching all months' expenses:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+function groupExpensesByMonth(allExpenses){
+  const groupData = [];
+  allExpenses.forEach((expense) => {
+    const {itemName, expenseArray} = expense;
+    expenseArray.forEach((expenseItem) => {
+      const {quantity, itemUnit, totalCost, date} = expenseItem;
+      const monthYear = new Date(date).toLocaleString("en-US", { month: "long", year: "numeric" });
+      const existingMonth = groupData.find((group) => group.month === monthYear);
+      if(existingMonth){
+        existingMonth.expenses.push({itemName, itemUnit, quantity, totalCost, date});
+      } else {
+        groupData.push({
+          month: monthYear,
+          expenses:[{itemName, itemUnit, quantity, totalCost, date}],
+        }); 
+      }
+    });
+  });
+  return groupData;
+}
+
+
+
+
+
 router.delete("/deletedailyexpense", async(req, res) => {
   try{
     const {itemName, expenseId} = req.query;

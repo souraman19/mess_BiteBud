@@ -52,9 +52,6 @@ function groupExpensesByMonth(allExpenses){
 }
 
 
-
-
-
 router.delete("/deletedailyexpense", async(req, res) => {
   try{
     const {itemName, expenseId} = req.query;
@@ -305,6 +302,7 @@ router.post("/upload-image", upload.single("image"), async(req, res) => {
      const year = req.body.year;
      const description = req.body.description;
      const time = req.body.time;
+     const hostel = req.body.hostel;
     
      const img = req.file.filename;
      console.log("filename => ",img);
@@ -314,6 +312,7 @@ router.post("/upload-image", upload.single("image"), async(req, res) => {
       name, 
       username,
       regNo,
+      hostel,
       year,
       img,
       description,
@@ -394,7 +393,7 @@ router.get("/patelcomplaints", async(req, res) => {
 router.post("/addpatelcomments", async(req, res)=>{
   try{
     // Assuming req.body contains the new comment data
-    const {_id, name, username, regNo, year, comment, profilePic} = req.body;
+    const {_id, name, username, regNo, year, comment, hostel, profilePic} = req.body;
 
     // Create a new Comment document
     const newComment = new Comment({
@@ -404,6 +403,7 @@ router.post("/addpatelcomments", async(req, res)=>{
       regNo,
       year,
       comment,
+      hostel,
       profilePic,
     });
 
@@ -419,7 +419,7 @@ router.post("/addpatelcomments", async(req, res)=>{
 
 router.post("/addpatelcomplaints", async(req, res) => {
   try{
-    const {_id, name, username, regNo, year, complaint, commentsOnComplaint, upVoteCount, downVoteCount, isResolved} = req.body;
+    const {_id, name, username, regNo, year, complaint, hostel, commentsOnComplaint, upVoteCount, downVoteCount, isResolved} = req.body;
     const newComplaint = new Complaint({
       _id,
       name,
@@ -427,6 +427,7 @@ router.post("/addpatelcomplaints", async(req, res) => {
       regNo, 
       year,
       complaint,
+      hostel,
       commentsOnComplaint,
       upVoteCount,
       downVoteCount,
@@ -709,7 +710,7 @@ router.post("/login", async (req, res) => {
 
     if (user) {
       // User found, send success along with user's identity
-      res.json({ success: true, identity: user.identity });
+      res.json({ success: true, alldata: user });
     } else {
       // User not found, send failure
       res.status(401).json({ success: false, message: "Invalid credentials" });

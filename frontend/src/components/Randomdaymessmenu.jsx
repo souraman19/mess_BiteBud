@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import {useUser} from "./../UserContext";
 
 // import { EffectCoverflow, Pagination, Navigation } from 'swiper';
 import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
@@ -14,6 +15,9 @@ import "./../styles/RandomDayMessMenu.css";
 import axios from "axios";
 
 function Comment({ day, myArray, updateWholeMenu }) {
+
+  const {user, updateUser} = useUser();
+  const hostel = user.hostel;
 
   async function handleDeleteMenu(singlefood){
     try{
@@ -64,12 +68,16 @@ function Comment({ day, myArray, updateWholeMenu }) {
             />
             <div className="text-overlay-randommessmenu">
               <div>
-                <h2>{singlefood.name}</h2>
+                <h2 style={{color:"white"}}>{singlefood.name}</h2>
                 <p>{singlefood.time}</p>
               </div>
-              <button onClick={() => handleDeleteMenu(singlefood)}>
-                <DeleteIcon />
-              </button>
+              {(hostel === 'hostel') && (
+                <div>
+                  <button onClick={() => handleDeleteMenu(singlefood)}>
+                    <DeleteIcon />
+                  </button>
+                </div>
+               )}
             </div>
           </SwiperSlide>
         ))}

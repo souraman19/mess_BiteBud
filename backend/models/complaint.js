@@ -7,6 +7,7 @@ const complaintschema = new mongoose.Schema({
     regNo:{type: String},
     year:{type: String},
     complaint:{type: String},
+    hostel:{type: String},
     commentsOnComplaint:{type:Array},
     upVoteCount:{type: Number},
     downVoteCount:{type: Number},

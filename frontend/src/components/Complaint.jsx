@@ -1,6 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState ,  useEffect} from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from 'react-router-dom';
+import {useUser} from "./../UserContext";
+import { v4 as uuidv4 } from 'uuid';
+import axios from "axios";
 
 // Import Swiper styles
 import "swiper/css";
@@ -14,6 +17,36 @@ import Randomcomplaint from "./RandomComplaint";
 import { Pagination } from "swiper/modules";
 
 export default function Complaint() {
+  const {user, updateUser} = useUser();
+  const name = user.name;
+  const username = user.username;
+  const hostel = user.hostel;
+  const regNo = user.regNo;
+  const year = user.year;
+  const profilePic = user.profilePic;
+  const [allComplaints, setAllComplaints] = useState([]);
+
+  useEffect(() => {
+    try{
+      const fetchData = async() => {
+        const response = await axios.get("http://localhost:5000/api/patelcomplaints");
+        // console.log(response.data);
+        const myHostelComplaints = response.data;
+        if(hostel !== "hostel"){
+          const myHostelComplaints = response.data.filter((x) => x.hostel === hostel);
+          setAllComplaints(myHostelComplaints);
+        } else {
+          setAllComplaints(myHostelComplaints);
+        }
+      };
+      fetchData();
+    }catch(error){
+      console.error("Error in fetching comments", error);
+    }
+  }, []);
+
+
+
   return (
     <div className="outermost-box-complaint">
       <div>
@@ -29,29 +62,18 @@ export default function Complaint() {
             modules={[EffectCards]}
             className="swiper-complaint"
           >
-            <SwiperSlide className="swiper-slide-complaint">
-              <Randomcomplaint />
-            </SwiperSlide>
+            {allComplaints.map((singleComplaint)=> (
+               <SwiperSlide className="swiper-slide-complaint">
+               <Randomcomplaint 
+               name = {singleComplaint.name}
+               year = {singleComplaint.year}
+               complaint = {singleComplaint.complaint}
+               />
+             </SwiperSlide>
+            ))}
+           
+            
 
-            <SwiperSlide className="swiper-slide-complaint">
-              <Randomcomplaint />
-            </SwiperSlide>
-
-            <SwiperSlide className="swiper-slide-complaint">
-              <Randomcomplaint />
-            </SwiperSlide>
-
-            <SwiperSlide className="swiper-slide-complaint">
-              <Randomcomplaint />
-            </SwiperSlide>
-
-            <SwiperSlide className="swiper-slide-complaint">
-              <Randomcomplaint />
-            </SwiperSlide>
-
-            <SwiperSlide className="swiper-slide-complaint">
-              <Randomcomplaint />
-            </SwiperSlide>
           </Swiper>
         </>
       </div>

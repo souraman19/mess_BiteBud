@@ -5,8 +5,12 @@ import "./../../styles/PatelFullMenu.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import img1 from "./../../srcimages/food3.jpg";
+import {useUser} from "./../../UserContext";
 
 function Patelfullmenu() {
+    const {user, updateUser} = useUser();
+    const hostel = user.hostel;
+
     const [allMenus, setAllMenus] = useState([]);
     const [mealDay, setMealDay] = useState("");
     const [mealTime, setMealTime] = useState("");
@@ -84,7 +88,8 @@ function Patelfullmenu() {
             />
         ))}
       </div>
-      <div className="add_menu_div">
+      {(hostel === 'hostel') && (
+        <div className="add_menu_div">
         <h2>Add new meal</h2>
         <form
           onSubmit={handleSubmit}
@@ -134,6 +139,7 @@ function Patelfullmenu() {
           </button>
         </form>
       </div>
+      )}
     </div>
   );
 }

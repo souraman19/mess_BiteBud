@@ -29,6 +29,7 @@ const Imageinnerbunch = () => {
   const myUsername = user.username;
   const myRegNo = user.regNo;
   const myYear = user.year;
+  const myHostel = user.hostel;
 
   const [image, setImage] = useState();
   const [allImage, setAllImage] = useState([]);
@@ -51,6 +52,7 @@ const Imageinnerbunch = () => {
     formData.append("name", myName);
     formData.append("username", myUsername);
     formData.append("regNo", myRegNo);
+    formData.append("hostel", myHostel);
     formData.append("year", myYear);
     formData.append("description", "hello, this is an image description");
     formData.append("time", new Date());
@@ -72,8 +74,15 @@ const Imageinnerbunch = () => {
   };
 
   const getImage = async () => {
-    const result = await axios.get("http://localhost:5000/api/get-images");
-    setAllImage(result.data.data);
+    const response = await axios.get("http://localhost:5000/api/getmyimages");
+    const gotAllImages = response.data;
+    if(myHostel !== 'hostel'){
+      setAllImage(gotAllImages.filter((image) => image.hostel === myHostel));
+    } else{
+      setAllImage(gotAllImages);
+    }
+    console.log(gotAllImages);
+
   };
 
   const openModal = (selectedImg) => {
@@ -97,9 +106,9 @@ const Imageinnerbunch = () => {
         }}
       >
         {allImage && allImage.map((data, index) => (
-          <div key={index} style={{ cursor: "pointer" }} onClick={() => openModal(data.image)}>
+          <div key={index} style={{ cursor: "pointer" }} onClick={() => openModal(data.img)}>
             <img
-              src={require(`./../uploads/${data.image}`)}
+              src={require(`./../uploads/${data.img}`)}
               alt={data.image}
               style={{
                 width: "100%",

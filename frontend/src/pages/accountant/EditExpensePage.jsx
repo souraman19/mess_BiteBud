@@ -1,12 +1,12 @@
 import React from "react";
 import Navbar from "./../../components/Navbar";
-import EditExpenseTable from "../../components/accountantComponents/EditExpenseTable";
+import AllExpenses from "../../components/accountantComponents/AllExpenses";
 
 function EditExpensePage(){
     return(
         <div>
             <Navbar />
-            <EditExpenseTable />
+            <AllExpenses />
         </div>
     );
 }

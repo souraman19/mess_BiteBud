@@ -9,6 +9,7 @@ function Commentlist() {
   const {user, updateUser} = useUser();
   const name = user.name;
   const regNo = user.regNo;
+  const hostel = user.hostel;
   const username = user.username;
   const year = user.year;
   const profilePic = user.profilePic;
@@ -22,7 +23,13 @@ function Commentlist() {
         const response = await axios.get("http://localhost:5000/api/patelcomments");
         console.log(response.data);
         // const commentInfoArray = response.data.map((commentObj) => commentObj);
-        setAllComments(response.data);
+        const myHostelComments = response.data;
+        if(hostel !== 'hostel'){
+          const myHostelComments = response.data.filter((comment) => comment.hostel === hostel)
+          setAllComments(myHostelComments);
+        } else {
+          setAllComments(myHostelComments);
+        }
       };
       fetchData();
     } catch (error) {
@@ -44,8 +51,9 @@ function Commentlist() {
         _id : _id,
         name: name, 
         username: username, 
-        regNo: regNo, year:year, 
+        regNo: regNo, year:year,
         comment:singleComment,
+        hostel: hostel,
         profilePic: profilePic,
       };
   

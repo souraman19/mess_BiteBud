@@ -3,6 +3,7 @@ import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import { useState } from "react";
 
+
 import {
   Card,
   CardHeader,
@@ -28,17 +29,8 @@ function StarIcon() {
   );
 }
 
-export default function Review(props) {
-  const [upvotes, setUpvotes] = useState(0);
-  const [downvotes, setDownvotes] = useState(0);
-
-  const handleUpvote = () => {
-    setUpvotes(upvotes + 1);
-  };
-
-  const handleDownvote = () => {
-    setDownvotes(downvotes + 1);
-  };
+export default function Review({name, year, complaint}) {
+  
 
   return (
     <div>
@@ -57,7 +49,7 @@ export default function Review(props) {
             <div className="flex w-full flex-col gap-0.5">
               <div className="flex items-center justify-between">
                 <Typography variant="h2" color="blue-grey">
-                  Mrinsh Kwes
+                  {name}
                 </Typography>
                 <div className="5 flex items-center gap-0">
                   <StarIcon />
@@ -68,31 +60,18 @@ export default function Review(props) {
                 </div>
               </div>
               <Typography variant="h5" color="blue-grey">
-                3rd Year student
+                {year} Year student
               </Typography>
             </div>
           </CardHeader>
           <CardBody className="mb-6 p-0">
             <Typography className="comment-text-randomcomplaint">
-              &quot;Lorem ipsum dolor sit amet consectetur, adipisicing elit.&quot;
+              &quot;{complaint}.&quot;
             </Typography>
           </CardBody>
         </Card>
       </div>
-      <div className="button-group-complaint">
-        <div className="upbutton-group-box" onClick={handleUpvote}>
-          <ArrowCircleUpIcon className="uparrow-complaint" style={{ fontSize: '40px' }} />
-          <Typography variant="h6" color="blue-grey" className="vote-count">
-            {upvotes}
-          </Typography>
-        </div>
-        <div className="downbutton-group-box" onClick={handleDownvote}>
-          <ArrowCircleDownIcon className="downarrow-complaint" style={{ fontSize: '40px' }} />
-          <Typography variant="h6" color="blue-grey" className="vote-count">
-            {downvotes}
-          </Typography>
-        </div>
-      </div>
+
     </div>
   );
 }

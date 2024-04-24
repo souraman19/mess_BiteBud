@@ -1,6 +1,12 @@
 import React from "react";
+import {useUser} from "./../../UserContext.js";
 
 function Patelintro(){
+    const {user, updateUser} = useUser();
+    const hostel = user.hostel;
+    console.log("hostel", hostel);
+
+
     return (
         <div>
             <h1 
@@ -20,7 +26,7 @@ function Patelintro(){
 
         }}
             >
-                Welcome to Patel mess portal
+                Welcome to {hostel} mess portal
             </h1>
         </div>
     );

@@ -5,6 +5,7 @@ const imageSchema = new mongoose.Schema({
     name: {type: String},
     username: {type: String},
     regNo: {type: String},
+    hostel:{type: String},
     year: {type: String},
     img: {type: String},
     description: {type: String},

@@ -4,11 +4,229 @@ const User = require("../models/user");
 const Comment = require("../models/comment");
 const Complaint = require("./../models/complaint");
 const Image = require("./../models/image");
+const Expense = require("./../models/expense");
 const OTPService = require("./../otpService");
 const fs = require("fs");
 const multer = require("multer");
 const path = require("path");
 const { AsyncResource } = require("async_hooks");
+const MessMenu = require("./../models/messMenu");
+const { v4: uuidv4 } = require('uuid');
+
+
+//<--------------------Expense Routes-------------------------------->
+router.get("/fetchallmonthsexpenses", async (req, res) => {
+  try {
+    // Fetch all expenses from the database
+    const allExpenses = await Expense.find();
+    
+    // Group expenses by month
+    const groupedExpenses = groupExpensesByMonth(allExpenses);
+    // console.log(groupedExpenses);
+    res.status(200).json(groupedExpenses);
+  } catch (error) {
+    console.error("Error fetching all months' expenses:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+function groupExpensesByMonth(allExpenses){
+  const groupData = [];
+  allExpenses.forEach((expense) => {
+    const {itemName, expenseArray} = expense;
+    expenseArray.forEach((expenseItem) => {
+      const {quantity, itemUnit, totalCost, date} = expenseItem;
+      const monthYear = new Date(date).toLocaleString("en-US", { month: "long", year: "numeric" });
+      const existingMonth = groupData.find((group) => group.month === monthYear);
+      if(existingMonth){
+        existingMonth.expenses.push({itemName, itemUnit, quantity, totalCost, date});
+      } else {
+        groupData.push({
+          month: monthYear,
+          expenses:[{itemName, itemUnit, quantity, totalCost, date}],
+        }); 
+      }
+    });
+  });
+  return groupData;
+}
+
+
+router.delete("/deletedailyexpense", async(req, res) => {
+  try{
+    const {itemName, expenseId} = req.query;
+    const foundItem = await Expense.findOne({itemName: itemName});
+    if(!foundItem) {
+      return res.status(404).json({error: "Item not found"});
+    }
+
+    await Expense.updateOne(
+      {_id: foundItem._id},
+      {$pull: {expenseArray: {_id: expenseId}}}
+    );
+    res.status(200).json({ message: 'Expense deleted successfully' });
+  }catch(error){
+    console.error('Error in deleting daily expense item:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+router.get("/fetchtodaysexpenses", async(req, res) => {
+  try{
+    const allExpenses = await Expense.find();
+    // console.log(allExpenses);
+    res.status(200).json(allExpenses);
+  }catch(error){
+    console.error("Error fetching mess menu:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+})
+
+router.post("/addnewexpense", async(req, res) => {
+  try{
+
+    const itemName = req.body.itemName;
+    const quantity = req.body.itemQuantity;
+    const totalCost = req.body.totalItemCost;
+    const itemUnit = req.body.itemUnit;
+
+    const foundItem = await Expense.findOne({itemName: itemName});
+    
+    if(!foundItem){
+      const _id = uuidv4();
+      const newExpenseItem = new Expense({
+        _id: _id,
+        itemName: itemName,
+        expenseArray:[
+          {
+            _id: (_id + _id),
+            quantity: quantity,
+            itemUnit: itemUnit,
+            costPerPiece: totalCost/quantity, 
+            totalCost: totalCost,
+            date: `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDay()}`,
+            year: new Date().getFullYear(),
+            month: new Date().getMonth()+1,
+            monthDay: new Date().getDay(),
+            time: new Date().toLocaleTimeString(),
+          },
+        ],
+      });
+      await newExpenseItem.save();
+    } else {
+      const _id = uuidv4();
+      foundItem.expenseArray.push({
+            _id: (_id + _id),
+            quantity: quantity,
+            itemUnit: itemUnit,
+            costPerPiece: totalCost/quantity, 
+            totalCost: totalCost,
+            date: `${new Date().getFullYear()}-${new Date().getMonth()+1}-${new Date().getDay()}`,
+            year: new Date().getFullYear(),
+            month: new Date().getMonth(),
+            monthDay: new Date().getDay(),
+            time: new Date().toLocaleTimeString(),
+      });
+      await foundItem.save();
+    }
+    res.status(200).json({ message: "Expense added successfully" });
+  }catch(error){
+    console.error("Error in adding expense item:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
+
+
+
+
+//<--------------------Mess Menu Routes-------------------------------->
+
+router.delete("/deletemessmenu", async(req, res) => {
+  try{
+    const day = req.body.day;
+    const messItem = req.body.singlefood;
+    const name = messItem.name;
+    const mealtime = messItem.time;
+    
+    const result = await MessMenu.updateOne(
+      {day: day},
+      {$pull: {allFoodItems: {name: name, time: mealtime}}}
+    );
+
+    const updatedMenu = await MessMenu.find();
+    res.status(200).json(updatedMenu);
+
+  } catch(error){
+    console.error("Error deleting item:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+})
+
+router.get("/getmessmenu", async(req, res) => {
+  try{
+    const messmenu = await MessMenu.find();
+    res.status(200).json(messmenu);
+  }catch(error){
+    console.error("Error fetching mess menu:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
+//for adding new meal with images
+
+const storage2 = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "./../../frontend/src/uploadmenus/"));
+  }, 
+  filename: (req, file, cb) => {
+    const ext2 = path.extname(file.originalname);
+    cb(null, Date.now()+ext2);
+  }
+});
+
+const upload2 = multer({storage: storage2});
+
+router.post("/addnewmeal", upload2.single("image") ,async(req, res) => {
+  try{
+    if(!req.file){
+      return res.status(400).json({ error: "No image uploaded" });
+    }
+  
+    console.log("req.body", req.body);
+    const day = req.body.day;
+    const img = req.file.filename;
+    const name = req.body.name;
+    const time = req.body.mealTime;
+  
+    const foundedMeal = await MessMenu.find({day: day}); //getting an array
+
+    console.log("foundedMeal", foundedMeal[0]);
+    if(!foundedMeal[0]){
+      return res.status(400).json({error: "Meal not found"});
+    }
+    
+    foundedMeal[0].allFoodItems.push({img: img, name: name, time: time});
+    await foundedMeal[0].save();
+  
+    res.json({message:"new meal Item added", item: {img, name, time}});
+  }catch(error){
+    console.error("Error in adding meal items:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+
+});
+
+
+
+
+
+
+//<--------------------Gallery routes-------------------------------->
+
 
 router.delete("/deletemyimage/:id", async(req, res) => {
   try{
@@ -84,6 +302,7 @@ router.post("/upload-image", upload.single("image"), async(req, res) => {
      const year = req.body.year;
      const description = req.body.description;
      const time = req.body.time;
+     const hostel = req.body.hostel;
     
      const img = req.file.filename;
      console.log("filename => ",img);
@@ -93,6 +312,7 @@ router.post("/upload-image", upload.single("image"), async(req, res) => {
       name, 
       username,
       regNo,
+      hostel,
       year,
       img,
       description,
@@ -144,6 +364,12 @@ router.get("/get-images", (req, res) => {
 //<-------------------------for image upload and fetch [END]------------------------->
 
 
+
+
+
+//<--------------------Comment and complaint routes-------------------------------->
+
+
 router.get("/patelcomments", async (req, res) => {
   try {
     const comments = await Comment.find();
@@ -167,7 +393,7 @@ router.get("/patelcomplaints", async(req, res) => {
 router.post("/addpatelcomments", async(req, res)=>{
   try{
     // Assuming req.body contains the new comment data
-    const {_id, name, username, regNo, year, comment, profilePic} = req.body;
+    const {_id, name, username, regNo, year, comment, hostel, profilePic} = req.body;
 
     // Create a new Comment document
     const newComment = new Comment({
@@ -177,6 +403,7 @@ router.post("/addpatelcomments", async(req, res)=>{
       regNo,
       year,
       comment,
+      hostel,
       profilePic,
     });
 
@@ -192,7 +419,7 @@ router.post("/addpatelcomments", async(req, res)=>{
 
 router.post("/addpatelcomplaints", async(req, res) => {
   try{
-    const {_id, name, username, regNo, year, complaint, commentsOnComplaint, upVoteCount, downVoteCount, isResolved} = req.body;
+    const {_id, name, username, regNo, year, complaint, hostel, commentsOnComplaint, upVoteCount, downVoteCount, isResolved} = req.body;
     const newComplaint = new Complaint({
       _id,
       name,
@@ -200,6 +427,7 @@ router.post("/addpatelcomplaints", async(req, res) => {
       regNo, 
       year,
       complaint,
+      hostel,
       commentsOnComplaint,
       upVoteCount,
       downVoteCount,
@@ -482,7 +710,7 @@ router.post("/login", async (req, res) => {
 
     if (user) {
       // User found, send success along with user's identity
-      res.json({ success: true, identity: user.identity });
+      res.json({ success: true, alldata: user });
     } else {
       // User not found, send failure
       res.status(401).json({ success: false, message: "Invalid credentials" });

@@ -9,6 +9,7 @@ function Complaintlist() {
   const {user, updateUser} = useUser();
   const name = user.name;
   const username = user.username;
+  const hostel = user.hostel;
   const regNo = user.regNo;
   const year = user.year;
   const profilePic = user.profilePic;
@@ -20,8 +21,14 @@ function Complaintlist() {
     try{
       const fetchData = async() => {
         const response = await axios.get("http://localhost:5000/api/patelcomplaints");
-        console.log(response.data);
-        setAllComplaints(response.data);
+        // console.log(response.data);
+        const myHostelComplaints = response.data;
+        if(hostel !== "hostel"){
+          const myHostelComplaints = response.data.filter((x) => x.hostel === hostel);
+          setAllComplaints(myHostelComplaints);
+        } else {
+          setAllComplaints(myHostelComplaints);
+        }
       };
       fetchData();
     }catch(error){
@@ -44,6 +51,7 @@ function Complaintlist() {
         regNo: regNo, 
         year: year,
         complaint: singleComplaint,
+        hostel: hostel,
         commentsOnComplaint: [],
         upVoteCount: 0,
         downVoteCount: 0,
@@ -51,6 +59,7 @@ function Complaintlist() {
         downVotedMembers: [],
         isResolved: false,
       };
+      // console.log("hostel in complaint", hostel);
 
       try{
         const response = await axios.post("http://localhost:5000/api/addpatelcomplaints", newComplaint);

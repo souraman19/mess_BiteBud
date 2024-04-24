@@ -19,6 +19,7 @@ import EditExpensePage from './pages/accountant/EditExpensePage';
 import MyAllCommentsPage from "./pages/MyAllCommentsPage";
 import MyAllComplaintsPage from "./pages/MyAllComplaintsPage";
 import MyAllImagesPage from "./pages/MyAllImagesPage.jsx";
+import ForgotPassword from './components/ForgotPassword.jsx';
 
 function App() {
     return (
@@ -26,13 +27,14 @@ function App() {
         {/* <Navigation /> */}
         {/* <Navbar /> */}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Login />} />
 
 
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/otpverification" element={<Otpverification />} />
           <Route path="/passwordcreate" element={<Passwordcreate />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
           {/* <Route path="/login" element={<Login />} /> */}
 
 

@@ -11,7 +11,9 @@ import Randomcomplaint from "../../components/RandomComplaint.jsx";
 //style for whole patel main or first page
 import "./../../styles/PatelStudentHomePage.css";
 
+
 function Patelstudent(){
+
     return(
         <div>
         <Navbar />

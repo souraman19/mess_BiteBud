@@ -6,7 +6,7 @@ import Currentmenu from "../components/CurrentMessMenu.jsx"
 import Review from "../components/Review.jsx";
 import Feedback from "../components/CommentSegment.jsx";
 import Cheifwardenintro from "../components/CheifwardenIntro.jsx";
-import Complaintchiefwarden from "../components/ComplaintChiefWarden.jsx";
+import Complaint from "./../../src/components/Complaint.jsx";
 
 function Cheifwarden(){
     return(
@@ -20,7 +20,7 @@ function Cheifwarden(){
         {/* <Comment /> */}
         <Gallary />
         {/* <Complaint /> */}
-        <Complaintchiefwarden />
+        <Complaint />
 
     </div>
     );

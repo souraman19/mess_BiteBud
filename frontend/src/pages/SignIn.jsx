@@ -9,13 +9,15 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {Link} from "react-router-dom";
+import { useUser } from '../UserContext';
 
 function Copyright(props) {
 
@@ -41,6 +43,8 @@ export default function SignIn() {
   const navigate = useNavigate();
   // const history = useHistory();
 
+  const { user, updateUser } = useUser(); // Access the user state and updateUser function from context
+  // const [loggedInUser, setLoggedInUser] = useState({});
   const [rememberMe, setRememberMe] = useState(false);
   const [initialValues, setInitialValues] = useState({
     email: '',
@@ -88,21 +92,37 @@ export default function SignIn() {
       const result = await response.json();
 
       // Handle the result as needed
-      console.log(result);
+      console.log("myy result",result);
   
       if (result.success) {
         // If login is successful, redirect or perform other actions
         console.log('Login successful');
-        console.log('User Identity:', result.identity);
+        console.log('User Identity:', result.alldata.identity);
         // Example: Redirect to a desired path
         // navigate('/desired-path');
-        const identity = result.identity;
+        const identity = result.alldata.identity;
         if(identity === "patelstudent"){
           navigate("/patelstudent");
         }else if(identity === "tilakstudent"){
           navigate("/tilakstudent");
+        }else if(identity === "cheifwarden"){
+          navigate("/cheifwarden");
+        }else if(identity === "accountant"){
+          navigate("/accountant");
         }
         
+        const userData = {
+          name: result.alldata.name,
+          username: result.alldata.username,
+          regNo: result.alldata.regno,
+          hostel: result.alldata.hostel,
+          identity: result.alldata.identity,
+          year: result.alldata.year,
+          email: result.alldata.email,
+          profilePic: null,
+        };
+        updateUser(userData);
+
       } else {
         // If login fails, display an error message or take other actions
         console.error('Login failed');
@@ -119,18 +139,18 @@ export default function SignIn() {
 
 
 
-    if (data.get('email') === 'sourapatel' && data.get('password') === '7811069775') {
-      navigate('/patelstudent');  // Use navigate to redirect
-    } 
-    if (data.get('email') === 'souratilak' && data.get('password') === '7811069775') {
-      navigate('/patelstudent');  // Use navigate to redirect
-    } 
-    if (data.get('email') === 'cheifwarden' && data.get('password') === '7811069775') {
-      navigate('/cheifwarden');  // Use navigate to redirect
-    } 
-    if (data.get('email') === 'accountant' && data.get('password') === '7811069775') {
-      navigate('/accountant');  // Use navigate to redirect
-    } 
+    // if (data.get('email') === 'sourapatel' && data.get('password') === '7811069775') {
+    //   navigate('/patelstudent');  // Use navigate to redirect
+    // } 
+    // if (data.get('email') === 'souratilak' && data.get('password') === '7811069775') {
+    //   navigate('/patelstudent');  // Use navigate to redirect
+    // } 
+    // if (data.get('email') === 'cheifwarden' && data.get('password') === '7811069775') {
+    //   navigate('/cheifwarden');  // Use navigate to redirect
+    // } 
+    // if (data.get('email') === 'accountant' && data.get('password') === '7811069775') {
+    //   navigate('/accountant');  // Use navigate to redirect
+    // } 
   };
 
   return (
@@ -186,13 +206,13 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link to="/forgotpassword">
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link to="/signup">
+                  <p>Don't have an account? Sign Up</p>
                 </Link>
               </Grid>
             </Grid>

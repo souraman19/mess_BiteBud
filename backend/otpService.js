@@ -11,7 +11,7 @@ class OTPService {
       service: 'gmail',
       auth: {
         user: 'cybersourajit@gmail.com', // replace with your Gmail email address
-        pass: '**** **** **** ****', // replace with your Gmail app password
+        pass: 'iwqp txhq nrbe lbej', // replace with your Gmail app password
       },
     });
 

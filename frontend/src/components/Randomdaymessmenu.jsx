@@ -1,29 +1,43 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom";
-
+import DeleteIcon from "@mui/icons-material/Delete";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import {useUser} from "./../UserContext";
 
 // import { EffectCoverflow, Pagination, Navigation } from 'swiper';
 import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
 
-import slide_image_1 from "./../srcimages/food1.jpg";
-import slide_image_2 from "./../srcimages/food2.jpg";
-import slide_image_3 from "./../srcimages/food3.jpg";
-import slide_image_4 from "./../srcimages/food4.jpg";
-import slide_image_5 from "./../srcimages/food1.jpg";
-import slide_image_6 from "./../srcimages/food2.jpg";
-import slide_image_7 from "./../srcimages/food3.jpg";
 import "./../styles/RandomDayMessMenu.css";
+import axios from "axios";
 
-function Comment(props) {
+function Comment({ day, myArray, updateWholeMenu }) {
+
+  const {user, updateUser} = useUser();
+  const hostel = user.hostel;
+
+  async function handleDeleteMenu(singlefood){
+    try{
+      // console.log(day);
+      // console.log(singlefood);
+      const x = await axios.delete("http://localhost:5000/api/deletemessmenu", {data : {singlefood, day}});
+      console.log(x);
+      
+      updateWholeMenu(x.data);
+      console.log("Deletion success and ui updation success");
+    } catch(error){
+      console.log("error in removing item");
+    }
+  }
+
+
   return (
     <div className="container-randommessmenu">
       <div className="upper-section-randommessmenu">
-        <h1 className="heading1-randommessmenu">{props.day}</h1>
+        <h1 className="heading1-randommessmenu">{day}</h1>
       </div>
       <Swiper
         effect={"coverflow"}
@@ -46,55 +60,27 @@ function Comment(props) {
         modules={[EffectCoverflow, Pagination, Navigation]}
         className="swiper_container-randommessmenu"
       >
-        <SwiperSlide className="swiper-slide-randommessmenu">
-          <img src={slide_image_1} alt="slide_image" />
-          <div className="text-overlay-randommessmenu">
-            <h2>Title 1</h2>
-            <p>Description 1</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide-randommessmenu">
-          <img src={slide_image_2} alt="slide_image" />
-          <div className="text-overlay-randommessmenu">
-            <h2>Title 1</h2>
-            <p>Description 1</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide-randommessmenu">
-          <img src={slide_image_3} alt="slide_image" />
-          <div className="text-overlay-randommessmenu">
-            <h2>Title 1</h2>
-            <p>Description 1</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide-randommessmenu">
-          <img src={slide_image_4} alt="slide_image" />
-          <div className="text-overlay-randommessmenu">
-            <h2>Title 1</h2>
-            <p>Description 1</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide-randommessmenu">
-          <img src={slide_image_5} alt="slide_image" />
-          <div className="text-overlay-randommessmenu">
-            <h2>Title 1</h2>
-            <p>Description 1</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide-randommessmenu">
-          <img src={slide_image_6} alt="slide_image" />
-          <div className="text-overlay-randommessmenu">
-            <h2>Title 1</h2>
-            <p>Description 1</p>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide-randommessmenu">
-          <img src={slide_image_7} alt="slide_image" />
-          <div className="text-overlay-randommessmenu">
-            <h2>Title 1</h2>
-            <p>Description 1</p>
-          </div>
-        </SwiperSlide>
+        {myArray.map((singlefood) => (
+          <SwiperSlide className="swiper-slide-randommessmenu">
+            <img
+              src={require(`./../uploadmenus/${singlefood.img}`)}
+              alt="slide_image"
+            />
+            <div className="text-overlay-randommessmenu">
+              <div>
+                <h2 style={{color:"white"}}>{singlefood.name}</h2>
+                <p>{singlefood.time}</p>
+              </div>
+              {(hostel === 'hostel') && (
+                <div>
+                  <button onClick={() => handleDeleteMenu(singlefood)}>
+                    <DeleteIcon />
+                  </button>
+                </div>
+               )}
+            </div>
+          </SwiperSlide>
+        ))}
 
         <div className="slider-controler">
           <div className="swiper-button-prev slider-arrow">

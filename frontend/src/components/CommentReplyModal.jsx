@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./../styles/CommentReplyModal.css"; 
+import "./../styles/commentreplymodal.css"; 
 import { useUser } from "../UserContext";
 import axios from "axios";
 import DeleteIcon from '@mui/icons-material/Delete';

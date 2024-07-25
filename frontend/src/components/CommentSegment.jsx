@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
-import "./../styles/CommentSegment.css";
+import "./../styles/commentsegment.css";
 
 // import required modules
 import { FreeMode, Pagination } from "swiper/modules";
@@ -86,7 +86,7 @@ export default function CommentSegment() {
           className="mySwiper"
         >
           {comments.map((singleCommentMap) => 
-            <SwiperSlide className="swiper-slide-currentsegment">
+            <SwiperSlide className="swiper-slide-currentsegment" key = {singleCommentMap.id}>
               <CommentSegmentSlide 
                name = {singleCommentMap.name} 
                username = {singleCommentMap.username}

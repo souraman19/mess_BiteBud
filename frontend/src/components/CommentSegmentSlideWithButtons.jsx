@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./../styles/CommentSegmentSlideWithButtons.css";
+import "./../styles/commentsegmentslidewithbuttons.css";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from "axios";

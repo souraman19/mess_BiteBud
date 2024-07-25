@@ -1,5 +1,5 @@
 import React from "react";
-import "./../styles/ComplaintSlide.css";
+import "./../styles/complaintslide.css";
 import CommentReplyModal from "./CommentReplyModal";
 import CommentSeeAllCommentsModal from "./CommentSeeAllCommentsModal"
 import { useState } from "react";

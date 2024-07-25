@@ -6,13 +6,13 @@ import Login from './pages/Login';
 // import Navbar from './components/Navbar.jsx'
 import Patelstudent from './pages/patelstudent/PatelStudentHomePage';
 import Tilakstudent from './pages/Tilakstudent';
-import Patelgallery from "./pages/patelstudent/PatelGallery";
-import Patelcomment from './pages/patelstudent/PatelComment';
-import Patelfullmenu from './pages/patelstudent/PatelFullMenu';
+import Patelgallery from "./pages/patelstudent/Patelgallery.jsx";
+import Patelcomment from './pages/patelstudent/Patelcomment.jsx';
+import Patelfullmenu from './pages/patelstudent/Patelfullmenu.jsx';
 import Cheifwarden from './pages/Cheifwarden';
 import Accountant from "./pages/Accountant";
-import Patelallcomplaint from "./pages/patelstudent/PatelAllComplaint";
-import Signup from './pages/SignUp';
+import Patelallcomplaint from "./pages/patelstudent/Patelallcomplaint.jsx";
+import Signup from './pages/Signup.jsx';
 import Otpverification from "./pages/Otpverification";
 import Passwordcreate from './pages/Passwordcreate';
 import EditExpensePage from './pages/accountant/EditExpensePage';
@@ -28,7 +28,8 @@ function App() {
         {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<Login />} />
-
+          <Route path="/home" element={<Home />} />
+          
 
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

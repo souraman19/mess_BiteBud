@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import Carousel from "react-bootstrap/Carousel";
-import "./../styles/ControlledCarousel.css";
+import "./../styles/controlledcarousel.css";
 
 function ExampleCarouselImage(props) {
   return (

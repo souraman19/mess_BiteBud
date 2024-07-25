@@ -1,6 +1,6 @@
 import React from "react";
 import {useState, useEffect} from "react";
-import "./../../styles/DailyExpense.css";
+import "./../../styles/dailyexpense.css";
 import axios from "axios";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';

@@ -7,12 +7,16 @@ import CommentSegment from "../../components/CommentSegment.jsx";
 import Patelintro from "../../components/patelStudentComponents/Patelintro.jsx";
 import Complaint from "../../components/Complaint.jsx";
 import Randomcomplaint from "../../components/RandomComplaint.jsx";
+import {useUser} from "./../../UserContext";
 
 //style for whole patel main or first page
-import "./../../styles/PatelStudentHomePage.css";
+import "./../../styles/patelstudenthomepage.css";
 
 
 function Patelstudent(){
+    const {user, updateUser} = useUser();
+    console.log("User in PatelStudentHomePage: ", user);
+    console.log("User in PatelStudentHomePage: ", updateUser);
 
     return(
         <div>

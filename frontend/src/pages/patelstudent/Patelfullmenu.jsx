@@ -1,7 +1,7 @@
 import React from "react";
 import Randomdaymessmenu from "../../components/RandomDayMessMenu";
 import Navbar from "../../components/Navbar";
-import "./../../styles/PatelFullMenu.css";
+import "./../../styles/patelfullmenu.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import img1 from "./../../srcimages/food3.jpg";

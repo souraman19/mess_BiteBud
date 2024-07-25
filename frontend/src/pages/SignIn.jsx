@@ -17,7 +17,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Link} from "react-router-dom";
-import { useUser } from '../UserContext';
+import { useUser } from '../UserContext'
 
 function Copyright(props) {
 
@@ -101,15 +101,7 @@ export default function SignIn() {
         // Example: Redirect to a desired path
         // navigate('/desired-path');
         const identity = result.alldata.identity;
-        if(identity === "patelstudent"){
-          navigate("/patelstudent");
-        }else if(identity === "tilakstudent"){
-          navigate("/tilakstudent");
-        }else if(identity === "cheifwarden"){
-          navigate("/cheifwarden");
-        }else if(identity === "accountant"){
-          navigate("/accountant");
-        }
+        
         
         const userData = {
           name: result.alldata.name,
@@ -121,7 +113,20 @@ export default function SignIn() {
           email: result.alldata.email,
           profilePic: null,
         };
+        // console.log(userData);
         updateUser(userData);
+
+       setTimeout(() => {
+        if(identity === "patelstudent"){
+          navigate("/patelstudent");
+        }else if(identity === "tilakstudent"){
+          navigate("/tilakstudent");
+        }else if(identity === "cheifwarden"){
+          navigate("/cheifwarden");
+        }else if(identity === "accountant"){
+          navigate("/accountant");
+        }
+       }, 1000)
 
       } else {
         // If login fails, display an error message or take other actions

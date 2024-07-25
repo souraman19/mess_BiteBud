@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./../styles/ComplaintList.css";
+import "./../styles/complaintlist.css";
 import ComplaintSlideWithEditDelete from "./../components/ComplaintSlideWithEditDelete";
 import {useUser} from "./../UserContext";
 import { v4 as uuidv4 } from 'uuid';

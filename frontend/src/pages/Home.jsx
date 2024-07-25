@@ -9,18 +9,18 @@ function Home() {
       <h2>Home Page</h2>
       <h3>Welcome to Webster Event! <br/></h3>
       <h2>
-      <Link to="/patelstudent">GoTo Patel student Portal( for TESTING !!! ) Username :sourapatel &  pass: 7811069775</Link>
+      <Link to="/patelstudent">GoTo Patel student Portal( for TESTING !!! ) </Link>
       </h2>
       <h2>
-      <Link to="/tilakstudent">GoTo Tilak student Portal( for TESTING !!! ) Username :souratilak  &  pass: 7811069775</Link>
-      </h2>
-
-      <h2>
-      <Link to="/cheifwarden">GoTo Cheifwarden Portal( for TESTING !!! ) Username :cheifwarden  &  pass: 7811069775</Link>
+      <Link to="/tilakstudent">GoTo Tilak student Portal( for TESTING !!! )</Link>
       </h2>
 
       <h2>
-      <Link to="/accountant">GoTo Accountant Portal( for TESTING !!! ) Username :accountant  &  pass: 7811069775</Link>
+      <Link to="/cheifwarden">GoTo Cheifwarden Portal( for TESTING !!! ) </Link>
+      </h2>
+
+      <h2>
+      <Link to="/accountant">GoTo Accountant Portal( for TESTING !!! ) </Link>
       </h2>
 
       <h1>

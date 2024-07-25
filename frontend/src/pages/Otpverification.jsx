@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./../styles/OtpVerification.css";
+import "./../styles/otpverification.css";
 import "./OtpVerificationJs";
 import { useNavigate, useLocation } from "react-router-dom";
 

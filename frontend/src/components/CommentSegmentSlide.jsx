@@ -1,5 +1,5 @@
 import React from "react";
-import "./../styles/CommentSegmentSlide.css";
+import "./../styles/commentsegmentslide.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
@@ -13,7 +13,7 @@ function CommentSegmentSlide({ name, username, regNo, year, comment, profilePic 
         <img
           src={profilePic}
           alt=""
-          srcset=""
+          srcSet=""
         />
 
         <div className="client-data-details">

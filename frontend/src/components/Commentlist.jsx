@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import CommentSegmentSlide from "./CommentSegmentSlide";
-import "./../styles/CommentList.css";
+import "./../styles/commentlist.css";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-import {useUser} from "./../UserContext";
+import {useUser} from "../UserContext";
 
 function Commentlist() { 
   const {user, updateUser} = useUser();

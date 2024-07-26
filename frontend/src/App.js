@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 // import Navbar from './components/Navbar.jsx'
-import Patelstudent from './pages/patelstudent/PatelStudentHomePage';
+import PatelStudentHomePage from './pages/patelstudent/PatelStudentHomePage';
 import Tilakstudent from './pages/Tilakstudent';
 import Patelgallery from "./pages/patelstudent/Patelgallery.jsx";
 import Patelcomment from './pages/patelstudent/Patelcomment.jsx';
@@ -20,10 +20,11 @@ import MyAllCommentsPage from "./pages/MyAllCommentsPage";
 import MyAllComplaintsPage from "./pages/MyAllComplaintsPage";
 import MyAllImagesPage from "./pages/MyAllImagesPage.jsx";
 import ForgotPassword from './components/ForgotPassword.jsx';
+import {UserProvider} from "./UserContext";
 
 function App() {
     return (
-      <Router>
+        <Router>
         {/* <Navigation /> */}
         {/* <Navbar /> */}
         <Routes>
@@ -39,7 +40,7 @@ function App() {
           {/* <Route path="/login" element={<Login />} /> */}
 
 
-          <Route path="/patelstudent" element={<Patelstudent />} />
+          <Route path="/patelstudent" element={<PatelStudentHomePage />} />
 
           <Route path="/patelgallery" element={<Patelgallery />} />
           <Route path="/myallimages" element={<MyAllImagesPage />} />

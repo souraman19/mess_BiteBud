@@ -17,13 +17,14 @@ import Randomcomplaint from "./RandomComplaint.jsx";
 import { Pagination } from "swiper/modules";
 
 export default function Complaint() {
-  const {user, updateUser} = useUser();
-  const name = user.name;
-  const username = user.username;
-  const hostel = user.hostel;
-  const regNo = user.regNo;
-  const year = user.year;
-  const profilePic = user.profilePic;
+  const {user} = useUser();
+  console.log("User in 5: ", user);
+  const name = user?.name;
+  const username = user?.username;
+  const hostel = user?.hostel;
+  const regNo = user?.regNo;
+  const year = user?.year;
+  const profilePic = user?.profilePic;
   const [allComplaints, setAllComplaints] = useState([]);
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function Complaint() {
         </div>
       </div>
       <div className="swiper">
-        <>
+      <>
           <Swiper
             effect={'cards'}
             grabCursor={true}

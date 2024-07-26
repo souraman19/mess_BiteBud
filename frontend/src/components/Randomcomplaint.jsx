@@ -1,15 +1,5 @@
-import "./../styles/randomcomplaint.css";
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-import { useState } from "react";
-
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Typography,
-  Avatar,
-} from "@material-tailwind/react";
+import React from 'react';
+import './../styles/rrr.css'; // Import the CSS file for styling
 
 function StarIcon() {
   return (
@@ -17,7 +7,7 @@ function StarIcon() {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className="h-5 w-5 text-yellow-700"
+      className="star-icon"
     >
       <path
         fillRule="evenodd"
@@ -28,49 +18,23 @@ function StarIcon() {
   );
 }
 
-export default function Review({name, year, complaint}) {
-  
-
+export default function Review({ name, year, complaint }) {
   return (
-    <div>
-      <div className="review-outermost-box-randomcomplaint">
-        <Card
-          color="transparent"
-          shadow={false}
-          className="cardclass-randomcomplaint w-full max-w-[26rem]"
-        >
-          <CardHeader
-            color="transparent"
-            floated={false}
-            shadow={false}
-            className="mx-0 flex items-center gap-4 pt-0 pb-8"
-          >
-            <div className="flex w-full flex-col gap-0.5">
-              <div className="flex items-center justify-between">
-                <Typography variant="h2" color="blue-grey">
-                  {name}
-                </Typography>
-                <div className="5 flex items-center gap-0">
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                </div>
-              </div>
-              <Typography variant="h5" color="blue-grey">
-                {year} Year student
-              </Typography>
-            </div>
-          </CardHeader>
-          <CardBody className="mb-6 p-0">
-            <Typography className="comment-text-randomcomplaint">
-              &quot;{complaint}.&quot;
-            </Typography>
-          </CardBody>
-        </Card>
+    <div className="review-card">
+      <div className="review-header">
+        <h2 className="review-name">{name}</h2>
+        <div className="star-rating">
+          <StarIcon />
+          <StarIcon />
+          <StarIcon />
+          <StarIcon />
+          <StarIcon />
+        </div>
+        <h5 className="review-year">{year} Year student</h5>
       </div>
-
+      <div className="review-body">
+        <p className="review-complaint">&quot;{complaint}.&quot;</p>
+      </div>
     </div>
   );
 }

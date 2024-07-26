@@ -23,8 +23,9 @@ import slide_image_6 from "./../srcimages/food2.jpg";
 import slide_image_7 from "./../srcimages/food3.jpg";
 
 function Comment() {
-  const {user, updateUser} = useUser();
-  const hostel = user.hostel;
+  const {user} = useUser();
+  console.log("User in 2: ", user);
+  const hostel = user?.hostel;
 
   const [allMenus, setAllMenus] = useState([]);
 

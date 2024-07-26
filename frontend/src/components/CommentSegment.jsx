@@ -23,13 +23,14 @@ import "swiper/swiper-bundle.css"; // Import the Swiper styles
 SwiperCore.use([FreeMode, Pagination]);
 
 export default function CommentSegment() {
-  const {user, updateUser} = useUser();
-  const name = user.name;
-  const regNo = user.regNo;
-  const hostel = user.hostel;
-  const username = user.username;
-  const year = user.year;
-  const profilePic = user.profilePic;
+  const {user} = useUser();
+  console.log("User in 1: ", user);
+  const name = user?.name;
+  const regNo = user?.regNo;
+  const hostel = user?.hostel;
+  const username = user?.username;
+  const year = user?.year;
+  const profilePic = user?.profilePic;
 
   const [comments, setComments] = useState([]);
   useEffect(() => {

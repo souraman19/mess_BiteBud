@@ -14,16 +14,16 @@ import "./../../styles/patelstudenthomepage.css";
 
 
 function Patelstudent(){
-    const {user, updateUser} = useUser();
-    console.log("User in PatelStudentHomePage: ", user);
-    console.log("User in PatelStudentHomePage: ", updateUser);
+    const {user} = useUser();
+    if (!user) {
+        return <div>Loading...</div>; // or handle no user scenario
+    }
 
     return(
         <div>
         <Navbar />
-        <Patelintro />
+        {/* <Patelintro /> */}
 
-         {/* //working on ui*/}
         <CurrentMessMenu />  
 
 
@@ -32,10 +32,7 @@ function Patelstudent(){
         
         <CommentSegment />
 
-        
-        {/* <Randomcomplaint /> */}
-        {/* <Review /> */}
-        {/* <Comment /> */}
+
         <Complaint />
     </div>
     );

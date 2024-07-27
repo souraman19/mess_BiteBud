@@ -146,14 +146,11 @@ router.post("/addnewexpense", async(req, res) => {
 
 router.delete("/deletemessmenu", async(req, res) => {
   try{
-    const day = req.body.day;
-    const messItem = req.body.singlefood;
-    const name = messItem.name;
-    const mealtime = messItem.time;
-    
+    const {day, mealName, mealTime} = req.query;
+    // console.log("req query ----", req.query);
     const result = await MessMenu.updateOne(
       {day: day},
-      {$pull: {allFoodItems: {name: name, time: mealtime}}}
+      {$pull: {allFoodItems: {name: mealName, time: mealTime}}}
     );
 
     const updatedMenu = await MessMenu.find();

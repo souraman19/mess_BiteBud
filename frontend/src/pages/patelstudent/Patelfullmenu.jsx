@@ -3,6 +3,8 @@ import axios from "axios";
 import Navbar from "../../components/Navbar";
 import { useUser } from "./../../UserContext";
 import "./../../styles/patelfullmenu.css";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Patelfullmenu() {
   const { user } = useUser();
@@ -13,6 +15,9 @@ function Patelfullmenu() {
   const [mealName, setMealName] = useState("");
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
+  const [foodName, setFoodName] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await axios.get("http://localhost:5000/api/getmessmenu");
@@ -21,6 +26,37 @@ function Patelfullmenu() {
     };
     fetchData();
   }, []);
+
+  const handleDelete = async (day, mealTime, mealName) => {
+    try{
+      const response = await axios.delete("http://localhost:5000/api/deletemessmenu", {params: {day, mealTime, mealName}
+      });
+      console.log(response);
+      setTimeout(() => {
+        setAllMenus(response.data);
+        console.log("Updated Mess menu fetched successfully after deletion");
+      }, 1000);
+    } catch(err){
+      console.error("error in deleteing meal ", err);
+    }
+  }
+
+  // const handleEdit = async(day, mealTime, mealName) => {
+  //   alert("Edit clicked");
+  //   setIsEditing(true);
+  //   setFoodName(mealName);
+  //   const a = document.getElementById(`realblock_${day}${mealTime}${mealName}`);
+  //   const b = document.getElementById(`inputblock_${day}${mealTime}${mealName}`);
+  //   // console.log(a);
+  //   // console.log(b);
+  //   // console.log("done");
+  //   a.classList.remove("special_display");
+  //   a.classList.add("none_display");
+  //   b.classList.remove("none_display");
+  //   b.classList.add("block_display");
+  //   // console.log(a);
+  //   // console.log(b);
+  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,15 +99,15 @@ function Patelfullmenu() {
   return (
     <div className="Patel_full_menu_outermost_div">
       <Navbar />
-      <div className="menu-table-div">
+      <div className="menu-table-div" >
         {allMenus.length > 0 ? (
-          <table>
+          <table >
             <thead>
               <tr>
                 <th>Day</th>
                 <th>
                   <ul>
-                    <li>Breakfast</li>
+                    <li >Breakfast</li>
                     <li>7:45 am - 9:00 am</li>
                   </ul>
                 </th>
@@ -98,13 +134,17 @@ function Patelfullmenu() {
             <tbody>
               {days.map((day, index) => (
                 <tr key={index}>
-                  <td className="which-day">{day}</td>
+                  <td className="which-day" >{day}</td>
                   <td>
                     <ul>
                       {allMenus[index].allFoodItems
                         .filter((meal) => meal.time === "Breakfast")
                         .map((meal, idx) => (
-                          <li key={idx}>{meal.name}</li>
+                          <li key={idx} >
+                              <DeleteIcon className="delete-icon" onClick={() => handleDelete(day, meal.time, meal.name)}/>
+                                <div>{meal.name}</div>
+                              <EditIcon/>
+                          </li>
                         ))}
                     </ul>
                   </td>
@@ -113,7 +153,25 @@ function Patelfullmenu() {
                       {allMenus[index].allFoodItems
                         .filter((meal) => meal.time === "Lunch")
                         .map((meal, idx) => (
-                          <li key={idx}>{meal.name}</li>
+                          <li key={idx}>
+                            
+                              <input 
+                                type="text"
+                                value={foodName}
+                                onChange={(e) => setFoodName(e.target.value)}
+                                id={`inputblock_${day}${meal.time}${meal.name}`}
+                                className="none_display"
+                              />
+                              <div id={`realblock_${day}${meal.time}${meal.name}`}
+                                className="special_display"
+                              >
+                              <DeleteIcon className="delete-icon" onClick={() => handleDelete(day, meal.time, meal.name)}/>
+                              <div>{meal.name}</div>
+                              <EditIcon className="edit-icon" />
+                            
+                              </div>
+                        
+                          </li>
                         ))}
                     </ul>
                   </td>
@@ -122,7 +180,11 @@ function Patelfullmenu() {
                       {allMenus[index].allFoodItems
                         .filter((meal) => meal.time === "Snacks")
                         .map((meal, idx) => (
-                          <li key={idx}>{meal.name}</li>
+                          <li key={idx}>
+                            <DeleteIcon className="delete-icon" onClick={() => handleDelete(day, meal.time, meal.name)}/>
+                            <div>{meal.name}</div>
+                            <EditIcon className="edit-icon" />
+                          </li>
                         ))}
                     </ul>
                   </td>
@@ -131,7 +193,11 @@ function Patelfullmenu() {
                       {allMenus[index].allFoodItems
                         .filter((meal) => meal.time === "Dinner")
                         .map((meal, idx) => (
-                          <li key={idx}>{meal.name}</li>
+                          <li key={idx} >
+                            <DeleteIcon className="delete-icon" onClick={() => handleDelete(day, meal.time, meal.name)}/>
+                            <div >{meal.name}</div>
+                            <EditIcon className="edit-icon" />
+                          </li>
                         ))}
                     </ul>
                   </td>

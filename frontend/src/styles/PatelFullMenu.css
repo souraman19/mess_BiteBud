@@ -24,9 +24,48 @@ body {
 .Patel_full_menu_outermost_div .menu-table-div table tbody .which-day{
     font-weight: 600;
 }
-.Patel_full_menu_outermost_div .menu-table-div table tbody  li{
+.Patel_full_menu_outermost_div .menu-table-div table tbody  .special_display{
     font-size: medium;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    /* border: 2px solid red; */
+    padding: 0px 5px;
 }
+
+.Patel_full_menu_outermost_div .menu-table-div table tbody  li input{
+    
+}
+
+
+.Patel_full_menu_outermost_div .menu-table-div table tbody  li .delete-icon{
+    display: none;
+}
+.Patel_full_menu_outermost_div .menu-table-div table tbody  li .edit-icon{
+    display: none;
+}
+
+.Patel_full_menu_outermost_div .menu-table-div table tbody  li:hover .delete-icon{
+    display: block;
+    cursor: pointer;
+}
+.Patel_full_menu_outermost_div .menu-table-div table tbody  li:hover .edit-icon{
+    display: block;
+    cursor: pointer;
+}
+
+.Patel_full_menu_outermost_div .menu-table-div table tbody  li:hover div{
+    justify-content: space-around;
+}
+
+.none_display{
+    display: none;
+}
+.block_display{
+    display: block;
+}
+
 
 .add_menu_div {
     background: #fff;

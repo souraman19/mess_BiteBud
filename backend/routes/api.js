@@ -144,6 +144,30 @@ router.post("/addnewexpense", async(req, res) => {
 
 //<--------------------Mess Menu Routes-------------------------------->
 
+
+router.post("/editmealname", async(req, res) => {
+  try{
+    const day = req.body.day;
+    const mealName = req.body.mealName;
+    const mealTime = req.body.mealTime;
+    const newMealName = req.body.newMealName;
+    const respon = await MessMenu.updateOne(
+      {day: day, "allFoodItems.time": mealTime, "allFoodItems.name": mealName},
+      {
+        $set: {
+          "allFoodItems.$.name": newMealName
+        }
+      }
+    );
+    // console.log(respon);
+    const newMessMenu = await MessMenu.find();
+    res.status(200).json({ message: "Meal updated successfully" , updatedMenus: newMessMenu});
+  } catch(error){
+    console.error("Error in editing mealName", error);
+    res.status(500).json({error: "Internal server error"});
+  }
+})
+
 router.delete("/deletemessmenu", async(req, res) => {
   try{
     const {day, mealName, mealTime} = req.query;
@@ -177,7 +201,7 @@ router.get("/getmessmenu", async(req, res) => {
 router.post("/addnewmeal", async(req, res) => {
   try{
   
-    console.log("req.body", req.body);
+    // console.log("req.body", req.body);
     const day = req.body.day;
     const name = req.body.name;
     const time = req.body.mealTime;

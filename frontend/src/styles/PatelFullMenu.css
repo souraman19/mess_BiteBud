@@ -17,14 +17,25 @@ body {
 }
 
 .Patel_full_menu_outermost_div .menu-table-div{
+    /* border: 2px solid red; */
     width: 100%;
+    margin: 1rem;
+    padding: 0;
+}
+
+.Patel_full_menu_outermost_div .menu-table-div>table{
+    margin: 0;
+    padding: 0;
+}
+.Patel_full_menu_outermost_div .menu-table-div:hover{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     /* overflow-x: auto; */
 }
 
 .Patel_full_menu_outermost_div .menu-table-div table tbody .which-day{
     font-weight: 600;
 }
-.Patel_full_menu_outermost_div .menu-table-div table tbody  .special_display{
+.Patel_full_menu_outermost_div .menu-table-div table tbody  .box_with_name_two_button_display{
     font-size: medium;
     display: flex;
     justify-content: center;
@@ -34,8 +45,34 @@ body {
     padding: 0px 5px;
 }
 
+.Patel_full_menu_outermost_div .menu-table-div table tbody  li .input_box_with_btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    /* border: 2px solid red; */
+}
+.Patel_full_menu_outermost_div .menu-table-div table tbody  li .input_box_with_btn .input_div{
+    height: 50%;
+    width: 75%;
+    /* border: 2px solid green; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .Patel_full_menu_outermost_div .menu-table-div table tbody  li input{
-    
+    width: 100%;
+    /* height: 90%; */
+    padding: 0.8rem;
+    /* border: 2px solid red; */
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+}
+.Patel_full_menu_outermost_div .menu-table-div table tbody  li .close_confirm_button{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 
@@ -68,14 +105,16 @@ body {
 
 
 .add_menu_div {
-    background: #fff;
+    background: #eef9ff;
     border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     padding: 2rem;
     max-width: 600px;
     width: 100%;
     margin-top: 5rem;
     animation: fadeIn 1s ease-in-out;
+}
+.add_menu_div:hover{
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .add_menu_div h2 {
@@ -111,7 +150,7 @@ select {
 }
 
 select:focus {
-    border-color: #ff7e5f;
+    border-color: #b4d1ff;
     outline: none;
 }
 
@@ -127,7 +166,7 @@ label {
 }
 
 label:hover {
-    background: #ff7e5f;
+    background: #5f9fff;
     color: white;
 }
 
@@ -167,7 +206,7 @@ th, td {
 }
 
 th {
-    background: #ff7e5f;
+    background: #6a9bff;
     color: white;
     font-weight: bold;
 }
@@ -202,4 +241,9 @@ td ul li {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.today_meal_effect {
+    background-color: #e6f4fc; 
+    transition: transform 0.3s, background-color 0.3s; /* Smooth transition effects */
 }

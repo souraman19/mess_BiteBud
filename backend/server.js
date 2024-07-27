@@ -11,6 +11,7 @@ const PORT = 5000;
 
 // Middleware
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 app.use(cors());
 
 // Connect to MongoDB (replace 'your-mongodb-uri' with your actual MongoDB URI)

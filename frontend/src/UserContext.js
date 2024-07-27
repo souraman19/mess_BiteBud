@@ -24,14 +24,14 @@ export const UserProvider = ({ children }) => {
 
 
   const initialState = {
-    name: "Sourajit Mandal",
-    username: "Sourajit",
+    name: "Shivanshi Sehgal",
+    username: "shivanshi",
     regNo: "20223268",
-    year:"3rd",
-    email: "sourajit119@gmail.com",
+    year: null,
+    email: "soura9775@gmail.com",
     profilePic:img1,
-    hostel:"Patel",
-    identity:"patelstudent",
+    hostel:"hostel",
+    identity:"accountant",
   };
 
   const [user, setUser] = useState(initialState);

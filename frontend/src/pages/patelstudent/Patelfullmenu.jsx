@@ -1,146 +1,214 @@
-import React from "react";
-import Randomdaymessmenu from "../../components/RandomDayMessMenu";
-import Navbar from "../../components/Navbar";
-import "./../../styles/patelfullmenu.css";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
-import img1 from "./../../srcimages/food3.jpg";
-import {useUser} from "./../../UserContext";
+import Navbar from "../../components/Navbar";
+import { useUser } from "./../../UserContext";
+import "./../../styles/patelfullmenu.css";
 
 function Patelfullmenu() {
-    const {user, updateUser} = useUser();
-    const hostel = user.hostel;
+  const { user } = useUser();
+  const hostel = user.hostel;
+  const [allMenus, setAllMenus] = useState([]);
+  const [mealDay, setMealDay] = useState("");
+  const [mealTime, setMealTime] = useState("");
+  const [mealName, setMealName] = useState("");
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-    const [allMenus, setAllMenus] = useState([]);
-    const [mealDay, setMealDay] = useState("");
-    const [mealTime, setMealTime] = useState("");
-    const [mealName, setMealName] = useState("");
-    const [selectedImage, setSelectedImage] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get("http://localhost:5000/api/getmessmenu");
+      setAllMenus(response.data);
+      console.log("Mess menu fetched successfully");
+    };
+    fetchData();
+  }, []);
 
-    useEffect(() => {
-        const fetchData = async() => {
-            const messmenu = await axios.get("http://localhost:5000/api/getmessmenu");
-            console.log(messmenu);
-            setAllMenus(messmenu.data);
-            console.log("mess menu fetch success");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // const formData = new FormData();
+    const formData = new URLSearchParams();
+    formData.append("day", mealDay);
+    formData.append("mealTime", mealTime);
+    formData.append("name", mealName);
+    // console.log(mealDay, mealTime, mealName); 
+
+    // console.log("FormData entries:");
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`);
+    // }
+    try {
+      const response = await axios.post("http://localhost:5000/api/addnewmeal", formData, 
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
         }
-        fetchData();
-    }, []);
+      );
+      console.log("response data ", response.data);
+      setMealDay("");
+      setMealTime("");
+      setMealName("");
+      document.getElementById("daySelection").selectedIndex = 0;
+      document.getElementById("timeSelection").selectedIndex = 0;
 
-
-    const handleSubmit = async(e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append("image", selectedImage);
-        formData.append("day", mealDay);
-        formData.append("mealTime", mealTime);
-        formData.append("name", mealName);
-
-        try{
-            const response = await axios.post("http://localhost:5000/api/addnewmeal", formData);
-            console.log(response.data);
-            setMealDay("");
-            setMealName("");
-            setMealTime("");
-            setSelectedImage(null);
-
-
-            document.getElementById("daySelection").selectIndex = 0;
-            document.getElementById("timeSelection").selectIndex = 0;
-            console.log("my foot");
-            
-
-
-            //adding a little delay becuse it takes lttle time to be uploaded the image in folder
-            setTimeout(async () => {
-              try {
-                const updatedMenu = await axios.get("http://localhost:5000/api/getmessmenu");
-                setAllMenus(updatedMenu.data);
-              } catch (error) {
-                console.log("Error in fetching new meals");
-              }
-            }, 2000); // 2000 milliseconds = 2 seconds
-           
-        } catch(error){
-            console.log("error in adding meal");
-        }
+      setTimeout(async () => {
+        const updatedMenu = await axios.get("http://localhost:5000/api/getmessmenu");
+        setAllMenus(updatedMenu.data);
+      }, 2000);
+    } catch (error) {
+      console.log("Error in adding meal:", error);
     }
-
-    const handleFileChange = (e) => {
-        setSelectedImage(e.target.files[0]);
-    }
-
-    function updateWholeMenu(fullMenu){
-      setAllMenus(fullMenu);
-    }
-
+  };
 
 
   return (
     <div className="Patel_full_menu_outermost_div">
       <Navbar />
-      <div>
-        {allMenus.map((singleMenu) => (
-            <Randomdaymessmenu 
-            day={singleMenu.day} 
-            myArray = {singleMenu.allFoodItems}
-            updateWholeMenu = {updateWholeMenu}
-            />
-        ))}
+      <div className="menu-table-div">
+        {allMenus.length > 0 ? (
+          <table>
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>
+                  <ul>
+                    <li>Breakfast</li>
+                    <li>7:45 am - 9:00 am</li>
+                  </ul>
+                </th>
+                <th>
+                  <ul>
+                    <li>Lunch</li>
+                    <li>12:15 pm - 2:00 pm</li>
+                  </ul>
+                </th>
+                <th>
+                  <ul>
+                    <li>Snacks</li>
+                    <li>5:30 pm - 6:30 pm</li>
+                  </ul>
+                </th>
+                <th>
+                  <ul>
+                    <li>Dinner</li>
+                    <li>7:45 pm - 9:00 pm</li>
+                  </ul>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {days.map((day, index) => (
+                <tr key={index}>
+                  <td className="which-day">{day}</td>
+                  <td>
+                    <ul>
+                      {allMenus[index].allFoodItems
+                        .filter((meal) => meal.time === "Breakfast")
+                        .map((meal, idx) => (
+                          <li key={idx}>{meal.name}</li>
+                        ))}
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      {allMenus[index].allFoodItems
+                        .filter((meal) => meal.time === "Lunch")
+                        .map((meal, idx) => (
+                          <li key={idx}>{meal.name}</li>
+                        ))}
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      {allMenus[index].allFoodItems
+                        .filter((meal) => meal.time === "Snacks")
+                        .map((meal, idx) => (
+                          <li key={idx}>{meal.name}</li>
+                        ))}
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      {allMenus[index].allFoodItems
+                        .filter((meal) => meal.time === "Dinner")
+                        .map((meal, idx) => (
+                          <li key={idx}>{meal.name}</li>
+                        ))}
+                    </ul>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>Loading Menu Table ...</p>
+        )}
       </div>
-      {(hostel === 'hostel') && (
+      {hostel === "hostel" && (
         <div className="add_menu_div">
-        <h2>Add new meal</h2>
-        <form
-          onSubmit={handleSubmit}
-        >
+          <h2>Add new meal</h2>
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <div className="daySelection_div">
+              <label htmlFor="daySelection">Day</label>
+              <select
+                name="day"
+                id="daySelection"
+                onChange={(e) => setMealDay(e.target.value)}
+                value={mealDay}
+                required
+              >
+                <option value="" disabled selected hidden>
+                  Select a day
+                </option>
+                {days.map((day, index) => (
+                  <option value={day} key={index}>
+                    {day}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <div className="daySelection_div">
-            <label htmlFor="daySelection">Choose day</label>
-            <select name="daySelection" id="daySelection" value={mealDay} onChange={(e) => setMealDay(e.target.value)}>
-              <option value="">Choose day</option>
-              <option value="Monday">Monday</option>
-              <option value="Tuesday">Tuesday</option>
-              <option value="Wednesday">Wednesday</option>
-              <option value="Thrusday">Thrusday</option>
-              <option value="Friday">Friday</option>
-              <option value="Saturday">Saturday</option>
-              <option value="Sunday">Sunday</option>
-            </select>
-          </div>
-          <div className="timeSelection_div">
-            <label htmlFor="timeSelection">Choose meal</label>
-            <select name="timeSelection" id="timeSelection" value={mealTime} onChange={(e) => setMealTime(e.target.value)}>
-              <option value="">Choose meal time</option>
-              <option value="Breakfast">Breakfast</option>
-              <option value="Lunch">Lunch</option>
-              <option value="Snacks">Snacks</option>
-              <option value="Dinner">Dinner</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="mealNameText">Enter name of the food</label>
-            <input type="text" value={mealName} onChange={(e) => setMealName(e.target.value)}/>
-          </div>
-
-          <label>
-            Choose Image
+            <div className="timeSelection_div">
+              <label htmlFor="timeSelection">Meal Time</label>
+              <select
+                name="mealTime"
+                id="timeSelection"
+                onChange={(e) => setMealTime(e.target.value)}
+                value={mealTime}
+                required
+              >
+                <option value="" disabled selected hidden>
+                  Select a time
+                </option>
+                <option value="Breakfast">Breakfast</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Snacks">Snacks</option>
+                <option value="Dinner">Dinner</option>
+              </select>
+            </div>
+            {/* <label>
+              Select image
+              <input
+                type="file"
+                name="mealImage"
+                accept="image/*"
+                onChange={handleFileChange}
+                required
+              />
+            </label> */}
             <input
-              type="file"
-              name="image"
-              accept="image/*"
-              onChange={handleFileChange}
+              type="text"
+              name="mealName"
+              value={mealName}
+              onChange={(e) => setMealName(e.target.value)}
+              placeholder="Enter meal name"
+              required
             />
-          </label>
-          <button
-            type="submit"
-          >
-            Submit
-          </button>
-        </form>
-      </div>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
       )}
     </div>
   );
 }
+
 export default Patelfullmenu;

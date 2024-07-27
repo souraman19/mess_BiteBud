@@ -1,66 +1,166 @@
-.Patel_full_menu_outermost_div{
-    
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #ffecd2, #fcb69f);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.Patel_full_menu_outermost_div .add_menu_div{
+.Patel_full_menu_outermost_div {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.Patel_full_menu_outermost_div .menu-table-div{
+    width: 100%;
+    /* overflow-x: auto; */
+}
+
+.Patel_full_menu_outermost_div .menu-table-div table tbody .which-day{
+    font-weight: 600;
+}
+.Patel_full_menu_outermost_div .menu-table-div table tbody  li{
+    font-size: medium;
+}
+
+.add_menu_div {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+    max-width: 600px;
+    width: 100%;
     margin-top: 5rem;
-    background-color: antiquewhite;
+    animation: fadeIn 1s ease-in-out;
 }
 
-.Patel_full_menu_outermost_div .add_menu_div>h2{
-    padding: 1.5rem;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+.add_menu_div h2 {
     text-align: center;
+    color: #333;
+    font-weight: bold;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
 }
 
-.Patel_full_menu_outermost_div .add_menu_div>form{
+.add_menu_div form {
     display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
 }
 
-.Patel_full_menu_outermost_div .add_menu_div>form>.daySelection_div{
+.daySelection_div, 
+.timeSelection_div {
     display: flex;
-    gap: 0.5rem;
+    flex-direction: column;
+    width: 100%;
 }
 
-.Patel_full_menu_outermost_div .add_menu_div>form>.daySelection_div>select{
-    border: 2px solid rgb(83, 78, 78);
+select {
+    border: 2px solid #555;
+    padding: 0.8rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: #fafafa;
+    width: 100%;
+    transition: border-color 0.3s;
 }
 
-.Patel_full_menu_outermost_div .add_menu_div>form>.timeSelection_div{
-    display: flex;
-    gap: 0.5rem;
+select:focus {
+    border-color: #ff7e5f;
+    outline: none;
 }
 
-.Patel_full_menu_outermost_div .add_menu_div>form>.timeSelection_div>select{
-    border: 2px solid rgb(83, 78, 78);
+label {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #e7e7e7;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.3s, color 0.3s;
 }
 
-.Patel_full_menu_outermost_div .add_menu_div>form>label{
-    margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: #f0f0f0;
+label:hover {
+    background: #ff7e5f;
+    color: white;
 }
 
-.Patel_full_menu_outermost_div .add_menu_div>form>label>input{
+label input {
     display: none;
 }
 
-.Patel_full_menu_outermost_div .add_menu_div>form>button{
-    background-color: #4caf50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+button {
+    background-color: #ff7e5f;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #ff5f5f;
+    transform: scale(1.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: center;
+}
+
+th {
+    background: #ff7e5f;
+    color: white;
+    font-weight: bold;
+}
+
+td ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+td ul li {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

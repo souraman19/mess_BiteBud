@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../../components/Navbar";
 import Imagebunch from "../../components/ImageBunch";
 import {Link} from "react-router-dom";
-import "./../../styles/patelgallery.css";
+import "./../../styles/PatelGallery.css";
 
 function Patelgallery(){
     return(

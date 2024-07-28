@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./../../styles/everymonthsexpenses.css";
+import "./../../styles/EveryMonthsExpenses.css";
 
 function EveryMonthsExpenses() {
   const [allMonthsExpenses, setAllMonthsExpenses] = useState([]);

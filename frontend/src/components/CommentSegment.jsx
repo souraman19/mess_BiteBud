@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
-import "./../styles/commentsegment.css";
+import "./../styles/CommentSegment.css";
 
 // import required modules
 import { FreeMode, Pagination } from "swiper/modules";

@@ -10,7 +10,7 @@ import Randomcomplaint from "../../components/RandomComplaint.jsx";
 import {useUser} from "./../../UserContext";
 
 //style for whole patel main or first page
-import "./../../styles/patelstudenthomepage.css";
+import "./../../styles/PatelStudentHomePage.css";
 
 
 function Patelstudent(){

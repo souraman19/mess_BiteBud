@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
 import ComplaintList from "../../components/ComplaintList";
-import "./../../styles/patelallcomplaint.css";
+import "./../../styles/PatelAllComplaint.css";
 import {Link} from "react-router-dom";
 
 function PatelAllComplaint(){

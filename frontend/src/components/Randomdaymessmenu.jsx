@@ -11,7 +11,7 @@ import {useUser} from "../UserContext";
 // import { EffectCoverflow, Pagination, Navigation } from 'swiper';
 import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
 
-import "./../styles/randomdaymessmenu.css";
+import "./../styles/RandomDayMessMenu.css";
 import axios from "axios";
 
 function Comment({ day, myArray, updateWholeMenu }) {

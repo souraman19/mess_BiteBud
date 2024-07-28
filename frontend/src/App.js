@@ -13,7 +13,7 @@ import Cheifwarden from './pages/Cheifwarden';
 import Accountant from "./pages/Accountant";
 import Patelallcomplaint from "./pages/patelstudent/Patelallcomplaint.jsx";
 import Signup from './pages/Signup.jsx';
-import Otpverification from "./pages/Otpverification";
+import Otpverification from "./pages/OtpVerification";
 import Passwordcreate from './pages/Passwordcreate';
 import EditExpensePage from './pages/accountant/EditExpensePage';
 import MyAllCommentsPage from "./pages/MyAllCommentsPage";

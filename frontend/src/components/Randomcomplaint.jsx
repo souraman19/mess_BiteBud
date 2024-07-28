@@ -1,5 +1,5 @@
 import React from 'react';
-import './../styles/rrr.css'; // Import the CSS file for styling
+import './../styles/RandomComplaint23.css'; // Import the CSS file for styling
 
 function StarIcon() {
   return (

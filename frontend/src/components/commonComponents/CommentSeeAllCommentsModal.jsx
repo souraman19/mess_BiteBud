@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./../styles/CommentSeeAllCommentsModal.css"; 
-import { useUser } from "../UserContext";
+import { useUser } from "../../UserContext";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 

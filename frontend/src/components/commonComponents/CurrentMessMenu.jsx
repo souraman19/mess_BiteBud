@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useUser } from "../UserContext";
+import { useUser } from "../../UserContext";
 import "./../styles/CurrentMessMenu.css";
 import slide_image_1 from "./../srcimages/food1.jpg";
 import slide_image_2 from "./../srcimages/food2.jpg";

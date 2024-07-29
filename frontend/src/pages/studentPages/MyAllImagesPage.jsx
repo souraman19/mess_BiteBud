@@ -1,7 +1,7 @@
 import React from "react";
-import { useUser } from "../UserContext";
+import { useUser } from "../../UserContext";
 import "./../styles/MyAllImagesPage.css";
-import Navbar from "./../components/Navbar";
+import Navbar from "../../components/commonComponents/Navbar";
 import { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
@@ -46,7 +46,7 @@ function MyAllImagesPage() {
         <div className="my-image-button-div">
             <img
           key={image.id}
-          src={require(`../uploads/${image.img}`)}
+          src={require(`../../uploads/${image.img}`)}
           alt={image.src}
             />
 

@@ -1,12 +1,12 @@
 import React from "react";
 import Navbar from "../../components/Navbar.jsx";
 import Gallary from "../../components/Gallery.jsx";
-import CurrentMessMenu from "../../components/CurrentMessMenu.jsx";
-import Review from "../../components/Review.jsx";
+import CurrentMessMenu from "../../components/commonComponents/CurrentMessMenu.jsx";
+import Review from "../../components/commonComponents/Review.jsx";
 import CommentSegment from "../../components/CommentSegment.jsx";
-import Patelintro from "../../components/patelStudentComponents/Patelintro.jsx";
-import Complaint from "../../components/Complaint.jsx";
-import Randomcomplaint from "../../components/RandomComplaint.jsx";
+import Patelintro from "../../components/studentComponents/Patelintro.jsx";
+import Complaint from "../../components/commonComponents/Complaint.jsx";
+import Randomcomplaint from "../../components/commonComponents/RandomComplaint.jsx";
 import {useUser} from "../../UserContext.js";
 
 //style for whole patel main or first page

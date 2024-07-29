@@ -1,7 +1,7 @@
 import React, { useRef, useState ,  useEffect} from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from 'react-router-dom';
-import {useUser} from "./../UserContext";
+import {useUser} from "../../UserContext.js";
 import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
 

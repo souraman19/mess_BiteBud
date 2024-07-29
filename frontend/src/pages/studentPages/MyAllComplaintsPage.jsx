@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./../styles/ComplaintList.css";
-import ComplaintSlideWithEditDelete from "./../components/ComplaintSlideWithEditDelete";
-import {useUser} from "./../UserContext";
+import ComplaintSlideWithEditDelete from "../../components/commonComponents/ComplaintSlideWithEditDelete";
+import {useUser} from "../../UserContext";
 import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
-import NavBar from "./../components/Navbar";
+import NavBar from "../../components/Navbar";
 
 function Complaintlist() {
   const {user, updateUser} = useUser();

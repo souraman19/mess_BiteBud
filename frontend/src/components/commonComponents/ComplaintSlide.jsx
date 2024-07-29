@@ -1,11 +1,9 @@
 import React from "react";
-import "./../styles/ComplaintSlideWithEditDelete.css";
+import "./../styles/ComplaintSlide.css";
 import CommentReplyModal from "./CommentReplyModal";
-import CommentSeeAllCommentsModal from "./CommentSeeAllCommentsModal";
+import CommentSeeAllCommentsModal from "./CommentSeeAllCommentsModal"
 import { useState } from "react";
-import { useUser } from "./../UserContext";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import { useUser } from "../../UserContext";
 import axios from "axios";
 
 function ComplaintSlide({
@@ -21,8 +19,6 @@ function ComplaintSlide({
   upVotedMembers,
   downVotedMembers,
   isResolved,
-  allComplaints,
-  updateAllComplaints,
 }) {
   const { user, updateUser } = useUser();
   const myName = user.name;
@@ -39,9 +35,6 @@ function ComplaintSlide({
   const [isSeeAllComments, setIsSeeAllComments] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
-
-  const [editedComplaint, setEditedComplaint] = useState(complaint);
-  const [isEditing, setIsEditing] = useState(false);
 
   const handleUpVote = async () => {
     try {
@@ -84,21 +77,18 @@ function ComplaintSlide({
   };
 
   const addDisplayNoneClass = () => {
-    const el = document.getElementById(
-      "complaintslide_comaplintdetails_with_buttons"
-    );
+    const el = document.getElementById("complaintslide_comaplintdetails_with_buttons");
     el.classList.add("none_display");
-  };
+  }
   const removeDisplayNoneClass = () => {
-    const el = document.getElementById(
-      "complaintslide_comaplintdetails_with_buttons"
-    );
+    const el = document.getElementById("complaintslide_comaplintdetails_with_buttons");
     el.classList.remove("none_display");
-  };
+  }
 
   const handleAddComment = (newComment) => {
     setComments([...comments, newComment]);
   };
+
 
   const handleReplyClick = () => {
     addDisplayNoneClass();
@@ -123,63 +113,20 @@ function ComplaintSlide({
   //     setIsReplying(false);
   //   };
 
-  const handleEdit = async() => {
-    try{
-        const response = await axios.put(`http://localhost:5000/api/updatecomplaint/${_id}`, {complaint : editedComplaint});
-        console.log("Complaint editing success");
-        updateAllComplaints(allComplaints.map((com) => 
-            com._id === _id ? {...com, complaint: editedComplaint} : com
-        ));
-        setIsEditing(false);
-    }catch(error){
-        console.log("Error in editing complaint")
-    }
-  }
-
-
-  const handleComplaintDelete = async() => {
-    try{
-        await axios.delete(`http://localhost:5000/api/deletecomplaint/${_id}`);
-        updateAllComplaints(allComplaints.filter((com) => 
-            com._id !== _id
-        ));
-        console.log("complaint deletion successful");
-    } catch(error){
-        console.log("Error while deleting complaints", error);
-    }
-  }
-
-
-
-
-
   return (
     <div className="outer-swiper-plate-complaintslide">
-
       <div id="complaintslide_comaplintdetails_with_buttons" className="">
         <div className="complaintslide-username">
           {/* Display the username */}
           {/* <p>{props.username}</p> */}
-          <p>~ {name}</p>
-                  {/* Resolved status */}
+          <p>{name}</p>
+          {/* Resolved status */}
           <div className={`resolved-status ${isResolved ? 'resolved' : 'not-resolved'}`}>
             {isResolved ? 'Resolved' : 'Not Resolved'}
           </div>
         </div>
         <div className="swiper-client-message-complaintslide">
-          {(isEditing && (!isResolved)) ? (
-            <input type="text" value={editedComplaint}
-            onChange={(e) => setEditedComplaint(e.target.value)}
-            onKeyDown={(event) => {
-                if(event.key === "Enter"){
-                    event.preventDefault();
-                    handleEdit();
-                }
-              }
-            }
-            />
-          ):
-          (<p>{complaint}</p>)}
+          <p>{complaint}</p>
         </div>
         {/* <div className="swiper-client-data-complaintslide grid grid-two-column">
                  
@@ -192,11 +139,6 @@ function ComplaintSlide({
             </div> */}
         <div className="swiper-client-message-complaintslide2">
           <div className="comment-buttons">
-            <button className="delete_button_icon"
-            onClick={handleComplaintDelete}
-            >
-                <DeleteIcon />
-            </button>
             <div className="voting-button">
               <button
                 className={`upvote-button ${
@@ -218,30 +160,22 @@ function ComplaintSlide({
               </button>
             </div>
             <div className="replyysectiion">
-              <button
-                className="reply-button"
-                onClick={handleSeeAllCommentsClick}
-              >
+              <button className="reply-button" onClick={handleSeeAllCommentsClick}>
                 {/* Replace with your reply icon */}
-                <span>&#8617;</span> See All Comments
+                <span>&#8617;</span> See All Comments 
               </button>
               <button className="reply-button" onClick={handleReplyClick}>
                 {/* Replace with your reply icon */}
                 <span>&#8617;</span> Reply
               </button>
             </div>
-            <button className="edit_button_icon"
-                onClick={() => setIsEditing(true)}
-            >
-                <EditIcon />
-            </button>
           </div>
         </div>
       </div>
       {isReplying && (
         <CommentReplyModal
           onClose={handleCloseReplyModal}
-          complaintId={_id}
+          complaintId = {_id}
           commentsOnComplaint={commentsOnComplaint}
           onAddComment={handleAddComment}
         />
@@ -249,7 +183,7 @@ function ComplaintSlide({
       {isSeeAllComments && (
         <CommentSeeAllCommentsModal
           onClose={handleCloseSeeAllCommentsModal}
-          complaintId={_id}
+          complaintId = {_id}
           commentsOnComplaint={commentsOnComplaint}
           onAddComment={handleAddComment}
         />

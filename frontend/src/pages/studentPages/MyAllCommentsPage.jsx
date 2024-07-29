@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./../components/Navbar";
-import CommentSegmentSlideWithButtons from "./../components/CommentSegmentSlideWithButtons";
+import Navbar from "../../components/Navbar";
+import CommentSegmentSlideWithButtons from "../../components/commonComponents/CommentSegmentSlideWithButtons";
 import "./../styles/CommentList.css";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-import {useUser} from "./../UserContext";
+import {useUser} from "../../UserContext";
 
 function Commentlist() { 
 

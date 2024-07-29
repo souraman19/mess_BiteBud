@@ -1,11 +1,11 @@
 import React from "react";
-import Navbar from "./../components/Navbar";
-import AccountantIntro from "../components/accountantComponents/AccountantIntro";
+import Navbar from "../../components/Navbar.jsx";
+import AccountantIntro from "../../components/accountantComponents/AccountantIntro.jsx";
 import { Link } from "react-router-dom";
-import Gallary from "../components/Gallery.jsx";
-import Feedback from "../components/CommentSegment.jsx";
-import Complaint from "./../../src/components/Complaint.jsx";
-import Currentmenu from "../components/CurrentMessMenu.jsx";
+import Gallary from "../../components/Gallery.jsx";
+import Feedback from "../../components/CommentSegment.jsx";
+import Complaint from "../../components/commonComponents/Complaint.jsx";
+import Currentmenu from "../../components/commonComponents/CurrentMessMenu.jsx";
 function Accountant(){
     return(
         <div>

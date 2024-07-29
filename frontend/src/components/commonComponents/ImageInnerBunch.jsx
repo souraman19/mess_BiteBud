@@ -8,7 +8,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
 import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
-import { useUser } from "../UserContext";
+import { useUser } from "../../UserContext";
 import {v4 as uuidv4} from "uuid";
 
 const VisuallyHiddenInput = styled("input")({

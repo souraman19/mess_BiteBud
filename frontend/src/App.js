@@ -1,26 +1,26 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // import Navigation from './Navigation';
-import Home from './pages/Home';
-import Login from './pages/Login';
+import Home from './pages/Home.jsx';
+import Login from './pages/Login.jsx';
 // import Navbar from './components/Navbar.jsx'
 import PatelStudentHomePage from './pages/patelstudent/PatelStudentHomePage';
-import Tilakstudent from './pages/Tilakstudent';
+import Tilakstudent from './pages/Tilakstudent.jsx';
 import Patelgallery from "./pages/patelstudent/Patelgallery.jsx";
 import Patelcomment from './pages/patelstudent/Patelcomment.jsx';
 import Patelfullmenu from './pages/patelstudent/Patelfullmenu.jsx';
-import Cheifwarden from './pages/Cheifwarden';
-import Accountant from "./pages/Accountant";
+import Cheifwarden from './pages/Cheifwarden.jsx';
+import Accountant from "./pages/Accountant.jsx";
 import Patelallcomplaint from "./pages/patelstudent/Patelallcomplaint.jsx";
 import Signup from './pages/Signup.jsx';
-import Otpverification from "./pages/OtpVerification";
-import Passwordcreate from './pages/Passwordcreate';
-import EditExpensePage from './pages/accountant/EditExpensePage';
-import MyAllCommentsPage from "./pages/MyAllCommentsPage";
-import MyAllComplaintsPage from "./pages/MyAllComplaintsPage";
+import Otpverification from "./pages/OtpVerification.jsx";
+import Passwordcreate from './pages/Passwordcreate.jsx';
+import EditExpensePage from './pages/accountant/EditExpensePage.jsx';
+import MyAllCommentsPage from "./pages/MyAllCommentsPage.jsx";
+import MyAllComplaintsPage from "./pages/MyAllComplaintsPage.jsx";
 import MyAllImagesPage from "./pages/MyAllImagesPage.jsx";
 import ForgotPassword from './components/ForgotPassword.jsx';
-import {UserProvider} from "./UserContext";
+import {UserProvider} from "./UserContext.js";
 
 function App() {
     return (

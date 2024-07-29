@@ -7,7 +7,7 @@ import CommentSegment from "../../components/CommentSegment.jsx";
 import Patelintro from "../../components/patelStudentComponents/Patelintro.jsx";
 import Complaint from "../../components/Complaint.jsx";
 import Randomcomplaint from "../../components/RandomComplaint.jsx";
-import {useUser} from "./../../UserContext";
+import {useUser} from "../../UserContext.js";
 
 //style for whole patel main or first page
 import "./../../styles/PatelStudentHomePage.css";

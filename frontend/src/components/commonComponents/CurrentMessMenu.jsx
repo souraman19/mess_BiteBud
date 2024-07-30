@@ -10,14 +10,14 @@ import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useUser } from "../../UserContext";
-import "./../styles/CurrentMessMenu.css";
-import slide_image_1 from "./../srcimages/food1.jpg";
-import slide_image_2 from "./../srcimages/food2.jpg";
-import slide_image_3 from "./../srcimages/food3.jpg";
-import slide_image_4 from "./../srcimages/food4.jpg";
-import slide_image_5 from "./../srcimages/food1.jpg";
-import slide_image_6 from "./../srcimages/food2.jpg";
-import slide_image_7 from "./../srcimages/food3.jpg";
+import "./../../styles/CurrentMessMenu.css";
+import slide_image_1 from "./../../srcimages/food1.jpg";
+import slide_image_2 from "./../../srcimages/food2.jpg";
+import slide_image_3 from "./../../srcimages/food3.jpg";
+import slide_image_4 from "./../../srcimages/food4.jpg";
+import slide_image_5 from "./../../srcimages/food1.jpg";
+import slide_image_6 from "./../../srcimages/food2.jpg";
+import slide_image_7 from "./../../srcimages/food3.jpg";
 
 function Comment() {
   const { user } = useUser();

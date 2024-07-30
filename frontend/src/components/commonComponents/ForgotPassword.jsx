@@ -1,8 +1,8 @@
 import React from "react";
-import img1 from "./../srcimages/ss1.png";
-import img2 from "./../srcimages/ss2.png";
-import img3 from "./../srcimages/ss3.png";
-import img4 from "./../srcimages/ss4.png";
+import img1 from "./../../srcimages/ss1.png";
+import img2 from "./../../srcimages/ss2.png";
+import img3 from "./../../srcimages/ss3.png";
+import img4 from "./../../srcimages/ss4.png";
 
 function ForgotPassword(){
     return (

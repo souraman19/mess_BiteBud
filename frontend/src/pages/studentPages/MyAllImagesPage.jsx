@@ -1,6 +1,6 @@
 import React from "react";
 import { useUser } from "../../UserContext";
-import "./../styles/MyAllImagesPage.css";
+import "./../../styles/MyAllImagesPage.css";
 import Navbar from "../../components/commonComponents/Navbar";
 import { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";

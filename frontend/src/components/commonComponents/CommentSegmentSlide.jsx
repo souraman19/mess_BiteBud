@@ -1,5 +1,5 @@
 import React from "react";
-import "./../styles/CommentSegmentSlide.css";
+import "./../../styles/CommentSegmentSlide.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 

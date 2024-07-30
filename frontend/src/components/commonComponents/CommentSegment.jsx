@@ -8,12 +8,12 @@ import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
-import "./../styles/CommentSegment.css";
+import "./../../styles/CommentSegment.css";
 
 // import required modules
 import { FreeMode, Pagination } from "swiper/modules";
 import SwiperCore from "swiper";
-import {useUser} from "./../UserContext";
+import {useUser} from "./../../UserContext";
 import axios from "axios";
 import CommentSegmentSlide from "./CommentSegmentSlide";
 

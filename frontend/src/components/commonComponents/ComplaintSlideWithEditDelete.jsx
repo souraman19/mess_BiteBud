@@ -1,5 +1,5 @@
 import React from "react";
-import "./../styles/ComplaintSlideWithEditDelete.css";
+import "./../../styles/ComplaintSlideWithEditDelete.css";
 import CommentReplyModal from "./CommentReplyModal";
 import CommentSeeAllCommentsModal from "./CommentSeeAllCommentsModal";
 import { useState } from "react";

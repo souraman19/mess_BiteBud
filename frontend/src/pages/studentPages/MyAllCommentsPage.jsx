@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/commonComponents/Navbar";
 import CommentSegmentSlideWithButtons from "../../components/commonComponents/CommentSegmentSlideWithButtons";
-import "./../styles/CommentList.css";
+import "./../../styles/CommentList.css";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import {useUser} from "../../UserContext";

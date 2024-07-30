@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./../../components/Navbar";
+import Navbar from "./../../components/commonComponents/Navbar";
 import AllExpenses from "../../components/accountantComponents/AllExpenses";
 
 function EditExpensePage(){

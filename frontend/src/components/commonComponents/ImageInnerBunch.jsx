@@ -108,7 +108,7 @@ const Imageinnerbunch = () => {
         {allImage && allImage.map((data, index) => (
           <div key={index} style={{ cursor: "pointer" }} onClick={() => openModal(data.img)}>
             <img
-              src={require(`./../uploads/${data.img}`)}
+              src={require(`./../../uploads/${data.img}`)}
               alt={data.image}
               style={{
                 width: "100%",
@@ -126,7 +126,7 @@ const Imageinnerbunch = () => {
           {selectedImage && (
             <>
               <img
-                src={require(`./../uploads/${selectedImage}`)}
+                src={require(`./../../uploads/${selectedImage}`)}
                 alt={selectedImage}
                 style={{ maxWidth: "90%", maxHeight: "90%", objectFit: "contain" }}
               />

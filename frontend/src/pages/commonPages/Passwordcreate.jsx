@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./../styles/Signup.css";
+import "./../../styles/Signup.css";
 
 function Passwordcreate() {
   const [email, setEmail] = useState("");

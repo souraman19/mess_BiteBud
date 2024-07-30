@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "../../components/Navbar";
-import ComplaintList from "../../components/ComplaintList";
+import Navbar from "../../components/commonComponents/Navbar";
+import ComplaintList from "../../components/commonComponents/ComplaintList";
 import "./../../styles/PatelAllComplaint.css";
 import {Link} from "react-router-dom";
 

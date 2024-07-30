@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./../styles/CommentReplyModal.css"; 
-import { useUser } from "../UserContext";
+import "./../../styles/CommentReplyModal.css"; 
+import { useUser } from "../../UserContext";
 import axios from "axios";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { v4 as uuidv4 } from 'uuid';

@@ -1,5 +1,5 @@
 import React from "react";
-import ControlledCarousel from "./commonComponents/ControlledCarousel";
+import ControlledCarousel from "./ControlledCarousel";
 
 function Messmenu() {
     return (

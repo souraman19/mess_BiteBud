@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Navbar from "../../components/Navbar";
-import { useUser } from "./../../UserContext";
+import Navbar from "../../components/commonComponents/Navbar";
+import { useUser } from "../../UserContext";
 import "./../../styles/PatelFullMenu.css";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";

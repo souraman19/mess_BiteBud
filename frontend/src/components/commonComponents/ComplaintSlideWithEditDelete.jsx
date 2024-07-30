@@ -154,19 +154,19 @@ function ComplaintSlide({
 
 
   return (
-    <div className="outer-swiper-plate-complaintslide">
+    <div className="outer-swiper-plate-complaintslide_with_edit_delete">
 
       <div id="complaintslide_comaplintdetails_with_buttons" className="">
-        <div className="complaintslide-username">
+        <div className="complaintslide-username_with_edit_delete">
           {/* Display the username */}
           {/* <p>{props.username}</p> */}
           <p>~ {name}</p>
                   {/* Resolved status */}
-          <div className={`resolved-status ${isResolved ? 'resolved' : 'not-resolved'}`}>
+          <div className={`resolved-status ${isResolved ? 'resolved_with_edit_delete' : 'not-resolved_with_edit_delete'}`}>
             {isResolved ? 'Resolved' : 'Not Resolved'}
           </div>
         </div>
-        <div className="swiper-client-message-complaintslide">
+        <div className="swiper-client-message-complaintslide_with_edit_delete">
           {(isEditing && (!isResolved)) ? (
             <input type="text" value={editedComplaint}
             onChange={(e) => setEditedComplaint(e.target.value)}
@@ -190,17 +190,17 @@ function ComplaintSlide({
                     <p>Entrepreneur</p>
                  </div>
             </div> */}
-        <div className="swiper-client-message-complaintslide2">
-          <div className="comment-buttons">
-            <button className="delete_button_icon"
+        <div className="swiper-client-message-complaintslide2_with_edit_delete">
+          <div className="comment-buttons_with_edit_delete">
+            <button className="delete_button_icon_with_edit_delete"
             onClick={handleComplaintDelete}
             >
                 <DeleteIcon />
             </button>
-            <div className="voting-button">
+            <div className="voting-button_with_edit_delete">
               <button
                 className={`upvote-button ${
-                  isUpVoteBlinking ? "blinking" : ""
+                  isUpVoteBlinking ? "blinking_with_edit_delete" : ""
                 }`}
                 onClick={handleUpVote}
               >
@@ -209,7 +209,7 @@ function ComplaintSlide({
               </button>
               <button
                 className={`downvote-button ${
-                  isDownVoteBlinking ? "blinking" : ""
+                  isDownVoteBlinking ? "blinking_with_edit_delete" : ""
                 }`}
                 onClick={handleDownVote}
               >
@@ -217,20 +217,20 @@ function ComplaintSlide({
                 <span>&#9660;</span> {downVotes}
               </button>
             </div>
-            <div className="replyysectiion">
+            <div className="replyysectiion_with_edit_delete">
               <button
-                className="reply-button"
+                className="reply-button_with_edit_delete"
                 onClick={handleSeeAllCommentsClick}
               >
                 {/* Replace with your reply icon */}
                 <span>&#8617;</span> See All Comments
               </button>
-              <button className="reply-button" onClick={handleReplyClick}>
+              <button className="reply-button_with_edit_delete" onClick={handleReplyClick}>
                 {/* Replace with your reply icon */}
                 <span>&#8617;</span> Reply
               </button>
             </div>
-            <button className="edit_button_icon"
+            <button className="edit_button_icon_with_edit_delete"
                 onClick={() => setIsEditing(true)}
             >
                 <EditIcon />

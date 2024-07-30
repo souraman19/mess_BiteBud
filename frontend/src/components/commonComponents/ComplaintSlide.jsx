@@ -7,8 +7,10 @@ import { useUser } from "../../UserContext";
 import axios from "axios";
 
 function ComplaintSlide({
+  title,
   _id,
   name,
+  hostel = "hostel",
   username,
   regNo,
   year,
@@ -115,18 +117,26 @@ function ComplaintSlide({
 
   return (
     <div className="outer-swiper-plate-complaintslide">
-      <div id="complaintslide_comaplintdetails_with_buttons" className="">
+      <div id="complaintslide_comaplintdetails_with_buttons" className="complaintslide_comaplintdetails_with_buttons" >
+
         <div className="complaintslide-username">
           {/* Display the username */}
           {/* <p>{props.username}</p> */}
-          <p>{name}</p>
+          <p>{title}</p>
           {/* Resolved status */}
+
+          {isResolved ? 
+      <i className="fas fa-check" style={{ color: 'green', fontSize: '1.5rem' }}></i> : 
+      <i className="fas fa-exclamation" style={{ color: 'red', fontSize: '1.5rem' }}></i>
+    }
           <div className={`resolved-status ${isResolved ? 'resolved' : 'not-resolved'}`}>
-            {isResolved ? 'Resolved' : 'Not Resolved'}
           </div>
+
         </div>
+        
         <div className="swiper-client-message-complaintslide">
           <p>{complaint}</p>
+          <p className="swiper-client-message-complaintslide-time"> ~ 2 days ago</p>
         </div>
         {/* <div className="swiper-client-data-complaintslide grid grid-two-column">
                  
@@ -159,16 +169,26 @@ function ComplaintSlide({
                 <span>&#9660;</span> {downVotes}
               </button>
             </div>
-            <div className="replyysectiion">
-              <button className="reply-button" onClick={handleSeeAllCommentsClick}>
-                {/* Replace with your reply icon */}
-                <span>&#8617;</span> See All Comments 
-              </button>
-              <button className="reply-button" onClick={handleReplyClick}>
-                {/* Replace with your reply icon */}
-                <span>&#8617;</span> Reply
-              </button>
+
+            <div className="reply_sectiion">
+              {
+                hostel=='hostel' ? 
+                (
+                  <button className="reply-button" onClick={handleReplyClick}>
+                    <span>&#8617;</span> Resolve
+                  </button>
+                ):(
+                  <div>
+                    <button className="reply-button" onClick={handleReplyClick}>
+                     Resolved <p className="resolved_time">3 days ago</p>
+                  </button>
+
+                  </div>
+
+                )
+              }
             </div>
+
           </div>
         </div>
       </div>

@@ -2,20 +2,29 @@ import React from "react";
 import Navbar from "../../components/commonComponents/Navbar";
 import ComplaintList from "../../components/commonComponents/ComplaintList";
 import "./../../styles/PatelAllComplaint.css";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function PatelAllComplaint(){
-
-        return (
-            <div id="PatelAllComplaint_outermost_div" className="">
-                <Navbar />
-                <Link to="/myallcomplaints" style={{color:"inherit", textDecoration:"none"}}>
-                    <h2 className="my_complaints">My Complaints</h2>
-                </Link>
-                <ComplaintList 
-                />
-            </div>
-        );
+function PatelAllComplaint() {
+  return (
+    <div id="PatelAllComplaint_outermost_div" className="">
+      <Navbar />
+      <div style={{display:"flex", justifyContent:"center"}}>
+        <Link
+          to="/myallcomplaints"
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
+          <h2 className="my_complaints">All Complaints</h2>
+        </Link>
+        <Link
+          to="/myallcomplaints"
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
+          <h2 className="my_complaints">My Complaints</h2>
+        </Link>
+      </div>
+      <ComplaintList />
+    </div>
+  );
 }
 
 export default PatelAllComplaint;

@@ -77,17 +77,20 @@ function Complaintlist() {
       <div className="commentlist-second-outer container">
         <h1>All Complaint List</h1>
         <div className="row">
-          <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
-            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." 
+          <div className="col-12 col-sm-8 col-md-8 col-lg-8 mb-8" style={{ height: 'auto !importnt'}}> 
+            <ComplaintSlide complaint="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad."
+              title= "My Random Complaint" 
             />
           </div>
         
           {allComplaints.map((singleCommentMap, index) => (
             <div
               key={index}
-              className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8"
+              className="col-12 col-sm-8 col-md-8 col-lg-8 mb-8" style={{ height: 'auto' }}
             >
               <ComplaintSlide 
+              title="My Random Complaint"
+              hostel = {singleCommentMap.hostel}
               _id = {singleCommentMap._id}
               name = {singleCommentMap.name}
               username = {singleCommentMap. username}

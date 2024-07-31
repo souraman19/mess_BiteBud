@@ -5,6 +5,7 @@ import CommentSeeAllCommentsModal from "./CommentSeeAllCommentsModal"
 import { useState } from "react";
 import { useUser } from "../../UserContext";
 import axios from "axios";
+import ResolveMessage from "./ResolveMessage";
 
 function ComplaintSlide({
   title,
@@ -33,7 +34,7 @@ function ComplaintSlide({
   const [downVotes, setDownVotes] = useState(downVoteCount);
   const [isUpVoteBlinking, setIsUpVoteBlinking] = useState(false);
   const [isDownVoteBlinking, setIsDownVoteBlinking] = useState(false);
-  const [isReplying, setIsReplying] = useState(false);
+  const [isResolving, setIsResolving] = useState(false);
   const [isSeeAllComments, setIsSeeAllComments] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
@@ -92,18 +93,18 @@ function ComplaintSlide({
   };
 
 
-  const handleReplyClick = () => {
+  const handleResolveClick = () => {
     addDisplayNoneClass();
-    setIsReplying(true);
+    setIsResolving(true);
   };
   const handleSeeAllCommentsClick = () => {
     addDisplayNoneClass();
     setIsSeeAllComments(true);
   };
 
-  const handleCloseReplyModal = () => {
+  const handleCloseResolveModal = () => {
     removeDisplayNoneClass();
-    setIsReplying(false);
+    setIsResolving(false);
   };
   const handleCloseSeeAllCommentsModal = () => {
     removeDisplayNoneClass();
@@ -174,12 +175,12 @@ function ComplaintSlide({
               {
                 hostel=='hostel' ? 
                 (
-                  <button className="reply-button" onClick={handleReplyClick}>
+                  <button className="reply-button" onClick={handleResolveClick}>
                     <span>&#8617;</span> Resolve
                   </button>
                 ):(
                   <div>
-                    <button className="reply-button" onClick={handleReplyClick}>
+                    <button className="reply-button" onClick={handleResolveClick}>
                      Resolved <p className="resolved_time">3 days ago</p>
                   </button>
 
@@ -192,20 +193,10 @@ function ComplaintSlide({
           </div>
         </div>
       </div>
-      {isReplying && (
-        <CommentReplyModal
-          onClose={handleCloseReplyModal}
-          complaintId = {_id}
-          commentsOnComplaint={commentsOnComplaint}
-          onAddComment={handleAddComment}
-        />
-      )}
-      {isSeeAllComments && (
-        <CommentSeeAllCommentsModal
-          onClose={handleCloseSeeAllCommentsModal}
-          complaintId = {_id}
-          commentsOnComplaint={commentsOnComplaint}
-          onAddComment={handleAddComment}
+      {isResolving && (
+        <ResolveMessage 
+          onClose={handleCloseResolveModal}
+          complaintId={_id}
         />
       )}
     </div>

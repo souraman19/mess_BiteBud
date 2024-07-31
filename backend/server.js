@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const apiRoutes = require('./routes/api'); 
+const complaintRoutes= require('./routes/complaintRoutes/complaintRoute');
 
 // Set proxy environment variables
 
@@ -26,6 +27,7 @@ mongoose.connect('mongodb+srv://Sourajit:Cybersoura@clusterwebster.ugk1voi.mongo
 // Define routes (you'll create these later)
 // app.use('/api', require('./routes/api'));
 app.use('/api', apiRoutes);
+app.use('/api/complaintRoutes', complaintRoutes);
 
 
 // Start the server

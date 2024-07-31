@@ -34,7 +34,7 @@ function Complaintlist() {
     }catch(error){
       console.error("Error in fetching comments", error);
     }
-  }, []);
+  }, [allComplaints]);
 
 
   const handleComplaintChange = (event) => {
@@ -103,6 +103,9 @@ function Complaintlist() {
               upVotedMembers = {singleCommentMap.upVotedMembers}
               downVotedMembers = {singleCommentMap.downVotedMembers}
               isResolved = {singleCommentMap.isResolved}
+              resolvedBy = {singleCommentMap.resolvedBy}
+              resolvedTime = {singleCommentMap.resolvedTime}
+              resolvedMessage = {singleCommentMap.resolvedMessage}
               />
             </div>
           ))}

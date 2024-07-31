@@ -20,9 +20,27 @@ function ResolveMessage({onClose, complaintId}) {
                 isResolved: true,
                 resolvedBy: identity,
                 resolvedTime: new Date(),
+                resolvedMessage: message,
             }
             const response = await axios.patch(`http://localhost:5000/api/complaintRoutes/resolvecomplaint/${complaintId}`, updatedPortionWithData);
             console.log("Updated data after resolving complaint", response.data);
+            onClose();
+        }catch(err){
+            console.error("Error in resolving complaint with message", err);
+        }
+    }
+
+    const handleResolveComplaintWithoutMessage = async () => {
+        try{
+            const updatedPortionWithData = {
+                isResolved: true,
+                resolvedBy: identity,
+                resolvedTime: new Date(),
+                resolvedMessage: "No Message",
+            }
+            const response = await axios.patch(`http://localhost:5000/api/complaintRoutes/resolvecomplaint/${complaintId}`, updatedPortionWithData);
+            console.log("Updated data after resolving complaint", response.data);
+            onClose();
         }catch(err){
             console.error("Error in resolving complaint with message", err);
         }
@@ -37,13 +55,13 @@ function ResolveMessage({onClose, complaintId}) {
     {
         !isResolvingWithMessage &&
         <div className="resolve_without_message_resolve_button_div_resolve_message">
-            <button>Without Message</button>
-            <button onClick={() => setIsResolvingWithMessage(true)} >With Message</button>
+            <button onClick={handleResolveComplaintWithoutMessage} >Without Message</button>
+            <button onClick={() => setIsResolvingWithMessage(true)}>With Message</button>
         </div>
     }
     {   isResolvingWithMessage && 
         <div className="resolve_message_with_message_box">
-            <textarea id="auto-resize-textarea" value={message} onChange={setMessage}/>
+            <textarea id="auto-resize-textarea" value={message} onChange={(e) => setMessage(e.target.value)}/>
             <div className="resolve_without_message_resolve_button_div_resolve_message">
                 <button onClick={handleResolveComplaintWithMessage}>Resolve</button>
                 <button onClick={() => setIsResolvingWithMessage(false)} >Cancel</button>

@@ -1,11 +1,13 @@
 import React from "react";
 import "./../../styles/ComplaintSlide.css";
 import CommentReplyModal from "./CommentReplyModal";
-import CommentSeeAllCommentsModal from "./CommentSeeAllCommentsModal"
+import CommentSeeAllCommentsModal from "./CommentSeeAllCommentsModal";
+import SeeResolvedComplaintMessage from "./SeeResolvedComplaintMessage";
 import { useState } from "react";
 import { useUser } from "../../UserContext";
 import axios from "axios";
 import ResolveMessage from "./ResolveMessage";
+import { MdEmail } from "react-icons/md";
 
 function ComplaintSlide({
   title,
@@ -22,6 +24,9 @@ function ComplaintSlide({
   upVotedMembers,
   downVotedMembers,
   isResolved,
+  resolvedBy,
+  resolvedTime,
+  resolvedMessage,
 }) {
   const { user, updateUser } = useUser();
   const myName = user.name;
@@ -29,6 +34,7 @@ function ComplaintSlide({
   const myRegNo = user.regNo;
   const myYear = user.year;
   const myProfilePic = user.profilePic;
+  const identity = user.identity;
 
   const [upVotes, setUpVotes] = useState(upVoteCount);
   const [downVotes, setDownVotes] = useState(downVoteCount);
@@ -38,6 +44,7 @@ function ComplaintSlide({
   const [isSeeAllComments, setIsSeeAllComments] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
+  const [seeResolvedMessage, setSeeResolvedMessage] = useState(false);
 
   const handleUpVote = async () => {
     try {
@@ -80,36 +87,43 @@ function ComplaintSlide({
   };
 
   const addDisplayNoneClass = () => {
-    const el = document.getElementById("complaintslide_comaplintdetails_with_buttons");
+    const el = document.getElementById(
+      "complaintslide_comaplintdetails_with_buttons"
+    );
     el.classList.add("none_display");
-  }
+  };
   const removeDisplayNoneClass = () => {
-    const el = document.getElementById("complaintslide_comaplintdetails_with_buttons");
+    const el = document.getElementById(
+      "complaintslide_comaplintdetails_with_buttons"
+    );
     el.classList.remove("none_display");
-  }
+  };
 
   const handleAddComment = (newComment) => {
     setComments([...comments, newComment]);
   };
 
-
   const handleResolveClick = () => {
     addDisplayNoneClass();
     setIsResolving(true);
   };
-  const handleSeeAllCommentsClick = () => {
+
+  const handleClickSeeResolvinMessagegModal = () => {
     addDisplayNoneClass();
-    setIsSeeAllComments(true);
+    setSeeResolvedMessage(true);
   };
+
 
   const handleCloseResolveModal = () => {
     removeDisplayNoneClass();
     setIsResolving(false);
   };
-  const handleCloseSeeAllCommentsModal = () => {
+
+  const handleCloseSeeResolvinMessagegModal = () => {
     removeDisplayNoneClass();
-    setIsSeeAllComments(false);
+    setSeeResolvedMessage(false);
   };
+
 
   //   const handleAddComment = (commentText) => {
   //     console.log("Posted Comment:", commentText);
@@ -118,26 +132,40 @@ function ComplaintSlide({
 
   return (
     <div className="outer-swiper-plate-complaintslide">
-      <div id="complaintslide_comaplintdetails_with_buttons" className="complaintslide_comaplintdetails_with_buttons" >
-
+      <div
+        id="complaintslide_comaplintdetails_with_buttons"
+        className="complaintslide_comaplintdetails_with_buttons"
+      >
         <div className="complaintslide-username">
           {/* Display the username */}
           {/* <p>{props.username}</p> */}
           <p>{title}</p>
           {/* Resolved status */}
 
-          {isResolved ? 
-      <i className="fas fa-check" style={{ color: 'green', fontSize: '1.5rem' }}></i> : 
-      <i className="fas fa-exclamation" style={{ color: 'red', fontSize: '1.5rem' }}></i>
-    }
-          <div className={`resolved-status ${isResolved ? 'resolved' : 'not-resolved'}`}>
-          </div>
-
+          {isResolved ? (
+            <i
+              className="fas fa-check"
+              style={{ color: "green", fontSize: "1.5rem" }}
+            ></i>
+          ) : (
+            <i
+              className="fas fa-exclamation"
+              style={{ color: "red", fontSize: "1.5rem" }}
+            ></i>
+          )}
+          <div
+            className={`resolved-status ${
+              isResolved ? "resolved" : "not-resolved"
+            }`}
+          ></div>
         </div>
-        
+
         <div className="swiper-client-message-complaintslide">
           <p>{complaint}</p>
-          <p className="swiper-client-message-complaintslide-time"> ~ 2 days ago</p>
+          <p className="swiper-client-message-complaintslide-time">
+            {" "}
+            ~ 2 days ago
+          </p>
         </div>
         {/* <div className="swiper-client-data-complaintslide grid grid-two-column">
                  
@@ -172,32 +200,40 @@ function ComplaintSlide({
             </div>
 
             <div className="reply_sectiion">
-              {
-                hostel=='hostel' ? 
-                (
-                  <button className="reply-button" onClick={handleResolveClick}>
-                    <span>&#8617;</span> Resolve
+              {!isResolved ? (
+                <div>
+                  {identity === "accountant" ? (
+                    <button
+                      className="reply-button"
+                      onClick={handleResolveClick}
+                    >
+                      <span>&#8617;</span> Resolve
+                    </button>
+                  ) : (
+                    <button className="reply-button">UnResolved</button>
+                  )}
+                </div>
+              ) : (
+                <div>
+                  <button className="reply-button">
+                    Resolved <p className="resolved_time">{resolvedTime}</p>
                   </button>
-                ):(
-                  <div>
-                    <button className="reply-button" onClick={handleResolveClick}>
-                     Resolved <p className="resolved_time">3 days ago</p>
-                  </button>
-
-                  </div>
-
-                )
-              }
+                </div>
+              )}
+              {isResolved && (
+                <div onClick={handleClickSeeResolvinMessagegModal} className="Resolved_message_email_icon_complaintSlide" style={{ display: "flex", alignItems: "center" }}>
+                  <MdEmail size={24} color="#3472db" />
+                </div>
+              )}
             </div>
-
           </div>
         </div>
       </div>
       {isResolving && (
-        <ResolveMessage 
-          onClose={handleCloseResolveModal}
-          complaintId={_id}
-        />
+        <ResolveMessage onClose={handleCloseResolveModal} complaintId={_id} />
+      )}
+      {seeResolvedMessage && (
+        <SeeResolvedComplaintMessage onClose={handleCloseSeeResolvinMessagegModal} resolvedMessage = {resolvedMessage} />
       )}
     </div>
   );

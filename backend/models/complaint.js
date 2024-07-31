@@ -18,6 +18,7 @@ const complaintschema = new mongoose.Schema({
     isResolved:{type: Boolean, default: false},
     resolvedBy:{type: String, default: ""},
     resolvedTime: {type: Date, default: Date.now},
+    resolvedMessage: {type: String, default: ""},
 });
 
 const Complaint = mongoose.model('Complaint', complaintschema);

@@ -47,6 +47,7 @@ function Complaintlist() {
       const newComplaint = {
         _id : _id,
         name: name,
+        time: "2024-07-31T17:28:51.656+00:00",
         username: username,
         regNo: regNo, 
         year: year,
@@ -95,6 +96,7 @@ function Complaintlist() {
               name = {singleCommentMap.name}
               username = {singleCommentMap. username}
               regNo = {singleCommentMap. regNo}
+              time={singleCommentMap.time}
               year = {singleCommentMap.year}
               complaint={singleCommentMap.complaint}
               commentsOnComplaint = {singleCommentMap.commentsOnComplaint}

@@ -1,32 +1,38 @@
-import React, { useRef, useState ,  useEffect} from "react";
+import React, { useRef, useState, useEffect } from "react";
+
+// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Link } from 'react-router-dom';
-import {useUser} from "../../UserContext.js";
-import { v4 as uuidv4 } from 'uuid';
-import axios from "axios";
+import { Link } from "react-router-dom";
 
 // Import Swiper styles
 import "swiper/css";
+import "swiper/css/free-mode";
 import "swiper/css/pagination";
-import { EffectCards } from 'swiper/modules';
+// import "./../../styles/CommentSegment.css";
 
-import "./../../styles/Complaint.css";
-import Randomcomplaint from "./RandomComplaint.jsx";
+// import required modules
+import { FreeMode, Pagination } from "swiper/modules";
+import SwiperCore from "swiper";
+import {useUser} from "./../../UserContext";
+import axios from "axios";
+import ComplaintSegmentSlide from "./ComplaintSegmentSlide";
 
+import "swiper/swiper-bundle.css"; // Import the Swiper styles
 
-import { Pagination } from "swiper/modules";
+// Initiate SwiperCore
+SwiperCore.use([FreeMode, Pagination]);
 
-export default function Complaint() {
+export default function CommentSegment() {
   const {user} = useUser();
-  console.log("User in 5: ", user);
+  console.log("User in 1: ", user);
   const name = user?.name;
-  const username = user?.username;
-  const hostel = user?.hostel;
   const regNo = user?.regNo;
+  const hostel = user?.hostel;
+  const username = user?.username;
   const year = user?.year;
   const profilePic = user?.profilePic;
-  const [allComplaints, setAllComplaints] = useState([]);
 
+  const [complaints, setComplaints] = useState([]);
   useEffect(() => {
     try{
       const fetchData = async() => {
@@ -35,9 +41,9 @@ export default function Complaint() {
         const myHostelComplaints = response.data;
         if(hostel !== "hostel"){
           const myHostelComplaints = response.data.filter((x) => x.hostel === hostel);
-          setAllComplaints(myHostelComplaints);
+          setComplaints(myHostelComplaints);
         } else {
-          setAllComplaints(myHostelComplaints);
+          setComplaints(myHostelComplaints);
         }
       };
       fetchData();
@@ -46,45 +52,58 @@ export default function Complaint() {
     }
   }, []);
 
-
-
+  console.log("Autoplay Config:", {
+    delay: 1000,
+    disableOnInteraction: false,
+  });
   return (
-    <div className="outermost-box-complaint">
-      <div>
-        <div className="upper-section1">
-          <h1 className="heading1">Complaints</h1>
-        </div>
-      </div>
-      <div className="swiper">
-        <>
-          <Swiper
-            effect={'cards'}
-            grabCursor={true}
-            modules={[EffectCards]}
-            className="swiper-complaint"
-          >
-            {allComplaints.map((singleComplaint)=> (
-               <SwiperSlide className="swiper-slide-complaint">
-               <Randomcomplaint 
-               name = {singleComplaint.name}
-               year = {singleComplaint.year}
-               complaint = {singleComplaint.complaint}
-               />
-             </SwiperSlide>
-            ))}
-           
-            
+    //outermost box
+    <div className="outer-feedback-commentsegment">
 
-          </Swiper>
-        </>
+      {/* //1st box upper box */}
+      <div className="upper-section-commentsegment">
+        <h1 className="heading">Complaints</h1>
+        <p>Get to know all about new Complaints Registered</p>
+        <Link to="/patelallcomplaint">
+          <a class="btn btn-outline-secondary" href="#" role="button">
+            See all complaints
+          </a>
+        </Link>
       </div>
 
-      <div className="upper-section1">
-      <Link to="/patelallcomplaint">
-        <a class="btn btn-secondary" href="#" role="button">
-          See all complaints & Register your Complaint
-        </a>
-      </Link>
+      {/* //2nd box lower box */}
+      <div className="feedback swiper-container">
+        <Swiper
+          slidesPerView={2}
+          spaceBetween={30}
+          freeMode={true}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[FreeMode, Pagination]}
+          autoplay={{
+            delay: 1000,
+            disableOnInteraction: false,
+          }}
+          className="mySwiper"
+        >
+          {complaints.map((singleComplaintMap) => 
+            <SwiperSlide className="swiper-slide-currentsegment" key = {singleComplaintMap.id}>
+              <ComplaintSegmentSlide 
+               name = {singleComplaintMap.name} 
+               username = {singleComplaintMap.username}
+               regNo = {singleComplaintMap.regNo}
+               year = {singleComplaintMap.year}
+               complaint={singleComplaintMap.complaint} 
+               upVoteCount = {singleComplaintMap.upVoteCount}
+               downVoteCount = {singleComplaintMap.downVoteCount}
+              />
+            </SwiperSlide>
+          )}
+      
+        </Swiper>
+
+
       </div>
     </div>
   );

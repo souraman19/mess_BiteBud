@@ -13,7 +13,7 @@ function ResolveMessage({onClose, resolvedMessage}) {
         <button className="btn custom-btn-light btn-lg" onClick={onClose}>
             <span>&times;</span>
         </button>
-    <h1 className="see_unresolved_complaint_message_heading">Resolve Message</h1>
+    <h1 className="see_unresolved_complaint_message_heading">Resolved Message</h1>
     <p>{resolvedMessage}</p>
     </div>
   </div>;

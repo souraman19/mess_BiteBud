@@ -8,9 +8,33 @@ import { useUser } from "../../UserContext";
 import axios from "axios";
 import ResolveMessage from "./ResolveMessage";
 import { MdEmail } from "react-icons/md";
+import { format, differenceInDays, parseISO } from 'date-fns';
+
+
+// for getting eaasy way of getting time
+
+const formatDate = (dateString) => {
+    const date = parseISO(dateString);
+    const now = new Date();
+    const difference = differenceInDays(now, date);
+
+    if (difference === 0) {
+        return 'today';
+    } else if (difference === 1) {
+        return 'yesterday';
+    } else if (difference > 1 && difference <= 7) {
+        return `${difference} days ago`;
+    } else {
+        return `on ${format(date, 'dd MMMM yyyy')}`;
+    }
+};
+
+
+
 
 function ComplaintSlide({
   title,
+  time,
   _id,
   name,
   hostel = "hostel",
@@ -162,10 +186,10 @@ function ComplaintSlide({
 
         <div className="swiper-client-message-complaintslide">
           <p>{complaint}</p>
-          <p className="swiper-client-message-complaintslide-time">
-            {" "}
-            ~ 2 days ago
-          </p>
+          <div className="swiper-client-message-complaintslide-time">
+            
+            {'~ '+ formatDate(time || "2024-06-29T17:28:51.656+00:00")}
+          </div>
         </div>
         {/* <div className="swiper-client-data-complaintslide grid grid-two-column">
                  
@@ -216,7 +240,7 @@ function ComplaintSlide({
               ) : (
                 <div>
                   <button className="reply-button">
-                    Resolved <p className="resolved_time">{resolvedTime}</p>
+                    Resolved <p className="resolved_time">{formatDate(resolvedTime)}</p>
                   </button>
                 </div>
               )}

@@ -1,0 +1,64 @@
+:root {
+    --shadow00001: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --helper-tint: #badff3;
+}
+
+.outer-swiper-plate-complaint-segment-slide{
+    display: flex;
+    flex-direction: column;
+    /* gap: 4rem; */
+    /* border: 2px solid black; */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+}
+
+
+
+.swiper-client-message-complaint-segment-slide{
+    padding: 5rem 8rem;
+    background: var(--white);
+    border-radius: 1rem;
+    text-align: left;
+    box-shadow: var(--shadow00001);
+    position: relative;
+    /* adjust height accoding to req  this is manual   change it later */
+    height: 19rem;   
+    width: 100%;
+
+}
+
+.client-data-details-complaint-segment-slide{
+    display: flex;
+    flex-direction: row;
+    gap: 2.5rem;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid red; */
+    padding-top: 2.5rem;
+    padding-bottom: 2.2rem;
+}
+
+.client-data-details-complaint-segment-slide > .upvote-count{
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(226, 248, 227);
+    padding: 0.5rem;
+    border: 1px solid rgb(204, 215, 241);
+    border-radius: 100% ;
+}
+.client-data-details-complaint-segment-slide > .downvote-count{
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(245, 230, 230);
+    border: 1px solid rgb(204, 215, 241);
+    border-radius: 100% ;
+}

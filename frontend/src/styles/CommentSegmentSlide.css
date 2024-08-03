@@ -4,6 +4,8 @@
 }
 
 .outer-swiper-plate{
+    background: var(--white);
+    padding-bottom: 2rem;
     display: flex;
     flex-direction: column;
     gap: 4rem;
@@ -11,6 +13,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    height: auto;
 }
 
 .swiper-client-message::before{
@@ -22,6 +25,7 @@
     border: 5rem solid white;
     border-color: transparent;
     border-top-color: rgb(225 224 246);
+    /* border: 2px solid red; */
 }
 .swiper-client-message p::before{
     content: "\f10d";
@@ -34,6 +38,7 @@
     color: #ced3ff;
 
 }
+
 .swiper-client-message p::after{
     content: "\f10e";
     position: absolute;
@@ -42,8 +47,13 @@
     font-size: 5rem;
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
-    color: #ced3ff;
+    color: #ced3ff;    
+}
 
+.swiper-client-message #comment_creation_time{
+    margin-top: 2rem;
+    margin-right: 1rem;
+    text-align: end;
 }
 
 
@@ -55,19 +65,54 @@
     box-shadow: var(--shadow00001);
     position: relative;
     /* adjust height accoding to req  this is manual   change it later */
-    height: 19rem;   
+    max-height: fit-content;   
+    min-height: 11rem;
     width: 100%;
 
 }
 
-.swiper-client-data {
+
+#comment_slide_lower_part_div_001{
     display: flex;
+    width: 100%;
+    flex-direction: row;
+    gap: 3rem;
+    padding: 0 3rem;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 2px solid red;    */
+    
+}
+
+#reply_comment_list_div_comment_slide{
+    display: flex;
+    flex-direction: row;
+    gap: 1.9rem;
+}
+
+#comment_slide_lower_part_div_001 .replyIcon_comment_slide{
+    font-size: 2.2rem;
+    color: #8b92fa;
+    height: 4rem;
+    width: 4rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border: 1.5px solid #c1c5f9;
+    background-color: #e4e5f7;
+    border-radius: 100%;
+    border: red;
+}
+.swiper-client-data {
+    /* border: 2px solid red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: row;
     gap: 3rem;
 }
 .swiper-client-data img{
      /* adjust height and width accoding to req  this is manual   change it later */
-    width: 8rem;
+     width: 8rem;
     height: 8rem;
     border-radius: 100%;
     /* border: 0.5rem solid var(--helper-tint); */

@@ -94,7 +94,7 @@ export default function CommentSegment() {
                regNo = {singleCommentMap.regNo}
                year = {singleCommentMap.year}
                comment={singleCommentMap.comment} 
-               profilePic = {singleCommentMap.profilePic}
+               profilePic = {profilePic}
               />
             </SwiperSlide>
           )}

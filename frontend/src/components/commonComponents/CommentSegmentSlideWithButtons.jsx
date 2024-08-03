@@ -42,8 +42,8 @@ function CommentSegmentSlideWithButtons({ _id, name, username, regNo, year, comm
     };
 
   return (
-    <div className="outer-swiper-plate">
-      <div className="swiper-client-message">
+    <div className="outer-swiper-plate-comment-slide-with-btns">
+      <div className="swiper-client-message-comment-slide-with-btns">
         {isEditing ? (
             <input type="text" value={editedComment} 
             onChange={(e) => setEditedComment(e.target.value)}
@@ -53,25 +53,25 @@ function CommentSegmentSlideWithButtons({ _id, name, username, regNo, year, comm
             comment
         )}
       </div>
-      <div className="swiper-client-data grid grid-three-column comment_slide_lower_box">
-        <button className="comment_slide_lower_box_delete_button"
+      <div className="swiper-client-data-comment-slide-with-btns grid grid-three-column comment_slide_lower_box">
+        <button className="comment_slide_lower_box_delete_button-comment-slide-with-btns"
         onClick={handleDelete}
         >
             <DeleteIcon />
         </button>
-        <div className="comment_slide_lower_box_middle_box">
+        <div className="comment_slide_lower_box_middle_box-comment-slide-with-btns">
           <img
             src= {profilePic}
             alt=""
             srcset=""
           />
 
-          <div className="client-data-details">
+          <div className="client-data-details-comment-slide-with-btns">
             <p>{name}</p>
             <p>{year} Year</p>
           </div>
         </div>
-        <button className="comment_slide_lower_box_edit_button"
+        <button className="comment_slide_lower_box_edit_button-comment-slide-with-btns"
         onClick= {() => setIsEditing(true)}
         >
             <EditIcon />

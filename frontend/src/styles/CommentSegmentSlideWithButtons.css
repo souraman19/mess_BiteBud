@@ -3,7 +3,7 @@
     --helper-tint: #badff3;
 }
 
-.outer-swiper-plate{
+.outer-swiper-plate-comment-slide-with-btns{
     display: flex;
     flex-direction: column;
     gap: 4rem;
@@ -13,7 +13,7 @@
     overflow: hidden;
 }
 
-.swiper-client-message::before{
+.swiper-client-message-comment-slide-with-btns::before{
     content: "";
     position: absolute;
     bottom: -10rem;
@@ -23,7 +23,7 @@
     border-color: transparent;
     border-top-color: rgb(225 224 246);
 }
-.swiper-client-message p::before{
+.swiper-client-message-comment-slide-with-btns p::before{
     content: "\f10d";
     position: absolute;
     top: 0;
@@ -34,7 +34,7 @@
     color: #ced3ff;
 
 }
-.swiper-client-message p::after{
+.swiper-client-message-comment-slide-with-btns p::after{
     content: "\f10e";
     position: absolute;
     bottom: 0;
@@ -47,7 +47,7 @@
 }
 
 
-.swiper-client-message{
+.swiper-client-message-comment-slide-with-btns{
     padding: 5rem 8rem;
     background: var(--white);
     border-radius: 1rem;
@@ -60,12 +60,12 @@
 
 }
 
-.swiper-client-data {
+.swiper-client-data-comment-slide-with-btns {
     display: flex;
     flex-direction: row;
     gap: 3rem;
 }
-.swiper-client-data img{
+.swiper-client-data-comment-slide-with-btns img{
      /* adjust height and width accoding to req  this is manual   change it later */
     width: 8rem;
     height: 8rem;
@@ -73,14 +73,14 @@
     /* border: 0.5rem solid var(--helper-tint); */
 }
 
-.comment_slide_lower_box_delete_button{
+.comment_slide_lower_box_delete_button-comment-slide-with-btns{
     margin-right: 15rem;
 }
-.comment_slide_lower_box_edit_button{
+.comment_slide_lower_box_edit_button-comment-slide-with-btns{
     margin-left: 15rem;
 }
 
-.comment_slide_lower_box_middle_box{
+.comment_slide_lower_box_middle_box-comment-slide-with-btns{
     display: flex;
     gap: 2rem;
 }

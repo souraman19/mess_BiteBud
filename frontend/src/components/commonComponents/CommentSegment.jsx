@@ -95,6 +95,8 @@ export default function CommentSegment() {
                year = {singleCommentMap.year}
                comment={singleCommentMap.comment} 
                profilePic = {profilePic}
+                commentsOnComment = {singleCommentMap.commentsOnComment}
+                commentId = {singleCommentMap._id}
               />
             </SwiperSlide>
           )}

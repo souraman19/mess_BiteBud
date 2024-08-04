@@ -5,6 +5,9 @@ import "./../../styles/CommentSegmentSlide.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import AddReactionIcon from "@mui/icons-material/AddReaction";
+import CommentReplyModal from "./CommentReplyModal";
+import { useState } from "react";
+
 
 function CommentSegmentSlide({
   name,
@@ -13,7 +16,16 @@ function CommentSegmentSlide({
   year,
   comment,
   profilePic,
+  commentsOnComment,
+  commentId,
 }) {
+const [showReplyModal, setShowReplyModal] = useState(false);
+
+
+function handleReplyButtonClick() {
+  setShowReplyModal(true);
+}
+
   return (
     <div className="outer-swiper-plate">
       <div className="swiper-client-message">
@@ -34,10 +46,17 @@ function CommentSegmentSlide({
         </div>
 
         <div id="reply_comment_list_div_comment_slide">
-          <ReplyIcon className = "replyIcon_comment_slide" />
+          <ReplyIcon onClick={handleReplyButtonClick} className = "replyIcon_comment_slide" />
           <SpeakerNotesIcon className = "replyIcon_comment_slide" />
         </div>
       </div>
+      {showReplyModal && (
+        <CommentReplyModal 
+          onClose = {() => setShowReplyModal(false)}
+          commentsOnComment = {commentsOnComment}
+          commentId = {commentId}
+        />
+      )}
     </div>
   );
 }

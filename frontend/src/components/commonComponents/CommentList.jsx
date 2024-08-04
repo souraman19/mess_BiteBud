@@ -55,6 +55,7 @@ function Commentlist() {
         comment:singleComment,
         hostel: hostel,
         profilePic: profilePic,
+        commentsOnComment: [],
       };
   
       try{
@@ -80,6 +81,7 @@ function Commentlist() {
             name = "Sourajit Mandal"
             year = "4th"
             profilePic = {profilePic}
+            commentsOnComment = {[]}
             />
           </div>
 
@@ -95,6 +97,8 @@ function Commentlist() {
               year = {singleCommentMap.year}
               comment={singleCommentMap.comment} 
               profilePic = {singleCommentMap.profilePic}
+              commentsOnComment = {singleCommentMap.commentsOnComment}
+              commentId = {singleCommentMap._id}
               />
             </div>
           ))}

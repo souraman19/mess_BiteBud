@@ -11,6 +11,7 @@ const commentSchema = new mongoose.Schema({
   comment: { type: String},
   hostel:{type: String},
   profilePic: {type: String},
+  commentsOnComment: {type: Array},
 });
 
 const Comment = mongoose.model('Comment', commentSchema);

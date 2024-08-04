@@ -5,8 +5,8 @@ import axios from "axios";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { v4 as uuidv4 } from 'uuid';
 
-
-function CommentModal({ onClose, complaintId, commentsOnComplaint, onAddComment}) {
+//onAddComment
+function CommentModal({ onClose, commentId, commentsOnComment}) {
   const {user, updateUser} = useUser();
   const myName = user.name;
   const myUsername = user.username;
@@ -21,11 +21,11 @@ function CommentModal({ onClose, complaintId, commentsOnComplaint, onAddComment}
   useEffect(() => {
     try{
       const fetchData = async() => {
-        const response = await axios.get(`http://localhost:5000/api/commentsofcomplaint/${complaintId}`);
+        const response = await axios.get(`http://localhost:5000/api/patelcomments/${commentId}`);
         // console.log("ioabd =>  ", response.data.commentsOnComplaint);
-        const allCommentsOfComplaint = response.data.commentsOnComplaint;
-        const myCommentsOfComplaint = allCommentsOfComplaint.filter((comment) => {return comment.regNo === myRegNo} );
-        setAllComments(myCommentsOfComplaint);
+        const allCommentsOfComment = response.data.commentsOnComment;
+        const myCommentsOfComment = allCommentsOfComment.filter((comment) => {return comment.regNo === myRegNo} );
+        setAllComments(myCommentsOfComment);
       };
       fetchData();
     }catch(error){
@@ -53,7 +53,7 @@ function CommentModal({ onClose, complaintId, commentsOnComplaint, onAddComment}
       };
 
       try{
-        const response = await axios.post(`http://localhost:5000/api/addcommentsofcomplaint/${complaintId}`, newComment);
+        const response = await axios.post(`http://localhost:5000/api/addcommentsofcomment/${commentId}`, newComment);
         // setAllComments([...allComments, newComment]);
         setSingleComment("");
         setAllComments(response.data.commentsOnComplaint);
@@ -64,12 +64,12 @@ function CommentModal({ onClose, complaintId, commentsOnComplaint, onAddComment}
     }
   };
 
-  async function handleDeleteComment(commentId) {
+  async function handleDeleteComment(reCommentId) {
     try{
       console.log("kkdshv");
-      console.log(commentId);
-      console.log(complaintId);
-      const response = await axios.post(`http://localhost:5000/api/deletecommentofcomplaint`, {complaintId: complaintId, commentId: commentId});
+      // console.log(commentId);
+      // console.log(complId);
+      const response = await axios.post(`http://localhost:5000/api/deletecommentofcomment`, {originalComment: commentId, commentId: reCommentId});
       console.log("Comment deleted successfully");
     }catch(error){
       console.log("Error in deleting comments", error);

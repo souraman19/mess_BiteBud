@@ -17,15 +17,21 @@ function CommentModal({ onClose, commentId, commentsOnComment}) {
 
   const [singleComment, setSingleComment] = useState("");
   const [allComments, setAllComments] = useState([]);
+  const [myAllComments, setMyAllComments] = useState([]);
+  const [otherAllComments, setOtherAllComments] = useState([]);
+
 
   useEffect(() => {
     try{
       const fetchData = async() => {
-        const response = await axios.get(`http://localhost:5000/api/patelcomments/${commentId}`);
+        const response = await axios.get(`http://localhost:5000/api/commentRoutes/commentsofcomment/${commentId}`);
         // console.log("ioabd =>  ", response.data.commentsOnComplaint);
         const allCommentsOfComment = response.data.commentsOnComment;
         const myCommentsOfComment = allCommentsOfComment.filter((comment) => {return comment.regNo === myRegNo} );
-        setAllComments(myCommentsOfComment);
+        const otherCommentsOfComment = allCommentsOfComment.filter((comment) => {return comment.regNo !== myRegNo} );
+        setAllComments(allCommentsOfComment);
+        setMyAllComments(myCommentsOfComment);
+        setOtherAllComments(otherCommentsOfComment);
       };
       fetchData();
     }catch(error){
@@ -38,7 +44,7 @@ function CommentModal({ onClose, commentId, commentsOnComment}) {
     setSingleComment(event.target.value);
   };
 
-  const handleCommenttSubmit = async() => {
+  const handleCommentSubmit = async() => {
     const currentTime = new Date();
     if (singleComment.trim() !== "") {
       const _id = uuidv4();
@@ -53,10 +59,15 @@ function CommentModal({ onClose, commentId, commentsOnComment}) {
       };
 
       try{
-        const response = await axios.post(`http://localhost:5000/api/addcommentsofcomment/${commentId}`, newComment);
+        const response = await axios.post(`http://localhost:5000/api/commentRoutes/addcommentsofcomment/${commentId}`, newComment);
         // setAllComments([...allComments, newComment]);
         setSingleComment("");
-        setAllComments(response.data.commentsOnComplaint);
+        const allCommentsOfComment = response.data.commentsOnComment;
+        const myCommentsOfComment = allCommentsOfComment.filter((comment) => {return comment.regNo === myRegNo} );
+        const otherCommentsOfComment = allCommentsOfComment.filter((comment) => {return comment.regNo !== myRegNo} );
+        setAllComments(allCommentsOfComment);
+        setMyAllComments(myCommentsOfComment);
+        setOtherAllComments(otherCommentsOfComment);
         console.log("Comment added successfully");
       }catch(error){
         console.log("Error in adding new comment", error);
@@ -69,8 +80,13 @@ function CommentModal({ onClose, commentId, commentsOnComment}) {
       console.log("kkdshv");
       // console.log(commentId);
       // console.log(complId);
-      const response = await axios.post(`http://localhost:5000/api/deletecommentofcomment`, {originalComment: commentId, commentId: reCommentId});
+      const response = await axios.post(`http://localhost:5000/api/commentRoutes/deletecommentofcomment`, {originalCommentId: commentId, commentId: reCommentId});
       console.log("Comment deleted successfully");
+      console.log(response.data.updatedComment.commentsOnComment);
+      const allCommentsOfComment = response.data.updatedComment.commentsOnComment;
+        const myCommentsOfComment = allCommentsOfComment.filter((comment) => {return comment.regNo === myRegNo} );
+        setAllComments(allCommentsOfComment);
+        setMyAllComments(myCommentsOfComment);
     }catch(error){
       console.log("Error in deleting comments", error);
     }
@@ -101,7 +117,21 @@ function CommentModal({ onClose, commentId, commentsOnComment}) {
           <h2>My Comments</h2>
           <ul>
             <div className="outer-owncomments89376273">
-              {allComments.map((singleComment, index) => (
+              {myAllComments.map((singleComment, index) => (
+                <div className="owncomments89376273" key={index}>
+                  <li>{singleComment.comment}</li>
+                  <span className="comment-info">{singleComment.name} • {singleComment.time}</span>
+                  <button onClick={() => handleDeleteComment(singleComment._id)}>
+                    <DeleteIcon style={{marginLeft:"35rem"}}/>
+                  </button>
+                </div>
+              ))}
+            </div>
+          </ul>
+          <h2>All Comments</h2>
+          <ul>
+            <div className="outer-owncomments89376273">
+              {otherAllComments.map((singleComment, index) => (
                 <div className="owncomments89376273" key={index}>
                   <li>{singleComment.comment}</li>
                   <span className="comment-info">{singleComment.name} • {singleComment.time}</span>
@@ -118,7 +148,7 @@ function CommentModal({ onClose, commentId, commentsOnComment}) {
           value={singleComment}
           onChange={handleCommentChange}
         />
-        <button className="post_button" onClick={handleCommenttSubmit}>Post</button>
+        <button className="post_button" onClick={handleCommentSubmit}>Post</button>
       </div>
     </div>
   );

@@ -154,7 +154,7 @@ select:focus {
     outline: none;
 }
 
-label {
+.Patel_full_menu_outermost_div label {
     width: 100%;
     padding: 0.5rem;
     border: 1px solid #ccc;
@@ -165,16 +165,16 @@ label {
     transition: background 0.3s, color 0.3s;
 }
 
-label:hover {
+.Patel_full_menu_outermost_div label:hover {
     background: #5f9fff;
     color: white;
 }
 
-label input {
+.Patel_full_menu_outermost_div label input {
     display: none;
 }
 
-button {
+.Patel_full_menu_outermost_div button {
     background-color: #ff7e5f;
     color: white;
     padding: 12px 24px;
@@ -184,39 +184,39 @@ button {
     transition: background 0.3s, transform 0.2s;
 }
 
-button:hover {
+.Patel_full_menu_outermost_div button:hover {
     background-color: #ff5f5f;
     transform: scale(1.05);
 }
 
-table {
+.Patel_full_menu_outermost_div table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 2rem;
     animation: fadeInUp 1s ease-in-out;
 }
 
-table, th, td {
+.Patel_full_menu_outermost_div table, th, td {
     border: 1px solid #ddd;
 }
 
-th, td {
+.Patel_full_menu_outermost_div th, td {
     padding: 1rem;
     text-align: center;
 }
 
-th {
+.Patel_full_menu_outermost_div th {
     background: #6a9bff;
     color: white;
     font-weight: bold;
 }
 
-td ul {
+.Patel_full_menu_outermost_div td ul {
     list-style-type: none;
     padding: 0;
 }
 
-td ul li {
+.Patel_full_menu_outermost_div td ul li {
     margin: 0.5rem 0;
     font-size: 0.9rem;
 }

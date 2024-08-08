@@ -1,10 +1,35 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/commonComponents/Navbar";
 import CommentSegmentSlideWithButtons from "../../components/commonComponents/CommentSegmentSlideWithButtons";
+import CommentSegmentSlide from "../../components/commonComponents/CommentSegmentSlide";
 import "./../../styles/CommentList.css";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import {useUser} from "../../UserContext";
+
+import { format, differenceInDays, parseISO } from 'date-fns';
+
+
+// for getting eaasy way of getting time
+
+const formatDate = (dateString) => {
+    const date = parseISO(dateString);
+    const now = new Date();
+    const difference = differenceInDays(now, date);
+
+    // return "tdy";
+
+    if (difference === 0) {
+        return 'today';
+    } else if (difference === 1) {
+        return 'yesterday';
+    } else if (difference > 1 && difference <= 7) {
+        return `${difference} days ago`;
+    } else {
+        return `on ${format(date, 'dd MMMM yyyy')}`;
+    }
+};
+
 
 function Commentlist() { 
 
@@ -59,6 +84,7 @@ function Commentlist() {
         regNo: regNo, year: year, 
         comment:singleComment,
         profilePic: profilePic,
+        time: new Date(),  //no need
       };
   
       try{
@@ -81,12 +107,24 @@ function Commentlist() {
         <h1>My All Comments</h1>
         <div className="row">
           <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
-            <CommentSegmentSlideWithButtons 
-            comment="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." 
-            name = "Sourajit Mandal"
-            year = "4th"
-            profilePic = {profilePic}
+          <CommentSegmentSlide
+             name = "Lusi"
+              username = "Rosy"
+              regNo = "19BCE0001"
+              year = "2nd"
+              comment= "This is a comment"
+              profilePic = "https://www.w3schools.com/w3images/avatar2.png"
+              commentsOnComment = {[]}
+              commentId = "1"
+              updateAllComments = {updateAllComments}
+              allComments = {allComments}
+              setAllComment = {setAllComments}
+              singleComment = {singleComment}
+              setSingleComment = {setSingleComment}
+              isMyCommentsPage = {true}
+              time = "today"
             />
+            
           </div>
 
           {allComments.map((singleCommentMap, index) => (
@@ -95,20 +133,23 @@ function Commentlist() {
               className="col-12 col-sm-8 col-md-8 col-lg-8 mb-8"
             >
                 {/* {console.log(singleCommentMap._id)} */}
-              <CommentSegmentSlideWithButtons 
-              _id = {singleCommentMap._id}
-              name = {singleCommentMap.name} 
+                <CommentSegmentSlide
+             name = {singleCommentMap.name} 
               username = {singleCommentMap.username}
               regNo = {singleCommentMap.regNo}
               year = {singleCommentMap.year}
-              comment={singleCommentMap.comment}
+              comment={singleCommentMap.comment} 
+              profilePic = {singleCommentMap.profilePic}
+              commentsOnComment = {singleCommentMap.commentsOnComment}
+              commentId = {singleCommentMap._id}
               updateAllComments = {updateAllComments}
               allComments = {allComments}
               setAllComment = {setAllComments}
               singleComment = {singleComment}
               setSingleComment = {setSingleComment}
-              profilePic = {profilePic}
-               />
+              isMyCommentsPage = {true}
+              time = {formatDate(singleCommentMap.time)}
+             />
             </div>
           ))}
 

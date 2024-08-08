@@ -33,6 +33,10 @@ export default function CommentSegment() {
   const profilePic = user?.profilePic;
 
   const [comments, setComments] = useState([]);
+  const [singleComment, setSingleComment] = useState("");
+  const [allComments, setAllComments] = useState([]);
+
+  
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -50,6 +54,10 @@ export default function CommentSegment() {
     };
     fetchComments();
   }, []);
+
+  const updateAllComments = (updatedComments) =>{
+    setAllComments(updatedComments);
+  };
 
   console.log("Autoplay Config:", {
     delay: 1000,
@@ -97,7 +105,14 @@ export default function CommentSegment() {
                profilePic = {profilePic}
                 commentsOnComment = {singleCommentMap.commentsOnComment}
                 commentId = {singleCommentMap._id}
+                updateAllComments = {updateAllComments}
+              allComments = {allComments}
+              setAllComment = {setAllComments}
+              singleComment = {singleComment}
+              setSingleComment = {setSingleComment}
+              time = {singleCommentMap.time}
               />
+
             </SwiperSlide>
           )}
       

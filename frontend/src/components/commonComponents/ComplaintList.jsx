@@ -47,7 +47,7 @@ function Complaintlist() {
       const newComplaint = {
         _id : _id,
         name: name,
-        time: "2024-07-31T17:28:51.656+00:00",
+        time: "2024-07-31T17:28:51.656+00:00", //no need
         username: username,
         regNo: regNo, 
         year: year,

@@ -3,6 +3,7 @@ import "./../../styles/CommentReplyModal.css";
 import { useUser } from "../../UserContext";
 import axios from "axios";
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { v4 as uuidv4 } from 'uuid';
 
 //onAddComment
@@ -114,7 +115,11 @@ function CommentModal({ onClose, commentId, commentsOnComment}) {
           <span>&times;</span>
         </button>
         <div className="existing-comments">
-          <h2>My Comments</h2>
+          {
+              myAllComments.length > 0 && <h2>
+                My Comments
+              </h2>
+          }
           <ul>
             <div className="outer-owncomments89376273">
               {myAllComments.map((singleComment, index) => (
@@ -122,13 +127,20 @@ function CommentModal({ onClose, commentId, commentsOnComment}) {
                   <li>{singleComment.comment}</li>
                   <span className="comment-info">{singleComment.name} • {singleComment.time}</span>
                   <button onClick={() => handleDeleteComment(singleComment._id)}>
-                    <DeleteIcon style={{marginLeft:"35rem"}}/>
+                    <div style={{marginLeft:"32rem", display:"flex", gap:"2rem"}}>
+                    <EditIcon />
+                    <DeleteIcon />
+                    </div>
                   </button>
                 </div>
               ))}
             </div>
           </ul>
-          <h2>All Comments</h2>
+          {
+              otherAllComments.length > 0 && <h2>
+                Other Comments
+              </h2>
+            }
           <ul>
             <div className="outer-owncomments89376273">
               {otherAllComments.map((singleComment, index) => (

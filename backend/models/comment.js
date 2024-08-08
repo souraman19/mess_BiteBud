@@ -9,6 +9,7 @@ const commentSchema = new mongoose.Schema({
   regNo: {type: String},
   year:{type: String},
   comment: { type: String},
+  time: {type: Date, Default: Date.now},
   hostel:{type: String},
   profilePic: {type: String},
   commentsOnComment: {type: Array},

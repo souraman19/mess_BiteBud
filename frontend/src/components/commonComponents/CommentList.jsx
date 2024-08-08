@@ -5,6 +5,48 @@ import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import {useUser} from "../../UserContext";
 
+import { format, differenceInDays, parseISO } from 'date-fns';
+
+
+// for getting eaasy way of getting time
+
+const formatDate = (dateString) => {
+  if (!dateString || typeof dateString !== 'string') {
+    console.error("Invalid dateString:", dateString);
+    return "";
+}
+
+let date;
+    if (typeof dateString === 'string') {
+        try {
+            date = parseISO(dateString);
+        } catch (error) {
+            console.error("Failed to parse ISO date:", error);
+            return "";
+        }
+    } else if (dateString instanceof Date) {
+        date = dateString; // Already a Date object
+    } else {
+        console.error("Unexpected dateString type:", typeof dateString);
+        return "";
+    }
+    
+    const now = new Date();
+    const difference = differenceInDays(now, date);
+
+
+    if (difference === 0) {
+        return 'today';
+    } else if (difference === 1) {
+        return 'yesterday';
+    } else if (difference > 1 && difference <= 7) {
+        return `${difference} days ago`;
+    } else {
+        return `on ${format(date, 'dd MMMM yyyy')}`;
+    }
+};
+
+
 function Commentlist() { 
   const {user, updateUser} = useUser();
   const name = user.name;
@@ -41,6 +83,10 @@ function Commentlist() {
   const handleCommentChange = (event) => {
     setSingleComment(event.target.value);
   };
+  const updateAllComments = (updatedComments) =>{
+    setAllComments(updatedComments);
+  };
+
 
   const handleCommentSubmit = async () => {
     if (singleComment.trim() !== "") {
@@ -56,6 +102,7 @@ function Commentlist() {
         hostel: hostel,
         profilePic: profilePic,
         commentsOnComment: [],
+        time: new Date(),   //no need
       };
   
       try{
@@ -82,6 +129,7 @@ function Commentlist() {
             year = "4th"
             profilePic = {profilePic}
             commentsOnComment = {[]}
+            time = "today"  
             />
           </div>
 
@@ -99,6 +147,13 @@ function Commentlist() {
               profilePic = {singleCommentMap.profilePic}
               commentsOnComment = {singleCommentMap.commentsOnComment}
               commentId = {singleCommentMap._id}
+              updateAllComments = {updateAllComments}
+              allComments = {allComments}
+              setAllComment = {setAllComments}
+              singleComment = {singleComment}
+              setSingleComment = {setSingleComment}
+              isMyCommentsPage = {false}
+              time = {formatDate(singleCommentMap.time)}
               />
             </div>
           ))}

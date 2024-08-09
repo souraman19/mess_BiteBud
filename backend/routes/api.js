@@ -412,12 +412,14 @@ router.post("/addpatelcomments", async(req, res)=>{
       comment,
       hostel,
       profilePic,
+      time: new Date(),
     });
 
     // Save the new comment to the database
     await newComment.save();
+    const comments = await Comment.find();
 
-    res.status(201).json({message: "comment added successfully"});
+    res.status(201).json({comments: comments, message: "comment added successfully"});
   }catch(error){
     console.log("Error in saving comment", error);
     res.status(500).json({error: "Internal server error"});

@@ -19,6 +19,48 @@ import CommentSegmentSlide from "./CommentSegmentSlide";
 
 import "swiper/swiper-bundle.css"; // Import the Swiper styles
 
+import { format, differenceInDays, parseISO } from 'date-fns';
+
+
+// for getting eaasy way of getting time
+
+const formatDate = (dateString) => {
+  if (!dateString || typeof dateString !== 'string') {
+    console.error("Invalid dateString:", dateString);
+    return "";
+}
+
+let date;
+    if (typeof dateString === 'string') {
+        try {
+            date = parseISO(dateString);
+        } catch (error) {
+            console.error("Failed to parse ISO date:", error);
+            return "";
+        }
+    } else if (dateString instanceof Date) {
+        date = dateString; // Already a Date object
+    } else {
+        console.error("Unexpected dateString type:", typeof dateString);
+        return "";
+    }
+    
+    const now = new Date();
+    const difference = differenceInDays(now, date);
+
+
+    if (difference === 0) {
+        return 'today';
+    } else if (difference === 1) {
+        return 'yesterday';
+    } else if (difference > 1 && difference <= 7) {
+        return `${difference} days ago`;
+    } else {
+        return `on ${format(date, 'dd MMMM yyyy')}`;
+    }
+};
+
+
 // Initiate SwiperCore
 SwiperCore.use([FreeMode, Pagination]);
 
@@ -110,7 +152,7 @@ export default function CommentSegment() {
               setAllComment = {setAllComments}
               singleComment = {singleComment}
               setSingleComment = {setSingleComment}
-              time = {singleCommentMap.time}
+              time = {formatDate(singleCommentMap.time)}
               />
 
             </SwiperSlide>

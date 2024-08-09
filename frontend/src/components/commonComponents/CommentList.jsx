@@ -72,7 +72,8 @@ function Commentlist() {
         } else {
           setAllComments(myHostelComments);
         }
-      };
+       
+    };
       fetchData();
     } catch (error) {
       console.error("Error fetching comments:", error);
@@ -109,13 +110,18 @@ function Commentlist() {
         const response = await axios.post("http://localhost:5000/api/addpatelcomments", newComment);
         console.log("Comment added successflly", response.data);
 
-        setAllComments([...allComments, newComment]);
+        
+        // console.log(response.data.complaints);
+        setAllComments(response.data.comments);
         setSingleComment("");
+        // console.log("hell0 =>>>   this is a meess", formatDate(new Date()));
       } catch(error){
         console.log("Error in adding comment", error);
       }
     }
   };
+
+  
 
   return (
     <div className="commentlist-outer">
@@ -139,6 +145,7 @@ function Commentlist() {
               className="col-12 col-sm-8 col-md-8 col-lg-8 mb-8"
             >
               <CommentSegmentSlide 
+              // {...alert(formatDate(singleCommentMap.time))}
               name = {singleCommentMap.name} 
               username = {singleCommentMap.username}
               regNo = {singleCommentMap.regNo}
@@ -154,6 +161,7 @@ function Commentlist() {
               setSingleComment = {setSingleComment}
               isMyCommentsPage = {false}
               time = {formatDate(singleCommentMap.time)}
+              
               />
             </div>
           ))}

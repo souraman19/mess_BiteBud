@@ -91,7 +91,7 @@ function Commentlist() {
         const response = await axios.post("http://localhost:5000/api/addpatelcomments", newComment);
         console.log("Comment added successflly", response.data);
 
-        setAllComments([...allComments, newComment]);
+        setAllComments(response.data.comments);
         setSingleComment("");
       } catch(error){
         console.log("Error in adding comment", error);

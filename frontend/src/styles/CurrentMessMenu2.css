@@ -1,10 +1,6 @@
 
-.swiper-complaint {
-  width: 385px;
-  height: 510px;
-}
 
-.swiper-slide-complaint {
+#swiper-slide-mess-card {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,7 +12,7 @@
 }
 
 /* Add a gradient overlay for better visibility of text */
-.swiper-slide-complaint::before {
+#swiper-slide-mess-card::before {
   content: '';
   position: absolute;
   top: 0;
@@ -26,7 +22,7 @@
   /* background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)); */
 }
 
-.swiper-slide-complaint:nth-child(1n) {
+.swiper-slide-mess-card:nth-child(1n) {
   background-color: rgb(116, 137, 182);
 }
 

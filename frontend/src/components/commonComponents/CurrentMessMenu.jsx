@@ -53,9 +53,12 @@ function Comment() {
         effect={'cards'}
         grabCursor={true}
         modules={[EffectCards]}
-        className="swiper-complaint"
+        style={{width: "40vw", height:"50vh"}}
+        
       >
-        <SwiperSlide className="swiper-slide-complaint bg-gradient-to-r from-yellow-300 via-yellow-200 to-yellow-100 p-6 rounded-lg shadow-lg flex flex-col items-center text-center">
+        <SwiperSlide className=" bg-gradient-to-r from-yellow-300 via-yellow-200 to-yellow-100 p-6 rounded-lg shadow-lg flex flex-col items-center text-center"
+          id="swiper-slide-mess-card"
+        >
           <h2 className="text-4xl font-extrabold text-yellow-800 mb-4">Breakfast</h2>
           <ul className="list-disc list-inside text-yellow-700 space-y-2">
             <li>Pancakes</li>
@@ -64,7 +67,9 @@ function Comment() {
             {/* Add more breakfast items here */}
           </ul>
         </SwiperSlide>
-        <SwiperSlide className="swiper-slide-complaint bg-gradient-to-r from-green-300 via-green-200 to-green-100 p-6 rounded-lg shadow-lg flex flex-col items-center text-center">
+        <SwiperSlide className="bg-gradient-to-r from-green-300 via-green-200 to-green-100 p-6 rounded-lg shadow-lg flex flex-col items-center text-center"
+          id="swiper-slide-mess-card"
+        >
           <h2 className="text-4xl font-extrabold text-green-800 mb-4">Lunch</h2>
           <ul className="list-disc list-inside text-green-700 space-y-2">
             <li>Grilled Chicken</li>
@@ -73,7 +78,9 @@ function Comment() {
             {/* Add more lunch items here */}
           </ul>
         </SwiperSlide>
-        <SwiperSlide className="swiper-slide-complaint bg-gradient-to-r from-pink-300 via-pink-200 to-pink-100 p-6 rounded-lg shadow-lg flex flex-col items-center text-center">
+        <SwiperSlide className="swiper-slide-complaint bg-gradient-to-r from-pink-300 via-pink-200 to-pink-100 p-6 rounded-lg shadow-lg flex flex-col items-center text-center"
+          id="swiper-slide-mess-card"
+        >
           <h2 className="text-4xl font-extrabold text-pink-800 mb-4">Snacks</h2>
           <ul className="list-disc list-inside text-pink-700 space-y-2">
             <li>Chips</li>
@@ -82,7 +89,9 @@ function Comment() {
             {/* Add more snack items here */}
           </ul>
         </SwiperSlide>
-        <SwiperSlide className="swiper-slide-complaint bg-gradient-to-r from-blue-300 via-blue-200 to-blue-100 p-6 rounded-lg shadow-lg flex flex-col items-center text-center">
+        <SwiperSlide className="swiper-slide-complaint bg-gradient-to-r from-blue-300 via-blue-200 to-blue-100 p-6 rounded-lg shadow-lg flex flex-col items-center text-center"
+          id="swiper-slide-mess-card"
+        >
           <h2 className="text-4xl font-extrabold text-blue-800 mb-4">Dinner</h2>
           <ul className="list-disc list-inside text-blue-700 space-y-2">
             <li>Steak</li>

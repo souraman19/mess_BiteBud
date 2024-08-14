@@ -51,6 +51,37 @@ function groupExpensesByMonth(allExpenses){
   return groupData;
 }
 
+router.get("/fetchallmonthsexpenses_piechart", async(req, res) => {
+  try{
+    const allExpenses = await Expense.find();
+    const groupData = [];
+    for(let i = 0; i < 12; i++){
+      const currentMonthData = [];
+      allExpenses.forEach((expense) => {
+        const {itemName, expenseArray} = expense;
+        const name = itemName;
+        let totalCost  = 0;
+        expenseArray.forEach((x) => {
+          if(x.month === i){
+            totalCost += x.totalCost;
+          }
+        })
+        
+        if(totalCost > 0) currentMonthData.push({
+          "name": name,
+          "value": totalCost,
+        })
+      });
+      groupData.push(currentMonthData);
+    }
+    res.status(200).json(groupData);
+
+  } catch(error){
+    console.error("Error in fetching all month expenses for pie chart", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+})
+
 
 router.delete("/deletedailyexpense", async(req, res) => {
   try{

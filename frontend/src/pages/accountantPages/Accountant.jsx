@@ -6,14 +6,13 @@ import Gallary from "../../components/commonComponents/Gallery.jsx";
 import Feedback from "../../components/commonComponents/CommentSegment.jsx";
 import Complaint from "../../components/commonComponents/Complaint.jsx";
 import Currentmenu from "../../components/commonComponents/CurrentMessMenu.jsx";
+import ExpenseSegment from "./../../components/commonComponents/ExpenseSegment.jsx";
 function Accountant(){
     return(
         <div>
             <Navbar />
             <AccountantIntro />
-            <h1 style={{textAlign:"center"}}>
-                <Link to="/editexpensepage"> Go to expense edit page </Link>
-            </h1>
+            <ExpenseSegment />
             <Feedback />
 
         <Currentmenu />

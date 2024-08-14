@@ -1,0 +1,4 @@
+#current_plus_previous_month_expenses{
+    display: flex;
+    flex-direction: row;
+}

@@ -1,0 +1,57 @@
+/* AdminPage.css */
+.admin-page-container {
+  font-family: Arial, sans-serif;
+  color: #333;
+  padding: 20px;
+  background-color: #e9ecef;
+  min-height: 100vh;
+}
+
+.welcome-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.welcome-title {
+  font-size: 2.5rem;
+  color: #343a40;
+  margin: 0;
+}
+
+.links-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Space between the boxes */
+}
+
+.admin-link {
+  text-decoration: none;
+}
+
+.link-box {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.link-box h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #007bff;
+}
+
+.admin-link:hover .link-box {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+.admin-link:active .link-box {
+  background-color: #e2e6ea;
+}

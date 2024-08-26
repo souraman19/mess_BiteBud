@@ -4,7 +4,6 @@ const { type } = require('@testing-library/user-event/dist/type');
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    _id: { type: String, required: true },
     dob: { type: String, required: true },
     email: { type: String, required: true },
     registered: { type: String, required: true },
@@ -14,6 +13,7 @@ const userSchema = new mongoose.Schema({
     otp: { type: String },
     name:{type: String},
     year:{type: String},
+    profilePicture: { type: String },
     // Add other fields as needed
   });
 

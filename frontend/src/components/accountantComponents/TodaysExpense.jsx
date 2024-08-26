@@ -35,7 +35,7 @@ function Dailyexpense() {
     try{
       e.preventDefault();
     const response = await axios.post("http://localhost:5000/api/addnewexpense", 
-    { itemName: itemName, itemQuantity: itemQuantity, totalItemCost: totalItemCost, itemUnit: itemUnit});
+    { itemName: itemName.toLocaleLowerCase(), itemQuantity: itemQuantity.toLocaleLowerCase(), totalItemCost: totalItemCost.toLocaleLowerCase(), itemUnit: itemUnit.toLocaleLowerCase()});
     setItemName("");
     setItemQuantity("");
     setItemUnit("");

@@ -14,6 +14,7 @@ const { AsyncResource } = require("async_hooks");
 const { v4: uuidv4 } = require('uuid');
 
 
+
 //<--------------------Expense Routes-------------------------------->
 router.get("/fetchallmonthsexpenses", async (req, res) => {
   try {
@@ -760,5 +761,120 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 });
+
+
+///<-----------------Admin------------------>
+
+
+
+// Add new user route
+router.post("/add-user", async (req, res) => {
+  try {
+    const { email, identity, dob, registered, regNo, roomNo, name, year, hostel } = req.body;
+
+    const newUser = new User({
+      email,
+      identity,
+      dob,
+      otp: null,
+      password: "",
+      username: "",
+      registered,
+      regNo,
+      roomNo,
+      name,
+      year,
+      hostel,
+    });
+
+    
+
+    await newUser.save();
+    res.status(201).json({ message: "User added successfully", user: newUser });
+  } catch (error) {
+    console.error("Error adding user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Update profile picture route
+router.post("/upload-profile-picture/:id", upload.single('profilePicture'), async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const profilePic = req.file.path;
+
+    const user = await User.findByIdAndUpdate(userId, { profilePic }, { new: true });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json({ filename: req.file.filename });
+  } catch (error) {
+    console.error("Error uploading profile picture:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get('/users', async (req, res) => {
+  try {
+    const { regNo, hostel, roomNo, email, dob, name, year } = req.query;
+    
+    // Build the query object based on the filters
+    const query = {};
+    
+    if (regNo) query.regNo = regNo;
+    if (hostel) query.hostel = hostel;
+    if (roomNo) query.roomNo = roomNo;
+    if (email) query.email = email;
+    if (dob) query.dob = dob;
+    if (name) query.name = new RegExp(name, 'i'); // Case-insensitive regex search
+    if (year) query.year = year;
+
+    // Find users based on the query
+    const users = await User.find(query);
+    
+    res.json(users);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+
+router.delete('/users/delete/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findByIdAndDelete(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    res.json({ message: 'User deleted successfully.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+router.post('/users/update/:regno', async (req, res) => {
+  try {
+    // console.log(req.body);
+    const user = await User.updateOne({ regno: req.params.regno }, { $set: req.body });
+    // console.log(user);
+    
+    if (!user) {
+      // console.log("my foot");
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json({ message: 'User updated successfully', user });
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating user', error });
+  }
+});
+
+
 
 module.exports = router;

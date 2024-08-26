@@ -8,6 +8,7 @@ import Patelintro from "../../components/studentComponents/Patelintro.jsx";
 import Complaint from "../../components/commonComponents/Complaint.jsx";
 import Randomcomplaint from "../../components/commonComponents/RandomComplaint.jsx";
 import {useUser} from "../../UserContext.js";
+import ExpenseSegment from './../../components/commonComponents/ExpenseSegment.jsx';
 
 //style for whole patel main or first page
 import "./../../styles/PatelStudentHomePage.css";
@@ -22,7 +23,8 @@ function Patelstudent(){
     return(
         <div>
         <Navbar />
-        {/* <Patelintro /> */}
+        <Patelintro />
+        <ExpenseSegment />
 
         <CurrentMessMenu />  
 

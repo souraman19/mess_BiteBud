@@ -1,4 +1,74 @@
-#current_plus_previous_month_expenses{
+.expense-segment-container {
+    padding: 20px;
+    /* border: 2px solid red; */
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    max-width: 90%; /* Limit the width to avoid overflow */
+    overflow: hidden; /* Hide any overflowing content */
+    margin-top: 2rem;
+}
+
+.expense-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+}
+
+.expense-link {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.expense-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.expense-charts-container {
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap; /* Allow items to wrap within the container */
+    gap: 20px;
+}
+
+.chart-wrapper {
+    flex: 1;
+    min-width: 300px; /* Ensure the charts don't shrink too much */
+    max-width: 48%; /* Keep each chart within half of the container */
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chart-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.chart-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+@media (max-width: 768px) {
+    .expense-charts-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .chart-wrapper {
+        max-width: 100%; /* Make the charts take full width on smaller screens */
+    }
 }

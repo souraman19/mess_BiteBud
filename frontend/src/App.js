@@ -21,6 +21,14 @@ import MyAllComplaintsPage from "./pages/studentPages/MyAllComplaintsPage.jsx";
 import MyAllImagesPage from "./pages/studentPages/MyAllImagesPage.jsx";
 import ForgotPassword from './components/commonComponents/ForgotPassword.jsx';
 import {UserProvider} from "./UserContext.js";
+import MyProfilePage from './pages/commonPages/MyProfilePage.jsx';
+import "./styles/globalstyles.css";
+import AdminPage from './pages/developersPages/AdminPage.jsx';
+import SeeUser from "./pages/developersPages/SeeUsers.jsx";
+import DeleteUser from "./pages/developersPages/DeleteUser.jsx";
+import AddUser from "./pages/developersPages/AddUser.jsx";
+import UpdateUser from "./pages/developersPages/UpdateUser.jsx";
+import ProtectedRoute from "./ProtectedRoute.js";
 
 function App() {
     return (
@@ -29,39 +37,45 @@ function App() {
         {/* <Navbar /> */}
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<ProtectedRoute element={<Home />}/>} />
+          <Route path="/myprofilepage" element={<ProtectedRoute element={<MyProfilePage />}/>} />
+          <Route path="/adminpage" element={<ProtectedRoute element={<AdminPage />}/>} />
+          <Route path="/see-users" element={<ProtectedRoute element={<SeeUser />}/>} />
+          <Route path="/delete-user" element={<ProtectedRoute element={<DeleteUser />}/>} />
+          <Route path="/add-user" element={<ProtectedRoute element={<AddUser />} />} />
+          <Route path="/update-user" element={<ProtectedRoute element={<UpdateUser />}/>} />
           
 
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/otpverification" element={<Otpverification />} />
-          <Route path="/passwordcreate" element={<Passwordcreate />} />
-          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/login" element={<ProtectedRoute element={<Login />} />} />
+          <Route path="/signup" element={<ProtectedRoute element={<Signup />} />} />
+          <Route path="/otpverification" element={<ProtectedRoute element={<Otpverification />} />} />
+          <Route path="/passwordcreate" element={<ProtectedRoute element={<Passwordcreate />} />} />
+          <Route path="/forgotpassword" element={<ProtectedRoute element={<ForgotPassword />} />} />
           {/* <Route path="/login" element={<Login />} /> */}
 
 
-          <Route path="/patelstudent" element={<PatelStudentHomePage />} />
+          <Route path="/patelstudent" element={<ProtectedRoute element={<PatelStudentHomePage />} />} />
 
-          <Route path="/patelgallery" element={<Patelgallery />} />
-          <Route path="/myallimages" element={<MyAllImagesPage />} />
-
-
-          <Route path="/patelcomment" element={<Patelcomment />} />
-          <Route path="/myallcomments" element={<MyAllCommentsPage />}/>
-
-          <Route path="/patelfullmenu" element={<Patelfullmenu />} />
-          <Route path="/patelallcomplaint" element={<Patelallcomplaint />} />
-          <Route path="/myallcomplaints" element={<MyAllComplaintsPage />} />
+          <Route path="/patelgallery" element={<ProtectedRoute element={<Patelgallery />} />} />
+          <Route path="/myallimages" element={<ProtectedRoute element={<MyAllImagesPage />} />} />
 
 
-          <Route path="/tilakstudent" element={<Tilakstudent />} />
+          <Route path="/patelcomment" element={<ProtectedRoute element={<Patelcomment />} />} />
+          <Route path="/myallcomments" element={<ProtectedRoute element={<MyAllCommentsPage />} />}/>
+
+          <Route path="/patelfullmenu" element={<ProtectedRoute element={<Patelfullmenu />} />} />
+          <Route path="/patelallcomplaint" element={<ProtectedRoute element={<Patelallcomplaint />} />} />
+          <Route path="/myallcomplaints" element={<ProtectedRoute element={<MyAllComplaintsPage/>} />} />
 
 
-          <Route path="/cheifwarden" element={<Cheifwarden />} />
+          <Route path="/tilakstudent" element={<ProtectedRoute element={<Tilakstudent />}/>} />
 
 
-          <Route path="/accountant" element={<Accountant />} />
-          <Route path="/editexpensepage" element={<EditExpensePage/>}/>
+          <Route path="/cheifwarden" element={<ProtectedRoute element={<Cheifwarden />}/>} />
+
+
+          <Route path="/accountant" element={<ProtectedRoute element={<Accountant />}/>} />
+          <Route path="/editexpensepage" element={<ProtectedRoute element={<EditExpensePage/>} />}/>
         </Routes>
       </Router>
     );

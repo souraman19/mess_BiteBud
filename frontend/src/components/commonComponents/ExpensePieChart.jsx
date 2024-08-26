@@ -6,11 +6,11 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#FF6384'];
 
 function ExpensesPieChart({data}) {
   return (
-    <PieChart width={580} height={580}>
+    <PieChart width={580} height={420}>
       <Pie
         data={data}
         cx={300}
-        cy={300}
+        cy={170}
         outerRadius={190}
         fill="#8884d8"
         dataKey="value"

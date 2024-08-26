@@ -1,69 +1,93 @@
-/* DailyExpenseStyles.css
-
 .daily_expense_outermost_div {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-  }
-  
-  .todays_expense_section {
-    margin-bottom: 20px;
-  }
-  
-  h2 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 15px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 15px;
-  }
-  
-  table th,
-  table td {
-    padding: 10px;
-    border: 1px solid #ccc;
-  }
-  
-  form {
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
+.todays_expense_section {
+  width: 100%;
+  margin-bottom: 30px;
+}
 
-  .todays_expense_section .singleExpense_action_buttons{
-    display: flex;
-    gap: 2rem;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-  
-  button[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #0056b3;
-  }
-   */
+.todays_expense_section h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.todays_expense_section table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.todays_expense_section th, .todays_expense_section td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.todays_expense_section th {
+  background-color: #f1f1f1;
+}
+
+.singleExpense_action_buttons button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.add_new_expense_section {
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.add_new_expense_section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add_new_expense_section div {
+  margin-bottom: 15px;
+}
+
+.add_new_expense_section label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.add_new_expense_section input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.add_new_expense_section button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.add_new_expense_section button:hover {
+  background-color: #0056b3;
+}

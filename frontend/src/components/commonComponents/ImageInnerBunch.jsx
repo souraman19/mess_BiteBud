@@ -82,7 +82,6 @@ const Imageinnerbunch = () => {
       setAllImage(gotAllImages);
     }
     console.log(gotAllImages);
-
   };
 
   const openModal = (selectedImg) => {

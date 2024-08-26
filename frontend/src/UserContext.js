@@ -3,27 +3,28 @@ import img1 from "./srcimages/image1.png";
 import img2 from "./srcimages/image2.png";
 
 // Provide a default value for the context
-const defaultUserContext = {
-  user: {
-    name: "Default Name",
-    username: "DefaultUsername",
-    regNo: "00000000",
-    year: "N/A",
-    email: "default@example.com",
-    profilePic: img1, // or a default image
-    hostel: "N/A",
-    identity: "N/A",
-  },
-  updateUser: () => {}, // Placeholder function
-};
+// const defaultUserContext = {
+//   user: {
+//     name: "Default Name",
+//     username: "DefaultUsername",
+//     regNo: "00000000",
+//     year: "N/A",
+//     email: "default@example.com",
+//     profilePic: img1, // or a default image
+//     hostel: "N/A",
+//     identity: "N/A",
+//   },
+//   updateUser: () => {}, // Placeholder function
+// };
 
-const UserContext = createContext(defaultUserContext);
+const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
 
 
 
   const initialState = {
+    isSignedIn: false,
     name: "Shivanshi Sehgal",
     username: "shivanshi",
     regNo: "20223268",
@@ -32,6 +33,7 @@ export const UserProvider = ({ children }) => {
     profilePic:img1,
     hostel:"hostel",
     identity:"accountant",
+    profilePicture: img1
   };
 
   const [user, setUser] = useState(initialState);
@@ -47,6 +49,7 @@ export const UserProvider = ({ children }) => {
       {children}
     </UserContext.Provider>
   );
+  
 };
 
 export const useUser = () => {

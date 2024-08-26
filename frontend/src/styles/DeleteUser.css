@@ -1,0 +1,102 @@
+/* SeeUsers.css */
+
+.see-users-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .filter-form {
+    margin-bottom: 30px;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .filter-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .filter-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .filter-form input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .filter-form input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .filter-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  .filter-form button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+  
+  .users-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .user-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .user-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .user-card p {
+    margin: 10px 0;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .user-card p strong {
+    color: #007bff;
+  }
+  
+  .users-list p {
+    text-align: center;
+    width: 100%;
+    font-size: 1rem;
+    color: #666;
+  }
+  

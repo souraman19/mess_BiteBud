@@ -18,6 +18,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Link} from "react-router-dom";
 import { useUser } from '../../UserContext'
+import img1 from "./../../srcimages/image2.png";
 
 function Copyright(props) {
 
@@ -111,7 +112,8 @@ export default function SignIn() {
           identity: result.alldata.identity,
           year: result.alldata.year,
           email: result.alldata.email,
-          profilePic: null,
+          profilePic: result.alldata.profilePicture || img1,
+          isSignedIn: true,
         };
         // console.log(userData);
         updateUser(userData);
@@ -125,6 +127,8 @@ export default function SignIn() {
           navigate("/cheifwarden");
         }else if(identity === "accountant"){
           navigate("/accountant");
+        } else if(identity === "admin"){
+          navigate("/adminpage");
         }
        }, 1000)
 

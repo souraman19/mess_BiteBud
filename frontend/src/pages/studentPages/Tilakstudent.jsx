@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../../components/commonComponents/Navbar.jsx";
-import Gallary from "../../components/Gallery.jsx";
+import Gallary from "../../components/commonComponents/Gallery.jsx";
 import Comment from "../../components/commonComponents/CurrentMessMenu.jsx"
 import Currentmenu from "../../components/commonComponents/CurrentMessMenu.jsx"
 import Review from "../../components/commonComponents/Review.jsx";

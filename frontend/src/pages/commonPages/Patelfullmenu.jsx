@@ -10,8 +10,15 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Button, IconButton } from "@mui/material";
 
 function Patelfullmenu() {
-  const { user } = useUser();
+  const {user, updateUser} = useUser();
+  const name = user.name;
+  const username = user.username;
+  const regNo = user.regNo;
+  const year = user.year;
+  const profilePic = user.profilePic;
   const hostel = user.hostel;
+  const identity = user.identity;
+
   const [allMenus, setAllMenus] = useState([]);
   const [mealDay, setMealDay] = useState("");
   const [mealTime, setMealTime] = useState("");
@@ -268,19 +275,27 @@ function Patelfullmenu() {
                               id={`realblock_${day}${meal.time}${meal.name}`}
                               className="box_with_name_two_button_display"
                             >
-                              <DeleteIcon
+                              {
+                                hostel === "hostel" && (
+                                  <DeleteIcon
                                 className="delete-icon"
                                 onClick={() =>
                                   handleDelete(day, meal.time, meal.name)
                                 }
                               />
+                                )
+                              }
                               <div>{meal.name}</div>
-                              <EditIcon
+                              {
+                                hostel === "hostel" && (
+                                  <EditIcon
                                 className="edit-icon"
                                 onClick={() =>
                                   handleEdit(day, meal.time, meal.name)
                                 }
                               />
+                                )
+                              }
                             </div>
                           </li>
                         ))}
@@ -334,19 +349,27 @@ function Patelfullmenu() {
                               id={`realblock_${day}${meal.time}${meal.name}`}
                               className="box_with_name_two_button_display"
                             >
-                              <DeleteIcon
+                               {
+                                hostel === "hostel" && (
+                                  <DeleteIcon
                                 className="delete-icon"
                                 onClick={() =>
                                   handleDelete(day, meal.time, meal.name)
                                 }
                               />
+                                )
+                              }
                               <div>{meal.name}</div>
-                              <EditIcon
+                              {
+                                hostel === "hostel" && (
+                                  <EditIcon
                                 className="edit-icon"
                                 onClick={() =>
                                   handleEdit(day, meal.time, meal.name)
                                 }
                               />
+                                )
+                              }
                             </div>
                           </li>
                         ))}
@@ -400,19 +423,27 @@ function Patelfullmenu() {
                               id={`realblock_${day}${meal.time}${meal.name}`}
                               className="box_with_name_two_button_display"
                             >
-                              <DeleteIcon
+                               {
+                                hostel === "hostel" && (
+                                  <DeleteIcon
                                 className="delete-icon"
                                 onClick={() =>
                                   handleDelete(day, meal.time, meal.name)
                                 }
                               />
+                                )
+                              }
                               <div>{meal.name}</div>
-                              <EditIcon
+                              {
+                                hostel === "hostel" && (
+                                  <EditIcon
                                 className="edit-icon"
                                 onClick={() =>
                                   handleEdit(day, meal.time, meal.name)
                                 }
                               />
+                                )
+                              }
                             </div>
                           </li>
                         ))}
@@ -466,19 +497,27 @@ function Patelfullmenu() {
                               id={`realblock_${day}${meal.time}${meal.name}`}
                               className="box_with_name_two_button_display"
                             >
-                              <DeleteIcon
+                               {
+                                hostel === "hostel" && (
+                                  <DeleteIcon
                                 className="delete-icon"
                                 onClick={() =>
                                   handleDelete(day, meal.time, meal.name)
                                 }
                               />
+                                )
+                              }
                               <div>{meal.name}</div>
-                              <EditIcon
+                              {
+                                hostel === "hostel" && (
+                                  <EditIcon
                                 className="edit-icon"
                                 onClick={() =>
                                   handleEdit(day, meal.time, meal.name)
                                 }
                               />
+                                )
+                              }
                             </div>
                           </li>
                         ))}

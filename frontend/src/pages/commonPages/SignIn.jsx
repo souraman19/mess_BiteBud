@@ -122,11 +122,11 @@ export default function SignIn() {
         if(identity === "patelstudent"){
           navigate("/patelstudent");
         }else if(identity === "tilakstudent"){
-          navigate("/tilakstudent");
+          navigate("/patelstudent");
         }else if(identity === "cheifwarden"){
-          navigate("/cheifwarden");
+          navigate("/patelstudent");
         }else if(identity === "accountant"){
-          navigate("/accountant");
+          navigate("/patelstudent");
         } else if(identity === "admin"){
           navigate("/adminpage");
         }

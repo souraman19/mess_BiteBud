@@ -46,11 +46,11 @@ function App() {
           <Route path="/update-user" element={<ProtectedRoute element={<UpdateUser />}/>} />
           
 
-          <Route path="/login" element={<ProtectedRoute element={<Login />} />} />
-          <Route path="/signup" element={<ProtectedRoute element={<Signup />} />} />
-          <Route path="/otpverification" element={<ProtectedRoute element={<Otpverification />} />} />
-          <Route path="/passwordcreate" element={<ProtectedRoute element={<Passwordcreate />} />} />
-          <Route path="/forgotpassword" element={<ProtectedRoute element={<ForgotPassword />} />} />
+          <Route path="/login"  element={<Login />}  />
+          <Route path="/signup"  element={<Signup />} />
+          <Route path="/otpverification"  element={<Otpverification />} />
+          <Route path="/passwordcreate" element={<Passwordcreate />}  />
+          <Route path="/forgotpassword" element={<ForgotPassword />}  />
           {/* <Route path="/login" element={<Login />} /> */}
 
 

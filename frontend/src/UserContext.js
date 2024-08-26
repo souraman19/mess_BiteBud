@@ -32,7 +32,7 @@ export const UserProvider = ({ children }) => {
     email: "soura9775@gmail.com",
     profilePic:img1,
     hostel:"hostel",
-    identity:"accountant",
+    identity:"patelstudent",
     profilePicture: img1
   };
 

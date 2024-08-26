@@ -8,10 +8,17 @@
     height: 7rem;
     font-size: 2.5rem;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 2rem;
     width: 100%;
     align-items: center;
     justify-content: center;
     background-color: rgb(201, 196, 188);
+    width: 40%;
+    border-radius: 10px;
+    border: 2px solid red;
 }
 
 

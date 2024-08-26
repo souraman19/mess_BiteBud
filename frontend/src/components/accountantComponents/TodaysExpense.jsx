@@ -4,6 +4,7 @@ import "./../../styles/DailyExpense.css";
 import axios from "axios";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useUser } from '../../UserContext.js';
 
 
 function Dailyexpense() {
@@ -12,6 +13,8 @@ function Dailyexpense() {
   const[totalItemCost, setTotalItemCost] = useState("");
   const[itemUnit, setItemUnit] = useState("");
   const [todaysExpenses, setTodaysExpenses] = useState([]);
+  const { user, updateUser } = useUser();
+  const { name, regNo, hostel, username, year, profilePic, isSignedIn, identity } = user;
   
   useEffect(() => {
     fetchTodaysExpenses();
@@ -70,7 +73,11 @@ function Dailyexpense() {
               <th>Item Name</th>
               <th>Quantity</th>
               <th>Total Cost</th>
-              <th>Actions</th>
+              {
+                identity === "accountant" && (
+                  <th>Action</th>
+                )
+              }
             </tr>
           </thead>
           <tbody>
@@ -80,14 +87,18 @@ function Dailyexpense() {
                   <td>{expenseItem.itemName}</td>
                   <td>{singleExpense.quantity} {singleExpense.itemUnit}</td>
                   <td>{singleExpense.totalCost} </td>
-                  <td className="singleExpense_action_buttons">
-                    <button onClick={() => handleTodayExpenseDelete(expenseItem.itemName, singleExpense._id)}>
-                      <DeleteIcon />
-                    </button>
-                    <button>
-                      <EditIcon />
-                    </button>
-                  </td>
+                  
+                  {identity === "accountant" && (
+                      <td className="singleExpense_action_buttons">
+                      <button onClick={() => handleTodayExpenseDelete(expenseItem.itemName, singleExpense._id)}>
+                        <DeleteIcon style={{color:"black"}}/>
+                      </button>
+                      <button>
+                        <EditIcon style={{color:"black"}} />
+                      </button>
+                    </td>
+
+                  )}
                 </tr>))
               ))
             ))}
@@ -99,29 +110,32 @@ function Dailyexpense() {
 
       </div>
 
-      <form className="add_new_expense_section" onSubmit={handleExpenseSubmit}>
-        <h2>Add expense</h2>
-        <div>
-          <label htmlFor="itemName">Item name </label>
-          <input value= {itemName} type="text" id="itemName" name="itemName" placeholder="Enter item name" onChange={(e) => setItemName(e.target.value)}/>
-        </div>
-        <div>
-          <label htmlFor="quantity">Quantity </label>
-          <input value= {itemQuantity} type="text" id="quantity" name="quantity" placeholder="Enter item quantity" onChange={(e) => setItemQuantity(e.target.value)}/>
-        </div>
-        <div>
-          <label htmlFor="totalCost">Total Cost </label>
-          <input value={totalItemCost} type="text" id="totalCost" name="totalCost" placeholder="Enter total cost" onChange={(e) => setTotalItemCost(e.target.value)}/>
-        </div>
-        <div>
-          <label htmlFor="itemUnit">Item Unit</label>
-          <input value={itemUnit} type="text" id="itemUnit" name="itemUnit" placeholder="Enter item unit" onChange={(e) => setItemUnit(e.target.value)}/>
-        </div>
-        <button type="submit">
-          Submit
-        </button>
-
-      </form>
+      {
+        identity === "accountant" && (
+          <div className="add_new_expense_section">
+            <h2>Add new expense</h2>
+            <form onSubmit={handleExpenseSubmit}>
+              <div className="form-group">
+                <label htmlFor="item_name">Item Name:</label>
+                <input type="text" id="item_name" value={itemName} onChange={(e) => setItemName(e.target.value)} required />
+              </div>
+              <div className="form-group">
+                <label htmlFor="item_quantity">Quantity:</label>
+                <input type="text" id="item_quantity" value={itemQuantity} onChange={(e) => setItemQuantity(e.target.value)} required />
+              </div>
+              <div className="form-group">
+                <label htmlFor="total_item_cost">Total Cost:</label>
+                <input type="text" id="total_item_cost" value={totalItemCost} onChange={(e) => setTotalItemCost(e.target.value)} required />
+              </div>
+              <div className="form-group">
+                <label htmlFor="item_unit">Item Unit:</label>
+                <input type="text" id="item_unit" value={itemUnit} onChange={(e) => setItemUnit(e.target.value)} required />
+              </div>
+              <button type="submit">Add Expense</button>
+            </form>
+          </div>
+        )
+      }
    </div>
   );
 }

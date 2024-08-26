@@ -226,7 +226,7 @@ function ComplaintSlide({
             <div className="reply_sectiion">
               {!isResolved ? (
                 <div>
-                  {identity === "accountant" ? (
+                  {identity === "cheifwarden" ? (
                     <button
                       className="reply-button"
                       onClick={handleResolveClick}

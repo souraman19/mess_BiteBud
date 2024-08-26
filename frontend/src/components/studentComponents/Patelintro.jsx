@@ -27,7 +27,7 @@ function Patelintro(){
 
         }}
             >
-                Welcome uoo{hostel} mess portal
+                Welcome to {hostel} mess portal
             </h1>
         </div>
     );

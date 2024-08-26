@@ -3,9 +3,11 @@ import Navbar from "../../components/commonComponents/Navbar";
 import CommentSegmentSlideWithButtons from "../../components/commonComponents/CommentSegmentSlideWithButtons";
 import CommentSegmentSlide from "../../components/commonComponents/CommentSegmentSlide";
 import "./../../styles/CommentList.css";
+import "./../../styles/MyallCommentsPage.css";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import {useUser} from "../../UserContext";
+import { Link } from "react-router-dom";
 
 import { format, differenceInDays, parseISO } from 'date-fns';
 
@@ -103,6 +105,14 @@ function Commentlist() {
       <div>
         <Navbar />
     <div className="commentlist-outer">
+    <div className="myComments_div">
+            <Link to="/myallcomments" style={{ color: "inherit", textDecoration: "none" }}>
+                    My Comments
+               </Link>
+               <Link to="/patelcomment" style={{ color: "inherit", textDecoration: "none" }}>
+                    All Comments
+               </Link>
+            </div>
       <div className="commentlist-second-outer container">
         <h1>My All Comments</h1>
         <div className="row">

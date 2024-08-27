@@ -48,9 +48,6 @@ Thumbs.db
 # Node.js dependencies
 node_modules/
 
-# npm lock file
-package-lock.json
-
 # Yarn lock file
 yarn.lock
 

@@ -3,7 +3,7 @@ import Navbar from "../../components/commonComponents/Navbar";
 // import CommentSegmentSlideWithButtons from "../../components/commonComponents/CommentSegmentSlideWithButtons";
 import CommentSegmentSlide from "../../components/commonComponents/CommentSegmentSlide";
 import "./../../styles/CommentList.css";
-import "./../../styles/MyallCommentsPage.css";
+import "./../../styles/MyAllCommentsPage.css";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import {useUser} from "../../UserContext";

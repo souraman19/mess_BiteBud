@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 const apiRoutes = require('./routes/api'); 
 const complaintRoutes = require('./routes/complaintRoutes/complaintRoute');
 const commentRoutes = require('./routes/complaintRoutes/commentRoutes');
@@ -10,6 +11,14 @@ const commentRoutes = require('./routes/complaintRoutes/commentRoutes');
 
 const app = express();
 const PORT = 5000;
+
+
+// app.use(express.static(path.join(__dirname, 'frontend/build')));
+
+// // Serve the React app for all other routes
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
+// });
 
 // Middleware
 app.use(express.json());

@@ -1,5 +1,6 @@
 const otpGenerator = require('otp-generator');
 const nodemailer = require('nodemailer');
+require('dotenv').config(); 
 
 class OTPService {
   static generateOTP() {
@@ -10,8 +11,8 @@ class OTPService {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'cybersourajit@gmail.com', // replace with your Gmail email address
-        pass: '**** **** **** ****', 
+        user: process.env.email, // replace with your Gmail email address
+        pass: process.env.password, 
       },
     });
 

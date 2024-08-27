@@ -7,12 +7,12 @@ import axios from "axios";
 import NavBar from "../../components/commonComponents/Navbar";
 
 function Complaintlist() {
-  const {user, updateUser} = useUser();
+  const {user} = useUser();
   const myName = user.name;
   const myUsername = user.username;
   const myRegNo = user.regNo;
   const myYear = user.year;
-  const myProfilePic = user.profilePic;
+  // const myProfilePic = user.profilePic;
 
   const [singleComplaint, setSingleComplaint] = useState("");
   const [allComplaints, setAllComplaints] = useState([]);
@@ -24,7 +24,7 @@ function Complaintlist() {
         console.log(response.data);
         const allReceivedComplaints = response.data;
         const myAllComplaints = allReceivedComplaints.filter((c) => {
-            return c.regNo == myRegNo; 
+            return c.regNo === myRegNo; 
         })
         setAllComplaints(myAllComplaints);
       };
@@ -62,7 +62,7 @@ function Complaintlist() {
       };
 
       try{
-        const response = await axios.post("http://localhost:5000/api/addpatelcomplaints", newComplaint);
+        await axios.post("http://localhost:5000/api/addpatelcomplaints", newComplaint);
         setAllComplaints([...allComplaints, newComplaint]);
         setSingleComplaint("");
         console.log("Comment added successfully");

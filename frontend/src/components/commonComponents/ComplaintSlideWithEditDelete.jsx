@@ -11,25 +11,25 @@ import axios from "axios";
 function ComplaintSlide({
   _id,
   name,
-  username,
-  regNo,
-  year,
+  // username,
+  // regNo,
+  // year,
   complaint,
   commentsOnComplaint,
   upVoteCount,
   downVoteCount,
-  upVotedMembers,
-  downVotedMembers,
+  // upVotedMembers,
+  // downVotedMembers,
   isResolved,
   allComplaints,
   updateAllComplaints,
 }) {
-  const { user, updateUser } = useUser();
-  const myName = user.name;
-  const myUsername = user.username;
+  const { user } = useUser();
+  // const myName = user.name;
+  // const myUsername = user.username;
   const myRegNo = user.regNo;
-  const myYear = user.year;
-  const myProfilePic = user.profilePic;
+  // const myYear = user.year;
+  // const myProfilePic = user.profilePic;
 
   const [upVotes, setUpVotes] = useState(upVoteCount);
   const [downVotes, setDownVotes] = useState(downVoteCount);
@@ -37,7 +37,7 @@ function ComplaintSlide({
   const [isDownVoteBlinking, setIsDownVoteBlinking] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
   const [isSeeAllComments, setIsSeeAllComments] = useState(false);
-  const [commentText, setCommentText] = useState("");
+  // const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
 
   const [editedComplaint, setEditedComplaint] = useState(complaint);
@@ -125,7 +125,7 @@ function ComplaintSlide({
 
   const handleEdit = async() => {
     try{
-        const response = await axios.put(`http://localhost:5000/api/updatecomplaint/${_id}`, {complaint : editedComplaint});
+        await axios.put(`http://localhost:5000/api/updatecomplaint/${_id}`, {complaint : editedComplaint});
         console.log("Complaint editing success");
         updateAllComplaints(allComplaints.map((com) => 
             com._id === _id ? {...com, complaint: editedComplaint} : com

@@ -13,8 +13,8 @@ function Dailyexpense() {
   const[totalItemCost, setTotalItemCost] = useState("");
   const[itemUnit, setItemUnit] = useState("");
   const [todaysExpenses, setTodaysExpenses] = useState([]);
-  const { user, updateUser } = useUser();
-  const { name, regNo, hostel, username, year, profilePic, isSignedIn, identity } = user;
+  const { user } = useUser();
+  const { identity } = user;
   
   useEffect(() => {
     fetchTodaysExpenses();
@@ -37,7 +37,7 @@ function Dailyexpense() {
   async function handleExpenseSubmit(e){
     try{
       e.preventDefault();
-    const response = await axios.post("http://localhost:5000/api/addnewexpense", 
+    await axios.post("http://localhost:5000/api/addnewexpense", 
     { itemName: itemName.toLocaleLowerCase(), itemQuantity: itemQuantity.toLocaleLowerCase(), totalItemCost: totalItemCost.toLocaleLowerCase(), itemUnit: itemUnit.toLocaleLowerCase()});
     setItemName("");
     setItemQuantity("");
@@ -52,7 +52,7 @@ function Dailyexpense() {
 
   async function handleTodayExpenseDelete(itemName, expenseId){
     try{
-      const response = await axios.delete(`http://localhost:5000/api/deletedailyexpense?itemName=${itemName}&expenseId=${expenseId}`);
+      await axios.delete(`http://localhost:5000/api/deletedailyexpense?itemName=${itemName}&expenseId=${expenseId}`);
       console.log("Deletion success");
       fetchTodaysExpenses();
     } catch(error){

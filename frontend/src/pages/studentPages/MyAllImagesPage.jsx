@@ -28,7 +28,7 @@ function MyAllImagesPage() {
    
     const handleDelete = async(_id) => {
         try{
-            const response = await axios.delete(`http://localhost:5000/api/deletemyimage/${_id}`);
+            await axios.delete(`http://localhost:5000/api/deletemyimage/${_id}`);
             console.log("deletion successful");
             setAllImages(allImages.filter((image) => image._id !== _id));
         }catch(error){

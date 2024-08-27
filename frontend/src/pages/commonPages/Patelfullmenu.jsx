@@ -7,17 +7,17 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import { Button, IconButton } from "@mui/material";
+// import { Button, IconButton } from "@mui/material";
 
 function Patelfullmenu() {
-  const {user, updateUser} = useUser();
-  const name = user.name;
-  const username = user.username;
-  const regNo = user.regNo;
-  const year = user.year;
-  const profilePic = user.profilePic;
+  const {user} = useUser();
+  // const name = user.name;
+  // const username = user.username;
+  // const regNo = user.regNo;
+  // const year = user.year;
+  // const profilePic = user.profilePic;
   const hostel = user.hostel;
-  const identity = user.identity;
+  // const identity = user.identity;
 
   const [allMenus, setAllMenus] = useState([]);
   const [mealDay, setMealDay] = useState("");

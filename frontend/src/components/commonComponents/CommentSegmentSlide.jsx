@@ -18,8 +18,8 @@ import { useRef } from "react";
 
 function CommentSegmentSlide({
   name,
-  username,
-  regNo,
+  // username,
+  // regNo,
   year,
   comment,
   profilePic,
@@ -27,9 +27,9 @@ function CommentSegmentSlide({
   commentId,
   updateAllComments,
   allComments,
-  setAllComments,
-  singleComment,
-  setSingleComment,
+  // setAllComments,
+  // singleComment,
+  // setSingleComment,
   isMyCommentsPage = false,
   time,
 }) {
@@ -69,7 +69,7 @@ function CommentSegmentSlide({
   const handleEdit = async () => {
     setIsEditing(true);
     try {
-      const response = await axios.put(
+      await axios.put(
         `http://localhost:5000/api/updatecomment/${commentId}`,
         { comment: editedComment }
       );

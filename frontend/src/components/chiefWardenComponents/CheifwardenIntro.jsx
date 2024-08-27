@@ -4,9 +4,8 @@ function Tilakintro(){
     return (
         <div>
             <h1 
-            style={{textAlign: "center",
+            style={{
              marginTop: "50px",
-
              padding: "1.5rem 0",
              fontSize: "3rem",
              textAlign: "center",

@@ -6,13 +6,13 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from "axios";
 
 function Complaintlist() {
-  const {user, updateUser} = useUser();
+  const {user} = useUser();
   const name = user.name;
   const username = user.username;
   const hostel = user.hostel;
   const regNo = user.regNo;
   const year = user.year;
-  const profilePic = user.profilePic;
+  // const profilePic = user.profilePic;
 
   const [singleComplaint, setSingleComplaint] = useState("");
   const [allComplaints, setAllComplaints] = useState([]);

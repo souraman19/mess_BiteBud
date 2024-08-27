@@ -5,13 +5,13 @@ import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 
 
-function CommentModal({ onClose, complaintId, commentsOnComplaint, onAddComment}) {
-  const {user, updateUser} = useUser();
+function CommentModal({ onClose, complaintId, commentsOnComplaint}) {
+  const {user} = useUser();
   const name = user.name;
   const username = user.username;
   const regNo = user.regNo;
   const year = user.year;
-  const profilePic = user.profilePic;
+  // const profilePic = user.profilePic;
 
 
   const [singleComment, setSingleComment] = useState("");

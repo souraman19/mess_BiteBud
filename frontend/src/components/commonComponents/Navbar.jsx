@@ -15,7 +15,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import {Link} from "react-router-dom";
 
 const pages = ["Messmenu", "Comment", "Gallery", "Complaint", "Expense"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+// const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const goto = ["/patelfullmenu", "/patelcomment", "/patelgallery", "/patelallcomplaint", "/editexpensepage"]
 
 function ResponsiveAppBar() {
@@ -33,9 +33,9 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  // const handleCloseUserMenu = () => {
+  //   setAnchorElUser(null);
+  // };
 
   return (
     <AppBar position="static">

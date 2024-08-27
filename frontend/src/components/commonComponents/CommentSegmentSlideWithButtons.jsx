@@ -21,7 +21,7 @@ function CommentSegmentSlideWithButtons({ _id, name, username, regNo, year, comm
 
     const handleEdit = async() =>{
         try{
-            const response = await axios.put(`http://localhost:5000/api/updatecomment/${_id}`, {comment: editedComment});
+            await axios.put(`http://localhost:5000/api/updatecomment/${_id}`, {comment: editedComment});
             console.log("Coment edited successfully");
             updateAllComments(
                 allComments.map((myComment) => 

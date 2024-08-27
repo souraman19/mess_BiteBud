@@ -11,7 +11,7 @@ function Patelintro(){
     return (
         <div>
             <h1 
-            style={{textAlign: "center",
+            style={{
              marginTop: "50px",
 
              padding: "1.5rem 0",

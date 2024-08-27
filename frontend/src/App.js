@@ -20,7 +20,7 @@ import MyAllCommentsPage from "./pages/studentPages/MyAllCommentsPage.jsx";
 import MyAllComplaintsPage from "./pages/studentPages/MyAllComplaintsPage.jsx";
 import MyAllImagesPage from "./pages/studentPages/MyAllImagesPage.jsx";
 import ForgotPassword from './components/commonComponents/ForgotPassword.jsx';
-import {UserProvider} from "./UserContext.js";
+// import {UserProvider} from "./UserContext.js";
 import MyProfilePage from './pages/commonPages/MyProfilePage.jsx';
 import "./styles/globalstyles.css";
 import AdminPage from './pages/developersPages/AdminPage.jsx';

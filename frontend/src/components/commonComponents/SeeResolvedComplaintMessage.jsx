@@ -1,8 +1,8 @@
 import React from "react";
 import "./../../styles/SeeResolvedComplaintMessage.css";
-import { useState } from "react";
-import axios from "axios";
-import {useUser} from "./../../UserContext";
+// import { useState } from "react";
+// import axios from "axios";
+// import {useUser} from "./../../UserContext";
 
 function ResolveMessage({onClose, resolvedMessage}) {
     console.log("resolvedMessage", resolvedMessage);

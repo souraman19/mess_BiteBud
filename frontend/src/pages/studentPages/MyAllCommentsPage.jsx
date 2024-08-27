@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../../components/commonComponents/Navbar";
-import CommentSegmentSlideWithButtons from "../../components/commonComponents/CommentSegmentSlideWithButtons";
+// import CommentSegmentSlideWithButtons from "../../components/commonComponents/CommentSegmentSlideWithButtons";
 import CommentSegmentSlide from "../../components/commonComponents/CommentSegmentSlide";
 import "./../../styles/CommentList.css";
 import "./../../styles/MyallCommentsPage.css";
@@ -35,7 +35,7 @@ const formatDate = (dateString) => {
 
 function Commentlist() { 
 
-  const {user, updateUser} = useUser();
+  const {user} = useUser();
   const name = user.name;
   const username = user.username;
   const regNo = user.regNo;

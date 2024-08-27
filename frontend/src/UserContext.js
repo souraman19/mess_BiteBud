@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import img1 from "./srcimages/image1.png";
-import img2 from "./srcimages/image2.png";
+// import img2 from "./srcimages/image2.png";
 
 // Provide a default value for the context
 // const defaultUserContext = {

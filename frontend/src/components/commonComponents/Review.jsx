@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardBody,
   Typography,
-  Avatar,
+  // Avatar,
 } from "@material-tailwind/react";
 
 function StarIcon() {

@@ -1,27 +1,27 @@
 // Import useState, useEffect, and Modal components from Material-UI
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
+// import ImageList from "@mui/material/ImageList";
+// import ImageListItem from "@mui/material/ImageListItem";
 import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+// import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { styled } from "@mui/material/styles";
 import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
 import { useUser } from "../../UserContext";
 import {v4 as uuidv4} from "uuid";
 
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
+// const VisuallyHiddenInput = styled("input")({
+//   clip: "rect(0 0 0 0)",
+//   clipPath: "inset(50%)",
+//   height: 1,
+//   overflow: "hidden",
+//   position: "absolute",
+//   bottom: 0,
+//   left: 0,
+//   whiteSpace: "nowrap",
+//   width: 1,
+// });
 
 const Imageinnerbunch = () => {
   const {user, updateUser} = useUser();

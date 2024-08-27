@@ -6,7 +6,7 @@ import './../../styles/MyProfilePage.css';
 
 export default function MyProfilePage() {
   const { user, updateUser } = useUser();
-  const { name, regNo, hostel, username, year, profilePic, isSignedIn } = user;
+  const { name, regNo, hostel, username, year, profilePic } = user;
 
   const handleProfilePicChange = async (event) => {
     const file = event.target.files[0];

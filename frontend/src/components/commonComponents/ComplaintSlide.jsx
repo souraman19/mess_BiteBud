@@ -1,7 +1,7 @@
 import React from "react";
 import "./../../styles/ComplaintSlide.css";
-import CommentReplyModal from "./CommentReplyModal";
-import CommentSeeAllCommentsModal from "./CommentSeeAllCommentsModal";
+// import CommentReplyModal from "./CommentReplyModal";
+// import CommentSeeAllCommentsModal from "./CommentSeeAllCommentsModal";
 import SeeResolvedComplaintMessage from "./SeeResolvedComplaintMessage";
 import { useState } from "react";
 import { useUser } from "../../UserContext";
@@ -36,28 +36,28 @@ function ComplaintSlide({
   title,
   time,
   _id,
-  name,
-  hostel = "hostel",
-  username,
-  regNo,
-  year,
+  // name,
+  // hostel = "hostel",
+  // username,
+  // regNo,
+  // year,
   complaint,
-  commentsOnComplaint,
+  // commentsOnComplaint,
   upVoteCount,
   downVoteCount,
-  upVotedMembers,
-  downVotedMembers,
+  // upVotedMembers,
+  // downVotedMembers,
   isResolved,
-  resolvedBy,
+  // resolvedBy,
   resolvedTime,
   resolvedMessage,
 }) {
-  const { user, updateUser } = useUser();
-  const myName = user.name;
-  const myUsername = user.username;
+  const { user } = useUser();
+  // const myName = user.name;
+  // const myUsername = user.username;
   const myRegNo = user.regNo;
-  const myYear = user.year;
-  const myProfilePic = user.profilePic;
+  // const myYear = user.year;
+  // const myProfilePic = user.profilePic;
   const identity = user.identity;
 
   const [upVotes, setUpVotes] = useState(upVoteCount);
@@ -65,8 +65,8 @@ function ComplaintSlide({
   const [isUpVoteBlinking, setIsUpVoteBlinking] = useState(false);
   const [isDownVoteBlinking, setIsDownVoteBlinking] = useState(false);
   const [isResolving, setIsResolving] = useState(false);
-  const [isSeeAllComments, setIsSeeAllComments] = useState(false);
-  const [commentText, setCommentText] = useState("");
+  // const [isSeeAllComments, setIsSeeAllComments] = useState(false);
+  // const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
   const [seeResolvedMessage, setSeeResolvedMessage] = useState(false);
 
@@ -123,9 +123,9 @@ function ComplaintSlide({
     el.classList.remove("none_display");
   };
 
-  const handleAddComment = (newComment) => {
-    setComments([...comments, newComment]);
-  };
+  // const handleAddComment = (newComment) => {
+  //   setComments([...comments, newComment]);
+  // };
 
   const handleResolveClick = () => {
     addDisplayNoneClass();

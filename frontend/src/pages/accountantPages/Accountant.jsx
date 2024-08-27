@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../../components/commonComponents/Navbar.jsx";
 import AccountantIntro from "../../components/accountantComponents/AccountantIntro.jsx";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Gallary from "../../components/commonComponents/Gallery.jsx";
 import Feedback from "../../components/commonComponents/CommentSegment.jsx";
 import Complaint from "../../components/commonComponents/Complaint.jsx";

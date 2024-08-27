@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, {  useState, useEffect } from "react";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -25,12 +25,12 @@ SwiperCore.use([FreeMode, Pagination]);
 export default function CommentSegment() {
   const {user} = useUser();
   console.log("User in 1: ", user);
-  const name = user?.name;
-  const regNo = user?.regNo;
+  // const name = user?.name;
+  // const regNo = user?.regNo;
   const hostel = user?.hostel;
-  const username = user?.username;
-  const year = user?.year;
-  const profilePic = user?.profilePic;
+  // const username = user?.username;
+  // const year = user?.year;
+  // const profilePic = user?.profilePic;
 
   const [complaints, setComplaints] = useState([]);
   useEffect(() => {

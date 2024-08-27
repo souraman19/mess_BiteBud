@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM  from 'react-dom';
 import App from './App';
 import {UserProvider} from "./UserContext";
-import PatelStudentHomePage from "./pages/commonPages/PatelStudentHomePage";
+// import PatelStudentHomePage from "./pages/commonPages/PatelStudentHomePage";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

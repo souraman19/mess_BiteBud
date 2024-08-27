@@ -48,7 +48,7 @@ let date;
 
 
 function Commentlist() { 
-  const {user, updateUser} = useUser();
+  const {user} = useUser();
   const name = user.name;
   const regNo = user.regNo;
   const hostel = user.hostel;

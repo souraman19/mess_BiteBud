@@ -7,13 +7,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import { v4 as uuidv4 } from 'uuid';
 
 //onAddComment
-function CommentModal({ onClose, commentId, commentsOnComment}) {
-  const {user, updateUser} = useUser();
+function CommentModal({ onClose, commentId}) {
+  const {user} = useUser();
   const myName = user.name;
   const myUsername = user.username;
   const myRegNo = user ? user.regNo : '';
   const myYear = user.year;
-  const myProfilePic = user.profilePic;
+  // const myProfilePic = user.profilePic;
 
 
   const [singleComment, setSingleComment] = useState("");

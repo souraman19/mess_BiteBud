@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import axios from 'axios';
 import './../../styles/AddUsers.css'; // You can add styling for the form here
 import AdminNavbar from "./../../components/developersComponents/AdminNavbar.jsx";
@@ -25,7 +25,7 @@ function AddUser() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/add-user', formData);
+      await axios.post('http://localhost:5000/api/add-user', formData);
       alert("User added successfully!");
       setFormData({
         email: "",

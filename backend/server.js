@@ -1,6 +1,7 @@
 // backend/server.js
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config(); 
 const cors = require('cors');
 const path = require('path');
 const apiRoutes = require('./routes/api'); 
@@ -26,7 +27,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(cors());
 
 // Connect to MongoDB (replace 'your-mongodb-uri' with your actual MongoDB URI)
-mongoose.connect('mongodb+srv://Sourajit:Cybersoura@clusterwebster.ugk1voi.mongodb.net/Students', {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

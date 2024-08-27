@@ -1,6 +1,9 @@
 # Node.js dependencies
 node_modules/
 
+
+.env
+
 # npm lock file
 package-lock.json
 

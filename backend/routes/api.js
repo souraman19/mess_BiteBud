@@ -701,10 +701,14 @@ router.post("/verifyOTP", async (req, res) => {
 });
 
 router.post("/validateUser", async (req, res) => {
+  console.log(req.body);
   const { email, dob } = req.body;
+  // console.log("email", email);
+  // console.log("dob", dob);
 
   try {
     const user = await User.findOne({ email, dob });
+    // console.log("user", user);
 
     if (user) {
       res.json({ success: true, isRegistered: user.registered === "yes" });
@@ -719,16 +723,21 @@ router.post("/validateUser", async (req, res) => {
 
 router.post("/sendOTP", async (req, res) => {
   const { email } = req.body;
+  // console.log("email", email);
 
   try {
     const user = await User.findOne({ email });
+    // console.log("user", user);
 
     if (user) {
       const otp = OTPService.generateOTP();
       user.otp = otp;
+      // console.log("OTP:", otp);
       await user.save();
 
       OTPService.sendOTP(email, otp);
+
+      console.log("OTP sent successfully");
 
       res.json({ success: true });
     } else {
@@ -745,6 +754,7 @@ router.post("/login", async (req, res) => {
   try {
     // Extract user credentials from the request body
     const { email, password } = req.body;
+    
 
     // Check credentials against the User collection in MongoDB
     const user = await User.findOne({ email, password });

@@ -7,20 +7,24 @@ class OTPService {
     return otpGenerator.generate(6, { upperCase: false, specialChars: false });
   }
 
+  
+
   static async sendOTP(email, otp) {
+    // console.log(process.env.myemail);
+    // console.log(process.env.password);
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.email, // replace with your Gmail email address
+        user: process.env.myemail, // replace with your Gmail email address
         pass: process.env.password, 
       },
     });
 
     const mailOptions = {
-      from: 'your-email@gmail.com',
+      from: process.env.myemail,
       to: email,
-      subject: 'Your OTP',
-      text: `Your OTP is: ${otp}`,
+      subject: 'SignUp OTP',
+      text: `Your OTP for login is: ${otp}`,
     };
 
     try {

@@ -7,11 +7,11 @@ const path = require('path');
 const apiRoutes = require('./routes/api'); 
 const complaintRoutes = require('./routes/complaintRoutes/complaintRoute');
 const commentRoutes = require('./routes/complaintRoutes/commentRoutes');
+const PORT = process.env.PORT || 5000; 
 
 // Set proxy environment variables
 
 const app = express();
-const PORT = 5000;
 
 
 // app.use(express.static(path.join(__dirname, 'frontend/build')));
@@ -40,6 +40,14 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use('/api/commentRoutes', commentRoutes);
 app.use('/api/complaintRoutes', complaintRoutes);
 app.use('/api', apiRoutes);
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+app.get('/test', (req, res) => {
+  res.send('Test route');
+});
 
 
 // Start the server

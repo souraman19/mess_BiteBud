@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
     name:{type: String},
     year:{type: String},
     profilePicture: { type: String },
+    
     // Add other fields as needed
   });
 

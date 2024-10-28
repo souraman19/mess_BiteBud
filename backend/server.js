@@ -49,6 +49,10 @@ app.get('/test', (req, res) => {
   res.send('Test route');
 });
 
+app.get('/test2', (req, res) => {
+  res.send('Test route2');
+});
+
 
 // Start the server
 app.listen(PORT, () => {

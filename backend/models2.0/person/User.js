@@ -186,6 +186,7 @@ const chiefWardenSchema = new mongoose.Schema(commonSchema)
 const accountantSchema = new mongoose.Schema(commonSchema)
 const storeKeeperSchema = new mongoose.Schema(commonSchema)
 const caretakerSchema = new mongoose.Schema(commonSchema)
+const messInCharge = new mongoose.Schema(commonSchema)
 
 //pre save middlewire for inc student count
 studentSchema.pre('save', async function(next){
@@ -209,8 +210,8 @@ studentSchema.pre('remove', async function(next){
         await Hostel.findOneAndUpdate(
             {name: this.hostel},
             {$inc: {currentStudentCount: -1}}
-            next();
         )
+        next();
     }catch(err){
         return next(err);
     }
@@ -224,6 +225,7 @@ const ChiefWarden = User.discriminator('ChiefWarden', chiefWardenSchema);
 const Caretaker = User.discriminator('Caretaker', caretakerSchema);
 const Accountant = User.discriminator('Accountant', accountantSchema);
 const StoreKeeper = User.discriminator('StoreKeeper', storeKeeperSchema);
+const MessInCharge = User.discriminator('MessInCharge', storeKeeperSchema);
 
-export {User, Student, ChiefWarden, Caretaker, Accountant, Warden, StoreKeeper}; //named export
+export {User, Student, ChiefWarden, Caretaker, Accountant, Warden, StoreKeeper, MessInCharge}; //named export
 //you have to import like import {User} from ""

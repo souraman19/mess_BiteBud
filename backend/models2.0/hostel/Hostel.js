@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import {User, Student, ChiefWarden, Caretaker, Accountant, Warden, StoreKeeper} from "../person/User.js";
+import {User, Student, ChiefWarden, Caretaker, Accountant, Warden, StoreKeeper, MessInCharge} from "../person/User.js";
 
 const hostelSchema = mongoose.Schema({
     name: {
@@ -75,7 +75,14 @@ const hostelSchema = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Student'
         }
-    }
+    },
+    messInCharge:{
+        name:{type: String},
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'MessInCharge'
+        }
+    },
 })
 
 const Hostel = new mongoose.model('Hostel', hostelSchema);

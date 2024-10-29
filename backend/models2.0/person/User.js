@@ -135,6 +135,14 @@ const studentSchema = new mongoose.Schema({
         }],
         default:[]
     },
+    allVacationHistory:{
+        type:[{
+            hostel: {type: String, required: true},
+            startDate: {type: Date, required: true},
+            endDate: {type: Date, required: true},
+        }],
+        default:[]
+    },
     allMessHistory:{
         type:[{
             hostelMess: {type: String, required: true},

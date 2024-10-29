@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 import {MessWorker, Cook} from "./../person/MessWorker";
 
 const menuItemSchema = new mongoose.Schema({
+    menuItemId:{
+        type: mongoose.Schema.Types.ObjectId,
+        default: () => new mongoose.Types.ObjectId(),
+        unique: true,
+    },
     title: {
         type: String,
         required: true,

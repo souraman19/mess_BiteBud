@@ -17,7 +17,8 @@ const menuItemSchema = new mongoose.Schema({
     avgCookingTime:{
         amount:{type: Number, required: true},
         unit:{type: String, required: true},
-    }
+    },
+
 })
 
 const MenuItem = new mongoose.model('MenuItem', menuItemSchema);

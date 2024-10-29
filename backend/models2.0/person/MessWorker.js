@@ -16,14 +16,14 @@ const messWorkerSchema = new mongoose.Schema({
     permanentAddress: {
         country: {type: String, required: true},
         state: {type: String, required: true},
-        pin: {type: Number, require: true},
+        pin: {type: Number, required: true},
         nearestCity: {type: String, required: true},
         streetAddress: {type: String},
     },
     currentAddress: {
         country: {type: String, required: true},
         state: {type: String, required: true},
-        pin: {type: Number, require: true},
+        pin: {type: Number, required: true},
         nearestCity: {type: String, required: true},
         streetAddress: {type: String},
     },
@@ -81,6 +81,10 @@ const messWorkerSchema = new mongoose.Schema({
         saturday: {type: [workingSlotSchema], default: []}, 
         sunday: {type: [workingSlotSchema], default: []},
     },
+    workDetails: {
+        type: String,
+        required: true,
+    },
     activeStatus:{
         type: Boolean,
         default: true,
@@ -93,8 +97,16 @@ const messWorkerSchema = new mongoose.Schema({
         }],
         default:[]
     }
-
 });
 
 const MessWorker = new mongoose.model('Messworker', messWorkerSchema);
-export default MessWorker;
+const cookSchema = new mongoose.Schema({
+    startDateAsCook: {type: Date},
+    activeStatusAsCook: {type: Boolean, required: true},
+    cookPosition: {
+        type: String,
+        enum: ["General", "HeadCook"]
+    }
+})
+const Cook = MessWorker.discriminator('Cook', cookSchema);
+export {MessWorker, Cook};

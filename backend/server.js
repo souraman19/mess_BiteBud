@@ -10,6 +10,7 @@ const commentRoutes = require('./routes/complaintRoutes/commentRoutes');
 const PORT = process.env.PORT || 5000; 
 
 // Set proxy environment variables
+// console.log(process.env.PORT);
 
 const app = express();
 

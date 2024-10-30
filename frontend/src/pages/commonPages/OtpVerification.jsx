@@ -3,7 +3,8 @@ import "./../../styles/OtpVerification.css";
 import "./OtpVerificationJs";
 import { useNavigate, useLocation } from "react-router-dom";
 
-function OtpVerification() {
+function 
+OtpVerification() {
   const navigate = useNavigate();
   const location = useLocation();
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -17,29 +18,32 @@ function OtpVerification() {
   
       const formattedOtp = otp.join("");
   
-      const response = await fetch("http://localhost:5000/api/verifyOTP", {
+      const response = await fetch("http://localhost:7000/api/auth/verifyOtp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({ otp: formattedOtp, userId }),
       });
   
-      // Check if the response status is OK (200)
-      if (response.ok) {
-        const data = await response.json();
+      console.log(response);
+
+      // // Check if the response status is OK (200)
+      // if (response.ok) {
+      //   const data = await response.json();
   
-        if (data.success) {
-          alert("OTP verification successful!");
-          navigate("/passwordcreate", { state: { userId } });
-        } else {
-          alert("OTP verification failed. Please try again.");
-        }
-      } else {
-        // Handle non-OK response status (e.g., 404)
-        console.error("Server error:", response.status, response.statusText);
-        alert("Server error. Please try again later.");
-      }
+      //   if (data.success) {
+      //     alert("OTP verification successful!");
+      //     navigate("/passwordcreate", { state: { userId } });
+      //   } else {
+      //     alert("OTP verification failed. Please try again.");
+      //   }
+      // } else {
+      //   // Handle non-OK response status (e.g., 404)
+      //   console.error("Server error:", response.status, response.statusText);
+      //   alert("Server error. Please try again later.");
+      // }
     } catch (error) {
       console.error("Error during OTP verification:", error);
       alert("An error occurred during OTP verification. Please try again later.");

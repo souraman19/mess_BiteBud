@@ -29,6 +29,9 @@ import DeleteUser from "./pages/developersPages/DeleteUser.jsx";
 import AddUser from "./pages/developersPages/AddUser.jsx";
 import UpdateUser from "./pages/developersPages/UpdateUser.jsx";
 import ProtectedRoute from "./ProtectedRoute.js";
+// import Test from "./Test.js";
+import SignIn from "./pages/loginPages/SignIn.jsx"
+import Register from "./pages/loginPages/Register.jsx";
 
 function App() {
     return (
@@ -36,7 +39,9 @@ function App() {
         {/* <Navigation /> */}
         {/* <Navbar /> */}
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<SignIn />} />
+          <Route path="/register-form" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/home" element={<ProtectedRoute element={<Home />}/>} />
           <Route path="/myprofilepage" element={<ProtectedRoute element={<MyProfilePage />}/>} />
           <Route path="/adminpage" element={<ProtectedRoute element={<AdminPage />}/>} />

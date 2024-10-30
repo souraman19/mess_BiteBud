@@ -1,0 +1,15 @@
+// src/controllers/ratingController.js
+
+import { addRating } from "../services/ratingService.js";
+
+export const rateMeal = async (req, res) => {
+    const { mealId, userId, rating, comment } = req.body;
+
+    try {
+        await addRating(mealId, userId, rating, comment);
+        res.status(201).json({ message: "Rating added successfully!" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "An error occurred while adding the rating." });
+    }
+};

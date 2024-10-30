@@ -1,0 +1,27 @@
+// src/services/ratingService.js
+
+import RatingBucket from "../models/RatingBucket.js";
+
+export async function addRating(mealId, userId, rating, comment) {
+    const threshold = 100; // Set a threshold for the number of ratings per bucket
+
+    // Find the existing bucket for the meal
+    let bucket = await RatingBucket.findOne({ mealId: mealId }).sort({ ratingCount: -1 });
+
+    // If bucket doesn't exist or exceeds the threshold, create a new bucket
+    if (!bucket || bucket.ratingCount >= threshold) {
+        bucket = new RatingBucket({
+            mealId: mealId,
+            ratings: [],
+            ratingCount: 0,
+            bucketId: bucket ? bucket.bucketId + 1 : 1, // Increment bucket ID
+        });
+    }
+
+    // Add the new rating to the bucket
+    bucket.ratings.push({ userId: userId, rating: rating, comment: comment });
+    bucket.ratingCount++;
+
+    // Save the bucket
+    await bucket.save();
+}

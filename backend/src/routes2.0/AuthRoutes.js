@@ -6,8 +6,9 @@ import {loginUser, registerUser, otpSendingService, verifyOtp} from "./../contro
 const router = express.Router();
 
 router.post('/login', checkUser, loginUser);
-router.post('/register', validateUserData, otpSendingService);
-router.post('/verifyOtp', verifyOtp);
-// router.post('/sendOtp', otpSendingService);
+router.post('/get-otp', validateUserData, otpSendingService);
+router.post('/verify-otp', verifyOtp);
+router.post('/register-user', validateUserData, registerUser);
+
 
 export default router;

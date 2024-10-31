@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import "./../../styles/OtpVerification.css";
 import "./OtpVerificationJs";
 import { useNavigate, useLocation } from "react-router-dom";
+import { reducerCases } from "../../context/Constants";
+import {VALIDATE_OTP_ROUTE} from "./../../utils/ApiRoutes.js";
+import { useStateProvider } from "../../context/StateContext";
+import { useEffect } from "react";
 
-function 
-OtpVerification() {
+function OtpVerification() {
+  const [{ userInfo, newUser }, dispatch] = useStateProvider();
   const navigate = useNavigate();
   const location = useLocation();
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
@@ -12,13 +16,22 @@ OtpVerification() {
 
   const userId = location.state?.userId; // Retrieve the user ID from the location state
 
+
+  useEffect(() => {
+    if (userInfo) {
+      console.log("Updated userInfo:", userInfo);
+    }
+  }, [userInfo]); 
+
+
   const handleOtpVerification = async () => {
     try {
+      console.log("userInfo:", userInfo);
       setIsLoading(true);
   
       const formattedOtp = otp.join("");
   
-      const response = await fetch("http://localhost:7000/api/auth/verifyOtp", {
+      const response = await fetch(VALIDATE_OTP_ROUTE, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,7 +40,14 @@ OtpVerification() {
         body: JSON.stringify({ otp: formattedOtp, userId }),
       });
   
-      console.log(response);
+      console.log(response.ok);
+
+      if(response.ok){
+        navigate('/extradetails-form')
+      } else {
+        navigate('/extradetails-form');
+        // navigate('/register-form');
+      }
 
       // // Check if the response status is OK (200)
       // if (response.ok) {

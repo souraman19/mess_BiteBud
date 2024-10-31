@@ -32,6 +32,7 @@ import ProtectedRoute from "./ProtectedRoute.js";
 // import Test from "./Test.js";
 import SignIn from "./pages/loginPages/SignIn.jsx"
 import Register from "./pages/loginPages/Register.jsx";
+import ExtraDetailsForm from './pages/loginPages/ExtraDetailsForm.jsx';
 
 function App() {
     return (
@@ -41,6 +42,9 @@ function App() {
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/register-form" element={<Register />} />
+          <Route path="/extradetails-form" element={<ExtraDetailsForm />} />
+
+
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<ProtectedRoute element={<Home />}/>} />
           <Route path="/myprofilepage" element={<ProtectedRoute element={<MyProfilePage />}/>} />

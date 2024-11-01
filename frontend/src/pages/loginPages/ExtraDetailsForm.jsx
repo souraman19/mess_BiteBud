@@ -111,10 +111,10 @@ function ExtraDetailsForm() {
     try {
       const response = await axios.post(
         USER_REGISTER_ROUTE, userInfo, { withCredentials: true });
-      if(response.ok){
-          navigate('/');
+      if(response.status === 200){
+            navigate('/test');
       } else {
-          navigate('/register-form');
+        navigate('/register-form');
       }
         console.log("res", response);
     } catch (err) {
@@ -123,11 +123,13 @@ function ExtraDetailsForm() {
   };
 
   return (
-    <form
+    <div>
+        <form
       className="extra-details-form"
       style={styles.form}
       onSubmit={handleSubmit}
-    >
+    >   
+    
       {userInfo?.position === "Student" && (
         <div className="student-details" style={styles.section}>
           <div style={styles.inputContainer}>
@@ -393,6 +395,7 @@ function ExtraDetailsForm() {
         Submit
       </button>
     </form>
+    </div>
   );
 }
 

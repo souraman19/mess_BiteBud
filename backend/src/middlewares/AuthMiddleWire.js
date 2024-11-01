@@ -1,6 +1,17 @@
 import {User} from "./../models2.0/person/User.js";
 
 
+//session-check middlewire
+const sessionCheck = (req, res, next) => {
+    if(req.session && req.session.user){
+        next();
+    } else {
+        res.status(401).json({message: "Session expired, please login again"});
+    }
+}
+
+
+
 
 //validate if all user data make correct sense or not
 const validateUserData = (req, res, next) => {
@@ -96,16 +107,16 @@ const validatePostalCode = (country, postalCode) => {
 
 const checkUser = async (req, res, next) => {
     try{
-        const {email, password} = req.body;
-        if(email === "" || password === ""){
+        const {username, password} = req.body;
+        if(username === "" || password === ""){
             console.log("Email or Password no one can empty");
         }
-        console.log(email, password);
-        const result = await User.findOne({collegeMail: email});
+        console.log(username, password);
+        const result = await User.findOne({collegeMail: username});
         console.log(result);
         if(result === null){
             console.log("User not found. Redirecting to register.");
-            return res.status(200).json({redirect:"register-form"});
+            return res.status(201).json({message: "User not found"});
         }
         next();
     }catch(err){
@@ -113,5 +124,5 @@ const checkUser = async (req, res, next) => {
     }
 }
 
-export {checkUser, validateUserData};
+export {checkUser, validateUserData, sessionCheck};
 

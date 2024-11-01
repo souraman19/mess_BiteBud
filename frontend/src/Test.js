@@ -1,29 +1,17 @@
-import React from "react";
-import axios from "axios";
+import React from 'react';
+import { reducerCases } from "../src/context/Constants.js";
+import { useStateProvider } from "../src/context/StateContext.jsx";
 
-function test(){ 
-    
-async function f(){
-    try{
-        const data = {
-            name: "Sourajit",
-            age: 18
-        }
-        console.log("fkd");
-        await axios.post("http://localhost:7000/api/add-user", data);
-    }catch(err){
-        console.log(err);
-    }
-}
+const Test = () => {
+  const [{ userInfo, newUser }, dispatch] = useStateProvider();
 
-    return (
-        <>
-        <div>hello</div>
-        <button onClick={() => f()}>
-            Submit
-        </button>
-    </>
-    )
-}
+  console.log(userInfo);
 
-export default test;
+  return (
+    <div>
+      <div>Full success</div>
+    </div>
+  );
+};
+
+export default Test;

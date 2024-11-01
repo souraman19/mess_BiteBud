@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import {LOGIN_ROUTE} from "./../../utils/ApiRoutes.js";
+import { reducerCases } from "../../context/Constants";
+import { useStateProvider } from "../../context/StateContext";
+
 
 function SignIn() {
+  const [{ userInfo, newUser }, dispatch] = useStateProvider();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
@@ -13,12 +19,23 @@ function SignIn() {
     e.preventDefault();
     console.log("Client Side: Sign in with:", { email, password });
     try{
-        const response = await axios.post(LOGIN_ROUTE, {email, password});
-        console.log(response.data.redirect);
-        if(response.data.redirect){
-            window.location.href = response.data.redirect;
-        } else {
-            console.log('User logged in successfully!');
+        const response = await axios.post(LOGIN_ROUTE, {username: email, password}, {withCredentials: true});
+        console.log("gotted response => ", response);
+        if(response.status === 201){
+          navigate('/register-form');
+        } 
+        if(response.status === 200){
+          dispatch({
+            //Dispatch an action to set the newUser state to true.
+            type: reducerCases.SET_NEW_USER,
+            newUser: true,
+          });
+          dispatch({
+            type: reducerCases.SET_USER_INFO, // Action to set user information in the state.
+            userInfo: response.data.user,
+          });
+          console.log("UserInfo after set globally", userInfo);
+          navigate('/test');
         }
     }catch(err){
         console.error(err);
@@ -39,6 +56,7 @@ function SignIn() {
 
   return (
     <div style={styles.page}>
+        
       <div style={styles.container}>
         <h2 style={styles.header}>Welcome Back</h2>
         <form onSubmit={handleSignIn} style={styles.form}>

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home.jsx';
 import Login from './pages/commonPages/Login.jsx';
 // import Navbar from './components/Navbar.jsx'
-import PatelStudentHomePage from './pages/commonPages/PatelStudentHomePage.jsx';
+import StudentHomePage from './pages/studentPages2.0/StudentHomePage.jsx';
 import Tilakstudent from './pages/studentPages/Tilakstudent.jsx';
 import Patelgallery from "./pages/commonPages/Patelgallery.jsx";
 import Patelcomment from './pages/commonPages/Patelcomment.jsx';
@@ -29,7 +29,7 @@ import DeleteUser from "./pages/developersPages/DeleteUser.jsx";
 import AddUser from "./pages/developersPages/AddUser.jsx";
 import UpdateUser from "./pages/developersPages/UpdateUser.jsx";
 import ProtectedRoute from "./ProtectedRoute.js";
-// import Test from "./Test.js";
+import Test from "./Test.js";
 import SignIn from "./pages/loginPages/SignIn.jsx"
 import Register from "./pages/loginPages/Register.jsx";
 import ExtraDetailsForm from './pages/loginPages/ExtraDetailsForm.jsx';
@@ -45,6 +45,14 @@ function App() {
           <Route path="/extradetails-form" element={<ExtraDetailsForm />} />
 
 
+          <Route path="/student-home-page"  element={<StudentHomePage />} />
+
+
+
+
+////---------------------------------------------------------------------------------------
+
+          <Route path="/test" element={<Test />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<ProtectedRoute element={<Home />}/>} />
           <Route path="/myprofilepage" element={<ProtectedRoute element={<MyProfilePage />}/>} />
@@ -63,7 +71,6 @@ function App() {
           {/* <Route path="/login" element={<Login />} /> */}
 
 
-          <Route path="/patelstudent" element={<ProtectedRoute element={<PatelStudentHomePage />} />} />
 
           <Route path="/patelgallery" element={<ProtectedRoute element={<Patelgallery />} />} />
           <Route path="/myallimages" element={<ProtectedRoute element={<MyAllImagesPage />} />} />

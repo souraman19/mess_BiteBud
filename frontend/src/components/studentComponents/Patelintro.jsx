@@ -1,5 +1,4 @@
 import React from "react";
-import {useUser} from "../../UserContext.js";
 
 function Patelintro(){
     const {user} = useUser();

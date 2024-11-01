@@ -65,11 +65,11 @@ const connectdb = async () => {
 connectdb();
 
 
-app.use((req, res, next) => {
-    res.locals.user = req.user; 
-    console.log("req user", req.user);
-    next();
-});
+// app.use((req, res, next) => {
+//     res.locals.user = req.user; 
+//     console.log("req user", req.user);
+//     next();
+// });
 
 
 

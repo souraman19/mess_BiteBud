@@ -35,7 +35,7 @@ function SignIn() {
             userInfo: response.data.user,
           });
           console.log("UserInfo after set globally", userInfo);
-          navigate('/test');
+          navigate('/student-home-page');
         }
     }catch(err){
         console.error(err);

@@ -12,30 +12,23 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useRef } from "react";
 
-
-
-
-
 function CommentSegmentSlide({
-  name,
-  // username,
-  // regNo,
-  year,
-  comment,
-  profilePic,
-  commentsOnComment,
+  firstName,
+  username,
+  commentText,
+  profilePicture,
+  commentsUnderComment,
   commentId,
   updateAllComments,
   allComments,
-  // setAllComments,
-  // singleComment,
-  // setSingleComment,
-  isMyCommentsPage = false,
-  time,
+  setAllComment,
+  singleComment,
+  setSingleComment,
+  isMyCommentsPage,
+  commentTime,
 }) {
-
   const [showReplyModal, setShowReplyModal] = useState(false);
-  const [editedComment, setEditedComment] = useState(comment);
+  const [editedComment, setEditedComment] = useState(commentText);
   const [isEditing, setIsEditing] = useState(false);
   const textareaRef = useRef(null);
 
@@ -57,7 +50,7 @@ function CommentSegmentSlide({
       );
       console.log("Comment deleted successfully");
       updateAllComments(
-        allComments.filter((comment) => comment._id !== commentId)
+        allComments.filter((comment) => comment.commentId !== commentId)
       );
     } catch (error) {
       console.log("Error in deleting comments", error);
@@ -69,10 +62,9 @@ function CommentSegmentSlide({
   const handleEdit = async () => {
     setIsEditing(true);
     try {
-      await axios.put(
-        `http://localhost:5000/api/updatecomment/${commentId}`,
-        { comment: editedComment }
-      );
+      await axios.put(`http://localhost:5000/api/updatecomment/${commentId}`, {
+        comment: editedComment,
+      });
       console.log("Coment edited successfully");
       updateAllComments(
         allComments.map((myComment) =>
@@ -118,10 +110,10 @@ function CommentSegmentSlide({
               onKeyDown={handleKeyDown}
             />
           ) : (
-            comment
+            commentText
           )}
         </p>
-        <p id="comment_creation_time">~ {time}</p>
+        <p id="comment_creation_time">~ {commentTime}</p>
       </div>
       <div id="comment_slide_lower_part_div_001">
         <div id="reply_comment_list_div_comment_slide">
@@ -147,11 +139,10 @@ function CommentSegmentSlide({
           )}
         </div>
         <div className="swiper-client-data grid grid-three-column ">
-          <img src={profilePic} alt="" srcSet="" />
+          <img src={profilePicture} alt="" srcSet="" />
 
           <div className="client-data-details">
-            <p>{name}</p>
-            <p>{year} Year</p>
+            <p>{username}</p>
           </div>
         </div>
 
@@ -169,7 +160,7 @@ function CommentSegmentSlide({
       {showReplyModal && (
         <CommentReplyModal
           onClose={() => setShowReplyModal(false)}
-          commentsOnComment={commentsOnComment}
+          commentsOnComment={commentsUnderComment}
           commentId={commentId}
         />
       )}

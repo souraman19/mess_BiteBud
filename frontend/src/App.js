@@ -7,7 +7,7 @@ import Login from './pages/commonPages/Login.jsx';
 import StudentHomePage from './pages/studentPages2.0/StudentHomePage.jsx';
 import Tilakstudent from './pages/studentPages/Tilakstudent.jsx';
 import Patelgallery from "./pages/commonPages/Patelgallery.jsx";
-import Patelcomment from './pages/commonPages/Patelcomment.jsx';
+import AllComments from './pages/commentPages/AllComments.jsx';
 import Patelfullmenu from './pages/commonPages/Patelfullmenu.jsx';
 import Cheifwarden from './pages/chiefWardenPages/Cheifwarden.jsx';
 import Accountant from "./pages/accountantPages/Accountant.jsx";
@@ -48,6 +48,7 @@ function App() {
           <Route path="/student-home-page"  element={<StudentHomePage />} />
 
 
+          <Route path="/comment-page" element={<AllComments /> } />
 
 
 ////---------------------------------------------------------------------------------------
@@ -76,7 +77,6 @@ function App() {
           <Route path="/myallimages" element={<ProtectedRoute element={<MyAllImagesPage />} />} />
 
 
-          <Route path="/patelcomment" element={<ProtectedRoute element={<Patelcomment />} />} />
           <Route path="/myallcomments" element={<ProtectedRoute element={<MyAllCommentsPage />} />}/>
 
           <Route path="/patelfullmenu" element={<ProtectedRoute element={<Patelfullmenu />} />} />

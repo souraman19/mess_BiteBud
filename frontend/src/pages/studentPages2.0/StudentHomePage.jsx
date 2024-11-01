@@ -27,7 +27,7 @@ function Patelstudent(){
         {/* <Gallary /> */}
 
         
-        {/* <CommentSegment /> */}
+        <CommentSegment />
 
 
         {/* <Complaint />  */}

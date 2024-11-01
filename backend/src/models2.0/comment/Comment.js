@@ -44,7 +44,10 @@ const commentSchema = new mongoose.Schema({
         default: "",
     },
     commentedBy: {
-        name: {
+        username: {
+            type: String, required: true
+        },
+        firstName:{
             type: String, required: true
         },
         profilePicture:{
@@ -55,6 +58,11 @@ const commentSchema = new mongoose.Schema({
             ref: 'Student',
             required: true
         },
+        hostel:{
+            type: String,
+            required: true,
+            ref: 'Hostel'
+        }
     },
     commentTime:{
         type: Date,
@@ -74,4 +82,5 @@ const commentSchema = new mongoose.Schema({
 }, {timestamps: {createdAt: true, updatedAt: true}})
 
 const Comment = new mongoose.model('Comment', commentSchema);
+
 export default Comment;

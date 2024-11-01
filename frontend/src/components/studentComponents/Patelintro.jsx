@@ -1,12 +1,10 @@
 import React from "react";
+import { useStateProvider } from "../../context/StateContext";
 
 function Patelintro(){
-    const {user} = useUser();
-    console.log("User in 4: ", user);
-    const hostel = user?.hostel;
-    console.log("hostel", hostel);
 
-
+    const [{ userInfo, newUser }, dispatch] = useStateProvider();
+    const hostel = userInfo?.hostel;
     return (
         <div>
             <h1 

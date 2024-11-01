@@ -9,17 +9,19 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "./../../styles/CommentSegment.css";
+import "swiper/swiper-bundle.css"; // Import the Swiper styles
 
 // import required modules
 import { FreeMode, Pagination } from "swiper/modules";
 import SwiperCore from "swiper";
-import {useUser} from "./../../UserContext";
 import axios from "axios";
+import { format, differenceInDays, parseISO } from 'date-fns';
 import CommentSegmentSlide from "./CommentSegmentSlide";
 
-import "swiper/swiper-bundle.css"; // Import the Swiper styles
+import {GET_ALL_COMMENTS_ROUTE} from "./../../utils/ApiRoutes.js"
+import { reducerCases } from "../../context/Constants";
+import { useStateProvider } from "../../context/StateContext";
 
-import { format, differenceInDays, parseISO } from 'date-fns';
 
 
 // for getting eaasy way of getting time
@@ -65,14 +67,16 @@ let date;
 SwiperCore.use([FreeMode, Pagination]);
 
 export default function CommentSegment() {
-  const {user} = useUser();
-  console.log("User in 1: ", user);
+
+const [{ userInfo, newUser }, dispatch] = useStateProvider();
+
+  console.log("User in 1: ", userInfo);
   // const name = user?.name;
   // const regNo = user?.regNo;
-  const hostel = user?.hostel;
+  const hostel = userInfo?.hostel;
   // const username = user?.username;
   // const year = user?.year;
-  const profilePic = user?.profilePic;
+  const profilePicture = userInfo?.profilePicture;
 
   const [comments, setComments] = useState([]);
   const [singleComment, setSingleComment] = useState("");
@@ -82,14 +86,10 @@ export default function CommentSegment() {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/patelcomments");
-        const myHostelComments = response.data;
-        if(hostel !== 'hostel'){
-          const myHostelComments = response.data.filter((comment) => comment.hostel === hostel)
-          setComments(myHostelComments);
-        } else {
-          setComments(myHostelComments);
-        }
+        const response = await axios.get(GET_ALL_COMMENTS_ROUTE, {params: {hostel}, withCredentials: true});
+        console.log(response.data.comments);
+        const myHostelComments = response.data.comments;
+        setComments(myHostelComments);
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
@@ -113,7 +113,7 @@ export default function CommentSegment() {
       <div className="upper-section-commentsegment">
         <h1 className="heading">Comments</h1>
         <p>Read all thoughts about our mess and food</p>
-        <Link to="/patelcomment">
+        <Link to="/comment-page">
           <a class="btn btn-outline-secondary" href="#" role="button">
             See all comments
           </a>
@@ -139,20 +139,20 @@ export default function CommentSegment() {
           {comments.map((singleCommentMap) => 
             <SwiperSlide className="swiper-slide-currentsegment" key = {singleCommentMap.id}>
               <CommentSegmentSlide 
-               name = {singleCommentMap.name} 
-               username = {singleCommentMap.username}
+               username = {singleCommentMap.username} 
+               firstname = {singleCommentMap.firstname}
                regNo = {singleCommentMap.regNo}
                year = {singleCommentMap.year}
-               comment={singleCommentMap.comment} 
-               profilePic = {profilePic}
-                commentsOnComment = {singleCommentMap.commentsOnComment}
-                commentId = {singleCommentMap._id}
+               commentText={singleCommentMap.commentText} 
+               profilePicture = {singleCommentMap.commentedBy.profilePicture}
+                commentsUnderComment = {singleCommentMap.commentsUnderComment}
+                commentId = {singleCommentMap.commentId}
                 updateAllComments = {updateAllComments}
               allComments = {allComments}
               setAllComment = {setAllComments}
               singleComment = {singleComment}
               setSingleComment = {setSingleComment}
-              time = {formatDate(singleCommentMap.time)}
+              commentTime = {formatDate(singleCommentMap.commentTime)}
               />
 
             </SwiperSlide>

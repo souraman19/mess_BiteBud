@@ -3,7 +3,10 @@ import CommentSegmentSlide from "./CommentSegmentSlide";
 import "./../../styles/CommentList.css";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-import {useUser} from "../../UserContext";
+import { reducerCases } from "../../context/Constants";
+import { useStateProvider } from "../../context/StateContext";
+import {GET_ALL_COMMENTS_ROUTE, ADD_COMMENT_ROUTE} from "./../../utils/ApiRoutes.js";
+
 
 import { format, differenceInDays, parseISO } from 'date-fns';
 
@@ -48,13 +51,15 @@ let date;
 
 
 function Commentlist() { 
-  const {user} = useUser();
-  const name = user.name;
-  const regNo = user.regNo;
-  const hostel = user.hostel;
-  const username = user.username;
-  const year = user.year;
-  const profilePic = user.profilePic;
+  const [{ userInfo, newUser }, dispatch] = useStateProvider();
+
+  const userId = userInfo.userId;
+  const username = userInfo.username;
+  const regNo = userInfo.regNo;
+  const hostel = userInfo.hostel;
+  const firstName = userInfo.firstName;
+  const year = userInfo.year;
+  const profilePicture = userInfo.profilePicture;
 
   const [singleComment, setSingleComment] = useState("");
   const [allComments, setAllComments] = useState([]);
@@ -62,17 +67,11 @@ function Commentlist() {
   useEffect(() => {
     try {
       const fetchData = async () => {
-        const response = await axios.get("http://localhost:5000/api/patelcomments");
-        console.log(response.data);
+        const response = await axios.get(GET_ALL_COMMENTS_ROUTE, {params: {hostel}, withCredentials: true});
+        console.log("mycomm", response.data);
         // const commentInfoArray = response.data.map((commentObj) => commentObj);
-        const myHostelComments = response.data;
-        if(hostel !== 'hostel'){
-          const myHostelComments = response.data.filter((comment) => comment.hostel === hostel)
-          setAllComments(myHostelComments);
-        } else {
-          setAllComments(myHostelComments);
-        }
-       
+        const myHostelComments = response.data.comments;
+        setAllComments(myHostelComments);
     };
       fetchData();
     } catch (error) {
@@ -92,24 +91,23 @@ function Commentlist() {
   const handleCommentSubmit = async () => {
     if (singleComment.trim() !== "") {
       // Add the new comment to the list
-      const _id = uuidv4();
 
       const newComment = {
-        _id : _id,
-        name: name, 
-        username: username, 
-        regNo: regNo, year:year,
-        comment:singleComment,
-        hostel: hostel,
-        profilePic: profilePic,
-        commentsOnComment: [],
-        time: new Date(),   //no need
+        commentText:singleComment,
+        commentedBy: {
+          username: username,
+          firstName: firstName,
+          profilePicture: profilePicture,
+          userId: userId,
+          hostel: hostel,
+        },
+        commentTime: Date.now(),
+      isDeleted: false,
       };
   
       try{
-        const response = await axios.post("http://localhost:5000/api/addpatelcomments", newComment);
+        const response = await axios.post(ADD_COMMENT_ROUTE, newComment);
         console.log("Comment added successflly", response.data);
-
         
         // console.log(response.data.complaints);
         setAllComments(response.data.comments);
@@ -130,12 +128,11 @@ function Commentlist() {
         <div className="row">
           <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
             <CommentSegmentSlide 
-            comment="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." 
-            name = "Sourajit Mandal"
-            year = "4th"
-            profilePic = {profilePic}
-            commentsOnComment = {[]}
-            time = "today"  
+            commentText="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." 
+            usernamename = "Sourajit Mandal"
+            profilePicture = {profilePicture}
+            commentsUnderComment = {[]}
+            commentTime = "today"  
             />
           </div>
 
@@ -146,21 +143,19 @@ function Commentlist() {
             >
               <CommentSegmentSlide 
               // {...alert(formatDate(singleCommentMap.time))}
-              name = {singleCommentMap.name} 
-              username = {singleCommentMap.username}
-              regNo = {singleCommentMap.regNo}
-              year = {singleCommentMap.year}
-              comment={singleCommentMap.comment} 
-              profilePic = {singleCommentMap.profilePic}
-              commentsOnComment = {singleCommentMap.commentsOnComment}
-              commentId = {singleCommentMap._id}
+              firstName = {singleCommentMap.commentedBy.firstName} 
+              username = {singleCommentMap.commentedBy.username}
+              commentText={singleCommentMap.commentText} 
+              profilePicture = {singleCommentMap.commentedBy.profilePicture}
+              commentsUnderComment = {singleCommentMap.commentsUnderComment}
+              commentId = {singleCommentMap.commentId}
               updateAllComments = {updateAllComments}
               allComments = {allComments}
               setAllComment = {setAllComments}
               singleComment = {singleComment}
               setSingleComment = {setSingleComment}
               isMyCommentsPage = {false}
-              time = {formatDate(singleCommentMap.time)}
+              commentTime = {formatDate(singleCommentMap.commentTime)}
               
               />
             </div>

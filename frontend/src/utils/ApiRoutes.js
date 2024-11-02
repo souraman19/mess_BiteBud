@@ -13,3 +13,8 @@ export const USER_REGISTER_ROUTE =`${AUTH_ROUTES}/register-user`;
 
 export const GET_ALL_COMMENTS_ROUTE = `${COMMENT_ROUTES}/get-all-comments`
 export const ADD_COMMENT_ROUTE = `${COMMENT_ROUTES}/add-comment`
+export const EDIT_COMMENT_ROUTE = `${COMMENT_ROUTES}/edit-comment`
+export const DELETE_COMMENT_ROUTE = `${COMMENT_ROUTES}/delete-comment`
+export const ADD_COMMENT_UNDER_COMMENT_ROUTE = `${COMMENT_ROUTES}/add-comment-under-comment`
+export const GET_COMMENTS_UNDER_COMMENT_ROUTE = `${COMMENT_ROUTES}/get-comments-under-comment`
+export const DELETE_COMMENT_UNDER_COMMENT_ROUTE = `${COMMENT_ROUTES}/delete-comment-under-comment`

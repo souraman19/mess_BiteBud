@@ -2,10 +2,15 @@ import mongoose from "mongoose";
 import {Student, User} from "../person/User.js";
 
 const commentUnderCommentSchema = mongoose.Schema({
+        commentId:{
+             type: mongoose.Schema.Types.ObjectId,
+             default: () => new mongoose.Types.ObjectId(),
+            unique: true,
+        },
         comment: {type: String, required: true},
         commentTime: {type: Date, default: Date.now},
         commentedBy: {
-            name:{type: String, required: true},
+            username:{type: String, required: true},
             userId: {type: mongoose.Schema.Types.ObjectId, ref: 'Student', required: true}
         },
         isDeleted: { type: Boolean, default: false },

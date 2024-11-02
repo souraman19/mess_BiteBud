@@ -9,10 +9,10 @@ function Patelcomment(){
         <div className="patelCommentPage_outermost_box">
             <Navbar />
             <div className="myComments_div">
-            <Link to="/myallcomments" style={{ color: "inherit", textDecoration: "none" }}>
+            <Link to="/myallcomments-page" style={{ color: "inherit", textDecoration: "none" }}>
                     My Comments
                </Link>
-               <Link to="/patelcomment" style={{ color: "inherit", textDecoration: "none" }}>
+               <Link to="/comment-page" style={{ color: "inherit", textDecoration: "none" }}>
                     All Comments
                </Link>
             </div>

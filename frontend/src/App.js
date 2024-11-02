@@ -49,6 +49,7 @@ function App() {
 
 
           <Route path="/comment-page" element={<AllComments /> } />
+          <Route path="/myallcomments-page" element={<MyAllCommentsPage />}/>
 
 
 ////---------------------------------------------------------------------------------------
@@ -77,7 +78,6 @@ function App() {
           <Route path="/myallimages" element={<ProtectedRoute element={<MyAllImagesPage />} />} />
 
 
-          <Route path="/myallcomments" element={<ProtectedRoute element={<MyAllCommentsPage />} />}/>
 
           <Route path="/patelfullmenu" element={<ProtectedRoute element={<Patelfullmenu />} />} />
           <Route path="/patelallcomplaint" element={<ProtectedRoute element={<Patelallcomplaint />} />} />

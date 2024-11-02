@@ -7,6 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import AddReactionIcon from "@mui/icons-material/AddReaction";
 import CloseIcon from "@mui/icons-material/Close";
 import CommentReplyModal from "./CommentReplyModal";
+import {EDIT_COMMENT_ROUTE, DELETE_COMMENT_ROUTE} from "./../../utils/ApiRoutes.js";
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
@@ -44,9 +45,9 @@ function CommentSegmentSlide({
 
   const handleDelete = async () => {
     try {
-      // console.log("my id",_id);
+      // console.log("my id",_id);      
       await axios.delete(
-        `http://localhost:5000/api/deletecomment/${commentId}`
+        `${DELETE_COMMENT_ROUTE}/${commentId}`
       );
       console.log("Comment deleted successfully");
       updateAllComments(
@@ -62,14 +63,12 @@ function CommentSegmentSlide({
   const handleEdit = async () => {
     setIsEditing(true);
     try {
-      await axios.put(`http://localhost:5000/api/updatecomment/${commentId}`, {
-        comment: editedComment,
-      });
+      await axios.put(`${EDIT_COMMENT_ROUTE}/${commentId}`, {commentText: editedComment}, {withCredentials: true});;
       console.log("Coment edited successfully");
       updateAllComments(
         allComments.map((myComment) =>
-          myComment._id === commentId
-            ? { ...myComment, comment: editedComment }
+          myComment.commentId === commentId
+            ? { ...myComment, commentText: editedComment}
             : myComment
         )
       );
@@ -160,7 +159,7 @@ function CommentSegmentSlide({
       {showReplyModal && (
         <CommentReplyModal
           onClose={() => setShowReplyModal(false)}
-          commentsOnComment={commentsUnderComment}
+          commentsUnderComment={commentsUnderComment}
           commentId={commentId}
         />
       )}

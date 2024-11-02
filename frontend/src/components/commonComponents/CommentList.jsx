@@ -68,7 +68,7 @@ function Commentlist() {
     try {
       const fetchData = async () => {
         const response = await axios.get(GET_ALL_COMMENTS_ROUTE, {params: {hostel}, withCredentials: true});
-        console.log("mycomm", response.data);
+        console.log(response.data);
         // const commentInfoArray = response.data.map((commentObj) => commentObj);
         const myHostelComments = response.data.comments;
         setAllComments(myHostelComments);
@@ -156,7 +156,6 @@ function Commentlist() {
               setSingleComment = {setSingleComment}
               isMyCommentsPage = {false}
               commentTime = {formatDate(singleCommentMap.commentTime)}
-              
               />
             </div>
           ))}

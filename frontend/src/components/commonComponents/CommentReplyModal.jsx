@@ -5,15 +5,21 @@ import axios from "axios";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { v4 as uuidv4 } from 'uuid';
+import { reducerCases } from "../../context/Constants";
+import { useStateProvider } from "../../context/StateContext";
+import {ADD_COMMENT_UNDER_COMMENT_ROUTE, DELETE_COMMENT_UNDER_COMMENT_ROUTE, GET_COMMENTS_UNDER_COMMENT_ROUTE} from "./../../utils/ApiRoutes.js";
 
 //onAddComment
 function CommentModal({ onClose, commentId}) {
-  const {user} = useUser();
-  const myName = user.name;
-  const myUsername = user.username;
-  const myRegNo = user ? user.regNo : '';
-  const myYear = user.year;
-  // const myProfilePic = user.profilePic;
+  const [{ userInfo, newUser }, dispatch] = useStateProvider();
+
+  const myUserId = userInfo.userId;
+  const myUsername = userInfo.username;
+  const myRegNo = userInfo.regNo;
+  const myHostel = userInfo.hostel;
+  const myFirstName = userInfo.firstName;
+  const myYear = userInfo.year;
+  const myProfilePicture = userInfo.profilePicture;
 
 
   const [singleComment, setSingleComment] = useState("");
@@ -25,11 +31,11 @@ function CommentModal({ onClose, commentId}) {
   useEffect(() => {
     try{
       const fetchData = async() => {
-        const response = await axios.get(`http://localhost:5000/api/commentRoutes/commentsofcomment/${commentId}`);
+        const response = await axios.get(`${GET_COMMENTS_UNDER_COMMENT_ROUTE}/${commentId}`);
         // console.log("ioabd =>  ", response.data.commentsOnComplaint);
-        const allCommentsOfComment = response.data.commentsOnComment;
-        const myCommentsOfComment = allCommentsOfComment.filter((comment) => {return comment.regNo === myRegNo} );
-        const otherCommentsOfComment = allCommentsOfComment.filter((comment) => {return comment.regNo !== myRegNo} );
+        const allCommentsOfComment = response.data.commentsUnderComment;
+        const myCommentsOfComment = allCommentsOfComment.filter((comment) =>  comment.commentedBy.userId === myUserId  );
+        const otherCommentsOfComment = allCommentsOfComment.filter((comment) => comment.commentedBy.userId !== myUserId  );
         setAllComments(allCommentsOfComment);
         setMyAllComments(myCommentsOfComment);
         setOtherAllComments(otherCommentsOfComment);
@@ -38,7 +44,7 @@ function CommentModal({ onClose, commentId}) {
     }catch(error){
       console.error("Error in fetching comments", error);
     }
-  }, []);
+  }, [myAllComments, otherAllComments, allComments]);
 
 
   const handleCommentChange = (event) => {
@@ -50,22 +56,21 @@ function CommentModal({ onClose, commentId}) {
     if (singleComment.trim() !== "") {
       const _id = uuidv4();
       const newComment = {
-        _id : _id,
-        name: myName,
-        username: myUsername,
-        regNo: myRegNo, 
-        year: myYear,
+        commentedBy: {
+            username: myUsername,
+            userId: myUserId
+        },
         comment: singleComment,
-        time: currentTime,
       };
 
+
       try{
-        const response = await axios.post(`http://localhost:5000/api/commentRoutes/addcommentsofcomment/${commentId}`, newComment);
+        const response = await axios.post(`${ADD_COMMENT_UNDER_COMMENT_ROUTE}/${commentId}`, newComment);
         // setAllComments([...allComments, newComment]);
         setSingleComment("");
         const allCommentsOfComment = response.data.commentsOnComment;
-        const myCommentsOfComment = allCommentsOfComment.filter((comment) => {return comment.regNo === myRegNo} );
-        const otherCommentsOfComment = allCommentsOfComment.filter((comment) => {return comment.regNo !== myRegNo} );
+        const myCommentsOfComment = allCommentsOfComment.filter((comment) =>  comment.commentedBy.userId === myUserId );
+        const otherCommentsOfComment = allCommentsOfComment.filter((comment) =>   comment.commentedBy.userId !== myUserId  );
         setAllComments(allCommentsOfComment);
         setMyAllComments(myCommentsOfComment);
         setOtherAllComments(otherCommentsOfComment);
@@ -81,11 +86,11 @@ function CommentModal({ onClose, commentId}) {
       console.log("kkdshv");
       // console.log(commentId);
       // console.log(complId);
-      const response = await axios.post(`http://localhost:5000/api/commentRoutes/deletecommentofcomment`, {originalCommentId: commentId, commentId: reCommentId});
+      const response = await axios.post(`${DELETE_COMMENT_UNDER_COMMENT_ROUTE}`, {originalCommentId: commentId, commentId: reCommentId});
       console.log("Comment deleted successfully");
       console.log(response.data.updatedComment.commentsOnComment);
       const allCommentsOfComment = response.data.updatedComment.commentsOnComment;
-        const myCommentsOfComment = allCommentsOfComment.filter((comment) => {return comment.regNo === myRegNo} );
+        const myCommentsOfComment = allCommentsOfComment.filter((comment) =>  comment.commentedBy.userId === myUserId);
         setAllComments(allCommentsOfComment);
         setMyAllComments(myCommentsOfComment);
     }catch(error){
@@ -125,8 +130,8 @@ function CommentModal({ onClose, commentId}) {
               {myAllComments.map((singleComment, index) => (
                 <div className="owncomments89376273" key={index}>
                   <li>{singleComment.comment}</li>
-                  <span className="comment-info">{singleComment.name} • {singleComment.time}</span>
-                  <button onClick={() => handleDeleteComment(singleComment._id)}>
+                  <span className="comment-info">{singleComment.commentedBy.username} • {singleComment.commentTime}</span>
+                  <button onClick={() => handleDeleteComment(singleComment.commentId)}>
                     <div style={{marginLeft:"32rem", display:"flex", gap:"2rem"}}>
                     <EditIcon />
                     <DeleteIcon />
@@ -146,10 +151,7 @@ function CommentModal({ onClose, commentId}) {
               {otherAllComments.map((singleComment, index) => (
                 <div className="owncomments89376273" key={index}>
                   <li>{singleComment.comment}</li>
-                  <span className="comment-info">{singleComment.name} • {singleComment.time}</span>
-                  <button onClick={() => handleDeleteComment(singleComment._id)}>
-                    <DeleteIcon style={{marginLeft:"35rem"}}/>
-                  </button>
+                  <span className="comment-info">{singleComment.commentedBy.username} • {singleComment.commentTime}</span>
                 </div>
               ))}
             </div>

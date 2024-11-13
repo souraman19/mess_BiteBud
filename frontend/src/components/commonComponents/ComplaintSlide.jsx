@@ -4,11 +4,14 @@ import "./../../styles/ComplaintSlide.css";
 // import CommentSeeAllCommentsModal from "./CommentSeeAllCommentsModal";
 import SeeResolvedComplaintMessage from "./SeeResolvedComplaintMessage";
 import { useState } from "react";
-import { useUser } from "../../UserContext";
+import { reducerCases } from "../../context/Constants";
+import { useStateProvider } from "../../context/StateContext";
 import axios from "axios";
 import ResolveMessage from "./ResolveMessage";
 import { MdEmail } from "react-icons/md";
 import { format, differenceInDays, parseISO } from 'date-fns';
+import {UPVOTE_COMPLAINT_ROUTE, DOWNVOTE_COMPLAINT_ROUTE} from "./../../utils/ApiRoutes.js";
+
 
 
 // for getting eaasy way of getting time
@@ -35,7 +38,7 @@ const formatDate = (dateString) => {
 function ComplaintSlide({
   title,
   time,
-  _id,
+  complaintId,
   // name,
   // hostel = "hostel",
   // username,
@@ -52,13 +55,21 @@ function ComplaintSlide({
   resolvedTime,
   resolvedMessage,
 }) {
-  const { user } = useUser();
+  const [{ userInfo, newUser }, dispatch] = useStateProvider();
+
+  const userId = userInfo.userId;
+  const username = userInfo.username;
+  const hostel = userInfo.hostel;
+  const firstName = userInfo.firstName;
+  const year = userInfo.year;
+  const profilePicture = userInfo.profilePicture;
+
   // const myName = user.name;
   // const myUsername = user.username;
-  const myRegNo = user.regNo;
+  const myRegNo = userInfo.regNo;
   // const myYear = user.year;
   // const myProfilePic = user.profilePic;
-  const identity = user.identity;
+  const identity = userInfo.userType;
 
   const [upVotes, setUpVotes] = useState(upVoteCount);
   const [downVotes, setDownVotes] = useState(downVoteCount);
@@ -72,9 +83,10 @@ function ComplaintSlide({
 
   const handleUpVote = async () => {
     try {
+      // console.log(userId);
       const response = await axios.put(
-        `http://localhost:5000/api/upvote/${_id}`,
-        { myRegNo: myRegNo }
+        `${UPVOTE_COMPLAINT_ROUTE}/${complaintId}`,
+        { userId: userId, username: username }, {withCredentials: true}
       );
       console.log("Successfull at sending put request to server");
       // console.log(response.data.upVoteCount);
@@ -93,8 +105,8 @@ function ComplaintSlide({
   const handleDownVote = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/downvote/${_id}`,
-        { myRegNo: myRegNo }
+        `${DOWNVOTE_COMPLAINT_ROUTE}/${complaintId}`,
+        { userId: userId, username: username }, {withCredentials: true}
       );
       console.log("Successfull at sending put request to server");
       // console.log(response.data.upVoteCount);
@@ -102,7 +114,7 @@ function ComplaintSlide({
         setIsDownVoteBlinking(true);
         setTimeout(() => {
           setIsDownVoteBlinking(false);
-          setDownVotes(response.data.upVoteCount);
+          setDownVotes(response.data.downVoteCount);
         }, 1800);
       }
     } catch (error) {
@@ -210,7 +222,7 @@ function ComplaintSlide({
                 onClick={handleUpVote}
               >
                 {/* Replace with your upvote icon */}
-                <span>&#9650;</span> {upVotes}
+                <span>&#9650;</span> {upVoteCount}
               </button>
               <button
                 className={`downvote-button ${
@@ -219,14 +231,14 @@ function ComplaintSlide({
                 onClick={handleDownVote}
               >
                 {/* Replace with your downvote icon */}
-                <span>&#9660;</span> {downVotes}
+                <span>&#9660;</span> {downVoteCount}
               </button>
             </div>
 
             <div className="reply_sectiion">
               {!isResolved ? (
                 <div>
-                  {identity === "cheifwarden" ? (
+                  {(identity === "ChiefWarden" || identity === "Warden") ? (
                     <button
                       className="reply-button"
                       onClick={handleResolveClick}
@@ -254,7 +266,7 @@ function ComplaintSlide({
         </div>
       </div>
       {isResolving && (
-        <ResolveMessage onClose={handleCloseResolveModal} complaintId={_id} />
+        <ResolveMessage onClose={handleCloseResolveModal} complaintId={complaintId} />
       )}
       {seeResolvedMessage && (
         <SeeResolvedComplaintMessage onClose={handleCloseSeeResolvinMessagegModal} resolvedMessage = {resolvedMessage} />

@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
 import "./../../styles/ComplaintList.css";
 import ComplaintSlide from "./ComplaintSlide";
-import {useUser} from "../../UserContext";
 import { v4 as uuidv4 } from 'uuid';
+import { reducerCases } from "../../context/Constants";
+import { useStateProvider } from "../../context/StateContext";
 import axios from "axios";
+import {GET_ALL_COMPLAINTS_ROUTE, ADD_COMPLAINT_ROUTE} from "./../../utils/ApiRoutes.js";
 
 function Complaintlist() {
-  const {user} = useUser();
-  const name = user.name;
-  const username = user.username;
-  const hostel = user.hostel;
-  const regNo = user.regNo;
-  const year = user.year;
-  // const profilePic = user.profilePic;
+
+  const [{ userInfo, newUser }, dispatch] = useStateProvider();
+
+  const userId = userInfo.userId;
+  const username = userInfo.username;
+  const regNo = userInfo.regNo;
+  const hostel = userInfo.hostel;
+  const firstName = userInfo.firstName;
+  const lastName = userInfo.lastName;
+  const year = userInfo.year;
+  const profilePicture = userInfo.profilePicture;
 
   const [singleComplaint, setSingleComplaint] = useState("");
   const [allComplaints, setAllComplaints] = useState([]);
@@ -20,15 +26,10 @@ function Complaintlist() {
   useEffect(() => {
     try{
       const fetchData = async() => {
-        const response = await axios.get("http://localhost:5000/api/patelcomplaints");
-        // console.log(response.data);
+        const response = await axios.get(GET_ALL_COMPLAINTS_ROUTE, {params: {hostel}, withCredentials: true});
         const myHostelComplaints = response.data;
-        if(hostel !== "hostel"){
-          const myHostelComplaints = response.data.filter((x) => x.hostel === hostel);
-          setAllComplaints(myHostelComplaints);
-        } else {
-          setAllComplaints(myHostelComplaints);
-        }
+        setAllComplaints(myHostelComplaints);
+        // console.log("hostel ccom", myHostelComplaints);
       };
       fetchData();
     }catch(error){
@@ -43,30 +44,25 @@ function Complaintlist() {
 
   const handleComplaintSubmit = async() => {
     if (singleComplaint.trim() !== "") {
-      const _id = uuidv4();
       const newComplaint = {
-        _id : _id,
-        name: name,
-        time: "2024-07-31T17:28:51.656+00:00", //no need
         username: username,
-        regNo: regNo, 
-        year: year,
-        complaint: singleComplaint,
-        hostel: hostel,
-        commentsOnComplaint: [],
-        upVoteCount: 0,
-        downVoteCount: 0,
-        upVotedMembers: [],
-        downVotedMembers: [],
-        isResolved: false,
+        complaintText: singleComplaint,
+        complaintBy:{
+          firstName: firstName,
+          lastName: lastName,
+          profilePicture: profilePicture, 
+          userId: userId,
+          regNo: regNo,
+          hostel: hostel,
+        },
       };
       // console.log("hostel in complaint", hostel);
 
       try{
-        const response = await axios.post("http://localhost:5000/api/addpatelcomplaints", newComplaint);
+        const response = await axios.post(ADD_COMPLAINT_ROUTE, newComplaint);
         setAllComplaints([...allComplaints, newComplaint]);
         setSingleComplaint("");
-        console.log("Comment added successfully");
+        console.log("Complaint added successfully");
       }catch(error){
         console.log("Error in adding new comment", error);
       }
@@ -91,23 +87,20 @@ function Complaintlist() {
             >
               <ComplaintSlide 
               title="My Random Complaint"
-              hostel = {singleCommentMap.hostel}
-              _id = {singleCommentMap._id}
-              name = {singleCommentMap.name}
-              username = {singleCommentMap. username}
-              regNo = {singleCommentMap. regNo}
-              time={singleCommentMap.time}
-              year = {singleCommentMap.year}
-              complaint={singleCommentMap.complaint}
+              complaintId = {singleCommentMap.complaintId}
+              name = {singleCommentMap.complaintBy.firstName + ' ' + singleCommentMap.complaintBy.lastName}
+              username = {singleCommentMap.complaintBy.username}
+              time={singleCommentMap.complaintTime}
+              regNo = {singleCommentMap.regNo}
+              complaint={singleCommentMap.complaintText}
               commentsOnComplaint = {singleCommentMap.commentsOnComplaint}
               upVoteCount = {singleCommentMap.upVoteCount}
               downVoteCount = {singleCommentMap.downVoteCount}
-              upVotedMembers = {singleCommentMap.upVotedMembers}
-              downVotedMembers = {singleCommentMap.downVotedMembers}
-              isResolved = {singleCommentMap.isResolved}
-              resolvedBy = {singleCommentMap.resolvedBy}
-              resolvedTime = {singleCommentMap.resolvedTime}
-              resolvedMessage = {singleCommentMap.resolvedMessage}
+              upVotedMembers = {singleCommentMap.upVotes}
+              downVotedMembers = {singleCommentMap.downVotes}
+              isResolved = {singleCommentMap.resolvedInfo?.status}
+              resolvedTime = {singleCommentMap.resolvedInfo?.resolveTime}
+              resolvedMessage = {singleCommentMap.resolvedInfo?.message}
               />
             </div>
           ))}

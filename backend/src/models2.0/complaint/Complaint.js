@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 import {Student, User} from "../person/User.js";
 
 const voteSchema = new mongoose.Schema({
-    upvotedBy: {
-        name: {type: String, required: true},
+    votedBy: {
+        username: {type: String, required: true},
         userId: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Student'},
         isDeleted: {type: Boolean, default: false}
     }
@@ -32,7 +32,10 @@ const complaintSchema = mongoose.Schema({
         default: ""
     },
     complaintBy: {
-        name: {
+        firstName: {
+            type: String, required: true
+        },
+        lastName: {
             type: String, required: true
         },
         profilePicture:{
@@ -43,19 +46,27 @@ const complaintSchema = mongoose.Schema({
             ref: 'Student',
             required: true
         },
+        regNo:{
+            type: String,
+            required: true,
+        },
+        hostel:{
+            type: String,
+            required: true,
+        }
     },
     complaintTime:{
         type: Date,
         default: Date.now
     },
     resolvedInfo:{
-        status: {type: Boolean, default: false},
-        message: {type: String, default: ""},
-        resolveTime: {type: Date, default: Date.now},
-        resolvedBy: {
-            name: {type: String, required: true},
-            userId: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User'}
-        }
+            status: {type: Boolean, default: false},
+            message: {type: String, default: ""},
+            resolveTime: {type: Date, default: Date.now},
+            resolvedBy: {
+                    name: {type: String},
+                    userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+            }
     },
     isDeleted: { type: Boolean, default: false },
     upVotes: {

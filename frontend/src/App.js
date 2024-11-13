@@ -11,7 +11,7 @@ import AllComments from './pages/commentPages/AllComments.jsx';
 import Patelfullmenu from './pages/commonPages/Patelfullmenu.jsx';
 import Cheifwarden from './pages/chiefWardenPages/Cheifwarden.jsx';
 import Accountant from "./pages/accountantPages/Accountant.jsx";
-import Patelallcomplaint from "./pages/commonPages/Patelallcomplaint.jsx";
+import AllComplaints from "./pages/complaintPages/AllComplaint.jsx";
 import Signup from './pages/commonPages/Signup.jsx';
 import Otpverification from "./pages/commonPages/OtpVerification.jsx";
 import Passwordcreate from './pages/commonPages/Passwordcreate.jsx';
@@ -52,6 +52,9 @@ function App() {
           <Route path="/myallcomments-page" element={<MyAllCommentsPage />}/>
 
 
+          <Route path="/complaint-page" element={<AllComplaints/>} />
+
+
 ////---------------------------------------------------------------------------------------
 
           <Route path="/test" element={<Test />} />
@@ -80,7 +83,6 @@ function App() {
 
 
           <Route path="/patelfullmenu" element={<ProtectedRoute element={<Patelfullmenu />} />} />
-          <Route path="/patelallcomplaint" element={<ProtectedRoute element={<Patelallcomplaint />} />} />
           <Route path="/myallcomplaints" element={<ProtectedRoute element={<MyAllComplaintsPage/>} />} />
 
 

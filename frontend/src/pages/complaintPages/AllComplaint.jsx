@@ -4,13 +4,13 @@ import ComplaintList from "../../components/commonComponents/ComplaintList";
 import "./../../styles/PatelAllComplaint.css";
 import { Link } from "react-router-dom";
 
-function PatelAllComplaint() {
+function AllComplaint() {
   return (
     <div id="PatelAllComplaint_outermost_div" className="">
       <Navbar />
       <div style={{display:"flex", justifyContent:"center"}}>
         <Link
-          to="/myallcomplaints"
+          to="/complaint-page"
           style={{ color: "inherit", textDecoration: "none" }}
         >
           <h2 className="my_complaints">All Complaints</h2>
@@ -27,4 +27,4 @@ function PatelAllComplaint() {
   );
 }
 
-export default PatelAllComplaint;
+export default AllComplaint;

@@ -16,6 +16,10 @@ import SwiperCore from "swiper";
 import {useUser} from "./../../UserContext";
 import axios from "axios";
 import ComplaintSegmentSlide from "./ComplaintSegmentSlide";
+import { reducerCases } from "../../context/Constants";
+import { useStateProvider } from "../../context/StateContext";
+import {GET_ALL_COMPLAINTS_ROUTE} from "./../../utils/ApiRoutes.js";
+
 
 import "swiper/swiper-bundle.css"; // Import the Swiper styles
 
@@ -23,11 +27,10 @@ import "swiper/swiper-bundle.css"; // Import the Swiper styles
 SwiperCore.use([FreeMode, Pagination]);
 
 export default function CommentSegment() {
-  const {user} = useUser();
-  console.log("User in 1: ", user);
+  const [{ userInfo, newUser }, dispatch] = useStateProvider();
   // const name = user?.name;
   // const regNo = user?.regNo;
-  const hostel = user?.hostel;
+  const hostel = userInfo?.hostel;
   // const username = user?.username;
   // const year = user?.year;
   // const profilePic = user?.profilePic;
@@ -36,15 +39,10 @@ export default function CommentSegment() {
   useEffect(() => {
     try{
       const fetchData = async() => {
-        const response = await axios.get("http://localhost:5000/api/patelcomplaints");
-        // console.log(response.data);
+        const response = await axios.get(GET_ALL_COMPLAINTS_ROUTE, {params: {hostel}, withCredentials: true});
+        console.log(response.data);
         const myHostelComplaints = response.data;
-        if(hostel !== "hostel"){
-          const myHostelComplaints = response.data.filter((x) => x.hostel === hostel);
-          setComplaints(myHostelComplaints);
-        } else {
-          setComplaints(myHostelComplaints);
-        }
+        setComplaints(myHostelComplaints);
       };
       fetchData();
     }catch(error){
@@ -64,13 +62,13 @@ export default function CommentSegment() {
       <div className="upper-section-commentsegment">
         <h1 className="heading">Complaints</h1>
         <p>Get to know all about new Complaints Registered</p>
-        <Link to="/patelallcomplaint">
+        <Link to="/complaint-page">
           <a class="btn btn-outline-secondary" href="#" role="button">
             See all complaints
           </a>
         </Link>
       </div>
-
+      {/* <div>aca</div> */}
       {/* //2nd box lower box */}
       <div className="feedback swiper-container">
         <Swiper
@@ -90,11 +88,10 @@ export default function CommentSegment() {
           {complaints.map((singleComplaintMap) => 
             <SwiperSlide className="swiper-slide-currentsegment" key = {singleComplaintMap.id}>
               <ComplaintSegmentSlide 
-               name = {singleComplaintMap.name} 
-               username = {singleComplaintMap.username}
+               name = {singleComplaintMap.complaintBy.firstName + ' ' + singleComplaintMap.complaintBy.lastName} 
+               username = {singleComplaintMap.complaintBy.username}
                regNo = {singleComplaintMap.regNo}
-               year = {singleComplaintMap.year}
-               complaint={singleComplaintMap.complaint} 
+               complaint={singleComplaintMap.complaintText} 
                upVoteCount = {singleComplaintMap.upVoteCount}
                downVoteCount = {singleComplaintMap.downVoteCount}
               />

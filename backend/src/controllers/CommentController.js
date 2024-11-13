@@ -4,9 +4,9 @@ import Comment from "./../models2.0/comment/Comment.js";
 const getAllComments = async(req, res) => {
     try{
         const hostel = req.query.hostel;
-        console.log(req.query);
+        // console.log(req.query);
         const comments = await Comment.find({"commentedBy.hostel": hostel});
-        console.log("mycom",comments);
+        // console.log("mycom",comments);
         return res.status(200).json({comments: comments});
     }catch(err){
         console.error("Error fetching comments:", err);
@@ -16,7 +16,7 @@ const getAllComments = async(req, res) => {
 
 const addComment = async(req, res) => {
     const newComment = req.body;
-    console.log("new =>>>>", newComment);   
+    // console.log("new =>>>>", newComment);   
     try{
         const newMyComment = new Comment(newComment);
       

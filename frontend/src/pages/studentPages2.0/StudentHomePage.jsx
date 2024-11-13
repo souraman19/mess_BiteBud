@@ -30,7 +30,7 @@ function Patelstudent(){
         <CommentSegment />
 
 
-        {/* <Complaint />  */}
+        <Complaint /> 
     </div>
     );
 }

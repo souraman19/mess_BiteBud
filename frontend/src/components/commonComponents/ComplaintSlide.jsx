@@ -109,7 +109,7 @@ function ComplaintSlide({
         { userId: userId, username: username }, {withCredentials: true}
       );
       console.log("Successfull at sending put request to server");
-      // console.log(response.data.upVoteCount);
+      // console.log(response.data.downVoteCount);
       if (response.data.downVoteCount !== downVoteCount) {
         setIsDownVoteBlinking(true);
         setTimeout(() => {

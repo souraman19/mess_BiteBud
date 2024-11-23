@@ -64,18 +64,18 @@ const downvoteComplaint = async(req, res) => {
   const complaintId = req.params.complaintId;
   const userId = req.body.userId;
   const username = req.body.username;
-  // console.log(userId);
+  console.log(userId);
   // console.log(username);
 
   try{
     const findcomplaint = await Complaint.findOne({complaintId: complaintId});
-    // console.log("findcom ",findcomplaint);
+     console.log("findcom ",findcomplaint);
     if(!findcomplaint){
       return res.status(404).json({error: "Complaint not found"});
     } 
 
-    const isDownVoted = findcomplaint.upVotes.some(vote => vote.votedBy.userId.toString() === userId.toString());
-    // console.log("upvoted ", isUpVoted);
+    const isDownVoted = findcomplaint.downVotes.some(vote => vote.votedBy.userId.toString() === userId.toString());
+    console.log("dowvoted ", isDownVoted);
     if(!isDownVoted){
       findcomplaint.downVotes.push({votedBy: {
           username: username,

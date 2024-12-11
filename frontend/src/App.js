@@ -56,7 +56,7 @@ function App() {
 
 
           <Route path="/gallery-page" element={<Patelgallery />} />
-          <Route path="/myallimages" element={<ProtectedRoute element={<MyAllImagesPage />} />} />
+          <Route path="/myallimages" element={<MyAllImagesPage />} />
 
 
 

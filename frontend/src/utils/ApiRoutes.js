@@ -30,3 +30,4 @@ export const DOWNVOTE_COMPLAINT_ROUTE = `${COMPLAINT_ROUTES}/downvote-complaint`
 
 export const GET_ALL_IMAGES = `${GALLERY_ROUTES}/get-all-images`;
 export const UPDLOAD_IMAGE = `${GALLERY_ROUTES}/upload-image`;
+export const DELETE_IMAGE = `${GALLERY_ROUTES}/delete-image`;

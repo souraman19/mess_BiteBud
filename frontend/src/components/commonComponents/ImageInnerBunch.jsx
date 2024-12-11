@@ -81,9 +81,9 @@
           withCredentials: true,
         });
         const gotAllImages = response.data.data;
-        console.log("response=>>>", response);
+        // console.log("response=>>>", response);
         setAllImage(gotAllImages);
-        console.log("got=>>>", allImage);
+        // console.log("got=>>>", allImage);
       } catch (err) {
         console.error("Error in fetching images", err);
       }

@@ -5,19 +5,29 @@ import Navbar from "../../components/commonComponents/Navbar";
 import { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+import { useStateProvider } from "../../context/StateContext";
+import { GET_ALL_IMAGES, UPDLOAD_IMAGE, DELETE_IMAGE } from "./../../utils/ApiRoutes.js";
 
 function MyAllImagesPage() {
-  const { user } = useUser();
-  const myRegNo = user.regNo;
+  const [{ userInfo, newUser }, dispatch] = useStateProvider();
+  const myUserId = userInfo.userId;
+  const myUsername = userInfo.username;
+  const myHostel = userInfo.hostel;
+  const myName = userInfo.firstName;
+  const myYear = userInfo.year;
+  const myRegNo = userInfo.regNo;
+  const profilePicture = userInfo.profilePicture;
 
     const [allImages, setAllImages] = useState([]);
     
     useEffect(() => {
         const fetchData = async() => {
             try{
-                const response = await axios.get("http://localhost:5000/api/getmyimages");
-                const gotAllImages = response.data;
-                setAllImages(gotAllImages.filter((image) => image.regNo === myRegNo));
+                const response = await axios.get(GET_ALL_IMAGES, {
+                  withCredentials: true,
+                });
+                const gotAllImages = response.data.data;
+                setAllImages(gotAllImages.filter((image) => image.uploadedBy.userId === myUserId));
             }catch(error){
                 console.log("Error in getting my images");
             }
@@ -26,11 +36,11 @@ function MyAllImagesPage() {
     }, []);
     
    
-    const handleDelete = async(_id) => {
+    const handleDelete = async(itemId) => {
         try{
-            await axios.delete(`http://localhost:5000/api/deletemyimage/${_id}`);
+            await axios.delete(`${DELETE_IMAGE}/${itemId}`, {withCredentials: true});
             console.log("deletion successful");
-            setAllImages(allImages.filter((image) => image._id !== _id));
+            setAllImages(allImages.filter((image) => image.itemId !== itemId));
         }catch(error){
             console.log("Error in deletining my images");
         }
@@ -45,12 +55,12 @@ function MyAllImagesPage() {
         // console.log(`../uploads/${image.img}`),
         <div className="my-image-button-div">
             <img
-          key={image.id}
-          src={`./uploads/${image.img}`}
+          key={image.itemId}
+          src={`./uploads/${image.image}`}
           alt={image.src}
             />
 
-            <button onClick={() => {handleDelete(image._id)}}>
+            <button onClick={() => {handleDelete(image.itemId)}}>
                 <DeleteIcon style={{fontSize:"2.5rem"}}/>
             </button>
 

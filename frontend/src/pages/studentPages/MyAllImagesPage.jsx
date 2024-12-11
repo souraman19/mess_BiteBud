@@ -46,7 +46,7 @@ function MyAllImagesPage() {
         <div className="my-image-button-div">
             <img
           key={image.id}
-          src={require(`../../uploads/${image.img}`)}
+          src={`./uploads/${image.img}`}
           alt={image.src}
             />
 

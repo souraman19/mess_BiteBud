@@ -8,6 +8,10 @@ import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import {useUser} from "../../UserContext";
 import { Link } from "react-router-dom";
+import { reducerCases } from "../../context/Constants";
+import { useStateProvider } from "../../context/StateContext";
+import {GET_ALL_COMMENTS_ROUTE, ADD_COMMENT_ROUTE} from "./../../utils/ApiRoutes.js";
+
 
 import { format, differenceInDays, parseISO } from 'date-fns';
 
@@ -34,13 +38,16 @@ const formatDate = (dateString) => {
 
 
 function Commentlist() { 
+  const [{ userInfo, newUser }, dispatch] = useStateProvider();
 
-  const {user} = useUser();
-  const name = user.name;
-  const username = user.username;
-  const regNo = user.regNo;
-  const year = user.year;
-  const profilePic = user.profilePic;
+
+  const userId = userInfo.userId;
+  const username = userInfo.username;
+  const regNo = userInfo.regNo;
+  const hostel = userInfo.hostel;
+  const firstName = userInfo.firstName;
+  const year = userInfo.year;
+  const profilePicture = userInfo.profilePicture;
 
   const [singleComment, setSingleComment] = useState("");
   const [allComments, setAllComments] = useState([]);
@@ -48,17 +55,18 @@ function Commentlist() {
   useEffect(() => {
     try {
       const fetchData = async () => {
-        const response = await axios.get("http://localhost:5000/api/patelcomments");
-        console.log(response.data);
-        const filteredComments = response.data.filter((comment) => {
+        const response = await axios.get(GET_ALL_COMMENTS_ROUTE, {params: {hostel}, withCredentials: true});
+        console.log("hel", response.data.comments);
+        const filteredComments = response.data.comments.filter((comment) => {
           // console.log(comment.regNo);
           // console.log(regNo);
-          return comment.regNo === regNo;
+          return comment.commentedBy.userId === userId;
         });
         
         setAllComments(filteredComments);
       };
       fetchData();
+      console.log("after filter", allComments);
     } catch (error) {
       console.error("Error fetching comments:", error);
     }
@@ -77,20 +85,22 @@ function Commentlist() {
   const handleCommentSubmit = async () => {
     if (singleComment.trim() !== "") {
       // Add the new comment to the list
-      const _id = uuidv4();
 
       const newComment = {
-        _id : _id,
-        name: name, 
-        username: username, 
-        regNo: regNo, year: year, 
-        comment:singleComment,
-        profilePic: profilePic,
-        time: new Date(),  //no need
+        commentText:singleComment,
+        commentedBy: {
+          username: username,
+          firstName: firstName,
+          profilePicture: profilePicture,
+          userId: userId,
+          hostel: hostel,
+        },
+        commentTime: Date.now(),
+      isDeleted: false,
       };
   
       try{
-        const response = await axios.post("http://localhost:5000/api/addpatelcomments", newComment);
+        const response = await axios.post(ADD_COMMENT_ROUTE, newComment);
         console.log("Comment added successflly", response.data);
 
         setAllComments(response.data.comments);
@@ -106,10 +116,10 @@ function Commentlist() {
         <Navbar />
     <div className="commentlist-outer">
     <div className="myComments_div">
-            <Link to="/myallcomments" style={{ color: "inherit", textDecoration: "none" }}>
+            <Link to="/myallcomments-page" style={{ color: "inherit", textDecoration: "none" }}>
                     My Comments
                </Link>
-               <Link to="/patelcomment" style={{ color: "inherit", textDecoration: "none" }}>
+               <Link to="/comment-page" style={{ color: "inherit", textDecoration: "none" }}>
                     All Comments
                </Link>
             </div>
@@ -118,21 +128,11 @@ function Commentlist() {
         <div className="row">
           <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
           <CommentSegmentSlide
-             name = "Lusi"
-              username = "Rosy"
-              regNo = "19BCE0001"
-              year = "2nd"
-              comment= "This is a comment"
-              profilePic = "https://www.w3schools.com/w3images/avatar2.png"
-              commentsOnComment = {[]}
-              commentId = "1"
-              updateAllComments = {updateAllComments}
-              allComments = {allComments}
-              setAllComment = {setAllComments}
-              singleComment = {singleComment}
-              setSingleComment = {setSingleComment}
-              isMyCommentsPage = {true}
-              time = "today"
+             commentText="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." 
+             usernamename = "Sourajit Mandal"
+             profilePicture = {profilePicture}
+             commentsUnderComment = {[]}
+             commentTime = "today"
             />
             
           </div>
@@ -144,21 +144,19 @@ function Commentlist() {
             >
                 {/* {console.log(singleCommentMap._id)} */}
                 <CommentSegmentSlide
-             name = {singleCommentMap.name} 
-              username = {singleCommentMap.username}
-              regNo = {singleCommentMap.regNo}
-              year = {singleCommentMap.year}
-              comment={singleCommentMap.comment} 
-              profilePic = {singleCommentMap.profilePic}
-              commentsOnComment = {singleCommentMap.commentsOnComment}
-              commentId = {singleCommentMap._id}
-              updateAllComments = {updateAllComments}
-              allComments = {allComments}
-              setAllComment = {setAllComments}
-              singleComment = {singleComment}
-              setSingleComment = {setSingleComment}
-              isMyCommentsPage = {true}
-              time = {formatDate(singleCommentMap.time)}
+            firstName = {singleCommentMap.commentedBy.firstName} 
+            username = {singleCommentMap.commentedBy.username}
+            commentText={singleCommentMap.commentText} 
+            profilePicture = {singleCommentMap.commentedBy.profilePicture}
+            commentsUnderComment = {singleCommentMap.commentsUnderComment}
+            commentId = {singleCommentMap.commentId}
+            updateAllComments = {updateAllComments}
+            allComments = {allComments}
+            setAllComment = {setAllComments}
+            singleComment = {singleComment}
+            setSingleComment = {setSingleComment}
+            isMyCommentsPage = {true}
+            commentTime = {formatDate(singleCommentMap.commentTime)}
              />
             </div>
           ))}

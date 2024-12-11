@@ -14,13 +14,13 @@ const userSchema = new mongoose.Schema({
     lastName: {type: String},
     phone: {
         countryCode: {type: String, required: true, match: /^\+\d{1,3}$/},
-        phoneNo: {type: String, required: true, match: /^\d{10}$/}
+        phoneNo: {type: String, required: true}
     },
     permanentAddress: {
         country: {type: String, required: true},
         state: {type: String, required: true},
         pin: {type: Number, require: true},
-        nearestCity: {type: String, required: true},
+        city: {type: String, required: true},
         streetAddress: {type: String},
     },
     nationality:{
@@ -55,6 +55,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "N/A", "Other"]
     },
+    password:{
+        type: String,
+        required: true,
+    }
 }, options)
 
 const User = mongoose.model('User', userSchema);
@@ -76,14 +80,18 @@ const studentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    regNo:{
+        type: String,
+        required: true,
+    },
     yearOfJoiningInstitue: {
         type: Number,
         required: true,
     },
     roomNo: {type: Number, default: -1},
     emergencyContactNo: {
-        countryCode: {type: String, required: true, match: /^\+\d{1,3}$/},
-        phoneNo: {type: String, required: true, match: /^\d{10}$/}
+        countryCode: {type: String, required: true},
+        contactNo: {type: String, required: true}
     },
     parentInfo:{
         name: {required: true, type: String},
@@ -91,10 +99,7 @@ const studentSchema = new mongoose.Schema({
     },
     localGuardian:{
         name:{type: String},
-        phone: {
-            countryCode: {type: String, required: true, match: /^\+\d{1,3}$/},
-            phoneNo: {type: String, required: true, match: /^\d{10}$/}
-        },  
+        contactNo: {type: String}, 
         address: {
             type: String
         }
@@ -120,11 +125,10 @@ const studentSchema = new mongoose.Schema({
     },
     bankAccountDetails:{
         type:{
+            bankName:{type: String, required: true},
             accountNo: {type: String, required: true},
             IFSC: {type: String, required: true},
-            bankName:{type: String, required: true}
         },
-        required: true,
     },
     allHostelHistory:{
         type:[{
@@ -153,8 +157,6 @@ const studentSchema = new mongoose.Schema({
     },
     specialPosition:{
         type: String,
-        required: true,
-        enum:["Mess Manager", "Mess Secretary", "Mess Committee General Member", "N/A", "Other"]
     }
 })
 

@@ -2,10 +2,15 @@ import mongoose from "mongoose";
 import {Student, User} from "../person/User.js";
 
 const commentUnderCommentSchema = mongoose.Schema({
+        commentId:{
+             type: mongoose.Schema.Types.ObjectId,
+             default: () => new mongoose.Types.ObjectId(),
+            unique: true,
+        },
         comment: {type: String, required: true},
         commentTime: {type: Date, default: Date.now},
         commentedBy: {
-            name:{type: String, required: true},
+            username:{type: String, required: true},
             userId: {type: mongoose.Schema.Types.ObjectId, ref: 'Student', required: true}
         },
         isDeleted: { type: Boolean, default: false },
@@ -44,7 +49,10 @@ const commentSchema = new mongoose.Schema({
         default: "",
     },
     commentedBy: {
-        name: {
+        username: {
+            type: String, required: true
+        },
+        firstName:{
             type: String, required: true
         },
         profilePicture:{
@@ -55,6 +63,11 @@ const commentSchema = new mongoose.Schema({
             ref: 'Student',
             required: true
         },
+        hostel:{
+            type: String,
+            required: true,
+            ref: 'Hostel'
+        }
     },
     commentTime:{
         type: Date,
@@ -74,4 +87,5 @@ const commentSchema = new mongoose.Schema({
 }, {timestamps: {createdAt: true, updatedAt: true}})
 
 const Comment = new mongoose.model('Comment', commentSchema);
+
 export default Comment;

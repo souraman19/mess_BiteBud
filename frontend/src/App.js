@@ -4,14 +4,14 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home.jsx';
 import Login from './pages/commonPages/Login.jsx';
 // import Navbar from './components/Navbar.jsx'
-import PatelStudentHomePage from './pages/commonPages/PatelStudentHomePage.jsx';
+import StudentHomePage from './pages/studentPages2.0/StudentHomePage.jsx';
 import Tilakstudent from './pages/studentPages/Tilakstudent.jsx';
 import Patelgallery from "./pages/commonPages/Patelgallery.jsx";
-import Patelcomment from './pages/commonPages/Patelcomment.jsx';
+import AllComments from './pages/commentPages/AllComments.jsx';
 import Patelfullmenu from './pages/commonPages/Patelfullmenu.jsx';
 import Cheifwarden from './pages/chiefWardenPages/Cheifwarden.jsx';
 import Accountant from "./pages/accountantPages/Accountant.jsx";
-import Patelallcomplaint from "./pages/commonPages/Patelallcomplaint.jsx";
+import AllComplaints from "./pages/complaintPages/AllComplaint.jsx";
 import Signup from './pages/commonPages/Signup.jsx';
 import Otpverification from "./pages/commonPages/OtpVerification.jsx";
 import Passwordcreate from './pages/commonPages/Passwordcreate.jsx';
@@ -29,9 +29,10 @@ import DeleteUser from "./pages/developersPages/DeleteUser.jsx";
 import AddUser from "./pages/developersPages/AddUser.jsx";
 import UpdateUser from "./pages/developersPages/UpdateUser.jsx";
 import ProtectedRoute from "./ProtectedRoute.js";
-// import Test from "./Test.js";
+import Test from "./Test.js";
 import SignIn from "./pages/loginPages/SignIn.jsx"
 import Register from "./pages/loginPages/Register.jsx";
+import ExtraDetailsForm from './pages/loginPages/ExtraDetailsForm.jsx';
 
 function App() {
     return (
@@ -41,6 +42,27 @@ function App() {
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/register-form" element={<Register />} />
+          <Route path="/extradetails-form" element={<ExtraDetailsForm />} />
+
+
+          <Route path="/student-home-page"  element={<StudentHomePage />} />
+
+
+          <Route path="/comment-page" element={<AllComments /> } />
+          <Route path="/myallcomments-page" element={<MyAllCommentsPage />}/>
+
+
+          <Route path="/complaint-page" element={<AllComplaints/>} />
+
+
+          <Route path="/gallery-page" element={<Patelgallery />} />
+          <Route path="/myallimages" element={<ProtectedRoute element={<MyAllImagesPage />} />} />
+
+
+
+////---------------------------------------------------------------------------------------
+
+          <Route path="/test" element={<Test />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<ProtectedRoute element={<Home />}/>} />
           <Route path="/myprofilepage" element={<ProtectedRoute element={<MyProfilePage />}/>} />
@@ -59,17 +81,11 @@ function App() {
           {/* <Route path="/login" element={<Login />} /> */}
 
 
-          <Route path="/patelstudent" element={<ProtectedRoute element={<PatelStudentHomePage />} />} />
-
-          <Route path="/patelgallery" element={<ProtectedRoute element={<Patelgallery />} />} />
-          <Route path="/myallimages" element={<ProtectedRoute element={<MyAllImagesPage />} />} />
 
 
-          <Route path="/patelcomment" element={<ProtectedRoute element={<Patelcomment />} />} />
-          <Route path="/myallcomments" element={<ProtectedRoute element={<MyAllCommentsPage />} />}/>
+
 
           <Route path="/patelfullmenu" element={<ProtectedRoute element={<Patelfullmenu />} />} />
-          <Route path="/patelallcomplaint" element={<ProtectedRoute element={<Patelallcomplaint />} />} />
           <Route path="/myallcomplaints" element={<ProtectedRoute element={<MyAllComplaintsPage/>} />} />
 
 

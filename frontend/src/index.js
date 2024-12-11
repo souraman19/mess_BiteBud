@@ -1,17 +1,15 @@
 import React from 'react';
-import ReactDOM  from 'react-dom';
+import ReactDOM from 'react-dom';
 import App from './App';
-import {UserProvider} from "./UserContext";
-// import PatelStudentHomePage from "./pages/commonPages/PatelStudentHomePage";
+import { StateProvider } from './context/StateContext.jsx';
+import reducer, { initialState } from './context/StateReducers.js'; // Adjust paths as necessary
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* wrapping up to access the valus from userContext  */}
-    <UserProvider>  
-      <App />
-    </UserProvider>
-    
+     <StateProvider initialState={initialState} reducer={reducer}>
+        <App />
+    </StateProvider>
   </React.StrictMode>
 );
 

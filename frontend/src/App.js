@@ -55,6 +55,11 @@ function App() {
           <Route path="/complaint-page" element={<AllComplaints/>} />
 
 
+          <Route path="/gallery-page" element={<Patelgallery />} />
+          <Route path="/myallimages" element={<ProtectedRoute element={<MyAllImagesPage />} />} />
+
+
+
 ////---------------------------------------------------------------------------------------
 
           <Route path="/test" element={<Test />} />
@@ -77,8 +82,6 @@ function App() {
 
 
 
-          <Route path="/patelgallery" element={<ProtectedRoute element={<Patelgallery />} />} />
-          <Route path="/myallimages" element={<ProtectedRoute element={<MyAllImagesPage />} />} />
 
 
 

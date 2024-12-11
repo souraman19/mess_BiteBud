@@ -17,8 +17,13 @@ const galleryItemSchema = new mongoose.Schema({
         default: () => new mongoose.Types.ObjectId(),
         unique: true,
     },
+    hostel: {
+        type: String,
+        required: true,
+    },
     uploadedBy: {
         name: {type: String, required: true},
+        username: {type: String, required: true},
         userId: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Student'}
     },
     uploadTime: {

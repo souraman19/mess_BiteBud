@@ -51,7 +51,7 @@ function ControlledCarousel() {
           </Carousel.Item>
         </Carousel>
       </div>
-      <Link to="/patelgallery">
+      <Link to="/gallery-page">
         <button
           type="button"
           class="gallary-button btn btn-primary btn-lg btn-block"

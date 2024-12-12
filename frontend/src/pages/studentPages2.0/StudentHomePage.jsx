@@ -21,7 +21,7 @@ function Patelstudent(){
          <Patelintro />
         {/* <ExpenseSegment /> */}
 
-        {/* <CurrentMessMenu />   */}
+        <CurrentMessMenu />  
 
 
         <Gallary />

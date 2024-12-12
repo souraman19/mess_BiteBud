@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import MenuItem from "./MenuItem.js";
 
 const messMenuPerSlotSchema = new mongoose.Schema({
     menuId:{
@@ -11,6 +10,11 @@ const messMenuPerSlotSchema = new mongoose.Schema({
     slot:{
         type: String,
         enum: ["Breakfast", "Lunch", "Snacks", "Dinner"],
+        required: true,
+    },
+    day: {
+        type: String,
+        enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         required: true,
     },
     menuItems:{

@@ -9,9 +9,11 @@ import "swiper/css/navigation";
 // import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useUser } from "../../UserContext";
+import { useStateProvider } from "../../context/StateContext";
 import "./../../styles/CurrentMessMenu.css";
 import "./../../styles/CurrentMessMenu2.css";
+import {GET_MESS_MENU} from "./../../utils/ApiRoutes.js";
+
 // import slide_image_1 from "./../../srcimages/food1.jpg";
 // import slide_image_2 from "./../../srcimages/food2.jpg";
 // import slide_image_3 from "./../../srcimages/food3.jpg";
@@ -21,14 +23,22 @@ import "./../../styles/CurrentMessMenu2.css";
 // import slide_image_7 from "./../../srcimages/food3.jpg";
 
 function Comment() {
-  const { user } = useUser();
-  // const hostel = user?.hostel;
+  const [{ userInfo }] = useStateProvider();
+  const myUserId = userInfo.userId;
+  const myUsername = userInfo.username;
+  const myHostel = userInfo.hostel;
+  const myName = userInfo.firstName;
+
+  const [image, setImage] = useState();
+  const [allImage, setAllImage] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false); // State to manage modal open/close
+  const [selectedImage, setSelectedImage] = useState(null); // State to track selected image for modal
 
   const [allMenus, setAllMenus] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const messmenu = await axios.get("http://localhost:5000/api/getmessmenu");
+      const messmenu = await axios.get(GET_MESS_MENU, { withCredentials: true });
       const today = new Date(); 
       const dayOfWeek = today.toLocaleString('en-US', { weekday: 'long' });
       const myMenu = messmenu.data.filter((singlemenu) => (singlemenu.day === dayOfWeek));

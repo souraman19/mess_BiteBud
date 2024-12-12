@@ -17,6 +17,7 @@ const Imageinnerbunch = () => {
   const [allImage, setAllImage] = useState([]);
   const [modalOpen, setModalOpen] = useState(false); // State to manage modal open/close
   const [selectedImage, setSelectedImage] = useState(null); // State to track selected image for modal
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     getImage();
@@ -34,7 +35,7 @@ const Imageinnerbunch = () => {
     formData.append("name", myName);
     formData.append("username", myUsername);
     formData.append("hostel", myHostel);
-    formData.append("description", "hello, this is an image description");
+    formData.append("description", description);
 
     try {
       await axios.post(UPDLOAD_IMAGE, formData, {
@@ -43,6 +44,7 @@ const Imageinnerbunch = () => {
       });
       setImage(); // Reset the selected image after upload
       getImage(); // Reload images after uploading a new one
+      setDescription(""); // Reset the description field after upload
     } catch (err) {
       console.error("Error uploading image:", err);
     }
@@ -243,6 +245,7 @@ const Imageinnerbunch = () => {
               padding: "10px",
               marginBottom: "10px",
             }}
+            onChange={(e) => setDescription(e.target.value)}
             type="text"
             placeholder="Description"
           />

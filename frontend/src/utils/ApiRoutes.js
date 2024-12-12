@@ -34,3 +34,6 @@ export const UPDLOAD_IMAGE = `${GALLERY_ROUTES}/upload-image`;
 export const DELETE_IMAGE = `${GALLERY_ROUTES}/delete-image`;
 
 export const GET_MESS_MENU = `${MESSMENU_ROUTES}/get-mess-menu`;
+export const ADD_MESS_MENU = `${MESSMENU_ROUTES}/add-mess-menu`;
+export const EDIT_MESS_MENU = `${MESSMENU_ROUTES}/edit-mess-menu`;
+export const DELETE_MESS_MENU = `${MESSMENU_ROUTES}/delete-mess-menu`;

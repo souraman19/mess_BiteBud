@@ -6,9 +6,9 @@ import Login from './pages/commonPages/Login.jsx';
 // import Navbar from './components/Navbar.jsx'
 import StudentHomePage from './pages/studentPages2.0/StudentHomePage.jsx';
 import Tilakstudent from './pages/studentPages/Tilakstudent.jsx';
-import Patelgallery from "./pages/commonPages/Patelgallery.jsx";
+import GalleryPage from "./pages/commonPages/GalleryPage.jsx";
 import AllComments from './pages/commentPages/AllComments.jsx';
-import Patelfullmenu from './pages/commonPages/Patelfullmenu.jsx';
+import FullMessMenuPage from './pages/commonPages/FullMessMenuPage.jsx';
 import Cheifwarden from './pages/chiefWardenPages/Cheifwarden.jsx';
 import Accountant from "./pages/accountantPages/Accountant.jsx";
 import AllComplaints from "./pages/complaintPages/AllComplaint.jsx";
@@ -55,10 +55,11 @@ function App() {
           <Route path="/complaint-page" element={<AllComplaints/>} />
 
 
-          <Route path="/gallery-page" element={<Patelgallery />} />
+          <Route path="/gallery-page" element={<GalleryPage />} />
           <Route path="/myallimages" element={<MyAllImagesPage />} />
 
 
+          <Route path="/full-menu-page" element={<FullMessMenuPage />} />
 
 ////---------------------------------------------------------------------------------------
 
@@ -85,7 +86,6 @@ function App() {
 
 
 
-          <Route path="/patelfullmenu" element={<ProtectedRoute element={<Patelfullmenu />} />} />
           <Route path="/myallcomplaints" element={<ProtectedRoute element={<MyAllComplaintsPage/>} />} />
 
 

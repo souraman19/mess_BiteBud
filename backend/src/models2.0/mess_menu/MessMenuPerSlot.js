@@ -17,12 +17,13 @@ const messMenuPerSlotSchema = new mongoose.Schema({
         enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         required: true,
     },
-    menuItems:{
-        type:[{
-            title: {type: String, required: true},
-            menuItemId: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'MenuItem'}
-        }],
-        default: []
+    hostel:{
+        type: String,
+        required: true,
+    },
+    menuItem:{
+        title: {type: String, required: true},
+        menuItemId: {type: mongoose.Schema.Types.ObjectId, ref: 'MenuItem'}
     },
     averageRating:{  //update it as you need
         type: Number,

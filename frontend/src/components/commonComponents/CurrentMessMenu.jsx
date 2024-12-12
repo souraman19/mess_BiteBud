@@ -52,7 +52,7 @@ function Comment() {
     <div className="container mx-auto p-6">
       <div className="upper-section1 text-center mb-8">
         <h1 className="heading1 text-4xl font-extrabold text-gray-800 mb-4">Enjoy Today's Food</h1>
-        <Link to="/patelfullmenu">
+        <Link to="/full-menu-page">
           <a className="btn btn-primary bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition duration-300" role="button">
             See the Full Menu
           </a>

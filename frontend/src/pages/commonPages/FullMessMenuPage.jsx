@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../../components/commonComponents/Navbar";
 import { useStateProvider } from "../../context/StateContext";
-import "./../../styles/PatelFullMenu.css";
+import "./../../styles/FullMessMenuPage.css";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
@@ -73,23 +73,19 @@ function Patelfullmenu() {
     fetchData();
   }, []);
 
-  const handleDelete = async (day, mealTime, mealName) => {
+  const handleDelete = async (menuId) => {
     try {
       const response = await axios.delete(
         DELETE_MESS_MENU,
-        { params: { day, mealTime, mealName } }
+        { params: { menuId } }
       );
-      console.log(response);
-      setTimeout(() => {
-        setAllMenus(response.data);
-        console.log("Updated Mess menu fetched successfully after deletion");
-      }, 1000);
+      fetchData();
     } catch (err) {
       console.error("error in deleteing meal ", err);
     }
   };
 
-  const handleEdit = (day, mealTime, mealName) => {
+  const handleEdit = (day, mealTime, mealName, mealId) => {
     setIsEditing(true);
     setFoodName(mealName);
     const a = document.getElementById(`realblock_${day}${mealTime}${mealName}`); //with real box
@@ -118,14 +114,11 @@ function Patelfullmenu() {
     a.classList.add("box_with_name_two_button_display");
   }
 
-  const handleConfirmEdit = async(day, mealTime, mealName) => {
+  const handleConfirmEdit = async(day, mealTime, mealName, menuId) => {
     try {
-      const data = {day: day, mealTime: mealTime, mealName: mealName, newMealName: foodName};
+      const data = {menuId: menuId, newMealName: foodName};
       const response = await axios.post(EDIT_MESS_MENU, data);
-      setTimeout(() => {
-        setAllMenus(response.data.updatedMenus);
-        console.log("menu updated after edit");
-      }, 1000);
+      fetchData();
 
       setIsEditing(false);
     const a = document.getElementById(`realblock_${day}${mealTime}${mealName}`); //with real box
@@ -250,7 +243,7 @@ function Patelfullmenu() {
                                     padding: "0.5rem",
                                     cursor: "pointer",
                                   }}
-                                  onClick = {() => handleConfirmEdit(day, meal.slot, meal.menuItem.title)}
+                                  onClick = {() => handleConfirmEdit(day, meal.slot, meal.menuItem.title, meal.menuId)}
                                 />
                                 <CloseIcon
                                   style={{
@@ -275,7 +268,7 @@ function Patelfullmenu() {
                                   <DeleteIcon
                                 className="delete-icon"
                                 onClick={() =>
-                                  handleDelete(day, meal.slot, meal.menuItem.title)
+                                  handleDelete(meal.menuId)
                                 }
                               />
                                 )
@@ -286,7 +279,7 @@ function Patelfullmenu() {
                                   <EditIcon
                                 className="edit-icon"
                                 onClick={() =>
-                                  handleEdit(day, meal.slot, meal.menuItem.title)
+                                  handleEdit(day, meal.slot, meal.menuItem.title, meal.menuId)
                                 }
                               />
                                 )
@@ -324,7 +317,7 @@ function Patelfullmenu() {
                                     padding: "0.5rem",
                                     cursor: "pointer",
                                   }}
-                                  onClick = {() => handleConfirmEdit(day, meal.slot, meal.menuItem.title)}
+                                  onClick = {() => handleConfirmEdit(day, meal.slot, meal.menuItem.title, meal.menuId)}
                                 />
                                 <CloseIcon
                                   style={{
@@ -349,7 +342,7 @@ function Patelfullmenu() {
                                   <DeleteIcon
                                 className="delete-icon"
                                 onClick={() =>
-                                  handleDelete(day, meal.slot, meal.menuItem.title)
+                                  handleDelete(meal.menuId)
                                 }
                               />
                                 )
@@ -360,7 +353,7 @@ function Patelfullmenu() {
                                   <EditIcon
                                 className="edit-icon"
                                 onClick={() =>
-                                  handleEdit(day, meal.slot, meal.menuItem.title)
+                                  handleEdit(day, meal.slot, meal.menuItem.title, meal.menuId)
                                 }
                               />
                                 )
@@ -398,7 +391,7 @@ function Patelfullmenu() {
                                     padding: "0.5rem",
                                     cursor: "pointer",
                                   }}
-                                  onClick = {() => handleConfirmEdit(day, meal.slot, meal.menuItem.title)}
+                                  onClick = {() => handleConfirmEdit(day, meal.slot, meal.menuItem.title, meal.menuId)}
                                 />
                                 <CloseIcon
                                   style={{
@@ -423,7 +416,7 @@ function Patelfullmenu() {
                                   <DeleteIcon
                                 className="delete-icon"
                                 onClick={() =>
-                                  handleDelete(day, meal.slot, meal.menuItem.title)
+                                  handleDelete(meal.menuId)
                                 }
                               />
                                 )
@@ -434,7 +427,7 @@ function Patelfullmenu() {
                                   <EditIcon
                                 className="edit-icon"
                                 onClick={() =>
-                                  handleEdit(day, meal.time, meal.name)
+                                  handleEdit(day, meal.slot, meal.menuItem.title, meal.menuId)
                                 }
                               />
                                 )
@@ -472,7 +465,7 @@ function Patelfullmenu() {
                                     padding: "0.5rem",
                                     cursor: "pointer",
                                   }}
-                                  onClick = {() => handleConfirmEdit(day, meal.slot, meal.menuItem.title)}
+                                  onClick = {() => handleConfirmEdit(day, meal.slot, meal.menuItem.title, meal.menuId)}
                                 />
                                 <CloseIcon
                                   style={{
@@ -497,7 +490,7 @@ function Patelfullmenu() {
                                   <DeleteIcon
                                 className="delete-icon"
                                 onClick={() =>
-                                  handleDelete(day, meal.slot, meal.menuItem.title)
+                                  handleDelete(meal.menuId)
                                 }
                               />
                                 )
@@ -508,7 +501,7 @@ function Patelfullmenu() {
                                   <EditIcon
                                 className="edit-icon"
                                 onClick={() =>
-                                  handleEdit(day, meal.slot, meal.menuItem.title)
+                                  handleEdit(day, meal.slot, meal.menuItem.title, meal.menuId)
                                 }
                               />
                                 )

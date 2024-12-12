@@ -40,6 +40,40 @@ const addMessMenu = async (req, res) => {
       }
 }
 
+const deleteMessMenu = async(req, res) => {
+    try{
+        const {menuId} = req.query;
+        // console.log("req query ----", req.query);
+        const deletedItem = await MessMenuPerSlot.deleteOne({menuId: menuId});
+
+        res.status(200).json({message: "deleted sucessfully"});
+    
+      } catch(error){
+        console.error("Error deleting item:", error);
+        res.status(500).json({ error: "Internal server error" });
+      }
+}
 
 
-export {getAllMessMenu, addMessMenu};
+const editMessMenu = async(req, res) => {
+    try{
+        const menuId = req.body.menuId;
+        const newMealName = req.body.newMealName;
+        const respon = await MessMenuPerSlot.updateOne(
+          {menuId: menuId},
+          {
+            $set: {
+              menuItem: {title: newMealName}
+            }
+          }
+        );
+        res.status(200).json({ message: "Meal updated successfully" });
+      } catch(error){
+        console.error("Error in editing mealName", error);
+        res.status(500).json({error: "Internal server error"});
+      }
+}
+
+
+
+export {getAllMessMenu, addMessMenu, deleteMessMenu, editMessMenu};

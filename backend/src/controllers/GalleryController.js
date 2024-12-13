@@ -115,4 +115,23 @@ const uploadImage = async(req, res) => {
 }
 
 
-export {getAllImages, uploadImage, upload}; 
+const deleteImage = async(req, res) => {
+  try{
+    console.log("delete image called");
+    const itemId = req.params.itemId;
+    const foundImage = await GalleryItem.findOne({itemId: itemId});
+    console.log("founddd ", foundImage);
+    if(!foundImage){
+      return res.status(404).json({error: "Image not found"});
+    } else {
+      await GalleryItem.deleteOne({itemId: itemId});
+      fs.unlinkSync(path.resolve(uploadsDir, foundImage.image));
+      res.json({message: "Image deleted successfully"});
+    }
+  }catch(err){
+    console.log("Error in deleting image", err);
+  }
+}
+
+
+export {getAllImages, uploadImage, upload, deleteImage}; 

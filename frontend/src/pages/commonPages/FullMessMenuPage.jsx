@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../../components/commonComponents/Navbar";
-import { useUser } from "../../UserContext";
-import "./../../styles/PatelFullMenu.css";
+import { useStateProvider } from "../../context/StateContext";
+import "./../../styles/FullMessMenuPage.css";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 // import { Button, IconButton } from "@mui/material";
+import {GET_MESS_MENU, ADD_MESS_MENU, EDIT_MESS_MENU, DELETE_MESS_MENU} from "./../../utils/ApiRoutes.js";
 
 function Patelfullmenu() {
-  const {user} = useUser();
-  // const name = user.name;
-  // const username = user.username;
-  // const regNo = user.regNo;
-  // const year = user.year;
-  // const profilePic = user.profilePic;
-  const hostel = user.hostel;
-  // const identity = user.identity;
+  const [{ userInfo }] = useStateProvider();
+  const userId = userInfo.userId;
+  const username = userInfo.username;
+  const hostel = userInfo.hostel;
+  const name = userInfo.firstName;
+  const userType = userInfo.userType;
 
   const [allMenus, setAllMenus] = useState([]);
   const [mealDay, setMealDay] = useState("");
@@ -27,13 +26,12 @@ function Patelfullmenu() {
     "Monday",
     "Tuesday",
     "Wednesday",
-    "Thrusday",
+    "Thursday",
     "Friday",
     "Saturday",
     "Sunday",
   ];
 
-  
 
   const currentDayIndex = new Date().getDay();
   const Alldays = [
@@ -41,7 +39,7 @@ function Patelfullmenu() {
     "Monday",
     "Tuesday",
     "Wednesday",
-    "Thrusday",
+    "Thursday",
     "Friday",
     "Saturday",
   ];
@@ -65,33 +63,29 @@ function Patelfullmenu() {
   const [foodName, setFoodName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
+  const fetchData = async () => {
+    const response = await axios.get(GET_MESS_MENU, {params: {hostel}, withCrediantials: true});
+    setAllMenus(response.data);
+    console.log("zkhdvcjvj????????????", response.data);
+    console.log("Mess menu fetched successfully");
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get("http://localhost:5000/api/getmessmenu");
-      setAllMenus(response.data);
-      console.log("zkhdvcjvj????????????", response.data);
-      console.log("Mess menu fetched successfully");
-    };
     fetchData();
   }, []);
 
-  const handleDelete = async (day, mealTime, mealName) => {
+  const handleDelete = async (menuId) => {
     try {
       const response = await axios.delete(
-        "http://localhost:5000/api/deletemessmenu",
-        { params: { day, mealTime, mealName } }
+        DELETE_MESS_MENU,
+        { params: { menuId } }
       );
-      console.log(response);
-      setTimeout(() => {
-        setAllMenus(response.data);
-        console.log("Updated Mess menu fetched successfully after deletion");
-      }, 1000);
+      fetchData();
     } catch (err) {
       console.error("error in deleteing meal ", err);
     }
   };
 
-  const handleEdit = (day, mealTime, mealName) => {
+  const handleEdit = (day, mealTime, mealName, mealId) => {
     setIsEditing(true);
     setFoodName(mealName);
     const a = document.getElementById(`realblock_${day}${mealTime}${mealName}`); //with real box
@@ -120,14 +114,11 @@ function Patelfullmenu() {
     a.classList.add("box_with_name_two_button_display");
   }
 
-  const handleConfirmEdit = async(day, mealTime, mealName) => {
+  const handleConfirmEdit = async(day, mealTime, mealName, menuId) => {
     try {
-      const data = {day: day, mealTime: mealTime, mealName: mealName, newMealName: foodName};
-      const response = await axios.post("http://localhost:5000/api/editmealname", data);
-      setTimeout(() => {
-        setAllMenus(response.data.updatedMenus);
-        console.log("menu updated after edit");
-      }, 1000);
+      const data = {menuId: menuId, newMealName: foodName};
+      const response = await axios.post(EDIT_MESS_MENU, data);
+      fetchData();
 
       setIsEditing(false);
     const a = document.getElementById(`realblock_${day}${mealTime}${mealName}`); //with real box
@@ -149,11 +140,13 @@ function Patelfullmenu() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // const formData = new FormData();
-    const formData = new URLSearchParams();
+    const formData = new URLSearchParams(); 
     formData.append("day", mealDay);
     // alert(mealDay);
     formData.append("mealTime", mealTime);
     formData.append("name", mealName);
+    formData.append("hostel", hostel);
+
     // console.log(mealDay, mealTime, mealName);
 
     // console.log("FormData entries:");
@@ -162,7 +155,7 @@ function Patelfullmenu() {
     // }
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/addnewmeal",
+        ADD_MESS_MENU,
         formData,
         {
           headers: {
@@ -177,12 +170,7 @@ function Patelfullmenu() {
       document.getElementById("daySelection").selectedIndex = 0;
       document.getElementById("timeSelection").selectedIndex = 0;
 
-      setTimeout(async () => {
-        const updatedMenu = await axios.get(
-          "http://localhost:5000/api/getmessmenu"
-        );
-        setAllMenus(updatedMenu.data);
-      }, 2000);
+      fetchData();
     } catch (error) {
       console.log("Error in adding meal:", error);
     }
@@ -229,12 +217,12 @@ function Patelfullmenu() {
                   <td className="which-day" id={`day_box1${day}`}>{day}</td>
                   <td id={`day_box2${day}`} className="">
                     <ul>
-                    {allMenus[index].allFoodItems
-                        .filter((meal) => meal.time === "Breakfast")
+                    {allMenus
+                        .filter((meal) => meal.slot === "Breakfast" && meal.day === day)
                         .map((meal, idx) => (
                           <li key={idx} >
                             <div
-                              id={`inputblock_${day}${meal.time}${meal.name}`}
+                              id={`inputblock_${day}${meal.slot}${meal.menuItem.title}`}
                               className="none_display"
                               // className="block_display input_box_with_btn" will be added when edit button is clicked
                             >
@@ -255,7 +243,7 @@ function Patelfullmenu() {
                                     padding: "0.5rem",
                                     cursor: "pointer",
                                   }}
-                                  onClick = {() => handleConfirmEdit(day, meal.time, meal.name)}
+                                  onClick = {() => handleConfirmEdit(day, meal.slot, meal.menuItem.title, meal.menuId)}
                                 />
                                 <CloseIcon
                                   style={{
@@ -266,32 +254,32 @@ function Patelfullmenu() {
                                     padding: "0.5rem",
                                     cursor: "pointer",
                                   }}
-                                  onClick = {() => handleCancelEdit(day, meal.time, meal.name)}
+                                  onClick = {() => handleCancelEdit(day, meal.slot, meal.menuItem.title)}
                                 />
                               </div>
                             </div>
 
                             <div
-                              id={`realblock_${day}${meal.time}${meal.name}`}
+                              id={`realblock_${day}${meal.slot}${meal.menuItem.title}`}
                               className="box_with_name_two_button_display"
                             >
                               {
-                                hostel === "hostel" && (
+                                userType === "Student" && (
                                   <DeleteIcon
                                 className="delete-icon"
                                 onClick={() =>
-                                  handleDelete(day, meal.time, meal.name)
+                                  handleDelete(meal.menuId)
                                 }
                               />
                                 )
                               }
-                              <div>{meal.name}</div>
+                              <div>{meal.menuItem.title}</div>
                               {
-                                hostel === "hostel" && (
+                                userType === "Student" && (
                                   <EditIcon
                                 className="edit-icon"
                                 onClick={() =>
-                                  handleEdit(day, meal.time, meal.name)
+                                  handleEdit(day, meal.slot, meal.menuItem.title, meal.menuId)
                                 }
                               />
                                 )
@@ -303,12 +291,12 @@ function Patelfullmenu() {
                   </td>
                   <td id={`day_box3${day}`} className="">
                     <ul>
-                      {allMenus[index].allFoodItems
-                        .filter((meal) => meal.time === "Lunch")
+                      {allMenus
+                        .filter((meal) => meal.slot === "Lunch" && meal.day === day)
                         .map((meal, idx) => (
                           <li key={idx}>
                             <div
-                              id={`inputblock_${day}${meal.time}${meal.name}`}
+                              id={`inputblock_${day}${meal.slot}${meal.menuItem.title}`}
                               className="none_display"
                               // className="block_display input_box_with_btn" will be added when edit button is clicked
                             >
@@ -329,7 +317,7 @@ function Patelfullmenu() {
                                     padding: "0.5rem",
                                     cursor: "pointer",
                                   }}
-                                  onClick = {() => handleConfirmEdit(day, meal.time, meal.name)}
+                                  onClick = {() => handleConfirmEdit(day, meal.slot, meal.menuItem.title, meal.menuId)}
                                 />
                                 <CloseIcon
                                   style={{
@@ -340,32 +328,32 @@ function Patelfullmenu() {
                                     padding: "0.5rem",
                                     cursor: "pointer",
                                   }}
-                                  onClick = {() => handleCancelEdit(day, meal.time, meal.name)}
+                                  onClick = {() => handleCancelEdit(day, meal.slot, meal.menuItem.title)}
                                 />
                               </div>
                             </div>
 
                             <div
-                              id={`realblock_${day}${meal.time}${meal.name}`}
+                              id={`realblock_${day}${meal.slot}${meal.menuItem.title}`}
                               className="box_with_name_two_button_display"
                             >
                                {
-                                hostel === "hostel" && (
+                                userType === "Student" && (
                                   <DeleteIcon
                                 className="delete-icon"
                                 onClick={() =>
-                                  handleDelete(day, meal.time, meal.name)
+                                  handleDelete(meal.menuId)
                                 }
                               />
                                 )
                               }
-                              <div>{meal.name}</div>
+                              <div>{meal.menuItem.title}</div>
                               {
-                                hostel === "hostel" && (
+                                userType === "Student" && (
                                   <EditIcon
                                 className="edit-icon"
                                 onClick={() =>
-                                  handleEdit(day, meal.time, meal.name)
+                                  handleEdit(day, meal.slot, meal.menuItem.title, meal.menuId)
                                 }
                               />
                                 )
@@ -377,12 +365,12 @@ function Patelfullmenu() {
                   </td>
                   <td id={`day_box4${day}`} className="">
                     <ul>
-                    {allMenus[index].allFoodItems
-                        .filter((meal) => meal.time === "Snacks")
+                    {allMenus
+                        .filter((meal) => meal.slot === "Snacks" && meal.day === day)
                         .map((meal, idx) => (
                           <li key={idx}>
                             <div
-                              id={`inputblock_${day}${meal.time}${meal.name}`}
+                              id={`inputblock_${day}${meal.slot}${meal.menuItem.title}`}
                               className="none_display"
                               // className="block_display input_box_with_btn" will be added when edit button is clicked
                             >
@@ -403,7 +391,7 @@ function Patelfullmenu() {
                                     padding: "0.5rem",
                                     cursor: "pointer",
                                   }}
-                                  onClick = {() => handleConfirmEdit(day, meal.time, meal.name)}
+                                  onClick = {() => handleConfirmEdit(day, meal.slot, meal.menuItem.title, meal.menuId)}
                                 />
                                 <CloseIcon
                                   style={{
@@ -414,32 +402,32 @@ function Patelfullmenu() {
                                     padding: "0.5rem",
                                     cursor: "pointer",
                                   }}
-                                  onClick = {() => handleCancelEdit(day, meal.time, meal.name)}
+                                  onClick = {() => handleCancelEdit(day, meal.slot, meal.menuItem.title)}
                                 />
                               </div>
                             </div>
 
                             <div
-                              id={`realblock_${day}${meal.time}${meal.name}`}
+                              id={`realblock_${day}${meal.slot}${meal.menuItem.title}`}
                               className="box_with_name_two_button_display"
                             >
                                {
-                                hostel === "hostel" && (
+                                userType === "Student" && (
                                   <DeleteIcon
                                 className="delete-icon"
                                 onClick={() =>
-                                  handleDelete(day, meal.time, meal.name)
+                                  handleDelete(meal.menuId)
                                 }
                               />
                                 )
                               }
-                              <div>{meal.name}</div>
+                              <div>{meal.menuItem.title}</div>
                               {
-                                hostel === "hostel" && (
+                                userType === "Student" && (
                                   <EditIcon
                                 className="edit-icon"
                                 onClick={() =>
-                                  handleEdit(day, meal.time, meal.name)
+                                  handleEdit(day, meal.slot, meal.menuItem.title, meal.menuId)
                                 }
                               />
                                 )
@@ -451,12 +439,12 @@ function Patelfullmenu() {
                   </td>
                   <td id={`day_box5${day}`} className="">
                     <ul>
-                    {allMenus[index].allFoodItems
-                        .filter((meal) => meal.time === "Dinner")
+                    {allMenus
+                        .filter((meal) => meal.slot === "Dinner" && meal.day === day)
                         .map((meal, idx) => (
                           <li key={idx}>
                             <div
-                              id={`inputblock_${day}${meal.time}${meal.name}`}
+                              id={`inputblock_${day}${meal.slot}${meal.menuItem.title}`}
                               className="none_display"
                               // className="block_display input_box_with_btn" will be added when edit button is clicked
                             >
@@ -477,7 +465,7 @@ function Patelfullmenu() {
                                     padding: "0.5rem",
                                     cursor: "pointer",
                                   }}
-                                  onClick = {() => handleConfirmEdit(day, meal.time, meal.name)}
+                                  onClick = {() => handleConfirmEdit(day, meal.slot, meal.menuItem.title, meal.menuId)}
                                 />
                                 <CloseIcon
                                   style={{
@@ -488,32 +476,32 @@ function Patelfullmenu() {
                                     padding: "0.5rem",
                                     cursor: "pointer",
                                   }}
-                                  onClick = {() => handleCancelEdit(day, meal.time, meal.name)}
+                                  onClick = {() => handleCancelEdit(day, meal.slot, meal.menuItem.title)}
                                 />
                               </div>
                             </div>
 
                             <div
-                              id={`realblock_${day}${meal.time}${meal.name}`}
+                              id={`realblock_${day}${meal.slot}${meal.menuItem.title}`}
                               className="box_with_name_two_button_display"
                             >
                                {
-                                hostel === "hostel" && (
+                                userType === "Student" && (
                                   <DeleteIcon
                                 className="delete-icon"
                                 onClick={() =>
-                                  handleDelete(day, meal.time, meal.name)
+                                  handleDelete(meal.menuId)
                                 }
                               />
                                 )
                               }
-                              <div>{meal.name}</div>
+                              <div>{meal.menuItem.title}</div>
                               {
-                                hostel === "hostel" && (
+                                userType === "Student" && (
                                   <EditIcon
                                 className="edit-icon"
                                 onClick={() =>
-                                  handleEdit(day, meal.time, meal.name)
+                                  handleEdit(day, meal.slot, meal.menuItem.title, meal.menuId)
                                 }
                               />
                                 )
@@ -531,7 +519,7 @@ function Patelfullmenu() {
           <p>Loading Menu Table ...</p>
         )}
       </div>
-      {hostel === "hostel" && (
+      {userType === "Student" && (
         <div className="add_menu_div">
           <h2>Add new meal</h2>
           <form onSubmit={handleSubmit} encType="multipart/form-data">

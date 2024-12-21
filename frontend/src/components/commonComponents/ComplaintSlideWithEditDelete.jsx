@@ -92,14 +92,11 @@ function ComplaintSlide({
     }
   }
 
-
   const handleComplaintDelete = async() => {
     try{
-        await axios.delete(`http://localhost:5000/api/deletecomplaint/${complaintId}`);
-        updateAllComplaints(allComplaints.filter((com) => 
-            com.complaintId !== complaintId
-        ));
+        await axios.delete(`${DELETE_COMPLAINT_ROUTE}/${complaintId}`);
         console.log("complaint deletion successful");
+        fetchData();
     } catch(error){
         console.log("Error while deleting complaints", error);
     }

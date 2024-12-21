@@ -111,7 +111,14 @@ const editComplaint = async(req, res) => {
 }
 
 const deleteComplaint = async(req, res) => {
-
+  try{
+    const complaintId = req.params.complaintId;
+    await Complaint.findOneAndDelete({complaintId: complaintId});
+    res.json({message: "complaint delete complete"});
+  }catch(error){
+    console.log("Error in deleting complaint", error);
+    res.status(500).json({error: "Internal server error"});
+  }
 }
 
 export {getAllComplaints, addComplaint, upvoteComplaint, downvoteComplaint, editComplaint, deleteComplaint};

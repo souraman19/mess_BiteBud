@@ -46,7 +46,6 @@ function Complaintlist() {
   const handleComplaintSubmit = async() => {
     if (singleComplaint.trim() !== "") {
       const newComplaint = {
-        username: username,
         complaintText: singleComplaint,
         complaintBy:{
           firstName: firstName,

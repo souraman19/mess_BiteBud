@@ -93,4 +93,25 @@ const downvoteComplaint = async(req, res) => {
   }
 }
 
-export {getAllComplaints, addComplaint, upvoteComplaint, downvoteComplaint};
+const editComplaint = async(req, res) => {
+  try{
+    const complaintId = req.params.complaintId;
+    const {complaint} = req.body;
+    // console.log(complaint);
+    // console.log(complaintId);
+    const updatedComplaint = await Complaint.findOneAndUpdate({complaintId: complaintId}, {complaintText: complaint});
+    if(!updatedComplaint){
+      res.status(404).json({error: "complaint not found"});
+    }
+    res.json(updatedComplaint);
+  }catch(error){
+    console.log("Error in updating complaint");
+    res.status(500).json({ error:"Internal server error" });
+  }
+}
+
+const deleteComplaint = async(req, res) => {
+
+}
+
+export {getAllComplaints, addComplaint, upvoteComplaint, downvoteComplaint, editComplaint, deleteComplaint};

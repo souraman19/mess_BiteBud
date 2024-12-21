@@ -101,6 +101,7 @@ function Complaintlist() {
                   isResolved={singleComplaint.resolvedInfo.status}
                   allComplaints={allComplaints}
                   updateAllComplaints={updateAllComplaints}
+                  fetchData = {fetchData}
                 />
               </div>
             ))}

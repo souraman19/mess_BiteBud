@@ -7,7 +7,7 @@ import { useStateProvider } from "../../context/StateContext.jsx";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
-import {UPVOTE_COMPLAINT_ROUTE, DOWNVOTE_COMPLAINT_ROUTE} from "./../../utils/ApiRoutes.js";
+import {UPVOTE_COMPLAINT_ROUTE, DOWNVOTE_COMPLAINT_ROUTE, DELETE_COMPLAINT_ROUTE, EDIT_COMPLAINT_ROUTE} from "./../../utils/ApiRoutes.js";
 
 function ComplaintSlide({
   complaintId,
@@ -18,6 +18,7 @@ function ComplaintSlide({
   isResolved,
   allComplaints,
   updateAllComplaints,
+  fetchData
 }) {
   const [{ userInfo, newUser }, dispatch] = useStateProvider();
 
@@ -82,11 +83,9 @@ function ComplaintSlide({
 
   const handleEdit = async() => {
     try{
-        await axios.put(`http://localhost:5000/api/updatecomplaint/${complaintId}`, {complaint : editedComplaint});
+        await axios.put(`${EDIT_COMPLAINT_ROUTE}/${complaintId}`, {complaint : editedComplaint});
         console.log("Complaint editing success");
-        updateAllComplaints(allComplaints.map((com) => 
-            com.complaintId === complaintId ? {...com, complaint: editedComplaint} : com
-        ));
+        fetchData();
         setIsEditing(false);
     }catch(error){
         console.log("Error in editing complaint")

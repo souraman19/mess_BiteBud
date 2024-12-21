@@ -27,6 +27,7 @@ function Complaintlist() {
     try{
       const fetchData = async() => {
         const response = await axios.get(GET_ALL_COMPLAINTS_ROUTE, {params: {hostel}, withCredentials: true});
+        // console.log("all", response);
         const myHostelComplaints = response.data;
         setAllComplaints(myHostelComplaints);
         // console.log("hostel ccom", myHostelComplaints);
@@ -50,6 +51,7 @@ function Complaintlist() {
         complaintBy:{
           firstName: firstName,
           lastName: lastName,
+          username: username,
           profilePicture: profilePicture, 
           userId: userId,
           regNo: regNo,
@@ -91,9 +93,8 @@ function Complaintlist() {
               name = {singleCommentMap.complaintBy.firstName + ' ' + singleCommentMap.complaintBy.lastName}
               username = {singleCommentMap.complaintBy.username}
               time={singleCommentMap.complaintTime}
-              regNo = {singleCommentMap.regNo}
+              regNo = {singleCommentMap.complaintBy.regNo}
               complaint={singleCommentMap.complaintText}
-              commentsOnComplaint = {singleCommentMap.commentsOnComplaint}
               upVoteCount = {singleCommentMap.upVoteCount}
               downVoteCount = {singleCommentMap.downVoteCount}
               upVotedMembers = {singleCommentMap.upVotes}

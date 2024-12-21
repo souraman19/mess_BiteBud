@@ -3,41 +3,37 @@ import "./../../styles/ComplaintSlideWithEditDelete.css";
 import CommentReplyModal from "./CommentReplyModal";
 import CommentSeeAllCommentsModal from "./CommentSeeAllCommentsModal";
 import { useState } from "react";
-import { useUser } from "../../UserContext";
+import { useStateProvider } from "../../context/StateContext.jsx";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
+import {UPVOTE_COMPLAINT_ROUTE, DOWNVOTE_COMPLAINT_ROUTE} from "./../../utils/ApiRoutes.js";
 
 function ComplaintSlide({
-  _id,
+  complaintId,
   name,
-  // username,
-  // regNo,
-  // year,
   complaint,
-  commentsOnComplaint,
   upVoteCount,
   downVoteCount,
-  // upVotedMembers,
-  // downVotedMembers,
   isResolved,
   allComplaints,
   updateAllComplaints,
 }) {
-  const { user } = useUser();
-  // const myName = user.name;
-  // const myUsername = user.username;
-  const myRegNo = user.regNo;
-  // const myYear = user.year;
-  // const myProfilePic = user.profilePic;
+  const [{ userInfo, newUser }, dispatch] = useStateProvider();
+
+  const myRegNo = userInfo.regNo;
+  const userId = userInfo.userId;
+  const username = userInfo.username;
+  const hostel = userInfo.hostel;
+  const firstName = userInfo.firstName;
+  const year = userInfo.year;
+  const profilePicture = userInfo.profilePicture;
+  const identity = userInfo.userType;
 
   const [upVotes, setUpVotes] = useState(upVoteCount);
   const [downVotes, setDownVotes] = useState(downVoteCount);
   const [isUpVoteBlinking, setIsUpVoteBlinking] = useState(false);
   const [isDownVoteBlinking, setIsDownVoteBlinking] = useState(false);
-  const [isReplying, setIsReplying] = useState(false);
-  const [isSeeAllComments, setIsSeeAllComments] = useState(false);
-  // const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState([]);
 
   const [editedComplaint, setEditedComplaint] = useState(complaint);
@@ -46,8 +42,8 @@ function ComplaintSlide({
   const handleUpVote = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/upvote/${_id}`,
-        { myRegNo: myRegNo }
+        `${UPVOTE_COMPLAINT_ROUTE}/${complaintId}`,
+        { userId: userId, username: username }, {withCredentials: true}
       );
       console.log("Successfull at sending put request to server");
       // console.log(response.data.upVoteCount);
@@ -66,16 +62,16 @@ function ComplaintSlide({
   const handleDownVote = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/downvote/${_id}`,
-        { myRegNo: myRegNo }
+        `${DOWNVOTE_COMPLAINT_ROUTE}/${complaintId}`,
+        { userId: userId, username: username }, {withCredentials: true}
       );
       console.log("Successfull at sending put request to server");
-      // console.log(response.data.upVoteCount);
+      // console.log(response.data.downVoteCount);
       if (response.data.downVoteCount !== downVoteCount) {
         setIsDownVoteBlinking(true);
         setTimeout(() => {
           setIsDownVoteBlinking(false);
-          setDownVotes(response.data.upVoteCount);
+          setDownVotes(response.data.downVoteCount);
         }, 1800);
       }
     } catch (error) {
@@ -83,52 +79,13 @@ function ComplaintSlide({
     }
   };
 
-  const addDisplayNoneClass = () => {
-    const el = document.getElementById(
-      "complaintslide_comaplintdetails_with_buttons"
-    );
-    el.classList.add("none_display");
-  };
-  const removeDisplayNoneClass = () => {
-    const el = document.getElementById(
-      "complaintslide_comaplintdetails_with_buttons"
-    );
-    el.classList.remove("none_display");
-  };
-
-  const handleAddComment = (newComment) => {
-    setComments([...comments, newComment]);
-  };
-
-  const handleReplyClick = () => {
-    addDisplayNoneClass();
-    setIsReplying(true);
-  };
-  const handleSeeAllCommentsClick = () => {
-    addDisplayNoneClass();
-    setIsSeeAllComments(true);
-  };
-
-  const handleCloseReplyModal = () => {
-    removeDisplayNoneClass();
-    setIsReplying(false);
-  };
-  const handleCloseSeeAllCommentsModal = () => {
-    removeDisplayNoneClass();
-    setIsSeeAllComments(false);
-  };
-
-  //   const handleAddComment = (commentText) => {
-  //     console.log("Posted Comment:", commentText);
-  //     setIsReplying(false);
-  //   };
 
   const handleEdit = async() => {
     try{
-        await axios.put(`http://localhost:5000/api/updatecomplaint/${_id}`, {complaint : editedComplaint});
+        await axios.put(`http://localhost:5000/api/updatecomplaint/${complaintId}`, {complaint : editedComplaint});
         console.log("Complaint editing success");
         updateAllComplaints(allComplaints.map((com) => 
-            com._id === _id ? {...com, complaint: editedComplaint} : com
+            com.complaintId === complaintId ? {...com, complaint: editedComplaint} : com
         ));
         setIsEditing(false);
     }catch(error){
@@ -139,16 +96,15 @@ function ComplaintSlide({
 
   const handleComplaintDelete = async() => {
     try{
-        await axios.delete(`http://localhost:5000/api/deletecomplaint/${_id}`);
+        await axios.delete(`http://localhost:5000/api/deletecomplaint/${complaintId}`);
         updateAllComplaints(allComplaints.filter((com) => 
-            com._id !== _id
+            com.complaintId !== complaintId
         ));
         console.log("complaint deletion successful");
     } catch(error){
         console.log("Error while deleting complaints", error);
     }
   }
-
 
 
 
@@ -217,19 +173,6 @@ function ComplaintSlide({
                 <span>&#9660;</span> {downVotes}
               </button>
             </div>
-            <div className="replyysectiion_with_edit_delete">
-              <button
-                className="reply-button_with_edit_delete"
-                onClick={handleSeeAllCommentsClick}
-              >
-                {/* Replace with your reply icon */}
-                <span>&#8617;</span> See All Comments
-              </button>
-              <button className="reply-button_with_edit_delete" onClick={handleReplyClick}>
-                {/* Replace with your reply icon */}
-                <span>&#8617;</span> Reply
-              </button>
-            </div>
             <button className="edit_button_icon_with_edit_delete"
                 onClick={() => setIsEditing(true)}
             >
@@ -238,22 +181,6 @@ function ComplaintSlide({
           </div>
         </div>
       </div>
-      {isReplying && (
-        <CommentReplyModal
-          onClose={handleCloseReplyModal}
-          complaintId={_id}
-          commentsOnComplaint={commentsOnComplaint}
-          onAddComment={handleAddComment}
-        />
-      )}
-      {isSeeAllComments && (
-        <CommentSeeAllCommentsModal
-          onClose={handleCloseSeeAllCommentsModal}
-          complaintId={_id}
-          commentsOnComplaint={commentsOnComplaint}
-          onAddComment={handleAddComment}
-        />
-      )}
     </div>
   );
 }

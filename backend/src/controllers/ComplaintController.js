@@ -16,8 +16,8 @@ const addComplaint = async(req, res) => {
   const newComplaint = req.body;
   try{
     const newMyComplaint = new Complaint(newComplaint);
-    await newMyComplaint.save();
     // console.log("new => ",newMyComplaint);
+    await newMyComplaint.save();
 
   res.status(201).json({message: "complaint added successfully"});
 

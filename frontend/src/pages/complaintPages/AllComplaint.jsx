@@ -16,7 +16,7 @@ function AllComplaint() {
           <h2 className="my_complaints">All Complaints</h2>
         </Link>
         <Link
-          to="/myallcomplaints"
+          to="/myallcomplaints-page"
           style={{ color: "inherit", textDecoration: "none" }}
         >
           <h2 className="my_complaints">My Complaints</h2>

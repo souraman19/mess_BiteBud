@@ -16,7 +16,7 @@ const addComplaint = async(req, res) => {
   const newComplaint = req.body;
   try{
     const newMyComplaint = new Complaint(newComplaint);
-    // console.log("new => ",newMyComplaint);
+    console.log("new => ",newMyComplaint);
     await newMyComplaint.save();
 
   res.status(201).json({message: "complaint added successfully"});
@@ -96,10 +96,10 @@ const downvoteComplaint = async(req, res) => {
 const editComplaint = async(req, res) => {
   try{
     const complaintId = req.params.complaintId;
-    const {complaint} = req.body;
+    const {complaint, complaintHeading} = req.body;
     // console.log(complaint);
     // console.log(complaintId);
-    const updatedComplaint = await Complaint.findOneAndUpdate({complaintId: complaintId}, {complaintText: complaint});
+    const updatedComplaint = await Complaint.findOneAndUpdate({complaintId: complaintId}, {complaintText: complaint, complaintHeading: complaintHeading}, {new: true}); //new: true returns the updated document 
     if(!updatedComplaint){
       res.status(404).json({error: "complaint not found"});
     }

@@ -20,6 +20,10 @@ const complaintSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    complaintHeading: {
+        type: String,
+        required: true,
+    },
     complaintImages: {
         type:[{
             type: String,

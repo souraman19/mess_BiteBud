@@ -27,6 +27,8 @@ export const GET_ALL_COMPLAINTS_ROUTE = `${COMPLAINT_ROUTES}/get-all-complaints`
 export const ADD_COMPLAINT_ROUTE = `${COMPLAINT_ROUTES}/add-complaint`;
 export const UPVOTE_COMPLAINT_ROUTE = `${COMPLAINT_ROUTES}/upvote-complaint`;
 export const DOWNVOTE_COMPLAINT_ROUTE = `${COMPLAINT_ROUTES}/downvote-complaint`;
+export const DELETE_COMPLAINT_ROUTE = `${COMPLAINT_ROUTES}/delete-complaint`;
+export const EDIT_COMPLAINT_ROUTE = `${COMPLAINT_ROUTES}/edit-complaint`;
 
 
 export const GET_ALL_IMAGES = `${GALLERY_ROUTES}/get-all-images`;

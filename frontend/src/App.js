@@ -53,6 +53,7 @@ function App() {
 
 
           <Route path="/complaint-page" element={<AllComplaints/>} />
+          <Route path="/myallcomplaints-page" element={<MyAllComplaintsPage/>} />
 
 
           <Route path="/gallery-page" element={<GalleryPage />} />
@@ -86,7 +87,6 @@ function App() {
 
 
 
-          <Route path="/myallcomplaints" element={<ProtectedRoute element={<MyAllComplaintsPage/>} />} />
 
 
           <Route path="/tilakstudent" element={<ProtectedRoute element={<Tilakstudent />}/>} />

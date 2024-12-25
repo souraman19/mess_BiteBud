@@ -45,6 +45,7 @@ function ComplaintSlide({
   // regNo,
   // year,
   complaint,
+  complaintHeading,
   // commentsOnComplaint,
   upVoteCount,
   downVoteCount,
@@ -175,7 +176,7 @@ function ComplaintSlide({
         <div className="complaintslide-username">
           {/* Display the username */}
           {/* <p>{props.username}</p> */}
-          <p>{title}</p>
+          <p>{complaintHeading} </p>
           {/* Resolved status */}
 
           {isResolved ? (

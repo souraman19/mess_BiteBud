@@ -1,151 +1,159 @@
-:root {
-    --shadow00001: 0 4px 8px rgba(0, 0, 0, 0.1);
-    --helper-tint: #badff3;
+/* ComplaintSlideWithEditDelete.css */
+
+/* Outer container */
+.outer-swiper-plate-complaintslide_with_edit_delete {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
-.outer-swiper-plate-complaintslide_with_edit_delete{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    /* border: 2px solid black; */
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+.outer-swiper-plate-complaintslide_with_edit_delete:hover {
+  transform: scale(1.02);
 }
 
-
-
-
-.swiper-client-message-complaintslide_with_edit_delete{
-    padding: 5rem 8rem;
-    background: var(--white);
-    border-radius: 1rem;
-    text-align: left;
-    box-shadow: var(--shadow00001);
-    position: relative;
-    /* adjust height accoding to req  this is manual   change it later */
-    height: 19rem;   
-    width: 100%;
-  
-  /* display: flex;
-    align-items: center; */
-
-}
-.complaintslide-username_with_edit_delete{
-  width: 100%;
-    height: 5rem;
-  background: var(--white);
-  text-align: center;
-  /* border: 2px solid rgb(224, 201, 231); */
-  box-shadow: var(--shadow00001);
+/* Header with username and status */
+.complaintslide-username_with_edit_delete {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.complaintslide-username_with_edit_delete div:first-child {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.resolved-status {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.resolved_with_edit_delete {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.not-resolved_with_edit_delete {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Complaint message */
+.swiper-client-message-complaintslide_with_edit_delete {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.swiper-client-message-complaintslide_with_edit_delete input {
+  width: 100%;
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.swiper-client-message-complaintslide_with_edit_delete input:focus {
+  border-color: #007bff;
+}
+
+/* Buttons container */
+.comment-buttons_with_edit_delete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.delete_button_icon_with_edit_delete,
+.edit_button_icon_with_edit_delete {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+  transition: color 0.3s ease;
+}
+
+.delete_button_icon_with_edit_delete:hover {
+  color: #dc3545;
+}
+
+.edit_button_icon_with_edit_delete:hover {
+  color: #007bff;
+}
+
+/* Voting buttons */
+.voting-button_with_edit_delete {
+  display: flex;
+  gap: 10px;
   align-items: center;
 }
-.swiper-client-message-complaintslide2_with_edit_delete{
-    padding: 5rem 8rem;
-    background: var(--white);
-    border-radius: 1rem;
-    text-align: left;
-    box-shadow: var(--shadow00001);
-    position: relative;
-    /* adjust height accoding to req  this is manual   change it later */
-    width: 100%;
-    height: 2rem;
-    /* display: flex;
-    justify-content: center; */
-    border: 2px solid rgb(224, 201, 231);
+
+.upvote-button,
+.downvote-button {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.swiper-client-data-complaintslide_with_edit_delete {
-    display: flex;
-    flex-direction: row;
-    gap: 3rem;
+.upvote-button:hover {
+  background-color: #d4edda;
+  color: #155724;
 }
-.swiper-client-data-complaintslide_with_edit_delete img{
-     /* adjust height and width accoding to req  this is manual   change it later */
-    width: 8rem;
-    height: 8rem;
-    border-radius: 100%;
-    /* border: 0.5rem solid var(--helper-tint); */
+
+.downvote-button:hover {
+  background-color: #f8d7da;
+  color: #721c24;
 }
-.comment-buttons_with_edit_delete {
-    /* margin-top: 1rem; */
-    display: flex;
-    /* flex-direction: column; */
-    /* align-items: center; */
-    justify-content: space-between;
-    /* border: 2px solid black; */
-  }
-.voting-button_with_edit_delete{
-    display: flex;
-    gap: 2rem;
-    /* border: 2px solid violet; */
+
+/* Blinking effect */
+.blinking_with_edit_delete {
+  animation: blinking_effect 1.8s linear infinite;
 }
-  
-  .comment-buttons_with_edit_delete button {
-    background-color: #3498db;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+
+@keyframes blinking_effect {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* General transitions */
+button {
+  transition: all 0.3s ease;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .outer-swiper-plate-complaintslide_with_edit_delete {
+    padding: 15px;
   }
 
-  .comment-buttons_with_edit_delete >.delete_button_icon{
-    margin-right: 1rem;
-  }
-  .comment-buttons >.edit_button_icon{
-    margin-left: 1rem;
-  }
-  
-  .comment-buttons_with_edit_delete button:hover {
-    background-color: #ceb6f4;
+  .swiper-client-message-complaintslide_with_edit_delete {
+    font-size: 14px;
   }
 
-  .blinking_with_edit_delete {
-    animation: blink 1s infinite;
+  .comment-buttons_with_edit_delete {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
-  
-  @keyframes blink {
-    50% {
-      opacity: 0.3;
-    }
-  }
-
-  .replyysectiion_with_edit_delete{
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .resolved-status_with_edit_delete {
-    /* margin-left: 25rem; */
-    padding: 0.3rem;
-    border-radius: 0.5rem;
-    color: white;
-    font-size: small;
-    /* font-weight: bold; */
-  }
-  
-  .resolved_with_edit_delete {
-    background-color: rgb(151, 245, 151);
-  }
-  
-  .not-resolved_with_edit_delete {
-    background-color: rgb(233, 132, 132);
-  }
-  
-
-
-
-
-
-
-
-
-
-  /* ///vvi */
-  .none_display{
-    display: none;
-  }
+}

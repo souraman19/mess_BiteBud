@@ -20,6 +20,10 @@ const complaintSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    complaintHeading: {
+        type: String,
+        required: true,
+    },
     complaintImages: {
         type:[{
             type: String,
@@ -36,6 +40,9 @@ const complaintSchema = mongoose.Schema({
             type: String, required: true
         },
         lastName: {
+            type: String, required: true
+        },
+        username: {
             type: String, required: true
         },
         profilePicture:{

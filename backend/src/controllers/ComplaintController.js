@@ -16,8 +16,8 @@ const addComplaint = async(req, res) => {
   const newComplaint = req.body;
   try{
     const newMyComplaint = new Complaint(newComplaint);
+    console.log("new => ",newMyComplaint);
     await newMyComplaint.save();
-    // console.log("new => ",newMyComplaint);
 
   res.status(201).json({message: "complaint added successfully"});
 
@@ -93,4 +93,32 @@ const downvoteComplaint = async(req, res) => {
   }
 }
 
-export {getAllComplaints, addComplaint, upvoteComplaint, downvoteComplaint};
+const editComplaint = async(req, res) => {
+  try{
+    const complaintId = req.params.complaintId;
+    const {complaint, complaintHeading} = req.body;
+    // console.log(complaint);
+    // console.log(complaintId);
+    const updatedComplaint = await Complaint.findOneAndUpdate({complaintId: complaintId}, {complaintText: complaint, complaintHeading: complaintHeading}, {new: true}); //new: true returns the updated document 
+    if(!updatedComplaint){
+      res.status(404).json({error: "complaint not found"});
+    }
+    res.json(updatedComplaint);
+  }catch(error){
+    console.log("Error in updating complaint");
+    res.status(500).json({ error:"Internal server error" });
+  }
+}
+
+const deleteComplaint = async(req, res) => {
+  try{
+    const complaintId = req.params.complaintId;
+    await Complaint.findOneAndDelete({complaintId: complaintId});
+    res.json({message: "complaint delete complete"});
+  }catch(error){
+    console.log("Error in deleting complaint", error);
+    res.status(500).json({error: "Internal server error"});
+  }
+}
+
+export {getAllComplaints, addComplaint, upvoteComplaint, downvoteComplaint, editComplaint, deleteComplaint};

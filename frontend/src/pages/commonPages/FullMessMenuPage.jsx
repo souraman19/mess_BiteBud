@@ -66,7 +66,7 @@ function Patelfullmenu() {
   const fetchData = async () => {
     const response = await axios.get(GET_MESS_MENU, {params: {hostel}, withCrediantials: true});
     setAllMenus(response.data);
-    console.log("zkhdvcjvj????????????", response.data);
+    //console.log("zkhdvcjvj????????????", response.data);
     console.log("Mess menu fetched successfully");
   };
   useEffect(() => {

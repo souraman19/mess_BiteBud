@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home.jsx';
 import Login from './pages/commonPages/Login.jsx';
 // import Navbar from './components/Navbar.jsx'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import StudentHomePage from './pages/studentPages2.0/StudentHomePage.jsx';
 import Tilakstudent from './pages/studentPages/Tilakstudent.jsx';
 import GalleryPage from "./pages/commonPages/GalleryPage.jsx";

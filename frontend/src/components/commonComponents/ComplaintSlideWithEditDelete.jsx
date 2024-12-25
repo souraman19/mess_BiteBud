@@ -7,6 +7,7 @@ import { useStateProvider } from "../../context/StateContext.jsx";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
+import { Button, Toast, ToastContainer } from "react-bootstrap";
 import {
   UPVOTE_COMPLAINT_ROUTE,
   DOWNVOTE_COMPLAINT_ROUTE,
@@ -22,6 +23,7 @@ function ComplaintSlide({
   upVoteCount,
   downVoteCount,
   isResolved,
+  createdAt,
   allComplaints,
   updateAllComplaints,
   fetchData,
@@ -42,10 +44,25 @@ function ComplaintSlide({
   const [isUpVoteBlinking, setIsUpVoteBlinking] = useState(false);
   const [isDownVoteBlinking, setIsDownVoteBlinking] = useState(false);
   const [comments, setComments] = useState([]);
-
   const [editedComplaint, setEditedComplaint] = useState(complaint);
   const [editedHeading, setEditedHeading] = useState(complaintHeading);
   const [isEditing, setIsEditing] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+
+  const timeSinceCreated = () => {
+    const timeDiff = new Date() - new Date(createdAt);
+    // console.log(timeDiff);
+    // console.log(new Date());
+    // console.log(new Date(createdAt));
+    // console.log(createdAt);
+    const timeDiffInSeconds = timeDiff / 1000;
+    const timeDiffInDays = timeDiffInSeconds / (60 * 60 * 24);
+    // console.log(timeDiffInDays);
+    // console.log(timeDiffInDays < 1);
+    return timeDiffInDays;
+  };
+
+  // timeSinceCreated();
 
   const handleUpVote = async () => {
     try {
@@ -92,7 +109,8 @@ function ComplaintSlide({
   const handleEdit = async () => {
     try {
       await axios.put(`${EDIT_COMPLAINT_ROUTE}/${complaintId}`, {
-        complaint: editedComplaint, complaintHeading: editedHeading
+        complaint: editedComplaint,
+        complaintHeading: editedHeading,
       });
       console.log("Complaint editing success");
       fetchData();
@@ -118,22 +136,21 @@ function ComplaintSlide({
         <div className="complaintslide-username_with_edit_delete">
           {/* Display the heading */}
           <div>
-          {isEditing && !isResolved ? (
-            <input
-              type="text"
-              value={editedHeading}
-              onChange={(e) => setEditedHeading(e.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  event.preventDefault();
-                  handleEdit();
-                }
-              }}
-            />
-          ) : (
-            <div>{complaintHeading}</div>
-          )}
-
+            {isEditing && !isResolved ? (
+              <input
+                type="text"
+                value={editedHeading}
+                onChange={(e) => setEditedHeading(e.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault();
+                    handleEdit();
+                  }
+                }}
+              />
+            ) : (
+              <div>{complaintHeading}</div>
+            )}
           </div>
           {/* Resolved status */}
           <div
@@ -202,10 +219,42 @@ function ComplaintSlide({
             </div>
             <button
               className="edit_button_icon_with_edit_delete"
-              onClick={() => setIsEditing(true)}
+              onClick={() => {
+                timeSinceCreated() < 1
+                  ? setIsEditing(true)
+                  : setShowToast(true); 
+              }}
             >
               <EditIcon />
             </button>
+            {/* Toast Notification */}
+                  {/* Toast Notification */}
+      <ToastContainer position="top-end" className="p-3">
+        <Toast
+          show={showToast}
+          onClose={() => setShowToast(false)}
+          delay={3000}
+          autohide
+          style={{
+            backgroundColor: 'red', // Red background color
+            color: 'white', // White text color
+            borderRadius: '8px', // Rounded corners
+          }}
+        >
+          <Toast.Header>
+            <strong className="me-auto" style={{ color: 'black' }}>
+              Edit Access
+            </strong>
+          </Toast.Header>
+          <Toast.Body
+            style={{
+              padding: '10px',
+              fontSize: '1.2rem',
+            }}
+          >Time limit expired for edit access.</Toast.Body>
+        </Toast>
+      </ToastContainer>
+
           </div>
         </div>
       </div>

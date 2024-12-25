@@ -157,6 +157,7 @@ function Complaintlist() {
                   upVoteCount={singleComplaint.upVoteCount}
                   downVoteCount={singleComplaint.downVoteCount}
                   isResolved={singleComplaint.resolvedInfo.status}
+                  createdAt = {singleComplaint.createdAt}
                   allComplaints={allComplaints}
                   updateAllComplaints={updateAllComplaints}
                   fetchData={fetchData}

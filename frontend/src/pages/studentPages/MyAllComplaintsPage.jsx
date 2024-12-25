@@ -23,6 +23,7 @@ function Complaintlist() {
   const myProfilePicture = userInfo.profilePicture;
 
   const [singleComplaint, setSingleComplaint] = useState("");
+  const [heading, setHeading] = useState("");
   const [allComplaints, setAllComplaints] = useState([]);
 
   const fetchData = async () => {
@@ -57,6 +58,7 @@ function Complaintlist() {
     if (singleComplaint.trim() !== "") {
       const newComplaint = {
         complaintText: singleComplaint,
+        complaintHeading: heading,
         complaintBy: {
           firstName: myName,
           lastName: myLastName,
@@ -67,11 +69,11 @@ function Complaintlist() {
           hostel: hostel,
         },
       };
-
       try {
         await axios.post(ADD_COMPLAINT_ROUTE, newComplaint);
-        fetchData();
         setSingleComplaint("");
+        setHeading("");
+        fetchData();
         console.log("Comment added successfully");
       } catch (error) {
         console.log("Error in adding new comment", error);
@@ -101,6 +103,7 @@ function Complaintlist() {
       e.target.style.backgroundColor = "#0056b3";
       e.target.style.boxShadow = "0px 6px 10px rgba(0, 0, 0, 0.2)";
     }}
+    
     onMouseLeave={(e) => {
       e.target.style.backgroundColor = "#007bff";
       e.target.style.boxShadow = "0px 4px 6px rgba(0, 0, 0, 0.1)";
@@ -168,10 +171,19 @@ function Complaintlist() {
             Register Your Complaint here
           </h1>
           <div className="form-group-myallcomplaintspage">
+          <textarea
+              className="form-control-myallcomplaintspage"
+              id="exampleFormControlTextarea1"
+              rows="2"
+              value={heading}
+              placeholder="Enter Heading"
+              onChange={(e) => setHeading(e.target.value)}
+            ></textarea>
             <textarea
               className="form-control-myallcomplaintspage"
               id="exampleFormControlTextarea1"
               rows="10"
+              placeholder="Enter your complaint here"
               value={singleComplaint}
               onChange={handleComplaintChange}
             ></textarea>

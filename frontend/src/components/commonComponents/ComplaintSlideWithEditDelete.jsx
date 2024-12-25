@@ -46,7 +46,6 @@ function ComplaintSlide({
   const [editedComplaint, setEditedComplaint] = useState(complaint);
   const [editedHeading, setEditedHeading] = useState(complaintHeading);
   const [isEditing, setIsEditing] = useState(false);
-  const [isHeadEditing, setIsHeadEditing] = useState(false);
 
   const handleUpVote = async () => {
     try {
@@ -98,7 +97,6 @@ function ComplaintSlide({
       console.log("Complaint editing success");
       fetchData();
       setIsEditing(false);
-      setIsHeadEditing(false);
     } catch (error) {
       console.log("Error in editing complaint");
     }
@@ -119,7 +117,24 @@ function ComplaintSlide({
       <div id="complaintslide_comaplintdetails_with_buttons" className="">
         <div className="complaintslide-username_with_edit_delete">
           {/* Display the heading */}
-          <div>kskh</div>
+          <div>
+          {isEditing && !isResolved ? (
+            <input
+              type="text"
+              value={editedHeading}
+              onChange={(e) => setEditedHeading(e.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  handleEdit();
+                }
+              }}
+            />
+          ) : (
+            <div>{complaintHeading}</div>
+          )}
+
+          </div>
           {/* Resolved status */}
           <div
             className={`resolved-status ${

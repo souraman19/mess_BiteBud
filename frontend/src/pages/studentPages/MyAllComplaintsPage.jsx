@@ -26,6 +26,8 @@ function Complaintlist() {
   const [heading, setHeading] = useState("");
   const [allComplaints, setAllComplaints] = useState([]);
 
+  
+
   const fetchData = async () => {
     const response = await axios.get(GET_ALL_COMPLAINTS_ROUTE, {
       params: { hostel },
@@ -36,6 +38,7 @@ function Complaintlist() {
     const myAllComplaints = allReceivedComplaints.filter((c) => {
       return c.complaintBy.userId === myUserId;
     });
+    myAllComplaints.reverse();
     setAllComplaints(myAllComplaints);
   };
   useEffect(() => {
@@ -150,6 +153,7 @@ function Complaintlist() {
                 <ComplaintSlideWithEditDelete
                   complaintId={singleComplaint.complaintId}
                   name={singleComplaint.complaintBy.firstName}
+                  time={singleComplaint.complaintTime}
                   username={singleComplaint.complaintBy?.username || "unknown"}
                   regNo={singleComplaint.complaintBy.regNo}
                   complaint={singleComplaint.complaintText}

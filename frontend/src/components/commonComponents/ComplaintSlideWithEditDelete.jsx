@@ -19,6 +19,7 @@ function ComplaintSlide({
   complaintId,
   name,
   complaint,
+  time,
   complaintHeading,
   upVoteCount,
   downVoteCount,

@@ -64,15 +64,16 @@ function Commentlist() {
   const [singleComment, setSingleComment] = useState("");
   const [allComments, setAllComments] = useState([]);
 
+  const fetchData = async () => {
+    const response = await axios.get(GET_ALL_COMMENTS_ROUTE, {params: {hostel}, withCredentials: true});
+    console.log(response.data);
+    // const commentInfoArray = response.data.map((commentObj) => commentObj);
+    const myHostelComments = response.data.comments;
+    myHostelComments.reverse();
+    setAllComments(myHostelComments);
+};
   useEffect(() => {
     try {
-      const fetchData = async () => {
-        const response = await axios.get(GET_ALL_COMMENTS_ROUTE, {params: {hostel}, withCredentials: true});
-        console.log(response.data);
-        // const commentInfoArray = response.data.map((commentObj) => commentObj);
-        const myHostelComments = response.data.comments;
-        setAllComments(myHostelComments);
-    };
       fetchData();
     } catch (error) {
       console.error("Error fetching comments:", error);
@@ -111,7 +112,11 @@ function Commentlist() {
         console.log("Comment added successflly", response.data);
         
         // console.log(response.data.complaints);
-        setAllComments(response.data.comments);
+        try {
+          fetchData();
+        } catch (error) {
+          console.error("Error fetching comments:", error);
+        }
         setSingleComment("");
         // console.log("hell0 =>>>   this is a meess", formatDate(new Date()));
       } catch(error){

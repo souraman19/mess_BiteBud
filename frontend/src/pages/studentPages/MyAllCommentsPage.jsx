@@ -36,21 +36,22 @@ function Commentlist() {
   const [singleComment, setSingleComment] = useState("");
   const [allComments, setAllComments] = useState([]);
 
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(GET_ALL_COMMENTS_ROUTE, {
+        params: { hostel },
+        withCredentials: true,
+      });
+      const filteredComments = response.data.comments.filter(
+        (comment) => comment.commentedBy.userId === userId
+      );
+      filteredComments.reverse();
+      setAllComments(filteredComments);
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(GET_ALL_COMMENTS_ROUTE, {
-          params: { hostel },
-          withCredentials: true,
-        });
-        const filteredComments = response.data.comments.filter(
-          (comment) => comment.commentedBy.userId === userId
-        );
-        setAllComments(filteredComments);
-      } catch (error) {
-        console.error("Error fetching comments:", error);
-      }
-    };
     fetchData();
   }, [hostel, userId]);
 
@@ -75,7 +76,7 @@ function Commentlist() {
 
       try {
         const response = await axios.post(ADD_COMMENT_ROUTE, newComment);
-        setAllComments(response.data.comments);
+        fetchData();
         setSingleComment("");
       } catch (error) {
         console.log("Error in adding comment", error);

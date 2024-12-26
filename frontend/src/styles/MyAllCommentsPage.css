@@ -1,23 +1,80 @@
-.commentlist-outer{
+.myCommentList-outer {
     display: flex;
-    justify-content: center;
     flex-direction: column;
     align-items: center;
-}
-
-.commentlist-outer .myComments_div{
-    height: 7rem;
-    font-size: 2.5rem;
+    padding: 20px;
+  }
+  
+  .myCommentList-header {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    gap: 2rem;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .myComments-link,
+  .allComments-link {
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .myComments-link:hover {
+    background-color: #0056b3;
+  }
+  
+  .allComments-link:hover {
+    background-color: #5a6268;
+  }
+  
+  .myCommentList-content {
+    display: flex;
+    gap: 20px;
     width: 100%;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(201, 196, 188);
-    width: 40%;
-    border-radius: 10px;
-    border: 2px solid red;
-}
+  }
+  
+  .myCommentList-left {
+    flex: 0 0 60%;
+    overflow-y: auto;
+    border-right: 2px solid #ccc;
+    padding-right: 20px;
+  }
+  
+  .myCommentList-right {
+    flex: 0 0 37%;
+    position: sticky;
+    top: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  textarea.form-control {
+    width: 100%;
+    margin-bottom: 15px;
+    resize: none;
+  }
+  
+  button.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  button.btn-primary:hover {
+    background-color: #0056b3;
+  }
+  

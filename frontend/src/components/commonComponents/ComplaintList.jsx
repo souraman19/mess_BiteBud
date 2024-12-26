@@ -69,8 +69,8 @@ function Complaintlist() {
   };
 
   return (
-    <div className="commentlist-outer">
-      <div className="commentlist-container container">
+    <div className="complaintList-outer">
+      <div className="complaintList-container container">
           {/* Left: List of complaints */}
           <div className="col-md-6 complaint-list-section">
             <h1>All Complaint List</h1>

@@ -90,7 +90,7 @@ function Commentlist() {
 
   const handleCommentSubmit = async () => {
     if (singleComment.trim() !== "") {
-      // Add the new comment to the list
+      // Add the new  to the list
 
       const newComment = {
         commentText:singleComment,
@@ -101,6 +101,7 @@ function Commentlist() {
           userId: userId,
           hostel: hostel,
         },
+        commentsUnderComment: [],
         commentTime: Date.now(),
       isDeleted: false,
       };
@@ -122,65 +123,46 @@ function Commentlist() {
   
 
   return (
-    <div className="commentlist-outer">
-      <div className="commentlist-second-outer container">
+    <div className="commentList-outer">
+      {/* Left Scrollable Section */}
+      <div className="commentList-second-outer">
         <h1>Comment List</h1>
         <div className="row">
-          <div className="comment-card col-12 col-sm-8 col-md-8 col-lg-8 mb-8">
-            <CommentSegmentSlide 
-            commentText="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis soluta excepturi explicabo eius nam, quas aliquid eveniet provident quod ad." 
-            usernamename = "Sourajit Mandal"
-            profilePicture = {profilePicture}
-            commentsUnderComment = {[]}
-            commentTime = "today"  
-            />
-          </div>
-
-          {allComments.map((singleCommentMap, index) => (
-            <div
-              key={index}
-              className="col-12 col-sm-8 col-md-8 col-lg-8 mb-8"
-            >
-              <CommentSegmentSlide 
-              // {...alert(formatDate(singleCommentMap.time))}
-              firstName = {singleCommentMap.commentedBy.firstName} 
-              username = {singleCommentMap.commentedBy.username}
-              commentText={singleCommentMap.commentText} 
-              profilePicture = {singleCommentMap.commentedBy.profilePicture}
-              commentsUnderComment = {singleCommentMap.commentsUnderComment}
-              commentId = {singleCommentMap.commentId}
-              updateAllComments = {updateAllComments}
-              allComments = {allComments}
-              setAllComment = {setAllComments}
-              singleComment = {singleComment}
-              setSingleComment = {setSingleComment}
-              isMyCommentsPage = {false}
-              commentTime = {formatDate(singleCommentMap.commentTime)}
+          {allComments.map((comment, index) => (
+            <div key={index} className="col-12 col-sm-8 col-md-8 col-lg-8 mb-4">
+              <CommentSegmentSlide
+                firstName={comment.commentedBy.firstName}
+                username={comment.commentedBy.username}
+                commentText={comment.commentText}
+                profilePicture={comment.commentedBy.profilePicture}
+                commentsUnderComment={comment.commentsUnderComment}
+                commentId={comment.commentId}
+                updateAllComments={setAllComments}
+                commentTime={formatDate(comment.commentTime)}
               />
             </div>
           ))}
-
         </div>
       </div>
 
+      {/* Right Sticky Form Section */}
       <div className="add-comment-section">
-        <h1 className="add-new-comment-heading">Add your Comment here</h1>
+        <h1 className="add-new-comment-heading">Add Your Comment</h1>
         <div className="form-group">
           <textarea
             className="form-control"
-            id="exampleFormControlTextarea1"
-            rows="10"
+            rows="5"
             value={singleComment}
             onChange={handleCommentChange}
+            placeholder="Write your comment here..."
           ></textarea>
         </div>
         <div className="submit-section">
-          <button className="btn btn-primary" onClick={handleCommentSubmit}>
-            Submit
-          </button>
+          <button onClick={handleCommentSubmit}>Submit</button>
         </div>
       </div>
     </div>
+
   );
 }
 

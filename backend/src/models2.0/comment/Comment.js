@@ -5,7 +5,6 @@ const commentUnderCommentSchema = mongoose.Schema({
         commentId:{
              type: mongoose.Schema.Types.ObjectId,
              default: () => new mongoose.Types.ObjectId(),
-            unique: true,
         },
         comment: {type: String, required: true},
         commentTime: {type: Date, default: Date.now},
@@ -31,7 +30,7 @@ const commentSchema = new mongoose.Schema({
     commentId:{
         type: mongoose.Schema.Types.ObjectId,
         default: () => new mongoose.Types.ObjectId(),
-        unique: true,
+        required: true,
     },
     commentText: {
         type: String,

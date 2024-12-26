@@ -1,26 +1,35 @@
-.commentlist-outer {
+.complaintList-outer {
     /* padding: 20px; */
-    /* border: 2px solid red; */
-    background-color: rgb(241, 236, 229);
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* background-color: #7d2ae8; */
+    /* margin: 0; */    
+    padding: 0;
+    /* border: 2px solid black; */
+
   }
   
-  .commentlist-container {
+  .complaintList-container {
     display: flex;
     justify-content: space-between;
     /* width: 100%; */
-    /* border: 2px solid green; */
+    margin: 0;
   }
   
   .complaint-list-section {
+    background-color: white;
     width: 60%;
     /* border: 2px solid pink; */
     padding: 10px;
-    border-right: 2px solid #ddd;
+    /* border-right: 2px solid #ddd; */
     overflow-y: auto;
     max-height: 80vh;
   }
   
   .complaint-card {
+    margin: 0;
     margin-bottom: 15px;
     padding: 10px;
     background: white;
@@ -29,10 +38,11 @@
   }
   
   .add-comment-section {
-    width: 40%;
+    width: 35%;
     /* border: 2px solid black; */
     padding: 20px;
     position: sticky;
+    background-color: rgb(228, 228, 228);
     top: 20px; /* Keeps the form sticky with a gap from the top */
   }
   

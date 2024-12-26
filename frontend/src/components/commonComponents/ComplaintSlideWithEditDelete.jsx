@@ -222,39 +222,40 @@ function ComplaintSlide({
               onClick={() => {
                 timeSinceCreated() < 1
                   ? setIsEditing(true)
-                  : setShowToast(true); 
+                  : setShowToast(true);
               }}
             >
               <EditIcon />
             </button>
-            {/* Toast Notification */}
-                  {/* Toast Notification */}
-      <ToastContainer position="top-end" className="p-3">
-        <Toast
-          show={showToast}
-          onClose={() => setShowToast(false)}
-          delay={3000}
-          autohide
-          style={{
-            backgroundColor: 'red', // Red background color
-            color: 'white', // White text color
-            borderRadius: '8px', // Rounded corners
-          }}
-        >
-          <Toast.Header>
-            <strong className="me-auto" style={{ color: 'black' }}>
-              Edit Access
-            </strong>
-          </Toast.Header>
-          <Toast.Body
-            style={{
-              padding: '10px',
-              fontSize: '1.2rem',
-            }}
-          >Time limit expired for edit access.</Toast.Body>
-        </Toast>
-      </ToastContainer>
 
+            {/* Toast Notification */}
+            <ToastContainer position="top-end" className="p-3">
+              <Toast
+                show={showToast}
+                onClose={() => setShowToast(false)}
+                delay={3000}
+                autohide
+                style={{
+                  backgroundColor: "red",
+                  color: "white",
+                  borderRadius: "8px",
+                }}
+              >
+                <Toast.Header>
+                  <strong className="me-auto" style={{ color: "black" }}>
+                    Edit Access
+                  </strong>
+                </Toast.Header>
+                <Toast.Body
+                  style={{
+                    padding: "10px",
+                    fontSize: "1.2rem",
+                  }}
+                >
+                  Time limit expired for edit access
+                </Toast.Body>
+              </Toast>
+            </ToastContainer>
           </div>
         </div>
       </div>

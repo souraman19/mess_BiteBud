@@ -8,19 +8,13 @@ import { Link } from "react-router-dom";
 import { ADD_COMMENT_ROUTE, GET_ALL_COMMENTS_ROUTE } from "./../../utils/ApiRoutes";
 import { format, differenceInDays, parseISO } from "date-fns";
 
-const formatDate = (dateString) => {
-  const date = parseISO(dateString);
-  const now = new Date();
-  const difference = differenceInDays(now, date);
-
-  if (difference === 0) {
-    return "today";
-  } else if (difference === 1) {
-    return "yesterday";
-  } else if (difference > 1 && difference <= 7) {
-    return `${difference} days ago`;
+const formatTime = (time) => {
+  const parsedTime = new Date(time);
+  const timeSinceCreated = new Date() - new Date(time);
+  if(timeSinceCreated < 24 * 60 * 60 * 1000){ // less than 24 hours
+    return parsedTime.toLocaleTimeString();
   } else {
-    return `on ${format(date, "dd MMMM yyyy")}`;
+    return parsedTime.toDateString() + " " + parsedTime.toLocaleTimeString();
   }
 };
 
@@ -107,7 +101,7 @@ function Commentlist() {
                 commentText={singleCommentMap.commentText}
                 profilePicture={singleCommentMap.commentedBy.profilePicture}
                 commentsUnderComment={singleCommentMap.commentsUnderComment}
-                commentTime={formatDate(singleCommentMap.commentTime)}
+                commentTime={formatTime(singleCommentMap.commentTime)}
               />
             ))}
           </div>

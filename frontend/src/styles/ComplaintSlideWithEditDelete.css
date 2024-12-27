@@ -157,3 +157,8 @@ button {
     gap: 10px;
   }
 }
+
+.complaint-slide-withedit-delete-timeshow{
+  /* border: 2px solid red; */
+  text-align: end;
+}

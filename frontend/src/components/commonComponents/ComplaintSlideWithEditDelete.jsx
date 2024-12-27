@@ -15,6 +15,16 @@ import {
   EDIT_COMPLAINT_ROUTE,
 } from "./../../utils/ApiRoutes.js";
 
+const formatTime = (time) => {
+  const parsedTime = new Date(time);
+  const timeSinceCreated = new Date() - new Date(time);
+  if(timeSinceCreated < 24 * 60 * 60 * 1000){ // less than 24 hours
+    return parsedTime.toLocaleTimeString();
+  } else {
+    return parsedTime.toDateString() + " " + parsedTime.toLocaleTimeString();
+  }
+};
+
 function ComplaintSlide({
   complaintId,
   name,
@@ -165,6 +175,7 @@ function ComplaintSlide({
           </div>
         </div>
         <div className="swiper-client-message-complaintslide_with_edit_delete">
+          <div>
           {isEditing && !isResolved ? (
             <input
               type="text"
@@ -180,6 +191,10 @@ function ComplaintSlide({
           ) : (
             <p>{complaint}</p>
           )}
+          </div>
+          <div className = "complaint-slide-withedit-delete-timeshow">
+            <p>~ {formatTime(time)}</p>
+          </div>
         </div>
         {/* <div className="swiper-client-data-complaintslide grid grid-two-column">
                  

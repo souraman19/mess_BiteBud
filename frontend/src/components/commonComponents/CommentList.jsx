@@ -2,55 +2,29 @@ import React, { useState, useEffect } from "react";
 import CommentSegmentSlide from "./CommentSegmentSlide";
 import "./../../styles/CommentList.css";
 import axios from "axios";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import { reducerCases } from "../../context/Constants";
 import { useStateProvider } from "../../context/StateContext";
-import {GET_ALL_COMMENTS_ROUTE, ADD_COMMENT_ROUTE} from "./../../utils/ApiRoutes.js";
+import {
+  GET_ALL_COMMENTS_ROUTE,
+  ADD_COMMENT_ROUTE,
+} from "./../../utils/ApiRoutes.js";
 
-
-import { format, differenceInDays, parseISO } from 'date-fns';
-
+import { format, differenceInDays, parseISO } from "date-fns";
 
 // for getting eaasy way of getting time
 
-const formatDate = (dateString) => {
-  if (!dateString || typeof dateString !== 'string') {
-    console.error("Invalid dateString:", dateString);
-    return "";
-}
-
-let date;
-    if (typeof dateString === 'string') {
-        try {
-            date = parseISO(dateString);
-        } catch (error) {
-            console.error("Failed to parse ISO date:", error);
-            return "";
-        }
-    } else if (dateString instanceof Date) {
-        date = dateString; // Already a Date object
-    } else {
-        console.error("Unexpected dateString type:", typeof dateString);
-        return "";
-    }
-    
-    const now = new Date();
-    const difference = differenceInDays(now, date);
-
-
-    if (difference === 0) {
-        return 'today';
-    } else if (difference === 1) {
-        return 'yesterday';
-    } else if (difference > 1 && difference <= 7) {
-        return `${difference} days ago`;
-    } else {
-        return `on ${format(date, 'dd MMMM yyyy')}`;
-    }
+const formatTime = (time) => {
+  const parsedTime = new Date(time);
+  const timeSinceCreated = new Date() - new Date(time);
+  if(timeSinceCreated < 24 * 60 * 60 * 1000){ // less than 24 hours
+    return parsedTime.toLocaleTimeString();
+  } else {
+    return parsedTime.toDateString() + " " + parsedTime.toLocaleTimeString();
+  }
 };
 
-
-function Commentlist() { 
+function Commentlist() {
   const [{ userInfo, newUser }, dispatch] = useStateProvider();
 
   const userId = userInfo.userId;
@@ -65,13 +39,16 @@ function Commentlist() {
   const [allComments, setAllComments] = useState([]);
 
   const fetchData = async () => {
-    const response = await axios.get(GET_ALL_COMMENTS_ROUTE, {params: {hostel}, withCredentials: true});
+    const response = await axios.get(GET_ALL_COMMENTS_ROUTE, {
+      params: { hostel },
+      withCredentials: true,
+    });
     console.log(response.data);
     // const commentInfoArray = response.data.map((commentObj) => commentObj);
     const myHostelComments = response.data.comments;
     myHostelComments.reverse();
     setAllComments(myHostelComments);
-};
+  };
   useEffect(() => {
     try {
       fetchData();
@@ -79,22 +56,20 @@ function Commentlist() {
       console.error("Error fetching comments:", error);
     }
   }, []);
-  
 
   const handleCommentChange = (event) => {
     setSingleComment(event.target.value);
   };
-  const updateAllComments = (updatedComments) =>{
+  const updateAllComments = (updatedComments) => {
     setAllComments(updatedComments);
   };
-
 
   const handleCommentSubmit = async () => {
     if (singleComment.trim() !== "") {
       // Add the new  to the list
 
       const newComment = {
-        commentText:singleComment,
+        commentText: singleComment,
         commentedBy: {
           username: username,
           firstName: firstName,
@@ -104,13 +79,13 @@ function Commentlist() {
         },
         commentsUnderComment: [],
         commentTime: Date.now(),
-      isDeleted: false,
+        isDeleted: false,
       };
-  
-      try{
+
+      try {
         const response = await axios.post(ADD_COMMENT_ROUTE, newComment);
         console.log("Comment added successflly", response.data);
-        
+
         // console.log(response.data.complaints);
         try {
           fetchData();
@@ -118,14 +93,12 @@ function Commentlist() {
           console.error("Error fetching comments:", error);
         }
         setSingleComment("");
-        // console.log("hell0 =>>>   this is a meess", formatDate(new Date()));
-      } catch(error){
+        // console.log("hell0 =>>>   this is a meess", formatTime(new Date()));
+      } catch (error) {
         console.log("Error in adding comment", error);
       }
     }
   };
-
-  
 
   return (
     <div className="commentList-outer">
@@ -143,7 +116,7 @@ function Commentlist() {
                 commentsUnderComment={comment.commentsUnderComment}
                 commentId={comment.commentId}
                 updateAllComments={setAllComments}
-                commentTime={formatDate(comment.commentTime)}
+                commentTime={formatTime(comment.commentTime)}
               />
             </div>
           ))}
@@ -167,7 +140,6 @@ function Commentlist() {
         </div>
       </div>
     </div>
-
   );
 }
 

@@ -41,7 +41,7 @@ export default function CommentSegment() {
       const fetchData = async() => {
         const response = await axios.get(GET_ALL_COMPLAINTS_ROUTE, {params: {hostel}, withCredentials: true});
         console.log(response.data);
-        const myHostelComplaints = response.data;
+        const myHostelComplaints = response.data.reverse();
         setComplaints(myHostelComplaints);
       };
       fetchData();
@@ -94,6 +94,7 @@ export default function CommentSegment() {
                complaint={singleComplaintMap.complaintText} 
                upVoteCount = {singleComplaintMap.upVoteCount}
                downVoteCount = {singleComplaintMap.downVoteCount}
+               time = {singleComplaintMap.createdAt}
               />
             </SwiperSlide>
           )}

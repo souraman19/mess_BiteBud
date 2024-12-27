@@ -66,7 +66,7 @@ const Imageinnerbunch = () => {
 
   const getImage = async () => {
     try {
-      const response = await axios.get(GET_ALL_IMAGES, {
+      const response = await axios.get(GET_ALL_IMAGES, {params: {hostel: myHostel},
         withCredentials: true,
       });
       const gotAllImages = response.data.data;

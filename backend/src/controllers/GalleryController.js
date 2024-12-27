@@ -33,26 +33,8 @@ const storage = multer.diskStorage({
 
 const getAllImages = async(req, res) => {
     try {
-        // Read the directory containing uploaded images
-        // fs.readdir(uploadsDir, (err, files) => {
-        //   if (err) {
-        //     console.log("Error reading directory:", err);
-        //     return res.status(500).json({ error: "Internal server error" });
-        //   }
-        //   // Filter only images from directory
-        //   const imageFiles = files.filter((file) =>
-        //     /\.(webp|jpg|jpeg|png|gif)$/i.test(file)
-        //   );
-          
-        //   // Prepare response data with image filenames
-        //   const imageData = imageFiles.map((file) => ({
-        //     image: file,
-        //   }));
-          //console.log("imageData => ", imageData);
-          
-          const imageData = await GalleryItem.find({});
-
-          // Send the array of imageData as response
+          const hostel = req.query.hostel;
+          const imageData = await GalleryItem.find({hostel : hostel});
           res.json({ data: imageData });
         // });
     } catch (error) {

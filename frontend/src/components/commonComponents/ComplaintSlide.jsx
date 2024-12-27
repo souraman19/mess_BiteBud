@@ -13,33 +13,22 @@ import { format, differenceInDays, parseISO } from 'date-fns';
 import {UPVOTE_COMPLAINT_ROUTE, DOWNVOTE_COMPLAINT_ROUTE} from "./../../utils/ApiRoutes.js";
 
 
-
-// for getting eaasy way of getting time
-
-const formatDate = (dateString) => {
-    const date = parseISO(dateString);
-    const now = new Date();
-    const difference = differenceInDays(now, date);
-
-    if (difference === 0) {
-        return 'today';
-    } else if (difference === 1) {
-        return 'yesterday';
-    } else if (difference > 1 && difference <= 7) {
-        return `${difference} days ago`;
-    } else {
-        return `on ${format(date, 'dd MMMM yyyy')}`;
-    }
+const formatTime = (time) => {
+  const parsedTime = new Date(time);
+  const timeSinceCreated = new Date() - new Date(time);
+  if(timeSinceCreated < 24 * 60 * 60 * 1000){ // less than 24 hours
+    return parsedTime.toLocaleTimeString();
+  } else {
+    return parsedTime.toDateString() + " " + parsedTime.toLocaleTimeString();
+  }
 };
-
-
 
 
 function ComplaintSlide({
   title,
   time,
   complaintId,
-  // name,
+  name,
   // hostel = "hostel",
   // username,
   // regNo,
@@ -173,7 +162,7 @@ function ComplaintSlide({
         id="complaintslide_comaplintdetails_with_buttons"
         className="complaintslide_comaplintdetails_with_buttons"
       >
-        <div className="complaintslide-username">
+        <div className="complaintslide-heading">
           {/* Display the username */}
           {/* <p>{props.username}</p> */}
           <p>{complaintHeading} </p>
@@ -201,7 +190,7 @@ function ComplaintSlide({
           <p>{complaint}</p>
           <div className="swiper-client-message-complaintslide-time">
             
-            {'~ '+ formatDate(time || "2024-06-29T17:28:51.656+00:00")}
+            {'~ '+ formatTime(time)}
           </div>
         </div>
         {/* <div className="swiper-client-data-complaintslide grid grid-two-column">
@@ -253,7 +242,7 @@ function ComplaintSlide({
               ) : (
                 <div>
                   <button className="reply-button">
-                    Resolved <p className="resolved_time">{formatDate(resolvedTime)}</p>
+                    Resolved <p className="resolved_time">{formatTime(resolvedTime)}</p>
                   </button>
                 </div>
               )}

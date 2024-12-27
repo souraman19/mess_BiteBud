@@ -1,7 +1,7 @@
 import React from "react";
 import { useStateProvider } from "../../context/StateContext";
 
-function Patelintro(){
+function Hostelintro(){
 
     const [{ userInfo, newUser }, dispatch] = useStateProvider();
     const hostel = userInfo?.hostel;
@@ -30,4 +30,5 @@ function Patelintro(){
     );
 }
 
-export default Patelintro;
+export default Hostelintro;
+

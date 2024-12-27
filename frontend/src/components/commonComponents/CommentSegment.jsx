@@ -24,42 +24,15 @@ import { useStateProvider } from "../../context/StateContext";
 
 
 
-// for getting eaasy way of getting time
 
-const formatDate = (dateString) => {
-  if (!dateString || typeof dateString !== 'string') {
-    console.error("Invalid dateString:", dateString);
-    return "";
-}
-
-let date;
-    if (typeof dateString === 'string') {
-        try {
-            date = parseISO(dateString);
-        } catch (error) {
-            console.error("Failed to parse ISO date:", error);
-            return "";
-        }
-    } else if (dateString instanceof Date) {
-        date = dateString; // Already a Date object
-    } else {
-        console.error("Unexpected dateString type:", typeof dateString);
-        return "";
-    }
-    
-    const now = new Date();
-    const difference = differenceInDays(now, date);
-
-
-    if (difference === 0) {
-        return 'today';
-    } else if (difference === 1) {
-        return 'yesterday';
-    } else if (difference > 1 && difference <= 7) {
-        return `${difference} days ago`;
-    } else {
-        return `on ${format(date, 'dd MMMM yyyy')}`;
-    }
+const formatTime = (time) => {
+  const parsedTime = new Date(time);
+  const timeSinceCreated = new Date() - new Date(time);
+  if(timeSinceCreated < 24 * 60 * 60 * 1000){ // less than 24 hours
+    return parsedTime.toLocaleTimeString();
+  } else {
+    return parsedTime.toDateString() + " " + parsedTime.toLocaleTimeString();
+  }
 };
 
 
@@ -88,7 +61,7 @@ const [{ userInfo, newUser }, dispatch] = useStateProvider();
       try {
         const response = await axios.get(GET_ALL_COMMENTS_ROUTE, {params: {hostel}, withCredentials: true});
         console.log(response.data.comments);
-        const myHostelComments = response.data.comments;
+        const myHostelComments = response.data.comments.reverse();
         setComments(myHostelComments);
       } catch (error) {
         console.error("Error fetching comments:", error);
@@ -152,7 +125,7 @@ const [{ userInfo, newUser }, dispatch] = useStateProvider();
               setAllComment = {setAllComments}
               singleComment = {singleComment}
               setSingleComment = {setSingleComment}
-              commentTime = {formatDate(singleCommentMap.commentTime)}
+              commentTime = {formatTime(singleCommentMap.commentTime)}
               />
 
             </SwiperSlide>

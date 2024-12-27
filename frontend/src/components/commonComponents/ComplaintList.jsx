@@ -22,14 +22,14 @@ function Complaintlist() {
   const [singleComplaint, setSingleComplaint] = useState("");
   const [heading, setHeading] = useState("");
   const [allComplaints, setAllComplaints] = useState([]);
-
+  
+  const fetchData = async () => {
+    const response = await axios.get(GET_ALL_COMPLAINTS_ROUTE, { params: { hostel }, withCredentials: true });
+    const myHostelComplaints = response.data.reverse();
+    setAllComplaints(myHostelComplaints);
+  };
   useEffect(() => {
     try {
-      const fetchData = async () => {
-        const response = await axios.get(GET_ALL_COMPLAINTS_ROUTE, { params: { hostel }, withCredentials: true });
-        const myHostelComplaints = response.data;
-        setAllComplaints(myHostelComplaints);
-      };
       fetchData();
     } catch (error) {
       console.error("Error in fetching comments", error);
@@ -58,7 +58,11 @@ function Complaintlist() {
 
       try {
         const response = await axios.post(ADD_COMPLAINT_ROUTE, newComplaint);
-        setAllComplaints([...allComplaints, newComplaint]);
+        try {
+          fetchData();
+        } catch (error) {
+          console.error("Error in fetching comments", error);
+        }
         setSingleComplaint("");
         setHeading("");
         console.log("Complaint added successfully");
@@ -69,8 +73,8 @@ function Complaintlist() {
   };
 
   return (
-    <div className="commentlist-outer">
-      <div className="commentlist-container container">
+    <div className="complaintList-outer">
+      <div className="complaintList-container container">
           {/* Left: List of complaints */}
           <div className="col-md-6 complaint-list-section">
             <h1>All Complaint List</h1>

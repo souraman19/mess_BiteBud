@@ -6,6 +6,16 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useStateProvider } from "../../context/StateContext";
 import { UPDLOAD_IMAGE, GET_ALL_IMAGES } from "../../utils/ApiRoutes.js";
 
+const formatTime = (time) => {
+  const parsedTime = new Date(time);
+  const timeSinceCreated = new Date() - new Date(time);
+  if(timeSinceCreated < 24 * 60 * 60 * 1000){ // less than 24 hours
+    return parsedTime.toLocaleTimeString();
+  } else {
+    return parsedTime.toDateString() + " " + parsedTime.toLocaleTimeString();
+  }
+};
+
 const Imageinnerbunch = () => {
   const [{ userInfo }] = useStateProvider();
   const myUserId = userInfo.userId;
@@ -172,6 +182,16 @@ const Imageinnerbunch = () => {
                 }}
               >
                 uploaded by: {selectedImage.uploadedBy.username}
+              </div>
+              <div
+                style={{
+                  color: "#ddd",
+                  fontSize: "15px",
+                  fontStyle: "italic",
+                  fontFamily: "'Roboto', sans-serif",
+                }}
+              >
+                ~ {formatTime(selectedImage.createdAt)}
               </div>
               <Button
                 variant="contained"

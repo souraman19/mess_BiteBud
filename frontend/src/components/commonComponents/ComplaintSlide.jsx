@@ -28,7 +28,7 @@ function ComplaintSlide({
   title,
   time,
   complaintId,
-  // name,
+  name,
   // hostel = "hostel",
   // username,
   // regNo,
@@ -162,7 +162,7 @@ function ComplaintSlide({
         id="complaintslide_comaplintdetails_with_buttons"
         className="complaintslide_comaplintdetails_with_buttons"
       >
-        <div className="complaintslide-username">
+        <div className="complaintslide-heading">
           {/* Display the username */}
           {/* <p>{props.username}</p> */}
           <p>{complaintHeading} </p>

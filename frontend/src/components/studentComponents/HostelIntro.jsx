@@ -31,3 +31,4 @@ function Hostelintro(){
 }
 
 export default Hostelintro;
+

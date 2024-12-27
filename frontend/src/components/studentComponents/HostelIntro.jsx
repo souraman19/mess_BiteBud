@@ -4,7 +4,8 @@ import { useStateProvider } from "../../context/StateContext";
 function Hostelintro() {
   const [{ userInfo }, dispatch] = useStateProvider();
   const hostel = userInfo?.hostel;
-
+ const firstName = userInfo?.firstName;
+ 
   return (
     <div
       style={{

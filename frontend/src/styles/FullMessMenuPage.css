@@ -175,7 +175,7 @@ select:focus {
 }
 
 .Patel_full_menu_outermost_div button {
-    background-color: #ff7e5f;
+    /* background-color: #ff7e5f; */
     color: white;
     padding: 12px 24px;
     border: none;

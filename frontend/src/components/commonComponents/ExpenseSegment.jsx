@@ -46,8 +46,8 @@ function ExpenseSegment() {
     return (
         <div className="expense-segment-container">
             <h1 className="expense-title">
-                <Link to="/editexpensepage" className="expense-link">
-                    See more expenses
+                <Link to="/expense-page" className="expense-link">
+                    See all expenses
                 </Link>
             </h1>
             <div className="expense-charts-container">

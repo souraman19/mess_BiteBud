@@ -4,7 +4,7 @@ import "./../../styles/DailyExpense.css";
 import axios from "axios";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { useUser } from '../../UserContext.js';
+import { useStateProvider } from "../../context/StateContext";
 
 
 function Dailyexpense() {
@@ -13,9 +13,21 @@ function Dailyexpense() {
   const[totalItemCost, setTotalItemCost] = useState("");
   const[itemUnit, setItemUnit] = useState("");
   const [todaysExpenses, setTodaysExpenses] = useState([]);
-  const { user } = useUser();
-  const { identity } = user;
+    const [{ userInfo, newUser }, dispatch] = useStateProvider();
+  const identity = userInfo.userType;
   
+
+  console.log("myident", userInfo);
+  async function fetchTodaysExpenses() {
+    try {
+      console.log("helloe");
+      const response = await axios.get("http://localhost:5000/api/fetchtodaysexpenses");
+      setTodaysExpenses("todays", response.data);
+    } catch (error) {
+      console.error("Error fetching today's expenses:", error);
+    }
+  }
+
   useEffect(() => {
     fetchTodaysExpenses();
   }, []);
@@ -24,15 +36,6 @@ function Dailyexpense() {
     console.log("Updated Todays Expenses:", todaysExpenses);
   }, [todaysExpenses]);
 
-  async function fetchTodaysExpenses() {
-    try {
-      console.log("helloe");
-      const response = await axios.get("http://localhost:5000/api/fetchtodaysexpenses");
-      setTodaysExpenses(response.data);
-    } catch (error) {
-      console.error("Error fetching today's expenses:", error);
-    }
-  }
 
   async function handleExpenseSubmit(e){
     try{
@@ -74,7 +77,7 @@ function Dailyexpense() {
               <th>Quantity</th>
               <th>Total Cost</th>
               {
-                identity === "accountant" && (
+                identity === "Student" && (
                   <th>Action</th>
                 )
               }
@@ -88,7 +91,7 @@ function Dailyexpense() {
                   <td>{singleExpense.quantity} {singleExpense.itemUnit}</td>
                   <td>{singleExpense.totalCost} </td>
                   
-                  {identity === "accountant" && (
+                  {identity === "Student" && (
                       <td className="singleExpense_action_buttons">
                       <button onClick={() => handleTodayExpenseDelete(expenseItem.itemName, singleExpense._id)}>
                         <DeleteIcon style={{color:"black"}}/>
@@ -111,7 +114,7 @@ function Dailyexpense() {
       </div>
 
       {
-        identity === "accountant" && (
+        identity === "Student" && (
           <div className="add_new_expense_section">
             <h2>Add new expense</h2>
             <form onSubmit={handleExpenseSubmit}>

@@ -5,6 +5,7 @@ export const COMMENT_ROUTES = `${HOST}/api/comment`;
 export const COMPLAINT_ROUTES = `${HOST}/api/complaint`;
 export const GALLERY_ROUTES = `${HOST}/api/gallery`;
 export const MESSMENU_ROUTES = `${HOST}/api/mess-menu`;
+export const GROCERY_ROUTES = `${HOST}/api/grocery`;
 
 
 
@@ -39,3 +40,7 @@ export const GET_MESS_MENU = `${MESSMENU_ROUTES}/get-mess-menu`;
 export const ADD_MESS_MENU = `${MESSMENU_ROUTES}/add-mess-menu`;
 export const EDIT_MESS_MENU = `${MESSMENU_ROUTES}/edit-mess-menu`;
 export const DELETE_MESS_MENU = `${MESSMENU_ROUTES}/delete-mess-menu`;
+
+
+export const ADD_GROCERY_ITEM = `${GROCERY_ROUTES}/add-grocery-item`;
+export const GET_GROCERY_ITEMS = `${GROCERY_ROUTES}/get-grocery-items`;

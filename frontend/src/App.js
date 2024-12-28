@@ -34,6 +34,7 @@ import Test from "./Test.js";
 import SignIn from "./pages/loginPages/SignIn.jsx"
 import Register from "./pages/loginPages/Register.jsx";
 import ExtraDetailsForm from './pages/loginPages/ExtraDetailsForm.jsx';
+import Grocery from './pages/accountantPages/Grocery.jsx';
 
 function App() {
     return (
@@ -63,6 +64,10 @@ function App() {
 
           <Route path="/full-menu-page" element={<FullMessMenuPage />} />
 
+
+
+          <Route path="/expense-page"  element={<EditExpensePage/>} />
+          <Route path="/grocery" element={<Grocery />} />
 ////---------------------------------------------------------------------------------------
 
           <Route path="/test" element={<Test />} />
@@ -97,7 +102,6 @@ function App() {
 
 
           <Route path="/accountant" element={<ProtectedRoute element={<Accountant />}/>} />
-          <Route path="/editexpensepage" element={<ProtectedRoute element={<EditExpensePage/>} />}/>
         </Routes>
       </Router>
     );

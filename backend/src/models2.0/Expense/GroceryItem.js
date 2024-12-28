@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import Vendor from "../person/Vendor";
 
 const itemSchema = new mongoose.Schema({
     productId:{
@@ -22,7 +21,6 @@ const itemSchema = new mongoose.Schema({
     },
     vendorId: {
         type: mongoose.Schema.Types.ObjectId, 
-        required: true, 
         ref: 'Vendor'
     },
     buyCount:{ //how many times purchased it
@@ -40,4 +38,4 @@ const itemSchema = new mongoose.Schema({
 
 const GroceryItem = new mongoose.model('GroceryItem', itemSchema);
 
-export default Item;
+export default GroceryItem;

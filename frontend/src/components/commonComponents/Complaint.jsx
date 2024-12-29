@@ -11,7 +11,7 @@ import "swiper/css/pagination";
 // import "./../../styles/CommentSegment.css";
 
 // import required modules
-import { FreeMode, Pagination } from "swiper/modules";
+import { FreeMode, Pagination, Navigation, Autoplay } from "swiper/modules";
 import SwiperCore from "swiper";
 import {useUser} from "./../../UserContext";
 import axios from "axios";
@@ -75,13 +75,14 @@ export default function CommentSegment() {
           slidesPerView={2}
           spaceBetween={30}
           freeMode={true}
+          navigation={true}
           pagination={{
             clickable: true,
           }}
-          modules={[FreeMode, Pagination]}
+          modules={[FreeMode, Pagination, Autoplay, Navigation]}
           autoplay={{
             delay: 1000,
-            disableOnInteraction: false,
+            disableOnInteraction: true,
           }}
           className="mySwiper"
         >

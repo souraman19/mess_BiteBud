@@ -12,7 +12,7 @@ import "./../../styles/CommentSegment.css";
 import "swiper/swiper-bundle.css"; // Import the Swiper styles
 
 // import required modules
-import { FreeMode, Pagination } from "swiper/modules";
+import { FreeMode, Pagination, Navigation, Autoplay } from "swiper/modules";
 import SwiperCore from "swiper";
 import axios from "axios";
 import { format, differenceInDays, parseISO } from 'date-fns';
@@ -99,13 +99,14 @@ const [{ userInfo, newUser }, dispatch] = useStateProvider();
           slidesPerView={2}
           spaceBetween={30}
           freeMode={true}
+          navigation={true}
           pagination={{
             clickable: true,
           }}
-          modules={[FreeMode, Pagination]}
+          modules={[FreeMode, Pagination, Autoplay, Navigation]}
           autoplay={{
             delay: 1000,
-            disableOnInteraction: false,
+            disableOnInteraction: true,
           }}
           className="mySwiper"
         >

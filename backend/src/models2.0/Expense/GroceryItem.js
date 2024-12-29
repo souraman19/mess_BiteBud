@@ -8,14 +8,18 @@ const itemSchema = new mongoose.Schema({
     },
     name: {
         type: String,
-        required: true,
+        required: true, 
         unique: true,
     },
-    billImage: {
+    itemImage: {
         type: String,
         default: "https://cdn.prod.website-files.com/603cffd3503d7077716b1d65/6344665df2c24f15d7182ac5_groceries.png"
     },
     category:{
+        type: String,
+        required: true,
+    },
+    hostel:{
         type: String,
         required: true,
     },

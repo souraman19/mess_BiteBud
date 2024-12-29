@@ -4,9 +4,11 @@ const addGroceryItem = async (req, res) => {
     try{
         const name = req.body.itemName;
         const category = req.body.category;
+        const hostel =req.body.hostel;
         const newGroceryItem = new GroceryItem({
             name: name,
             category: category,
+            hostel:hostel,
         })
         // console.log("newGroceryItem", newGroceryItem);
         await newGroceryItem.save();
@@ -17,4 +19,18 @@ const addGroceryItem = async (req, res) => {
     }
 }
 
-export {addGroceryItem};
+
+const getGroceryItems = async(req, res) => {
+    // console.log("hello");
+    try{
+        const hostel = req.query.hostel;
+        // console.log(hostel);
+        const items = await GroceryItem.find({hostel: hostel});
+        return res.status(200).json({items});
+    }catch(err){
+        console.error("Error in fetching grocery items", err);
+        res.status(500).json({error: "Internal server error"});
+    }
+}
+
+export {addGroceryItem, getGroceryItems};

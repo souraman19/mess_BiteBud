@@ -49,7 +49,7 @@ function Comment() {
     );
     //console.log("dkdbs", response.data);
     setAllMenus(myMenu);
-    console.log("A:", allMenus);
+    // console.log("A:", allMenus);
   };
 
   useEffect(() => {

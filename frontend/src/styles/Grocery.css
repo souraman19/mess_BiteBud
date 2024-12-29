@@ -1,0 +1,100 @@
+
+.outermost-container-grocery-page{
+    width: 100%;
+    /* border: 2px solid red; */
+}
+.grocery-form {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .grocery-form input,
+  .grocery-form select {
+    display: block;
+    margin: 10px 0;
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .grocery-form button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .grocery-form button:hover {
+    background-color: #45a049;
+  }
+  
+  .swiper-container {
+    /* border: 2px solid red; */
+    margin: 30px auto;
+    width: 100%;
+    /* max-width: 600px; */
+  }
+  
+  .item-card {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .item-card h3 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+  }
+  
+  .item-card p {
+    font-size: 1.5rem;
+    color: #666;
+  }
+  
+  .my-swiper .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: auto; */
+  }
+  
+  .my-swiper {
+    --swiper-navigation-color: #333;
+    --swiper-pagination-color: #4caf50;
+  }
+  
+  .item-image {
+    border-radius: 10px;
+    margin-bottom: 15px;
+    object-fit: cover;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .swiper-button-next,
+.swiper-button-prev {
+  color: #efebeb; 
+  height: 50px;
+  width: 50px;
+}
+
+.swiper-button-next::after, .swiper-button-prev::after {
+    font-size: 30px; /* Adjust the arrow icon size */
+  }
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #4caf50; /* Change color on hover */
+}

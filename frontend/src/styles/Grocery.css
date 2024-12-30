@@ -3,6 +3,15 @@
     width: 100%;
     /* border: 2px solid red; */
 }
+
+.grocery-item-container{
+    width: 100%;
+}
+
+.vendor-container{
+    width: 100%;
+}
+
 .grocery-form {
     margin: 20px;
     padding: 20px;

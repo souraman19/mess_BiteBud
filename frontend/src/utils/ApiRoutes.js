@@ -44,3 +44,5 @@ export const DELETE_MESS_MENU = `${MESSMENU_ROUTES}/delete-mess-menu`;
 
 export const ADD_GROCERY_ITEM = `${GROCERY_ROUTES}/add-grocery-item`;
 export const GET_GROCERY_ITEMS = `${GROCERY_ROUTES}/get-grocery-items`;
+export const ADD_NEW_VENDOR = `${GROCERY_ROUTES}/add-new-vendor`;
+export const GET_VENDORS = `${GROCERY_ROUTES}/get-vendors`;

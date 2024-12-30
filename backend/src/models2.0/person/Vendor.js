@@ -14,6 +14,10 @@ const vendorSchema = new mongoose.Schema({
         countryCode: {type: String, required: true, match: /^\+\d{1,3}$/},
         phoneNo: {type: String, required: true, match: /^\d{10}$/}
     },
+    hostel: {
+        type: String, 
+        required: true
+    },  
     address: {
         country: {type: String, required: true},
         state: {type: String, required: true},

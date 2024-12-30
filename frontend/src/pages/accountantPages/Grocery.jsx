@@ -58,6 +58,7 @@ function Grocery() {
         withCredentials: true,
       });
       setAllItems(response.data.items);
+      // console.log("res => ", allItems);
     } catch (err) {
       console.log("Error in fetching grocery items", err);
     }
@@ -69,8 +70,8 @@ function Grocery() {
         params: { hostel },
         withCredentials: true,
       });
-      setVendors(response.data);
-      // console.log("vndors", vendors);
+      setVendors(response.data.allVendors);
+      console.log("vndors ", vendors);
     } catch (err) {
       console.log("Error in fetching the vendors", err);
     }
@@ -79,7 +80,7 @@ function Grocery() {
   useEffect(() => {
     fetchItems();
     fetchVendors();
-  }, [vendors, allItems]);
+  }, []);
 
   const handleGroceryItemSubmit = async (e) => {
     e.preventDefault();
@@ -182,7 +183,7 @@ function Grocery() {
           </div>
 
           <div className="swiper-container">
-            <h2>Grocery Items</h2>
+            <h2 className="swiper-container-grocery-heading">Grocery Items</h2>
             {allItems.length > 0 ? (
               <Swiper
                 slidesPerView={4}
@@ -319,6 +320,48 @@ function Grocery() {
               </div>
               <button type="submit">Submit</button>
             </form>
+          </div>
+          <div className="swiper-container">
+            <h2 className="swiper-container-vendor-heading">Vendors</h2>
+            {vendors.length > 0 ? (
+              <Swiper
+                slidesPerView={4}
+                spaceBetween={30}
+                freeMode={true}
+                navigation={true}
+                pagination={{
+                  clickable: true,
+                }}
+                modules={[Pagination, Navigation, FreeMode, Autoplay]}
+                autoplay={{
+                  delay: 1000,
+                  disableOnInteraction: true,
+                }}
+                className="mySwiper"
+              >
+                {vendors.map((vendor, index) => (
+                  <SwiperSlide key={index} className="swiper-slide">
+                    <div className="item-card">
+                      <img
+                        height="70"
+                        width="70"
+                        src={vendor.vendorImage}
+                        alt="Grocery item"
+                        className="item-image"
+                      />
+                      <h2>{vendor.name}</h2>
+                      <div>
+                        <p>{vendor.phone.countryCode} {vendor.phone.phoneNo}</p>
+                        <Rating value={vendor.averageRating} readOnly />
+                        <p>( {vendor.buyCount} )</p>
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            ) : (
+              <p>No vendor found</p>
+            )}
           </div>
         </div>
       </div>

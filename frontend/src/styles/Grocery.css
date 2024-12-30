@@ -1,3 +1,13 @@
+.swiper-container-grocery-heading{
+  text-align: center;
+  margin: 2rem;
+}
+
+.swiper-container-vendor-heading{
+  text-align: center;
+  margin: 2rem;
+}
+
 
 .outermost-container-grocery-page{
     width: 100%;

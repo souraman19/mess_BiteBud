@@ -31,6 +31,16 @@ const vendorSchema = new mongoose.Schema({
         min: 0,
         max: 5,
     },
+    vendorImage: {
+        type: String, 
+        default: "https://png.pngtree.com/png-vector/20191128/ourmid/pngtree-market-stall-with-red-and-white-awning-icon-circle-png-image_2044273.jpg"
+    },
+    buyCount: {
+        type: Number,
+        default: 0,
+        min: 0,
+        max: 0,
+    },
 })
 
 const Vendor = new mongoose.model('Vendor', vendorSchema);

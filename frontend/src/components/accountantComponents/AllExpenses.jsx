@@ -6,7 +6,7 @@ import EveryMonthsExpenses from "./EveryMonthsExpenses.jsx";
 function AllExpenses() {
   return (
     <div>
-      {/* <Todaysexpense /> */}
+      <Todaysexpense />
       {/* <EveryMonthsExpenses /> */}
     </div>
   );

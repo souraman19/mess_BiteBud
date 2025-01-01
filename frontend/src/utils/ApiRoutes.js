@@ -6,6 +6,7 @@ export const COMPLAINT_ROUTES = `${HOST}/api/complaint`;
 export const GALLERY_ROUTES = `${HOST}/api/gallery`;
 export const MESSMENU_ROUTES = `${HOST}/api/mess-menu`;
 export const GROCERY_ROUTES = `${HOST}/api/grocery`;
+export const EXPENSE_ROUTES = `${HOST}/api/expense`;
 
 
 
@@ -46,3 +47,6 @@ export const ADD_GROCERY_ITEM = `${GROCERY_ROUTES}/add-grocery-item`;
 export const GET_GROCERY_ITEMS = `${GROCERY_ROUTES}/get-grocery-items`;
 export const ADD_NEW_VENDOR = `${GROCERY_ROUTES}/add-new-vendor`;
 export const GET_VENDORS = `${GROCERY_ROUTES}/get-vendors`;
+
+export const ADD_EXPENSE = `${EXPENSE_ROUTES}/add-expense`;
+export const GET_EXPENSES = `${EXPENSE_ROUTES}/get-expenses`;

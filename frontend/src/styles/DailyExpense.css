@@ -1,3 +1,20 @@
+.todays_expense_allWantToAddItems{
+  display: flex;
+  flex-direction: column;
+}
+
+.todays_expense_single_item_expense{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.todays_expense_single_item_expense>div{
+  /* border: 2px solid red; */
+}
+
+
 .daily_expense_outermost_div {
   display: flex;
   flex-direction: column;

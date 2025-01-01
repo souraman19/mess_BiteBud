@@ -89,7 +89,7 @@ function Grocery() {
         itemName: itemName,
         category: category,
         hostel: hostel,
-      });
+      }, {withCredentials: true});
       console.log("Grocery item added successfully");
       setItemName("");
       setCategory("");

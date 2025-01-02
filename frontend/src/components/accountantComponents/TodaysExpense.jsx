@@ -17,6 +17,12 @@ const currentFullDate = `${new Date().getFullYear()}-${
   new Date().getMonth() + 1
 }-${new Date().getDay()}`;
 
+const getFullDate = (date) => {
+  return `${new Date(date).getFullYear()}-${
+  new Date().getMonth(date) + 1
+}-${new Date().getDay(date)}`
+}
+
 function Dailyexpense() {
   const [{ userInfo, newUser }, dispatch] = useStateProvider();
   const identity = userInfo.userType;
@@ -44,7 +50,7 @@ function Dailyexpense() {
       setAllItems(response.data.items);
       // console.log("res => ", allItems);
     } catch (err) {
-      console.log("Error in fetching grocery items", err);
+      console.error("Error in fetching grocery items", err);
     }
   };
 
@@ -57,7 +63,7 @@ function Dailyexpense() {
       setAllVendors(response.data.allVendors);
       // console.log("vndors ", allVendors);
     } catch (err) {
-      console.log("Error in fetching the vendors", err);
+      console.error("Error in fetching the vendors", err);
     }
   };
 
@@ -65,27 +71,52 @@ function Dailyexpense() {
     fetchItems();
     fetchVendors();
   }, []);
-
-  // console.log("my ident", userInfo);
+  
+  
   async function fetchTodaysExpenses() {
-    // try {
-    //   console.log("helloe");
-    //   const response = await axios.get(
-    //     "http://localhost:5000/api/fetchtodaysexpenses"
-    //   );
-    //   setTodaysExpenses("todays", response.data);
-    // } catch (error) {
-    //   console.error("Error fetching today's expenses:", error);
-    // }
+    try{
+      const response = await axios.get(GET_EXPENSES, {params:{hostel}, withCredentials: true});
+      const allExpenses = response.data.expenses;
+      const updatedExpenses = []; 
+      allExpenses.forEach((single_VendorItemMonth)=> {
+        single_VendorItemMonth.expenses.forEach((single_Expense_list) => {
+          single_Expense_list.allItems.forEach((singleItemExpense)=> {
+            const itemName = singleItemExpense.itemName;
+            const quantity = singleItemExpense.itemQuantity;
+            const totalCost = singleItemExpense.totalItemCost;
+            const vendor = single_VendorItemMonth.vendorName;
+            // setTodaysExpenses([...todaysExpenses, {
+            //   itemName: itemName,
+            //   quantity: quantity,
+            //   totalCost: totalCost,
+            //   vendor: vendor
+            // }])                   //cant do it directly as setTodaysExpenses asynchronous type 
+
+            updatedExpenses.push({
+              itemName: itemName,
+              quantity: quantity,
+              totalCost: totalCost,
+              vendor: vendor,
+            });
+          })
+        })
+      })
+
+      setTodaysExpenses(updatedExpenses);
+    }catch(err){
+      console.error("Error in fetching the expenses", err);
+    }
   }
 
-  // useEffect(() => {
-  //   fetchTodaysExpenses();
-  // }, []);
 
-  // useEffect(() => {
-  //   console.log("Updated Todays Expenses:", todaysExpenses);
-  // }, [todaysExpenses]);
+
+    useEffect(() => {
+      fetchTodaysExpenses();
+    }, []);
+
+    useEffect(() => {
+      console.log(todaysExpenses);
+    }, [todaysExpenses]);
 
   const handleAddExpense = (e) => {
     e.preventDefault();
@@ -128,7 +159,7 @@ function Dailyexpense() {
       console.log("Expense added succesfully");
       setAllWantToAddItems([]);
     } catch (err) {
-      console.log("Error in adding expense", err);
+      console.error("Error in adding expense", err);
     }
   }
 
@@ -159,37 +190,8 @@ function Dailyexpense() {
             </tr>
           </thead>
           <tbody>
-            {todaysExpenses.map((expenseItem) =>
-              expenseItem.expenseArray.map(
-                (singleExpense) =>
-                  currentFullDate === singleExpense.date && (
-                    <tr key={singleExpense._id}>
-                      <td>{expenseItem.itemName}</td>
-                      <td>
-                        {singleExpense.quantity} {singleExpense.itemUnit}
-                      </td>
-                      <td>{singleExpense.totalCost} </td>
-
-                      {identity === "Student" && (
-                        <td className="singleExpense_action_buttons">
-                          <button
-                            onClick={() =>
-                              handleTodayExpenseDelete(
-                                expenseItem.itemName,
-                                singleExpense._id
-                              )
-                            }
-                          >
-                            <DeleteIcon style={{ color: "black" }} />
-                          </button>
-                          <button>
-                            <EditIcon style={{ color: "black" }} />
-                          </button>
-                        </td>
-                      )}
-                    </tr>
-                  )
-              )
+            {todaysExpenses.length > 0 && (
+              <div>sdj</div>
             )}
           </tbody>
         </table>

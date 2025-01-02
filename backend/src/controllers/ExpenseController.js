@@ -85,6 +85,19 @@ const addExpense = async (req, res) => {
   }
 };
 
-const getExpenses = async (req, res) => {};
+const getExpenses = async (req, res) => {
+  
+  try{
+    const hostel = req.query.hostel;
+    const allexpenses = await MonthlyExpenseItemBucket.find({hostel: hostel});
+    console.log(allexpenses);
+    res.status(200).json({expenses: allexpenses});
+  return
+  }catch(error){
+    console.error("Error n fetching", error);
+    res.status(500).json({message: "Internal server error"});
+  }
+
+};
 
 export { getExpenses, addExpense };

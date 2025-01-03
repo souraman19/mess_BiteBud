@@ -158,6 +158,7 @@ function Dailyexpense() {
       );
       console.log("Expense added succesfully");
       setAllWantToAddItems([]);
+      fetchTodaysExpenses();
     } catch (err) {
       console.error("Error in adding expense", err);
     }
@@ -185,13 +186,22 @@ function Dailyexpense() {
             <tr>
               <th>Item Name</th>
               <th>Quantity</th>
-              <th>Total Cost</th>
+              <th>Total Cost(₹)</th>
+              <th>Vendor</th>
               {identity === "Student" && <th>Action</th>}
             </tr>
           </thead>
           <tbody>
             {todaysExpenses.length > 0 && (
-              <div>sdj</div>
+              todaysExpenses.map((singleItemExpense, index) =>
+                <tr>
+                  <td>{singleItemExpense.itemName}</td>
+                  <td>{singleItemExpense.quantity.amount} {singleItemExpense.quantity.itemUnit}</td>
+                  <td>{singleItemExpense.totalCost}</td>
+                  <td>{singleItemExpense.vendor}</td>
+
+                </tr>
+              )
             )}
           </tbody>
         </table>

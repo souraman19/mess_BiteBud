@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 import GroceryItem from "./GroceryItem.js";
 
 const singleItemSchema = new mongoose.Schema({
+    itemId: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: () => new mongoose.Types.ObjectId(),
+        required: true,
+    },
     itemName:{
         type: String,
         required: true,
@@ -36,6 +41,11 @@ const singleItemSchema = new mongoose.Schema({
 })
 
 const singleBillSchema = new mongoose.Schema({
+    billId: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: () => new mongoose.Types.ObjectId(),
+        required: true,
+    },
     allItems:{
         type: [singleItemSchema],
         required: true
@@ -49,6 +59,11 @@ const singleBillSchema = new mongoose.Schema({
 
 //rice from A and B vendor treated as diff product here
 const monthlyExpenseItemBucketSchema = new mongoose.Schema({
+    bucketId: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: () => new mongoose.Types.ObjectId(),
+        required: true,
+    },
     yearMonth:{
         type: String, //// Format should be YYYY-MM
         required: true,

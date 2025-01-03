@@ -11,6 +11,8 @@ import {
   GET_VENDORS,
   ADD_EXPENSE,
   GET_EXPENSES,
+  DELETE_EXPENSE,
+  EDIT_EXPENSE,
 } from "./../../utils/ApiRoutes.js";
 
 const currentFullDate = `${new Date().getFullYear()}-${
@@ -85,6 +87,9 @@ function Dailyexpense() {
             const quantity = singleItemExpense.itemQuantity;
             const totalCost = singleItemExpense.totalItemCost;
             const vendor = single_VendorItemMonth.vendorName;
+            const bucketId = single_VendorItemMonth.bucketId;
+            const billId = single_Expense_list.billId;
+            const itemId = singleItemExpense.itemId;
             // setTodaysExpenses([...todaysExpenses, {
             //   itemName: itemName,
             //   quantity: quantity,
@@ -97,6 +102,9 @@ function Dailyexpense() {
               quantity: quantity,
               totalCost: totalCost,
               vendor: vendor,
+              bucketId: bucketId,
+              billId: billId,
+              itemId: itemId,
             });
           })
         })
@@ -137,7 +145,7 @@ function Dailyexpense() {
     setItemQuantity("");
     setTotalItemCost("");
     setItemUnit("");
-    setValue("");
+    setValue(2.5);
   };
 
   async function handleExpenseSubmit(e) {
@@ -164,16 +172,14 @@ function Dailyexpense() {
     }
   }
 
-  async function handleTodayExpenseDelete(itemName, expenseId) {
-    // try {
-    //   await axios.delete(
-    //     `http://localhost:5000/api/deletedailyexpense?itemName=${itemName}&expenseId=${expenseId}`
-    //   );
-    //   console.log("Deletion success");
-    //   fetchTodaysExpenses();
-    // } catch (error) {
-    //   console.log("Error in deleting daily expense item");
-    // }
+  const handleItemDelete = async(bucketId, billId, itemId) => {
+    try{
+      await axios.delete(`${DELETE_EXPENSE}/${bucketId}/${billId}/${itemId}`, {withCredentials: true});
+      console.log("Expense deleted successfully");
+      fetchTodaysExpenses();
+    }catch(err){
+      console.log("Error in deleteing expense item", err);
+    }
   }
 
   // console.log(currentFullDate, "kb");
@@ -199,7 +205,13 @@ function Dailyexpense() {
                   <td>{singleItemExpense.quantity.amount} {singleItemExpense.quantity.itemUnit}</td>
                   <td>{singleItemExpense.totalCost}</td>
                   <td>{singleItemExpense.vendor}</td>
-
+                  <td>
+                      <DeleteIcon 
+                        style={{cursor: "pointer"}} 
+                        onClick = {() => handleItemDelete(singleItemExpense.bucketId, singleItemExpense.billId, singleItemExpense.itemId)}
+                      />
+                      <EditIcon style={{cursor: "pointer"}}/>
+                  </td>
                 </tr>
               )
             )}
@@ -218,7 +230,7 @@ function Dailyexpense() {
               <div className="todays_expense_single_item_expense">
                     <div>Item name</div>
                     <div>Quantity</div>
-                    <div>Total Cost</div>
+                    <div>Total Cost(₹)</div>
                     <div>Vendor Name</div>
               </div>
                 {allWantToAddItems.map((singleItemExpense, index) => (

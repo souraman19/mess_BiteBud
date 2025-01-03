@@ -50,3 +50,5 @@ export const GET_VENDORS = `${GROCERY_ROUTES}/get-vendors`;
 
 export const ADD_EXPENSE = `${EXPENSE_ROUTES}/add-expense`;
 export const GET_EXPENSES = `${EXPENSE_ROUTES}/get-expenses`;
+export const DELETE_EXPENSE = `${EXPENSE_ROUTES}/delete-expense`;
+export const EDIT_EXPENSE = `${EXPENSE_ROUTES}/edit-expense`;

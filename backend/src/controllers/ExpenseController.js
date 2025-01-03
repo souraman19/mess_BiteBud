@@ -90,7 +90,7 @@ const getExpenses = async (req, res) => {
   try{
     const hostel = req.query.hostel;
     const allexpenses = await MonthlyExpenseItemBucket.find({hostel: hostel});
-    console.log(allexpenses);
+    // console.log(allexpenses);
     res.status(200).json({expenses: allexpenses});
   return
   }catch(error){
@@ -100,4 +100,30 @@ const getExpenses = async (req, res) => {
 
 };
 
-export { getExpenses, addExpense };
+const deleteExpense = async(req, res) => {
+  try{
+    console.log(req.params);
+    const bucketId = req.params.bucketId;
+    const billId = req.params.billId;
+    const itemId = req.params.itemId;
+    const result = await MonthlyExpenseItemBucket.updateOne(
+      {
+        bucketId: bucketId,
+        "expenses.billId": billId,
+      },
+      {
+        $pull: {"expenses.$.allItems" : {itemId: itemId}}
+      }
+    );
+    if (result.modifiedCount > 0) {
+      res.status(200).json({ message: "Item deleted successfully" });
+    } else {
+      res.status(404).json({ message: "Bucket, Bill, or Item not found" });
+    }
+  }catch(err){
+    console.log("Error in deleteing expense", err);
+    res.status(500).json({message: "Internal server Error"});
+  }
+}
+
+export { getExpenses, addExpense, deleteExpense };

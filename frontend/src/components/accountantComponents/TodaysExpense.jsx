@@ -12,7 +12,6 @@ import {
   ADD_EXPENSE,
   GET_EXPENSES,
   DELETE_EXPENSE,
-  EDIT_EXPENSE,
 } from "./../../utils/ApiRoutes.js";
 
 const currentFullDate = `${new Date().getFullYear()}-${
@@ -30,7 +29,9 @@ function Dailyexpense() {
   const identity = userInfo.userType;
   const hostel = userInfo.hostel;
 
+  const [selectedIndex, setSelectedIndex] = useState("");
   const [itemName, setItemName] = useState("");
+  const [itemCategory, setItemCategory] = useState("");
   const [itemQuantity, setItemQuantity] = useState("");
   const [totalItemCost, setTotalItemCost] = useState("");
   const [itemUnit, setItemUnit] = useState("");
@@ -42,6 +43,19 @@ function Dailyexpense() {
   const [allVendors, setAllVendors] = useState([]);
 
   const [todaysExpenses, setTodaysExpenses] = useState([]);
+
+  const handleSelectionChange = async(e) => {
+    const index = e.target.value;
+    setSelectedIndex(index);
+
+    if(index !== ""){
+      setItemName(allItems[index].name);
+      setItemCategory(allItems[index].category);
+    } else {
+      setItemName("");
+      setItemCategory("");
+    }
+  }
 
   const fetchItems = async () => {
     try {
@@ -96,7 +110,7 @@ function Dailyexpense() {
             //   totalCost: totalCost,
             //   vendor: vendor
             // }])                   //cant do it directly as setTodaysExpenses asynchronous type 
-
+            if(getFullDate(singleItemExpense.buyDate) === getFullDate(new Date()))
             updatedExpenses.push({
               itemName: itemName,
               quantity: quantity,
@@ -132,6 +146,7 @@ function Dailyexpense() {
       ...allWantToAddItems,
       {
         itemName: itemName,
+        itemCategory: itemCategory,
         itemQuantity: {
           amount: itemQuantity,
           itemUnit: itemUnit,
@@ -141,7 +156,9 @@ function Dailyexpense() {
         rating: value,
       },
     ]);
+    setSelectedIndex("");
     setItemName("");
+    setItemCategory("");
     setItemQuantity("");
     setTotalItemCost("");
     setItemUnit("");
@@ -151,6 +168,7 @@ function Dailyexpense() {
   async function handleExpenseSubmit(e) {
     e.preventDefault();
     try {
+      // console.log("Sending", allWantToAddItems);
       await axios.post(
         ADD_EXPENSE,
         {
@@ -194,7 +212,7 @@ function Dailyexpense() {
               <th>Quantity</th>
               <th>Total Cost(₹)</th>
               <th>Vendor</th>
-              {identity === "Student" && <th>Action</th>}
+              {identity === "Student" && <th className="daily_expense_delete_edit_expense_block">Action</th>}
             </tr>
           </thead>
           <tbody>
@@ -205,12 +223,11 @@ function Dailyexpense() {
                   <td>{singleItemExpense.quantity.amount} {singleItemExpense.quantity.itemUnit}</td>
                   <td>{singleItemExpense.totalCost}</td>
                   <td>{singleItemExpense.vendor}</td>
-                  <td>
+                  <td className="daily_expense_delete_edit_expense_block">
                       <DeleteIcon 
                         style={{cursor: "pointer"}} 
                         onClick = {() => handleItemDelete(singleItemExpense.bucketId, singleItemExpense.billId, singleItemExpense.itemId)}
                       />
-                      <EditIcon style={{cursor: "pointer"}}/>
                   </td>
                 </tr>
               )
@@ -251,12 +268,12 @@ function Dailyexpense() {
               <select
                 id="item_name"
                 required
-                value={itemName}
-                onChange={(e) => setItemName(e.target.value)}
+                value={selectedIndex}
+                onChange={handleSelectionChange}
               >
                 <option value="">Select item</option>
                 {allItems.map((item, index) => (
-                  <option key={index} value={item.name}>
+                  <option key={index} value={index}>
                     {item.name}
                   </option>
                 ))}

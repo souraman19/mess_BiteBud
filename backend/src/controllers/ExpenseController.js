@@ -15,6 +15,9 @@ const addExpense = async (req, res) => {
     let monthInString = month.toString();
     let yearInString = year.toString();
 
+    // console.log(allItemExpenses);
+    // return;
+
     
     if(monthInString.length < 2){ //if get like '1' then covert to '01'
       monthInString =  '0' + monthInString;
@@ -126,4 +129,27 @@ const deleteExpense = async(req, res) => {
   }
 }
 
-export { getExpenses, addExpense, deleteExpense };
+const getPrevCurrMonthExpenses = async(req, res) => {
+  try{
+    const hostel = req.query.hostel;
+    console.log(req.query.hostel);
+    const year = new Date().getFullYear();
+    const month = new Date().getMonth()+1;
+    let monthInString = month.toString();
+    let yearInString = year.toString();
+    if(monthInString.length < 2){
+      monthInString = '0' + monthInString;
+    }
+
+    const yearMonth = `${yearInString}-${monthInString}`;
+    console.log(yearMonth);
+    const result = await MonthlyExpenseItemBucket.find({hostel: hostel, yearMonth: yearMonth});
+    console.log(result);
+    res.status(200).json(result);
+  }catch(err){
+    console.log("Error in getting prev-curr expenses", err);
+    res.status(500).json({message: "Internal server error"});
+  }
+}
+
+export { getExpenses, addExpense, deleteExpense , getPrevCurrMonthExpenses};

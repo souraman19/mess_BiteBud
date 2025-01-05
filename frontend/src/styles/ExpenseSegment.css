@@ -55,34 +55,22 @@
 
 .expense-charts-container {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap; /* Allow items to wrap within the container */
-    gap: 20px;
+    /* gap: 20px; */
+    /* border: 2px solid red; */
+    width: 100%;
 }
-
-.chart-wrapper {
-    flex: 1;
-    min-width: 300px; /* Ensure the charts don't shrink too much */
-    max-width: 48%; /* Keep each chart within half of the container */
-    background-color: #ffffff;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.chart-wrapper:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-}
-
-.chart-title {
-    font-family: 'Roboto', sans-serif;
-    font-size: 22px;
-    margin-bottom: 20px;
-    color: #555;
+.expense-charts-container > div{
+    /* border: 2px solid red; */
+    /* padding: 0 !important; */
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 49.5%;
 }
 
 @media (max-width: 768px) {

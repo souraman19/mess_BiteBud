@@ -32,7 +32,6 @@ function ExpenseSegment() {
       const formatedDataByCategory = [];
       const formatedDataByVendor = [];
 
-
       //format data by category
       receivedData.forEach((singleBucket) => {
         singleBucket.expenses.forEach((singleExpenseList) => {
@@ -94,14 +93,18 @@ function ExpenseSegment() {
         </Link>
       </div>
       <div className="expense-charts-container">
-        <PieChartSlide 
-            data = {currentMonthExpensesByCategory}
-            heading = "By Category"
-        />
-        <PieChartSlide 
-            data = {currentMonthExpensesByVendor}
-            heading = "By Vendors"
-        />
+        <div className="expense-charts-piechartslide-div">
+          <PieChartSlide
+            data={currentMonthExpensesByCategory}
+            heading="By Category"
+          />
+        </div>
+        <div className="expense-charts-piechartslide-div">
+          <PieChartSlide
+            data={currentMonthExpensesByVendor}
+            heading="By Vendors"
+          />
+        </div>
       </div>
     </div>
   );

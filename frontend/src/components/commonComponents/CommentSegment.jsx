@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "./../../styles/CommentSegment.css";
-import "swiper/swiper-bundle.css"; // Import the Swiper styles
+import "swiper/swiper-bundle.css";
 
 // import required modules
 import { FreeMode, Pagination, Navigation, Autoplay } from "swiper/modules";

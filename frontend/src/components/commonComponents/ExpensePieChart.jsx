@@ -16,7 +16,7 @@ function ExpensesPieChart({data}) {
         data={data}
         cx={300}
         cy={170}
-        outerRadius={190}
+        outerRadius={175}
         fill="#8884d8"
         dataKey="value"
       >

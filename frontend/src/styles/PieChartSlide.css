@@ -1,7 +1,6 @@
 .chart-wrapper {
     flex: 1;
-    min-width: 300px; /* Ensure the charts don't shrink too much */
-    max-width: 48%; /* Keep each chart within half of the container */
+    width: 90%;
     background-color: #ffffff;
     border-radius: 15px;
     padding: 20px;

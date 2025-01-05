@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ExpensePieChart from "./ExpensePieChart";
 import axios from "axios";
 import "./../../styles/ExpenseSegment.css";
 import { GET_EXPENSES_PREV_CURR_MONTH } from "./../../utils/ApiRoutes.js";
 import { useStateProvider } from "../../context/StateContext";
+import PieChartSlide from "./PieChartSlide.jsx";
 
 function ExpenseSegment() {
   const [{ userInfo, newUser }, dispatch] = useStateProvider();
@@ -94,30 +94,14 @@ function ExpenseSegment() {
         </Link>
       </div>
       <div className="expense-charts-container">
-        <div className="chart-wrapper">
-          <h2 className="chart-title">By Category</h2>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <ExpensePieChart data={currentMonthExpensesByCategory} />
-          </div>
-        </div>
-        <div className="chart-wrapper">
-          <h2 className="chart-title">By Vendors</h2>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <ExpensePieChart data={currentMonthExpensesByVendor} />
-          </div>
-        </div>
+        <PieChartSlide 
+            data = {currentMonthExpensesByCategory}
+            heading = "By Category"
+        />
+        <PieChartSlide 
+            data = {currentMonthExpensesByVendor}
+            heading = "By Vendors"
+        />
       </div>
     </div>
   );

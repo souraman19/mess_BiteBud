@@ -136,9 +136,9 @@ function Dailyexpense() {
       fetchTodaysExpenses();
     }, []);
 
-    useEffect(() => {
-      console.log(todaysExpenses);
-    }, [todaysExpenses]);
+    // useEffect(() => {
+    //   console.log(todaysExpenses);
+    // }, [todaysExpenses]);
 
   const handleAddExpense = (e) => {
     e.preventDefault();
@@ -237,126 +237,6 @@ function Dailyexpense() {
       </div>
 
       <div className="all_months_this_year_section"></div>
-
-      {identity === "Student" && (
-        <div className="add_new_expense_section">
-          <h2>Add new expense</h2>
-          {allWantToAddItems.length > 0 && (
-            <form onSubmit={handleExpenseSubmit}>
-              <div className="todays_expense_allWantToAddItems">
-              <div className="todays_expense_single_item_expense">
-                    <div>Item name</div>
-                    <div>Quantity</div>
-                    <div>Total Cost(₹)</div>
-                    <div>Vendor Name</div>
-              </div>
-                {allWantToAddItems.map((singleItemExpense, index) => (
-                  <div className="todays_expense_single_item_expense">
-                    <div>{singleItemExpense.itemName}</div>
-                    <div>{singleItemExpense.itemQuantity.amount} {singleItemExpense.itemQuantity.itemUnit}</div>
-                    <div>{singleItemExpense.totalItemCost}</div>
-                    <div>{vendorName}</div>
-                  </div>
-                ))}
-              </div>
-              <button type="submit">Add Expense</button>
-            </form>
-          )}
-          <form onSubmit={handleAddExpense}>
-            <div className="form-group">
-              <label htmlFor="item_name">Item Name:</label>
-              <select
-                id="item_name"
-                required
-                value={selectedIndex}
-                onChange={handleSelectionChange}
-              >
-                <option value="">Select item</option>
-                {allItems.map((item, index) => (
-                  <option key={index} value={index}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="item_quantity">Quantity: </label>
-              <input
-                type="text"
-                id="item_quantity"
-                value={itemQuantity}
-                onChange={(e) => setItemQuantity(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="item_unit">Item Unit: </label>
-              <select
-                id="item_unit"
-                value={itemUnit}
-                onChange={(e) => setItemUnit(e.target.value)}
-                required
-              >
-                <option value="">Select a unit</option>
-                <option value="unit">Unit</option>
-                <option value="litre">Litre</option>
-                <option value="ml">Millilitre</option>
-                <option value="gram">Gram</option>
-                <option value="kg">Kilogram</option>
-                <option value="dozen">Dozen</option>
-                <option value="packet">Packet</option>
-                <option value="bottle">Bottle</option>
-                <option value="can">Can</option>
-                <option value="box">Box</option>
-                <option value="piece">Piece</option>
-                <option value="roll">Roll</option>
-                <option value="barrel">Barrel</option>
-                <option value="carton">Carton</option>
-                <option value="bag">Bag</option>
-                <option value="sachet">Sachet</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="total_item_cost">Total Cost (₹):</label>
-              <input
-                type="text"
-                id="total_item_cost"
-                value={totalItemCost}
-                onChange={(e) => setTotalItemCost(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="vendorName">Vendor:</label>
-              <select
-                id="vendorName"
-                required
-                value={vendorName}
-                onChange={(e) => setVendorName(e.target.value)}
-              >
-                <option value="">Select Vendor</option>
-                {allWantToAddItems.length === 0 && (
-                  allVendors.map((singleVendor, index) => (
-                    <option key={index} value={singleVendor.name}>
-                      {singleVendor.name}
-                    </option>
-                  ))
-                )}
-                {allWantToAddItems.length > 0 && (
-                  <option value={vendorName}>{vendorName}</option>
-                )
-
-                }
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="total_item_cost">Rating:</label>
-              <HoverRating value={value} setValue={setValue} />
-            </div>
-            <button type="submit">Add Item to Expense List</button>
-          </form>
-        </div>
-      )}
     </div>
   );
 }

@@ -35,6 +35,7 @@ import SignIn from "./pages/loginPages/SignIn.jsx"
 import Register from "./pages/loginPages/Register.jsx";
 import ExtraDetailsForm from './pages/loginPages/ExtraDetailsForm.jsx';
 import Grocery from './pages/accountantPages/Grocery.jsx';
+import AddNewExpense from './components/accountantComponents/AddNewExpensePage.jsx';
 
 function App() {
     return (
@@ -68,6 +69,10 @@ function App() {
 
           <Route path="/expense-page"  element={<EditExpensePage/>} />
           <Route path="/grocery" element={<Grocery />} />
+          <Route path="/add-new-expense" element={<AddNewExpense />} />
+
+
+
 ////---------------------------------------------------------------------------------------
 
           <Route path="/test" element={<Test />} />

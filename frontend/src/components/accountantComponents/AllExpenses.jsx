@@ -3,11 +3,12 @@ import React from "react";
 import Todaysexpense from "./TodaysExpense.jsx";
 import EveryMonthsExpenses from "./EveryMonthsExpenses.jsx";
 
+
 function AllExpenses() {
   return (
     <div>
-      <Todaysexpense />
-      <EveryMonthsExpenses />
+    <Todaysexpense />
+     <EveryMonthsExpenses />
     </div>
   );
 }

@@ -1,42 +1,15 @@
-.every_months_expenses_container {
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .every_months_expenses_container h2 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .month_expenses {
-    margin-bottom: 30px;
-  }
-  
-  .month_expenses h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #555;
-  }
-  
-  .month_expenses table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .month_expenses th, .month_expenses td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
-  }
-  
-  .month_expenses th {
-    background-color: #f1f1f1;
-  }
-  
+.swiper-slide-everymonthexpenses {
+  text-align: center;
+  font-size: 17px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px solid red; */
+}
+.swiper-slide-everymonthexpenses img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

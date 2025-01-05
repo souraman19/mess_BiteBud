@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import Vendor from "../person/Vendor";
 
 const itemSchema = new mongoose.Schema({
     productId:{
@@ -9,10 +8,10 @@ const itemSchema = new mongoose.Schema({
     },
     name: {
         type: String,
-        required: true,
+        required: true, 
         unique: true,
     },
-    billImage: {
+    itemImage: {
         type: String,
         default: "https://cdn.prod.website-files.com/603cffd3503d7077716b1d65/6344665df2c24f15d7182ac5_groceries.png"
     },
@@ -20,9 +19,12 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    hostel:{
+        type: String,
+        required: true,
+    },
     vendorId: {
         type: mongoose.Schema.Types.ObjectId, 
-        required: true, 
         ref: 'Vendor'
     },
     buyCount:{ //how many times purchased it
@@ -40,4 +42,4 @@ const itemSchema = new mongoose.Schema({
 
 const GroceryItem = new mongoose.model('GroceryItem', itemSchema);
 
-export default Item;
+export default GroceryItem;

@@ -6,6 +6,8 @@ import CommentRoutes from "./routes2.0/CommentRoutes.js";
 import ComplaintRoutes from "./routes2.0/ComplaintRoutes.js";
 import galleryRoutes from "./routes2.0/galleryRoutes.js";
 import messMenuRoutes from "./routes2.0/MessMenuRoutes.js";
+import expenseRoutes from "./routes2.0/ExpenseRoutes.js";
+import groceryRoutes from "./routes2.0/GroceryRoutes.js";
 
 dotenv.config({path: './../.env'}); //configure path if current file is not as in root
 const PORT = process.env.PORT || 5000;
@@ -19,8 +21,10 @@ app.use("/api/comment", CommentRoutes);
 app.use("/api/complaint", ComplaintRoutes);
 app.use("/api/gallery", galleryRoutes);
 app.use("/api/mess-menu", messMenuRoutes);
+app.use("/api/expense", expenseRoutes);
+app.use("/api/grocery", groceryRoutes);
 
-app.use("/api", sessionCheck);  //??
+app.use("/api", sessionCheck); 
 
 
 

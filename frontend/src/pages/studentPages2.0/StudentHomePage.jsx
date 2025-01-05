@@ -18,8 +18,9 @@ function Patelstudent(){
     return(
         <div>
         <Navbar />
-         <HostelIntro />
-        {/* <ExpenseSegment /> */}
+
+        <HostelIntro />
+        
 
         <CurrentMessMenu />  
 
@@ -30,7 +31,10 @@ function Patelstudent(){
         <CommentSegment />
 
 
-        <Complaint /> 
+        <Complaint />
+        
+         
+        <ExpenseSegment />
     </div>
     );
 }

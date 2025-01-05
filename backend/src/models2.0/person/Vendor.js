@@ -14,6 +14,10 @@ const vendorSchema = new mongoose.Schema({
         countryCode: {type: String, required: true, match: /^\+\d{1,3}$/},
         phoneNo: {type: String, required: true, match: /^\d{10}$/}
     },
+    hostel: {
+        type: String, 
+        required: true
+    },  
     address: {
         country: {type: String, required: true},
         state: {type: String, required: true},
@@ -26,6 +30,16 @@ const vendorSchema = new mongoose.Schema({
         default: 0,
         min: 0,
         max: 5,
+    },
+    vendorImage: {
+        type: String, 
+        default: "https://png.pngtree.com/png-vector/20191128/ourmid/pngtree-market-stall-with-red-and-white-awning-icon-circle-png-image_2044273.jpg"
+    },
+    buyCount: {
+        type: Number,
+        default: 0,
+        min: 0,
+        max: 0,
     },
 })
 

@@ -9,10 +9,10 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "./../../styles/CommentSegment.css";
-import "swiper/swiper-bundle.css"; // Import the Swiper styles
+import "swiper/swiper-bundle.css";
 
 // import required modules
-import { FreeMode, Pagination } from "swiper/modules";
+import { FreeMode, Pagination, Navigation, Autoplay } from "swiper/modules";
 import SwiperCore from "swiper";
 import axios from "axios";
 import { format, differenceInDays, parseISO } from 'date-fns';
@@ -43,7 +43,7 @@ export default function CommentSegment() {
 
 const [{ userInfo, newUser }, dispatch] = useStateProvider();
 
-  console.log("User in 1: ", userInfo);
+  // console.log("User in 1: ", userInfo);
   // const name = user?.name;
   // const regNo = user?.regNo;
   const hostel = userInfo?.hostel;
@@ -60,7 +60,7 @@ const [{ userInfo, newUser }, dispatch] = useStateProvider();
     const fetchComments = async () => {
       try {
         const response = await axios.get(GET_ALL_COMMENTS_ROUTE, {params: {hostel}, withCredentials: true});
-        console.log(response.data.comments);
+        // console.log(response.data.comments);
         const myHostelComments = response.data.comments.reverse();
         setComments(myHostelComments);
       } catch (error) {
@@ -74,10 +74,10 @@ const [{ userInfo, newUser }, dispatch] = useStateProvider();
     setAllComments(updatedComments);
   };
 
-  console.log("Autoplay Config:", {
-    delay: 1000,
-    disableOnInteraction: false,
-  });
+  // console.log("Autoplay Config:", {
+  //   delay: 1000,
+  //   disableOnInteraction: false,
+  // });
   return (
     //outermost box
     <div className="outer-feedback-commentsegment">
@@ -99,13 +99,14 @@ const [{ userInfo, newUser }, dispatch] = useStateProvider();
           slidesPerView={2}
           spaceBetween={30}
           freeMode={true}
+          navigation={true}
           pagination={{
             clickable: true,
           }}
-          modules={[FreeMode, Pagination]}
+          modules={[FreeMode, Pagination, Autoplay, Navigation]}
           autoplay={{
             delay: 1000,
-            disableOnInteraction: false,
+            disableOnInteraction: true,
           }}
           className="mySwiper"
         >

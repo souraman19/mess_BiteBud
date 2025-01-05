@@ -16,7 +16,7 @@ import {Link} from "react-router-dom";
 
 const pages = ["Messmenu", "Comment", "Gallery", "Complaint", "Expense"];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
-const goto = ["/patelfullmenu", "/patelcomment", "/patelgallery", "/patelallcomplaint", "/editexpensepage"]
+const goto = ["/full-menu-page", "/gallery-page", "/comment-page", "/complaint-page", "/expense-page"]
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -61,7 +61,7 @@ function ResponsiveAppBar() {
               fontSize: "2.8rem",
             }}
           >
-             <Link to="/patelstudent" style={{ color: "inherit", textDecoration: "none" }}>
+             <Link to="/student-home-page" style={{ color: "inherit", textDecoration: "none" }}>
                       BiteBud
               </Link>
           </Typography>

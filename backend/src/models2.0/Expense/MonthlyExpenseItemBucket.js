@@ -12,6 +12,10 @@ const singleItemSchema = new mongoose.Schema({
         required: true,
         ref: 'GroceryItem',
     },
+    itemCategory: {
+        type: String,
+        required: true,
+    },
     itemQuantity:{
         type: {
             amount: {

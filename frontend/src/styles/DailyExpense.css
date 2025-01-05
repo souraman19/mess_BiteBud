@@ -3,6 +3,14 @@
   flex-direction: column;
 }
 
+
+.daily_expense_delete_edit_expense_block{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
 .todays_expense_single_item_expense{
    display: flex;
    flex-direction: row;

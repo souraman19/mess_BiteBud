@@ -10,19 +10,42 @@
     margin-top: 2rem;
 }
 
-.expense-title {
-    text-align: center;
-    margin-bottom: 30px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: #333;
+.upper-section-expense-segment {
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 17px;
+  padding-bottom: 2.5rem;
 }
 
-.expense-link {
-    text-decoration: none;
-    color: #007bff;
-    transition: color 0.3s ease;
+.upper-section-expense-segment .heading{
+    padding: 1.5rem 0;
+  font-size: 3.5rem;
+  text-align: center;
+  display: block;
+  font-family: Canva Sans,Noto Sans Variable,Noto Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif;
+
+  /* background-color: #fbe6f5; */
+  /* border: 3px solid #e0a7a7; */
+  border-radius: 20px;
+}
+
+.upper-section-expense-segment h1 {
+    width: 100%;
+    text-align: center;
+}
+
+.upper-section-expense-segment a {
+    display: inline-block; /* Prevent button from taking full width */
+    /* margin-top: 10px; */
+    font-size: larger;
+    padding: 4px 20px;
+}
+
+.upper-section-expense-segment p{
+    /* background-color: aqua; */
+  text-align: center;
+  font-size: 2rem;
 }
 
 .expense-link:hover {

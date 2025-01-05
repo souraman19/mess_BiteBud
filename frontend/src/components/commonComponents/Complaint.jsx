@@ -40,7 +40,7 @@ export default function CommentSegment() {
     try{
       const fetchData = async() => {
         const response = await axios.get(GET_ALL_COMPLAINTS_ROUTE, {params: {hostel}, withCredentials: true});
-        console.log(response.data);
+        // console.log(response.data);
         const myHostelComplaints = response.data.reverse();
         setComplaints(myHostelComplaints);
       };
@@ -50,10 +50,10 @@ export default function CommentSegment() {
     }
   }, []);
 
-  console.log("Autoplay Config:", {
-    delay: 1000,
-    disableOnInteraction: false,
-  });
+  // console.log("Autoplay Config:", {
+  //   delay: 1000,
+  //   disableOnInteraction: false,
+  // });
   return (
     //outermost box
     <div className="outer-feedback-commentsegment">

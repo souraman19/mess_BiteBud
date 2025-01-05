@@ -129,7 +129,7 @@ const deleteExpense = async(req, res) => {
   }
 }
 
-const getPrevCurrMonthExpenses = async(req, res) => {
+const getCurrMonthExpenses = async(req, res) => {
   try{
     const hostel = req.query.hostel;
     console.log(req.query.hostel);
@@ -142,9 +142,9 @@ const getPrevCurrMonthExpenses = async(req, res) => {
     }
 
     const yearMonth = `${yearInString}-${monthInString}`;
-    console.log(yearMonth);
+    // console.log(yearMonth);
     const result = await MonthlyExpenseItemBucket.find({hostel: hostel, yearMonth: yearMonth});
-    console.log(result);
+    // console.log(result);
     res.status(200).json(result);
   }catch(err){
     console.log("Error in getting prev-curr expenses", err);
@@ -152,4 +152,4 @@ const getPrevCurrMonthExpenses = async(req, res) => {
   }
 }
 
-export { getExpenses, addExpense, deleteExpense , getPrevCurrMonthExpenses};
+export { getExpenses, addExpense, deleteExpense , getCurrMonthExpenses};

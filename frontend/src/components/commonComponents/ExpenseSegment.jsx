@@ -3,69 +3,99 @@ import { Link } from "react-router-dom";
 import ExpensePieChart from "./ExpensePieChart";
 import axios from "axios";
 import "./../../styles/ExpenseSegment.css";
+import { GET_EXPENSES_PREV_CURR_MONTH } from "./../../utils/ApiRoutes.js";
+import { useStateProvider } from "../../context/StateContext";
 
 function ExpenseSegment() {
-    const myDefaultData = [
-        { name: 'NULL', value: 100 },
-        { name: 'NULL', value: 100 },
-        { name: 'NULL', value: 100 },
-        { name: 'NULL', value: 100 },
-        { name: 'NULL', value: 100 },
-    ];
-    const [currentMonthExpenses, setCurrentMonthExpenses] = useState(myDefaultData);
-    const [previousMonthExpenses, setPreviousMonthExpenses] = useState(myDefaultData);
-    const today = new Date();
-    const currentMonthIndex = today.getMonth();
-    console.log("Current month index", currentMonthIndex);
+  const [{ userInfo, newUser }, dispatch] = useStateProvider();
+  const hostel = userInfo.hostel;
 
-    useEffect(() => {
-        const getExpenses = async () => {
-            try {
-                const response = await axios.get("http://localhost:5000/api/fetchallmonthsexpenses_piechart");
-                console.log("Expenses data", response.data);
-                setTimeout(() => {
-                    if (response.data[currentMonthIndex].length === 0) {
-                        setCurrentMonthExpenses(myDefaultData);
-                    } else {
-                        setCurrentMonthExpenses(response.data[currentMonthIndex + 1]);
-                    }
+  const myDefaultData = [
+    { name: "NULL", value: 100 },
+    { name: "NULL", value: 100 },
+    { name: "NULL", value: 100 },
+    { name: "NULL", value: 100 },
+    { name: "NULL", value: 100 },
+  ];
+  const [currentMonthExpensesByCategory, setCurrentMonthExpensesByCategory] =
+    useState(myDefaultData);
+  const [currentMonthExpensesByVendor, setCurrentMonthExpensesByVendor] =
+    useState(myDefaultData);
 
-                    if (response.data[currentMonthIndex].length === 0) {
-                        setPreviousMonthExpenses(myDefaultData);
-                    } else {
-                        setPreviousMonthExpenses(response.data[currentMonthIndex]);
-                    }
-                }, 20);
-            } catch (err) {
-                console.log("Error in getting expenses", err);
+  const fetchExpensesCurrMonth = async (req, res) => {
+    try {
+      const response = await axios.get(GET_EXPENSES_PREV_CURR_MONTH, {
+        params: { hostel: hostel },
+      });
+      // console.log("response date", response.data);
+      const receivedData = response.data;
+      const formatedDataByCategory = [];
+      receivedData.forEach((singleBucket) => {
+        singleBucket.expenses.forEach((singleExpenseList) => {
+          singleExpenseList.allItems.forEach((singleItemExpense) => {
+            const existing = formatedDataByCategory.find(
+              (item) => item.name === singleItemExpense.itemCategory
+            );
+            if (existing) {
+              existing.value += singleItemExpense.totalItemCost;
+            } else {
+              formatedDataByCategory.push({
+                name: singleItemExpense.itemCategory,
+                value: singleItemExpense.totalItemCost,
+              });
             }
-        }
-        getExpenses();
-    }, []);
+          });
+        });
+      });
+      setCurrentMonthExpensesByCategory(formatedDataByCategory);
+    } catch (err) {
+      console.log("Error in fetchng prev and current month expenses", err);
+    }
+  };
 
-    return (
-        <div className="expense-segment-container">
-            <h1 className="expense-title">
-                <Link to="/expense-page" className="expense-link">
-                    See all expenses
-                </Link>
-            </h1>
-            <div className="expense-charts-container">
-                <div className="chart-wrapper">
-                    <h2 className="chart-title">Current Month</h2>
-                    <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
-                        <ExpensePieChart data={currentMonthExpenses} />
-                    </div>
-                </div>
-                <div className="chart-wrapper">
-                    <h2 className="chart-title">Previous Month</h2>
-                    <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
-                        <ExpensePieChart data={previousMonthExpenses} />
-                    </div>
-                </div>
-            </div>
+  useEffect(() => {
+    fetchExpensesCurrMonth();
+  }, []);
+
+  return (
+    <div className="expense-segment-container">
+      <div className="upper-section-expense-segment">
+        <h1 className="heading">Expenses</h1>
+        <p>See current month expenses of our mess</p>
+        <Link to="/expense-page">
+          <a class="btn btn-outline-secondary" href="#" role="button">
+            Go to expense Page
+          </a>
+        </Link>
+      </div>
+      <div className="expense-charts-container">
+        <div className="chart-wrapper">
+          <h2 className="chart-title">By Category</h2>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <ExpensePieChart data={currentMonthExpensesByCategory} />
+          </div>
         </div>
-    );
+        <div className="chart-wrapper">
+          <h2 className="chart-title">By Vendors</h2>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <ExpensePieChart data={currentMonthExpensesByVendor} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default ExpenseSegment;

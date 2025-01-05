@@ -30,6 +30,10 @@ function ExpenseSegment() {
       // console.log("response date", response.data);
       const receivedData = response.data;
       const formatedDataByCategory = [];
+      const formatedDataByVendor = [];
+
+
+      //format data by category
       receivedData.forEach((singleBucket) => {
         singleBucket.expenses.forEach((singleExpenseList) => {
           singleExpenseList.allItems.forEach((singleItemExpense) => {
@@ -47,7 +51,28 @@ function ExpenseSegment() {
           });
         });
       });
+
+      //format data by vendor name
+      receivedData.forEach((singleBucket) => {
+        singleBucket.expenses.forEach((singleExpenseList) => {
+          singleExpenseList.allItems.forEach((singleItemExpense) => {
+            const existing = formatedDataByVendor.find(
+              (item) => item.name === singleBucket.vendorName
+            );
+            if (existing) {
+              existing.value += singleItemExpense.totalItemCost;
+            } else {
+              formatedDataByVendor.push({
+                name: singleBucket.vendorName,
+                value: singleItemExpense.totalItemCost,
+              });
+            }
+          });
+        });
+      });
+
       setCurrentMonthExpensesByCategory(formatedDataByCategory);
+      setCurrentMonthExpensesByVendor(formatedDataByVendor);
     } catch (err) {
       console.log("Error in fetchng prev and current month expenses", err);
     }

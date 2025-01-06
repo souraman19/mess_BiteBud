@@ -24,6 +24,19 @@ const getFullDate = (date) => {
 }-${new Date().getDay(date)}`
 }
 
+const formatBuyTime = (buyDate) => {
+  const date = new Date(buyDate);
+  const options = {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true, // Enable AM/PM format
+  };
+  
+  const formattedDate = date.toLocaleString("en-IN", options);
+  return formattedDate;
+}
+
 function Dailyexpense() {
   const [{ userInfo, newUser }, dispatch] = useStateProvider();
   const identity = userInfo.userType;
@@ -104,6 +117,7 @@ function Dailyexpense() {
             const bucketId = single_VendorItemMonth.bucketId;
             const billId = single_Expense_list.billId;
             const itemId = singleItemExpense.itemId;
+            const buyDate = singleItemExpense.buyDate;
             // setTodaysExpenses([...todaysExpenses, {
             //   itemName: itemName,
             //   quantity: quantity,
@@ -119,6 +133,7 @@ function Dailyexpense() {
               bucketId: bucketId,
               billId: billId,
               itemId: itemId,
+              buyTime: formatBuyTime(buyDate)
             });
           })
         })
@@ -212,6 +227,7 @@ function Dailyexpense() {
               <th>Quantity</th>
               <th>Total Cost(₹)</th>
               <th>Vendor</th>
+              <th>BuyTime</th>
               {identity === "Student" && <th className="daily_expense_delete_edit_expense_block">Action</th>}
             </tr>
           </thead>
@@ -223,6 +239,7 @@ function Dailyexpense() {
                   <td>{singleItemExpense.quantity.amount} {singleItemExpense.quantity.itemUnit}</td>
                   <td>{singleItemExpense.totalCost}</td>
                   <td>{singleItemExpense.vendor}</td>
+                  <td>{singleItemExpense.buyTime}</td>
                   <td className="daily_expense_delete_edit_expense_block">
                       <DeleteIcon 
                         style={{cursor: "pointer"}} 

@@ -25,7 +25,7 @@ function EveryMonthsExpenses() {
   const [{ userInfo, newUser }, dispatch] = useStateProvider();
   const hostel = userInfo.hostel;
 
-  const [yearList, setYearList] = useState([]);
+  // const [yearList, setYearList] = useState([]);
   const [allExpenses, setAllExpenses] = useState([]);
   const [formatedExpensesByYearMonthMain, setFormattedExpensesByYearMonthMain] =
     useState([]);
@@ -42,7 +42,7 @@ function EveryMonthsExpenses() {
       console.log("rep", response.data);
       const allGotExpenses = response.data.expenses;
       setAllExpenses(allGotExpenses);
-      const years = [];
+      // const years = [];
       const formatedExpensesByYear_Month = [];
       allGotExpenses.forEach((singleExpenseBucket) => {
         const yearMonth = singleExpenseBucket.yearMonth;
@@ -56,11 +56,11 @@ function EveryMonthsExpenses() {
             year: year,
             allMonthExpenses: [],
           };
-          years.push(year);
+          // years.push(year);
           formatedExpensesByYear_Month.push(yearExisting);
         }
 
-        console.log("year", yearExisting);
+        // console.log("year", yearExisting);
         let monthExisting = yearExisting.allMonthExpenses.find(
           (el) => el.month === month
         );
@@ -96,15 +96,18 @@ function EveryMonthsExpenses() {
         singleYearExpenses.allMonthExpenses.sort((a, b) => {
           const indexA = months.indexOf(a.month);
           const indexB = months.indexOf(b.month);
-          console.log(a.month," ", indexA," ", b.month," ", indexB);
+          // console.log(a.month," ", indexA," ", b.month," ", indexB);
           return indexB - indexA;
         })
       })
+      // years.sort((a, b) => a - b);
+      formatedExpensesByYear_Month.sort((a, b) => b.year - a.year);
       console.log("formaetd expenses", formatedExpensesByYear_Month);
+      // console.log("years", formatedExpensesByYear_Month);
 
       setSelectedYear(formatedExpensesByYear_Month[0].year);
       setSelectedIndex(0);
-      setYearList(years);
+      // setYearList(years);
       setFormattedExpensesByYearMonthMain(formatedExpensesByYear_Month);
     } catch (err) {
       console.error("Error in fetching the expenses", err);
@@ -115,8 +118,21 @@ function EveryMonthsExpenses() {
     fetchAllExpenses();
   }, []);
 
+
+  // useEffect(() => {
+  //   console.log("main", formatedExpensesByYearMonthMain[selectedIndex]);
+  //   console.log("index", selectedIndex);
+
+  // }, [formatedExpensesByYearMonthMain])
+
+  useEffect(() => {
+    console.log("index", selectedIndex);
+  }, [])
+
   const handleYearChange = (event) => {
     setSelectedYear(event.target.value);
+    const ind = formatedExpensesByYearMonthMain.findIndex(item => item.year === event.target.value);
+    setSelectedIndex(ind);
   };
 
   return (
@@ -153,8 +169,12 @@ function EveryMonthsExpenses() {
           }}
           className="mySwiper"
           >
-            {formatedExpensesByYearMonthMain[selectedIndex].allMonthExpenses.map((singleMonthExpenses) =>
-              <SwiperSlide 
+            {
+            
+            formatedExpensesByYearMonthMain[selectedIndex].allMonthExpenses.map((singleMonthExpenses) => {
+              // console.log("se", selectedIndex);
+              return (
+                <SwiperSlide 
                 key={singleMonthExpenses.month}
                 className="swiper-slide-everymonthexpenses" 
               >
@@ -163,6 +183,8 @@ function EveryMonthsExpenses() {
                   heading={singleMonthExpenses.month}
                 />
               </SwiperSlide>
+              );
+            }
             )}
 
 

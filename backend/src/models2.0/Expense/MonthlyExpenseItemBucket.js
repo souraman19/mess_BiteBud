@@ -34,8 +34,15 @@ const singleItemSchema = new mongoose.Schema({
         required: true,
     },
     buyDate:{
-        type: Date,
+        type: String,
         required: true
+    },
+    buyTime: {
+        type: String,
+    },
+    entryDateTime: {
+        type: Date,
+        required: true,
     },
     rating:{
         type: Number,

@@ -14,17 +14,17 @@ import {
   DELETE_EXPENSE,
 } from "./../../utils/ApiRoutes.js";
 
-const currentFullDate = `${new Date().getFullYear()}-${
-  new Date().getMonth() + 1
-}-${new Date().getDay()}`;
 
 const getFullDate = (date) => {
-  return `${new Date(date).getFullYear()}-${
-  new Date().getMonth(date) + 1
-}-${new Date().getDay(date)}`
+  const myDate = `${new Date(date).getFullYear()}-${
+      String(new Date(date).getMonth() + 1).padStart(2, "0")
+    }-${
+      String(new Date(date).getDate()).padStart(2, "0")
+    }`;
+    return myDate;
 }
 
-const formatBuyTime = (buyDate) => {
+const formatDateToTime = (buyDate) => {
   const date = new Date(buyDate);
   const options = {
     timeZone: "Asia/Kolkata",
@@ -118,23 +118,28 @@ function Dailyexpense() {
             const billId = single_Expense_list.billId;
             const itemId = singleItemExpense.itemId;
             const buyDate = singleItemExpense.buyDate;
+            const buyTime = singleItemExpense.buyTime;
+            const entryDateTime = singleItemExpense.entryDateTime;
             // setTodaysExpenses([...todaysExpenses, {
             //   itemName: itemName,
             //   quantity: quantity,
             //   totalCost: totalCost,
             //   vendor: vendor
             // }])                   //cant do it directly as setTodaysExpenses asynchronous type 
-            if(getFullDate(singleItemExpense.buyDate) === getFullDate(new Date()))
-            updatedExpenses.push({
-              itemName: itemName,
-              quantity: quantity,
-              totalCost: totalCost,
-              vendor: vendor,
-              bucketId: bucketId,
-              billId: billId,
-              itemId: itemId,
-              buyTime: formatBuyTime(buyDate)
-            });
+            if(getFullDate(singleItemExpense.buyDate) === getFullDate(new Date())){
+              updatedExpenses.push({
+                itemName: itemName,
+                quantity: quantity,
+                totalCost: totalCost,
+                vendor: vendor,
+                bucketId: bucketId,
+                billId: billId,
+                itemId: itemId,
+                buyDate: buyDate,
+                buyTime: buyTime,
+                entryDateTime: entryDateTime,
+              });
+            }
           })
         })
       })
@@ -227,7 +232,8 @@ function Dailyexpense() {
               <th>Quantity</th>
               <th>Total Cost(₹)</th>
               <th>Vendor</th>
-              <th>BuyTime</th>
+              <th>Buy Date - Time</th>
+              <th>Entry Date - Time</th>
               {identity === "Student" && <th className="daily_expense_delete_edit_expense_block">Action</th>}
             </tr>
           </thead>
@@ -239,7 +245,8 @@ function Dailyexpense() {
                   <td>{singleItemExpense.quantity.amount} {singleItemExpense.quantity.itemUnit}</td>
                   <td>{singleItemExpense.totalCost}</td>
                   <td>{singleItemExpense.vendor}</td>
-                  <td>{singleItemExpense.buyTime}</td>
+                  <td>{singleItemExpense.buyDate} - {singleItemExpense.buyTime}</td>
+                  <td>{getFullDate(singleItemExpense.entryDateTime)} - {formatDateToTime(singleItemExpense.entryDateTime)}</td>
                   <td className="daily_expense_delete_edit_expense_block">
                       <DeleteIcon 
                         style={{cursor: "pointer"}} 

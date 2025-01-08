@@ -39,7 +39,7 @@ function EveryMonthsExpenses() {
         params: { hostel },
         withCredentials: true,
       });
-      console.log("rep", response.data);
+      // console.log("rep", response.data);
       const allGotExpenses = response.data.expenses;
       setAllExpenses(allGotExpenses);
       // const years = [];
@@ -102,7 +102,7 @@ function EveryMonthsExpenses() {
       })
       // years.sort((a, b) => a - b);
       formatedExpensesByYear_Month.sort((a, b) => b.year - a.year);
-      console.log("formaetd expenses", formatedExpensesByYear_Month);
+      // console.log("formaetd expenses", formatedExpensesByYear_Month);
       // console.log("years", formatedExpensesByYear_Month);
 
       setSelectedYear(formatedExpensesByYear_Month[0].year);
@@ -126,7 +126,7 @@ function EveryMonthsExpenses() {
   // }, [formatedExpensesByYearMonthMain])
 
   useEffect(() => {
-    console.log("index", selectedIndex);
+    // console.log("index", selectedIndex);
   }, [])
 
   const handleYearChange = (event) => {

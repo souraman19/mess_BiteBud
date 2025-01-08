@@ -37,6 +37,23 @@ const formatDateToTime = (buyDate) => {
   return formattedDate;
 }
 
+function convertTo12HourFormat(time24) {
+  // return "21";
+  // Split the input into hour and minute parts
+  const [hour, minute] = time24.split(':').map(Number);
+  
+  // Determine AM/PM
+  const period = hour >= 12 ? 'pm' : 'am';
+  
+  // Convert hour to 12-hour format
+  const hour12 = hour % 12 || 12;  // if hour is 0, set it to 12 (midnight)
+  
+  // Format hour and minute with leading zeros for single digits
+  const formattedTime = `${String(hour12).padStart(2, '0')}:${String(minute).padStart(2, '0')}${period}`;
+  
+  return formattedTime;
+}
+
 function Dailyexpense() {
   const [{ userInfo, newUser }, dispatch] = useStateProvider();
   const identity = userInfo.userType;
@@ -224,7 +241,7 @@ function Dailyexpense() {
   return (
     <div className="daily_expense_outermost_div">
       <div className="todays_expense_section">
-        <h2>Todays expense</h2>
+        <h2>Todays expenses</h2>
         <table>
           <thead>
             <tr>
@@ -232,8 +249,8 @@ function Dailyexpense() {
               <th>Quantity</th>
               <th>Total Cost(₹)</th>
               <th>Vendor</th>
-              <th>Buy Date - Time</th>
-              <th>Entry Date - Time</th>
+              <th>Buy Time</th>
+              <th>Entry Time</th>
               {identity === "Student" && <th className="daily_expense_delete_edit_expense_block">Action</th>}
             </tr>
           </thead>
@@ -245,8 +262,8 @@ function Dailyexpense() {
                   <td>{singleItemExpense.quantity.amount} {singleItemExpense.quantity.itemUnit}</td>
                   <td>{singleItemExpense.totalCost}</td>
                   <td>{singleItemExpense.vendor}</td>
-                  <td>{singleItemExpense.buyDate} - {singleItemExpense.buyTime}</td>
-                  <td>{getFullDate(singleItemExpense.entryDateTime)} - {formatDateToTime(singleItemExpense.entryDateTime)}</td>
+                  <td>{convertTo12HourFormat(singleItemExpense.buyTime)}</td>
+                  <td>{formatDateToTime(singleItemExpense.entryDateTime)}</td>
                   <td className="daily_expense_delete_edit_expense_block">
                       <DeleteIcon 
                         style={{cursor: "pointer"}} 
@@ -260,7 +277,6 @@ function Dailyexpense() {
         </table>
       </div>
 
-      <div className="all_months_this_year_section"></div>
     </div>
   );
 }

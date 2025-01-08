@@ -14,8 +14,8 @@ import "./../../styles/AddNewExpensePage.css";
 
 const getFullDate = (date) => {
   return `${new Date(date).getFullYear()}-${
-    new Date().getMonth(date) + 1
-  }-${new Date().getDay(date)}`;
+    new Date(date).getMonth() + 1
+  }-${new Date(date).getDate() + 1}`;
 };
 
 function AddNewExpense() {
@@ -31,10 +31,25 @@ function AddNewExpense() {
   const [itemUnit, setItemUnit] = useState("");
   const [vendorName, setVendorName] = useState("");
   const [value, setValue] = useState(2.5); //for rating pass to the child component
+  const [buyDate, setBuyDate] = useState("");
+  const [buyTime, setBuyTime] = useState("NULL");
+
   const [allWantToAddItems, setAllWantToAddItems] = useState([]);
 
   const [allItems, setAllItems] = useState([]);
   const [allVendors, setAllVendors] = useState([]);
+
+  const handleBuyDateChange = (e) => {
+    if(allWantToAddItems.length > 0) {
+      alert("You can't enter items bought at different date, submit one day by day ...");
+      return;
+    }
+    setBuyDate(e.target.value);
+    // alert(typeof buyDate);
+  }
+  const handleBuyTimeChange = (e) =>{
+    setBuyTime(e.target.value);
+  }
 
   const handleSelectionChange = async (e) => {
     const index = e.target.value;
@@ -82,6 +97,7 @@ function AddNewExpense() {
 
   const handleAddExpense = (e) => {
     e.preventDefault();
+    // alert(buyDate);
     setAllWantToAddItems([
       ...allWantToAddItems,
       {
@@ -92,7 +108,9 @@ function AddNewExpense() {
           itemUnit: itemUnit,
         },
         totalItemCost: totalItemCost,
-        buyDate: new Date(),
+        buyDate: buyDate,
+        buyTime: buyTime,
+        entryDateTime: new Date(),
         rating: value,
       },
     ]);
@@ -103,20 +121,26 @@ function AddNewExpense() {
     setTotalItemCost("");
     setItemUnit("");
     setValue(2.5);
+    setBuyTime("NULL");
   };
 
   async function handleExpenseSubmit(e) {
     e.preventDefault();
     try {
       // console.log("Sending", allWantToAddItems);
+      const month = buyDate.split('-')[1];
+      const year = buyDate.split('-')[0];
+      const day = buyDate.split('-')[2];
+      // alert(month);
+      // alert(year);
       await axios.post(
         ADD_EXPENSE,
         {
           allItemExpenses: allWantToAddItems,
           hostel: hostel,
-          year: new Date().getFullYear(),
-          month: new Date().getMonth() + 1,
-          day: new Date().getDay(),
+          year: year,
+          month: month,
+          day: day,
           hostel: hostel,
           vendorName: vendorName,
         },
@@ -124,6 +148,8 @@ function AddNewExpense() {
       );
       console.log("Expense added succesfully");
       setAllWantToAddItems([]);
+      setBuyDate("");
+      setVendorName("");
     } catch (err) {
       console.error("Error in adding expense", err);
     }
@@ -245,6 +271,14 @@ function AddNewExpense() {
             <div className="form-group">
               <label htmlFor="total_item_cost">Rating:</label>
               <HoverRating value={value} setValue={setValue} />
+            </div>
+            <div className="form-group">
+              <label htmlFor="set_buyDate">Buy Date: </label>
+              <input required type="date" id="set_buyDate" value={buyDate} onChange={handleBuyDateChange}/>
+            </div>
+            <div className="form-group">
+              <label htmlFor="set_buyTime">Buy Time: </label>
+              <input type="time" id="set_buyTime" value={buyTime} onChange={handleBuyTimeChange} />
             </div>
             <button type="submit">Add Item to Expense List</button>
           </form>

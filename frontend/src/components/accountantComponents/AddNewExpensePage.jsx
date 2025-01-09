@@ -3,6 +3,7 @@ import HoverRating from "../commonComponents/HoverRating";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useStateProvider } from "../../context/StateContext";
+import Histogram from "../commonComponents/Histogram";
 import {
   GET_GROCERY_ITEMS,
   GET_VENDORS,
@@ -17,6 +18,7 @@ const getFullDate = (date) => {
     new Date(date).getMonth() + 1
   }-${new Date(date).getDate() + 1}`;
 };
+
 
 function AddNewExpense() {
   const [{ userInfo, newUser }, dispatch] = useStateProvider();

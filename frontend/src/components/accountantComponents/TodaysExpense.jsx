@@ -38,6 +38,7 @@ const formatDateToTime = (buyDate) => {
 }
 
 function convertTo12HourFormat(time24) {
+  if(time24 === "NULL") return "-";
   // return "21";
   // Split the input into hour and minute parts
   const [hour, minute] = time24.split(':').map(Number);

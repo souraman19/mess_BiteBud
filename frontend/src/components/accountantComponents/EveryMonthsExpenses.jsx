@@ -20,6 +20,7 @@ import { FreeMode, Pagination, Navigation, Autoplay } from "swiper/modules";
 import SwiperCore from "swiper";
 import Histogram from "./../commonComponents/Histogram.jsx";
 
+
 const months = [
   "Jan",
   "Feb",
@@ -57,12 +58,21 @@ function EveryMonthsExpenses() {
 
   async function fetchAllExpenses() {
     let tempAllTotalExpenses = [];
-    for (let i = 0; i < 12; i++) {
+    for (let i = 11; i >= 0; i--) {
       let getMonthIndex_Expense = currentMonthIndex - i;
+      let everyMonthExpense_yearIndex = 0;  //if current year then let it be 0
       if (getMonthIndex_Expense < 0) {
         getMonthIndex_Expense += 12;
+        everyMonthExpense_yearIndex = -1;  //if prev year then mark it to add it to year current
       }
+      let everyMonthExpense_month_string = (getMonthIndex_Expense + 1).toString();
+      if(everyMonthExpense_month_string.length < 2){
+        everyMonthExpense_month_string = '0' + everyMonthExpense_month_string; 
+      }
+      const everyMonthExpense_year = new Date().getFullYear() + everyMonthExpense_yearIndex;
+      const everyMonthExpense_year_string = everyMonthExpense_year.toString();
       tempAllTotalExpenses.push({
+        yearMonth: everyMonthExpense_year_string +'-'+ everyMonthExpense_month_string,
         month: months[getMonthIndex_Expense],
         expense: 0,
       });
@@ -122,10 +132,12 @@ function EveryMonthsExpenses() {
             }
 
             const refInAllMonthExpensesArray = tempAllTotalExpenses.find(
-              (item) => item.month === month
+              (item) => item.yearMonth === yearMonth
             );
-            refInAllMonthExpensesArray.expense +=
+            if(refInAllMonthExpensesArray) {
+              refInAllMonthExpensesArray.expense +=
               singleItemExpense.totalItemCost;
+            }
 
             categoryExisting.value += singleItemExpense.totalItemCost;
           });
@@ -151,6 +163,7 @@ function EveryMonthsExpenses() {
       setFormattedExpensesByYearMonthMain(formatedExpensesByYear_Month);
 
       setAllTotalExpensesInMonth(tempAllTotalExpenses);
+      console.log("temp values", tempAllTotalExpenses);
     } catch (err) {
       console.error("Error in fetching the expenses", err);
     }
@@ -252,24 +265,24 @@ function EveryMonthsExpenses() {
                     ...allTotalExpensesInMonth.map((item) => item.expense)
                   );
                   const barHeight = (monthData.expense / maxExpense) * 100;
-
+                  // console.log(monthData.month, " ", `${100-barHeight}%`);
                   return (
                     <div key={monthData.month} className="bar-container">
                       <div className="bar">
                         <div
                           className="bar-empty-part"
-                          style={{ height: "40%" }}
+                          style={{ height: `${100-barHeight}%` }}
                         >
                           
                         </div>
                         <div
                           className="bar-fill-part"
-                          style={{ height: "60%" }}
+                          style={{ height: `${barHeight}%` }}
                         >
                           
                         </div>
                       </div>
-                      <span className="month-label">{monthData.month}</span>
+                      <span className="month-label">{monthData.month}' {monthData.yearMonth.substring(2, 4)}</span>
                     </div>
                   );
                 })}

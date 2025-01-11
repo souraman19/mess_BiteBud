@@ -240,9 +240,9 @@ function Dailyexpense() {
 
   // console.log(currentFullDate, "kb");
   return (
-    <div className="daily_expense_outermost_div">
+    <div className="daily_expense_outermost_div" >
       <div className="todays_expense_section">
-        <h2>Todays expenses</h2>
+        <div className="anydayExpense_heading">Todays expenses</div>
         <table>
           <thead>
             <tr>

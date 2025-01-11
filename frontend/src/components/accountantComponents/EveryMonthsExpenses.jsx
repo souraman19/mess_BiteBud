@@ -122,6 +122,7 @@ function EveryMonthsExpenses() {
             let categoryExisting = monthExisting.expensesByCategory.find(
               (item) => item.category === itemCategory
             );
+            // console.log("found cat", categoryExisting);
 
             if (!categoryExisting) {
               categoryExisting = {
@@ -197,28 +198,34 @@ function EveryMonthsExpenses() {
 
   return (
     <>
-      <div>
+      <div className="everymonths-expense-outermost-div">
         <div>
           {formatedExpensesByYearMonthMain.length > 0 && (
             <div>
-              <h1>All Expenses</h1>
-              <label htmlFor="year-select">
-                See Yearwise Expenses of all months:
-              </label>
-              <select
-                id="year-select"
-                value={selectedYear}
-                onChange={handleYearChange}
-              >
-                {formatedExpensesByYearMonthMain.map((singleYearExpenses) => (
-                  <option
-                    key={singleYearExpenses.year}
-                    value={singleYearExpenses.year}
-                  >
-                    {singleYearExpenses.year}
-                  </option>
-                ))}
-              </select>
+              <h1 className="anydayExpense_heading">Expenses by Month and Year
+              </h1>
+<div className="year-selection-container">
+  {/* <label htmlFor="year-select" className="year-selection-label">
+    See Yearwise Expenses of all months:
+  </label> */}
+  <select
+    id="year-select"
+    className="year-selection-dropdown"
+    value={selectedYear}
+    onChange={handleYearChange}
+  >
+    {formatedExpensesByYearMonthMain.map((singleYearExpenses) => (
+      <option
+        key={singleYearExpenses.year}
+        value={singleYearExpenses.year}
+        className="year-option"
+      >
+        {singleYearExpenses.year}
+      </option>
+    ))}
+  </select>
+</div>
+
               <Swiper
                 slidesPerView={2}
                 spaceBetween={0}
@@ -255,10 +262,10 @@ function EveryMonthsExpenses() {
           )}
         </div>
 
-        <div>
+        <div className="bargraph-outermost-container-expense">
           {allTotalExpensesInMonth.length > 0 && (
             <div>
-              <h2>Expenses by Month</h2>
+              <h2 className="anydayExpense_heading">Last 12 Months Spending</h2>
               <div className="bar-graph-container">
                 {allTotalExpensesInMonth.map((monthData) => {
                   const maxExpense = Math.max(

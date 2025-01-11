@@ -14,14 +14,45 @@ import {
   DELETE_EXPENSE,
 } from "./../../utils/ApiRoutes.js";
 
-const currentFullDate = `${new Date().getFullYear()}-${
-  new Date().getMonth() + 1
-}-${new Date().getDay()}`;
 
 const getFullDate = (date) => {
-  return `${new Date(date).getFullYear()}-${
-  new Date().getMonth(date) + 1
-}-${new Date().getDay(date)}`
+  const myDate = `${new Date(date).getFullYear()}-${
+      String(new Date(date).getMonth() + 1).padStart(2, "0")
+    }-${
+      String(new Date(date).getDate()).padStart(2, "0")
+    }`;
+    return myDate;
+}
+
+const formatDateToTime = (buyDate) => {
+  const date = new Date(buyDate);
+  const options = {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true, // Enable AM/PM format
+  };
+  
+  const formattedDate = date.toLocaleString("en-IN", options);
+  return formattedDate;
+}
+
+function convertTo12HourFormat(time24) {
+  if(time24 === "NULL") return "-";
+  // return "21";
+  // Split the input into hour and minute parts
+  const [hour, minute] = time24.split(':').map(Number);
+  
+  // Determine AM/PM
+  const period = hour >= 12 ? 'pm' : 'am';
+  
+  // Convert hour to 12-hour format
+  const hour12 = hour % 12 || 12;  // if hour is 0, set it to 12 (midnight)
+  
+  // Format hour and minute with leading zeros for single digits
+  const formattedTime = `${String(hour12).padStart(2, '0')}:${String(minute).padStart(2, '0')}${period}`;
+  
+  return formattedTime;
 }
 
 function Dailyexpense() {
@@ -104,22 +135,29 @@ function Dailyexpense() {
             const bucketId = single_VendorItemMonth.bucketId;
             const billId = single_Expense_list.billId;
             const itemId = singleItemExpense.itemId;
+            const buyDate = singleItemExpense.buyDate;
+            const buyTime = singleItemExpense.buyTime;
+            const entryDateTime = singleItemExpense.entryDateTime;
             // setTodaysExpenses([...todaysExpenses, {
             //   itemName: itemName,
             //   quantity: quantity,
             //   totalCost: totalCost,
             //   vendor: vendor
             // }])                   //cant do it directly as setTodaysExpenses asynchronous type 
-            if(getFullDate(singleItemExpense.buyDate) === getFullDate(new Date()))
-            updatedExpenses.push({
-              itemName: itemName,
-              quantity: quantity,
-              totalCost: totalCost,
-              vendor: vendor,
-              bucketId: bucketId,
-              billId: billId,
-              itemId: itemId,
-            });
+            if(getFullDate(singleItemExpense.buyDate) === getFullDate(new Date())){
+              updatedExpenses.push({
+                itemName: itemName,
+                quantity: quantity,
+                totalCost: totalCost,
+                vendor: vendor,
+                bucketId: bucketId,
+                billId: billId,
+                itemId: itemId,
+                buyDate: buyDate,
+                buyTime: buyTime,
+                entryDateTime: entryDateTime,
+              });
+            }
           })
         })
       })
@@ -204,7 +242,7 @@ function Dailyexpense() {
   return (
     <div className="daily_expense_outermost_div">
       <div className="todays_expense_section">
-        <h2>Todays expense</h2>
+        <h2>Todays expenses</h2>
         <table>
           <thead>
             <tr>
@@ -212,6 +250,8 @@ function Dailyexpense() {
               <th>Quantity</th>
               <th>Total Cost(₹)</th>
               <th>Vendor</th>
+              <th>Buy Time</th>
+              <th>Entry Time</th>
               {identity === "Student" && <th className="daily_expense_delete_edit_expense_block">Action</th>}
             </tr>
           </thead>
@@ -223,6 +263,8 @@ function Dailyexpense() {
                   <td>{singleItemExpense.quantity.amount} {singleItemExpense.quantity.itemUnit}</td>
                   <td>{singleItemExpense.totalCost}</td>
                   <td>{singleItemExpense.vendor}</td>
+                  <td>{convertTo12HourFormat(singleItemExpense.buyTime)}</td>
+                  <td>{formatDateToTime(singleItemExpense.entryDateTime)}</td>
                   <td className="daily_expense_delete_edit_expense_block">
                       <DeleteIcon 
                         style={{cursor: "pointer"}} 
@@ -236,7 +278,6 @@ function Dailyexpense() {
         </table>
       </div>
 
-      <div className="all_months_this_year_section"></div>
     </div>
   );
 }

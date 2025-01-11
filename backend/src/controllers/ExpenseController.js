@@ -3,6 +3,7 @@ import Vendor from "./../models2.0/person/Vendor.js";
 import GroceryItem from "../models2.0/Expense/GroceryItem.js";
 
 const addExpense = async (req, res) => {
+  // console.log("h");
   try {
     const {
         allItemExpenses,
@@ -12,17 +13,17 @@ const addExpense = async (req, res) => {
         day,
         vendorName
     } = req.body;
-    let monthInString = month.toString();
-    let yearInString = year.toString();
+    // let monthInString = month.toString();
+    // let yearInString = year.toString();
 
     // console.log(allItemExpenses);
     // return;
 
     
-    if(monthInString.length < 2){ //if get like '1' then covert to '01'
-      monthInString =  '0' + monthInString;
-    }
-    const yearMonth = yearInString + '-' +monthInString;
+    // if(monthInString.length < 2){ //if get like '1' then covert to '01'
+    //   monthInString =  '0' + monthInString;
+    // }
+    const yearMonth = year + '-' +month;
     // console.log(req.body);
     const foundVendor = await Vendor.findOne({
       hostel: hostel,
@@ -105,7 +106,7 @@ const getExpenses = async (req, res) => {
 
 const deleteExpense = async(req, res) => {
   try{
-    console.log(req.params);
+    // console.log(req.params);
     const bucketId = req.params.bucketId;
     const billId = req.params.billId;
     const itemId = req.params.itemId;

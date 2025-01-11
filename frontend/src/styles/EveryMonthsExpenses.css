@@ -20,9 +20,10 @@
   justify-content: space-around;
   align-items: flex-end;
   width: 100%;
-  height: 300px;  /* Adjust the height of the graph */
+  height: 400px;  /* Adjust the height of the graph */
   margin-top: 20px;
-  padding: 10px 40px;
+  padding: 50px 40px;
+  padding-bottom: 10px;
   box-sizing: border-box;
   border: 1px solid #ddd; /* Optional: For better visibility */
   background-color: #f7f7f7; /* Light background to contrast with bars */
@@ -49,11 +50,11 @@
 
 /* Style for the bar itself */
 .bar-fill-part {
-  width: 100%;
+  width: 95%;
   /* border: 2px solid green; */
   transition: height 0.3s ease-in-out;
   display: block;
-  background-color: red;
+  background-color: rgb(72, 111, 253);
 }
 .bar-empty-part {
   /* width: 100%;  */
@@ -67,4 +68,70 @@
   font-size: 12px;
   color: #333;
   white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Style for the heading */
+.expenses-heading {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px; /* Spacing below the heading */
+  color: #333;
+  border: 2px solid red;
+}
+
+/* Style for the year selection container */
+.year-selection-container {
+  margin: 20px auto; /* Center the container */
+  padding: 15px 20px; /* Inner padding */
+  max-width: 600px; /* Limit the width */
+  background-color: #f9f9f9; /* Light background color */
+  border: 1px solid #ddd; /* Optional border for visibility */
+  border-radius: 10px; /* Rounded edges */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Style for the label */
+.year-selection-label {
+  font-size: 16px;
+  color: #555; /* Slightly darker gray for better contrast */
+  margin-bottom: 5px; /* Space between label and dropdown */
+}
+
+/* Style for the dropdown */
+.year-selection-dropdown {
+  padding: 10px 12px; /* Inner padding for better click area */
+  font-size: 14px;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+/* Dropdown hover and focus effect */
+.year-selection-dropdown:hover,
+.year-selection-dropdown:focus {
+  border-color: #888; /* Change border color on hover/focus */
+  box-shadow: 0 0 5px rgba(136, 136, 136, 0.5); /* Add subtle glow */
+}
+
+/* Style for each dropdown option */
+.year-option {
+  font-size: 14px;
+  color: #333;
+}
+
+
+.bargraph-outermost-container-expense{
+  margin-top: 5rem;
+}
+
+.everymonths-expense-outermost-div{
+  margin-bottom: 9rem;
 }

@@ -1,0 +1,162 @@
+/* Container Styling */
+.todays_expense_section {
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    max-width: 95%;
+    overflow-x: auto;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .todays_expense_section:hover {
+    transform: scale(1.03);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Heading Style */
+  .anydayExpense_heading {
+    text-align: center;
+        font-size: 1.9rem; 
+    color: #495057;
+    margin-bottom: 35px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+  }
+  
+  /* Input Field */
+  input[type="date"] {
+    display: block;
+    margin: 0 auto 30px;
+    padding: 18px 22px; /* Increased padding */
+    font-size: 1.4rem; /* Increased font size */
+    font-family: 'Poppins', sans-serif;
+    border: 2px solid #ced4da;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  input[type="date"]:hover {
+    border-color: #74b9ff;
+  }
+  
+  input[type="date"]:focus {
+    border-color: #0984e3;
+    box-shadow: 0 0 12px rgba(9, 132, 227, 0.5);
+  }
+  
+  /* Table Styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  table th, table td {
+    padding: 20px 15px; /* Increased padding */
+    text-align: center;
+    font-size: 1.3rem; /* Increased font size */
+    border-bottom: 1px solid #dee2e6;
+    color: #495057;
+  }
+  
+  table th {
+    background-color: #2d98da;
+    color: #575656;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+  table tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+  
+  table tr:hover {
+    background-color: #dff9fb;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  table td {
+    word-wrap: break-word;
+  }
+  
+  /* Button Styling (if used for actions) */
+  button {
+    padding: 12px 18px; /* Increased padding */
+    font-size: 1.1rem; /* Slightly increased font size */
+    border-radius: 6px;
+    border: none;
+    background-color: #74b9ff;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0984e3;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .todays_expense_section {
+      padding: 20px;
+    }
+  
+    table th, table td {
+      font-size: 1.2rem; /* Adjusted for readability */
+      padding: 16px;
+    }
+  
+    .anydayExpense_heading {
+      font-size: 1.5rem; /* Adjusted heading size */
+    }
+  
+    input[type="date"] {
+      font-size: 1.3rem; /* Adjusted input field size */
+      padding: 15px 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .anydayExpense_heading {
+        font-size: 1.5rem; /* Adjusted heading size */
+    }
+  
+    table th, table td {
+      font-size: 1.1rem; /* Adjusted for smaller screens */
+      padding: 14px;
+    }
+  
+    input[type="date"] {
+      font-size: 1.2rem; /* Adjusted input field size */
+      padding: 12px 18px;
+    }
+  }
+  
+
+  .empty-expense-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    text-align: center;
+  }
+  
+  .no-expense-message {
+    font-size: 18px;
+    color: #555;
+    margin-top: 20px;
+  }
+  

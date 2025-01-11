@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import { GET_EXPENSES } from "./../../utils/ApiRoutes.js";
 import axios, { all } from "axios";
 import { useStateProvider } from "../../context/StateContext";
+import "./../../styles/AnyDayExpenseSegment.css";
+// import Lottie from "react-lottie";
+// import emptyAnimation from "./../../animations/emptyCart.json"; 
 
 const getFullDate = (date) => {
     const myDate = `${new Date(date).getFullYear()}-${
@@ -25,6 +28,16 @@ const getFullDate = (date) => {
     const formattedDate = date.toLocaleString("en-IN", options);
     return formattedDate;
   }
+
+  // Lottie animation options
+  // const lottieOptions = {
+  //   loop: true,
+  //   autoplay: true,
+  //   animationData: emptyAnimation,
+  //   rendererSettings: {
+  //     preserveAspectRatio: "xMidYMid slice",
+  //   },
+  // };
 
   const formatBuyTime = (buyDate) => {
     const date = new Date(buyDate);
@@ -110,8 +123,8 @@ useEffect(()=> {
 
 
     return (
-        <div >
-        <h2>Enter the date to see expenses of the day</h2>
+        <div>
+          <div className="anydayExpense_heading">Daily Expense Tracker</div>
         <input
           type="date"
           value={selectedDate}
@@ -148,6 +161,14 @@ useEffect(()=> {
         </div>
         
         </div>}
+        {/* {selectedDate && selectedDayExpenses.length === 0 && (
+        <div className="empty-expense-section">
+          <Lottie options={lottieOptions} height={300} width={300} />
+          <p className="no-expense-message">
+            No expenses found for the selected date. Start tracking today!
+          </p>
+        </div>
+      )} */}
       </div>
     );
 }

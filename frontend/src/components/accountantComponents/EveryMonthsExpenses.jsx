@@ -120,9 +120,8 @@ function EveryMonthsExpenses() {
             const itemCategory = singleItemExpense.itemCategory;
 
             let categoryExisting = monthExisting.expensesByCategory.find(
-              (item) => item.category === itemCategory
+              (item) => item.name === itemCategory
             );
-            // console.log("found cat", categoryExisting);
 
             if (!categoryExisting) {
               categoryExisting = {

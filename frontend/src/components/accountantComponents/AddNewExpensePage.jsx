@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useStateProvider } from "../../context/StateContext";
 import Histogram from "../commonComponents/Histogram";
+import Navbar from "./../../components/commonComponents/Navbar.jsx"
 import {
   GET_GROCERY_ITEMS,
   GET_VENDORS,
@@ -159,6 +160,7 @@ function AddNewExpense() {
 
   return (
     <>
+      <Navbar />
       {identity === "Student" && (
         <div className="add_new_expense_section">
           <h2>Add new expense</h2>

@@ -14,15 +14,12 @@ import {
   DELETE_EXPENSE,
 } from "./../../utils/ApiRoutes.js";
 
-
 const getFullDate = (date) => {
-  const myDate = `${new Date(date).getFullYear()}-${
-      String(new Date(date).getMonth() + 1).padStart(2, "0")
-    }-${
-      String(new Date(date).getDate()).padStart(2, "0")
-    }`;
-    return myDate;
-}
+  const myDate = `${new Date(date).getFullYear()}-${String(
+    new Date(date).getMonth() + 1
+  ).padStart(2, "0")}-${String(new Date(date).getDate()).padStart(2, "0")}`;
+  return myDate;
+};
 
 const formatDateToTime = (buyDate) => {
   const date = new Date(buyDate);
@@ -32,26 +29,28 @@ const formatDateToTime = (buyDate) => {
     minute: "2-digit",
     hour12: true, // Enable AM/PM format
   };
-  
+
   const formattedDate = date.toLocaleString("en-IN", options);
   return formattedDate;
-}
+};
 
 function convertTo12HourFormat(time24) {
-  if(time24 === "NULL") return "-";
+  if (time24 === "NULL") return "-";
   // return "21";
   // Split the input into hour and minute parts
-  const [hour, minute] = time24.split(':').map(Number);
-  
+  const [hour, minute] = time24.split(":").map(Number);
+
   // Determine AM/PM
-  const period = hour >= 12 ? 'pm' : 'am';
-  
+  const period = hour >= 12 ? "pm" : "am";
+
   // Convert hour to 12-hour format
-  const hour12 = hour % 12 || 12;  // if hour is 0, set it to 12 (midnight)
-  
+  const hour12 = hour % 12 || 12; // if hour is 0, set it to 12 (midnight)
+
   // Format hour and minute with leading zeros for single digits
-  const formattedTime = `${String(hour12).padStart(2, '0')}:${String(minute).padStart(2, '0')}${period}`;
-  
+  const formattedTime = `${String(hour12).padStart(2, "0")}:${String(
+    minute
+  ).padStart(2, "0")}${period}`;
+
   return formattedTime;
 }
 
@@ -75,18 +74,18 @@ function Dailyexpense() {
 
   const [todaysExpenses, setTodaysExpenses] = useState([]);
 
-  const handleSelectionChange = async(e) => {
+  const handleSelectionChange = async (e) => {
     const index = e.target.value;
     setSelectedIndex(index);
 
-    if(index !== ""){
+    if (index !== "") {
       setItemName(allItems[index].name);
       setItemCategory(allItems[index].category);
     } else {
       setItemName("");
       setItemCategory("");
     }
-  }
+  };
 
   const fetchItems = async () => {
     try {
@@ -118,16 +117,18 @@ function Dailyexpense() {
     fetchItems();
     fetchVendors();
   }, []);
-  
-  
+
   async function fetchTodaysExpenses() {
-    try{
-      const response = await axios.get(GET_EXPENSES, {params:{hostel}, withCredentials: true});
+    try {
+      const response = await axios.get(GET_EXPENSES, {
+        params: { hostel },
+        withCredentials: true,
+      });
       const allExpenses = response.data.expenses;
-      const updatedExpenses = []; 
-      allExpenses.forEach((single_VendorItemMonth)=> {
+      const updatedExpenses = [];
+      allExpenses.forEach((single_VendorItemMonth) => {
         single_VendorItemMonth.expenses.forEach((single_Expense_list) => {
-          single_Expense_list.allItems.forEach((singleItemExpense)=> {
+          single_Expense_list.allItems.forEach((singleItemExpense) => {
             const itemName = singleItemExpense.itemName;
             const quantity = singleItemExpense.itemQuantity;
             const totalCost = singleItemExpense.totalItemCost;
@@ -143,8 +144,10 @@ function Dailyexpense() {
             //   quantity: quantity,
             //   totalCost: totalCost,
             //   vendor: vendor
-            // }])                   //cant do it directly as setTodaysExpenses asynchronous type 
-            if(getFullDate(singleItemExpense.buyDate) === getFullDate(new Date())){
+            // }])                   //cant do it directly as setTodaysExpenses asynchronous type
+            if (
+              getFullDate(singleItemExpense.buyDate) === getFullDate(new Date())
+            ) {
               updatedExpenses.push({
                 itemName: itemName,
                 quantity: quantity,
@@ -158,25 +161,23 @@ function Dailyexpense() {
                 entryDateTime: entryDateTime,
               });
             }
-          })
-        })
-      })
+          });
+        });
+      });
 
       setTodaysExpenses(updatedExpenses);
-    }catch(err){
+    } catch (err) {
       console.error("Error in fetching the expenses", err);
     }
   }
 
+  useEffect(() => {
+    fetchTodaysExpenses();
+  }, []);
 
-
-    useEffect(() => {
-      fetchTodaysExpenses();
-    }, []);
-
-    // useEffect(() => {
-    //   console.log(todaysExpenses);
-    // }, [todaysExpenses]);
+  // useEffect(() => {
+  //   console.log(todaysExpenses);
+  // }, [todaysExpenses]);
 
   const handleAddExpense = (e) => {
     e.preventDefault();
@@ -213,7 +214,7 @@ function Dailyexpense() {
           allItemExpenses: allWantToAddItems,
           hostel: hostel,
           year: new Date().getFullYear(),
-          month: new Date().getMonth()+1,
+          month: new Date().getMonth() + 1,
           day: new Date().getDay(),
           hostel: hostel,
           vendorName: vendorName,
@@ -228,56 +229,90 @@ function Dailyexpense() {
     }
   }
 
-  const handleItemDelete = async(bucketId, billId, itemId) => {
-    try{
-      await axios.delete(`${DELETE_EXPENSE}/${bucketId}/${billId}/${itemId}`, {withCredentials: true});
+  const handleItemDelete = async (bucketId, billId, itemId) => {
+    try {
+      await axios.delete(`${DELETE_EXPENSE}/${bucketId}/${billId}/${itemId}`, {
+        withCredentials: true,
+      });
       console.log("Expense deleted successfully");
       fetchTodaysExpenses();
-    }catch(err){
+    } catch (err) {
       console.log("Error in deleteing expense item", err);
     }
-  }
+  };
 
   // console.log(currentFullDate, "kb");
   return (
-    <div className="daily_expense_outermost_div" >
+    <div className="daily_expense_outermost_div">
       <div className="todays_expense_section">
         <div className="anydayExpense_heading">Todays expenses</div>
-        <table>
-          <thead>
-            <tr>
-              <th>Item Name</th>
-              <th>Quantity</th>
-              <th>Total Cost(₹)</th>
-              <th>Vendor</th>
-              <th>Buy Time</th>
-              <th>Entry Time</th>
-              {identity === "Student" && <th className="daily_expense_delete_edit_expense_block">Action</th>}
-            </tr>
-          </thead>
-          <tbody>
-            {todaysExpenses.length > 0 && (
-              todaysExpenses.map((singleItemExpense, index) =>
+        {todaysExpenses.length > 0 && (
+          <table>
+            <thead>
+              <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Total Cost(₹)</th>
+                <th>Vendor</th>
+                <th>Buy Time</th>
+                <th>Entry Time</th>
+                {identity === "Student" && (
+                  <th className="daily_expense_delete_edit_expense_block">
+                    Action
+                  </th>
+                )}
+              </tr>
+            </thead>
+            <tbody>
+              {todaysExpenses.map((singleItemExpense, index) => (
                 <tr>
                   <td>{singleItemExpense.itemName}</td>
-                  <td>{singleItemExpense.quantity.amount} {singleItemExpense.quantity.itemUnit}</td>
+                  <td>
+                    {singleItemExpense.quantity.amount}{" "}
+                    {singleItemExpense.quantity.itemUnit}
+                  </td>
                   <td>{singleItemExpense.totalCost}</td>
                   <td>{singleItemExpense.vendor}</td>
                   <td>{convertTo12HourFormat(singleItemExpense.buyTime)}</td>
                   <td>{formatDateToTime(singleItemExpense.entryDateTime)}</td>
                   <td className="daily_expense_delete_edit_expense_block">
-                      <DeleteIcon 
-                        style={{cursor: "pointer"}} 
-                        onClick = {() => handleItemDelete(singleItemExpense.bucketId, singleItemExpense.billId, singleItemExpense.itemId)}
-                      />
+                    <DeleteIcon
+                      style={{ cursor: "pointer" }}
+                      onClick={() =>
+                        handleItemDelete(
+                          singleItemExpense.bucketId,
+                          singleItemExpense.billId,
+                          singleItemExpense.itemId
+                        )
+                      }
+                    />
                   </td>
                 </tr>
-              )
-            )}
-          </tbody>
-        </table>
-      </div>
+              ))}
+            </tbody>
+          </table>
+        )}
 
+        {todaysExpenses.length === 0 && (
+          <div className="empty-expense-section">
+            <dotlottie-player
+              src="https://lottie.host/a87736bd-3dd2-49b6-b42d-0c054aa806f2/nKcq7pSOeC.lottie"
+              background="transparent"
+              speed="1"
+              style={{
+                width: "800px",
+                height: "300px",
+              }}
+              loop
+              autoplay
+            ></dotlottie-player>
+
+            <p className="no-expense-message">
+              No expenses found for today. Add Now!
+            </p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

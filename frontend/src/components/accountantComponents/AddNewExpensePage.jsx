@@ -159,11 +159,10 @@ function AddNewExpense() {
   }
 
   return (
-    <>
+    <div >
       <Navbar />
-      {identity === "Student" && (
         <div className="add_new_expense_section">
-          <h2>Add new expense</h2>
+          <div className="anydayExpense_heading">Add new expense</div>
           {allWantToAddItems.length > 0 && (
             <form onSubmit={handleExpenseSubmit}>
               <div className="todays_expense_allWantToAddItems">
@@ -287,8 +286,7 @@ function AddNewExpense() {
             <button type="submit">Add Item to Expense List</button>
           </form>
         </div>
-      )}
-    </>
+    </div>
   );
 }
 

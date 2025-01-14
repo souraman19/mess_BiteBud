@@ -1,64 +1,142 @@
+
 .add_new_expense_section {
-    width: 100%;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .add_new_expense_section h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .add_new_expense_section div {
-    margin-bottom: 15px;
-  }
-  
-  .add_new_expense_section label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    display: block;
-  }
-  
-  .add_new_expense_section input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .add_new_expense_section button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .add_new_expense_section button:hover {
-    background-color: #0056b3;
-  }
+  width: 100%;
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 30px;
+  background: linear-gradient(135deg, #f3f4f7, #ffffff);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+}
 
-  .todays_expense_allWantToAddItems{
-    display: flex;
-    flex-direction: column;
-  }
+.add_new_expense_section h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 24px;
+  color: #333;
+}
 
-  .todays_expense_single_item_expense{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
- }
- 
- .todays_expense_single_item_expense>div{
-   /* border: 2px solid red; */
- }
- 
+.add_new_expense_section label {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.add_new_expense_section input,
+.add_new_expense_section select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+}
+
+.add_new_expense_section input:focus,
+.add_new_expense_section select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+.add_new_expense_section button {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 20px;
+}
+
+.add_new_expense_section button:hover {
+  background-color: #0056b3;
+}
+
+.add_new_expense_section button:active {
+  background-color: #004085;
+}
+
+.todays_expense_allWantToAddItems {
+  margin-top: 30px;
+}
+
+.todays_expense_single_item_expense {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.todays_expense_single_item_expense div {
+  font-size: 16px;
+  color: #555;
+}
+
+.todays_expense_single_item_expense div:first-child {
+  font-weight: bold;
+}
+
+.todays_expense_single_item_expense div:nth-child(2),
+.todays_expense_single_item_expense div:nth-child(3) {
+  text-align: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group select,
+.form-group input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.form-group input[type="date"],
+.form-group input[type="time"] {
+  padding: 12px;
+  font-size: 16px;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.form-group button {
+  width: 100%;
+  padding: 14px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 20px;
+}
+
+.form-group button:hover {
+  background-color: #218838;
+}
+
+.form-group button:active {
+  background-color: #1e7e34;
+}

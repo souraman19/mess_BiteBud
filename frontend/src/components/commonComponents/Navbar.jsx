@@ -25,6 +25,11 @@ const goto = [
 ];
 const dropdownOptions = [
   [
+    { label: "Menu Items", path: "/menu-item" },
+    { label: "Full Menu", path: "/full-menu-page" },
+    { label: "Option L", path: "/l" },
+  ],
+  [
     { label: "Option A", path: "/a" },
     { label: "Option B", path: "/b" },
     { label: "Option C", path: "/c" },
@@ -38,11 +43,6 @@ const dropdownOptions = [
     { label: "Option G", path: "/g" },
     { label: "Option H", path: "/h" },
     { label: "Option I", path: "/i" },
-  ],
-  [
-    { label: "Option J", path: "/j" },
-    { label: "Option K", path: "/k" },
-    { label: "Option L", path: "/l" },
   ],
   [
     { label: "See Expenses", path: "/expense-page" },

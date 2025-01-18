@@ -8,7 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 // import { Button, IconButton } from "@mui/material";
-import {GET_MESS_MENU, ADD_MESS_MENU, EDIT_MESS_MENU, DELETE_MESS_MENU} from "./../../utils/ApiRoutes.js";
+import {GET_MESS_MENU, ADD_MESS_MENU, EDIT_MESS_MENU, DELETE_MESS_MENU, GET_MENU_ITEM} from "./../../utils/ApiRoutes.js";
 
 function Patelfullmenu() {
   const [{ userInfo }] = useStateProvider();
@@ -63,6 +63,24 @@ function Patelfullmenu() {
   const [foodName, setFoodName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
+  const [allItems, setAllItems] = useState([]);
+
+
+
+
+  const fetchItems = async () => {
+    try {
+      const response = await axios.get(GET_MENU_ITEM, {
+        params: { hostel: hostel },
+        withCredentials: true,
+      });
+      setAllItems(response.data.items);
+      // console.log("res => ", allItems);
+    } catch (err) {
+      console.log("Error in fetching grocery items", err);
+    }
+  };
+
   const fetchData = async () => {
     const response = await axios.get(GET_MESS_MENU, {params: {hostel}, withCrediantials: true});
     setAllMenus(response.data);
@@ -71,6 +89,7 @@ function Patelfullmenu() {
   };
   useEffect(() => {
     fetchData();
+    fetchItems();
   }, []);
 
   const handleDelete = async (menuId) => {
@@ -519,7 +538,7 @@ function Patelfullmenu() {
           <p>Loading Menu Table ...</p>
         )}
       </div>
-      {userType === "Student" && (
+      {userType === "Student" && allItems.length > 0 &&  (
         <div className="add_menu_div">
           <h2>Add new meal</h2>
           <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -571,14 +590,23 @@ function Patelfullmenu() {
                 required
               />
             </label> */}
-            <input
-              type="text"
-              name="mealName"
-              value={mealName}
-              onChange={(e) => setMealName(e.target.value)}
-              placeholder="Enter meal name"
-              required
-            />
+            <div className="timeSelection_div">
+              <label htmlFor="meal_name">Meal Time</label>
+              <select
+                name="meal_name"
+                id="meal_name"
+                onChange={(e) => setMealName(e.target.value)}
+                value={mealName}
+                required
+              >
+                <option value="" disabled selected hidden>
+                  Select meal
+                </option>
+                {allItems.map((item, index) => 
+                  <option key={index} value={item.title}>{item.title}</option>
+                )}
+              </select>
+            </div>
             <button type="submit">Submit</button>
           </form>
         </div>

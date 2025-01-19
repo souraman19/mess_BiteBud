@@ -29,6 +29,7 @@ function Patelfullmenu() {
   const [mealDay, setMealDay] = useState("");
   const [mealTime, setMealTime] = useState("");
   const [mealName, setMealName] = useState("");
+  const [menuItemIndex, setMenuItemIndex] = useState(-1);
   const days = [
     "Monday",
     "Tuesday",
@@ -169,6 +170,8 @@ function Patelfullmenu() {
     formData.append("day", mealDay);
     // alert(mealDay);
     formData.append("mealTime", mealTime);
+    formData.append("calorie_amount", allItems[menuItemIndex].calorie.amount);
+    formData.append("calorie_unit", allItems[menuItemIndex].calorie.unit);
     formData.append("name", mealName);
     formData.append("hostel", hostel);
 
@@ -188,6 +191,7 @@ function Patelfullmenu() {
       setMealDay("");
       setMealTime("");
       setMealName("");
+      setMenuItemIndex(-1);
       document.getElementById("daySelection").selectedIndex = 0;
       document.getElementById("timeSelection").selectedIndex = 0;
 
@@ -198,7 +202,7 @@ function Patelfullmenu() {
   };
 
   return (
-    <div className="Patel_full_menu_outermost_div">
+    <div >
       <Navbar />
       <div className="menu-table-div">
         {allMenus.length > 0 ? (
@@ -596,15 +600,25 @@ function Patelfullmenu() {
             </tbody>
           </table>
         ) : (
-          <p>Loading Menu Table ...</p>
+          <div style={{backgroundColor:"#eef9ff", display:"flex", flexDirection:"column", alignItems: "center", justifyContent:"center", margin: "1rem 12rem", marginBottom:"5rem"}}>
+            <dotlottie-player
+          src="https://lottie.host/5d231eef-b50c-4628-89d2-fe1f4ba88550/9JGu8VZBUq.lottie"
+          background="transparent"
+          speed="1"
+          style={{height: "300x", width: "300px", margin: "10rem ", marginBottom:"5rem", backgroundColor:"#eef9ff"}}
+          loop
+          autoplay
+        ></dotlottie-player>
+          <div style={{padding:"5rem"}}>No menu found in table, add below now !!</div>
+        </div>
         )}
       </div>
       {userType === "Student" && allItems.length > 0 && (
-        <>
+        <div style={{ display:"flex", flexDirection:"column" ,justifyContent:"center", alignItems:"center"}}>
           <div className="add_menu_div">
             <h2>Add new meal</h2>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
-              <div className="daySelection_div">
+              <div className="daySelection_div" style={{display:"flex", flexDirection:"column" ,justifyContent:"center", alignItems:"center"}}>
                 <label htmlFor="daySelection">Day</label>
                 <select
                   name="day"
@@ -624,7 +638,7 @@ function Patelfullmenu() {
                 </select>
               </div>
 
-              <div className="timeSelection_div">
+              <div className="timeSelection_div" style={{display:"flex", flexDirection:"column" ,justifyContent:"center", alignItems:"center"}}>
                 <label htmlFor="timeSelection">Meal Time</label>
                 <select
                   name="mealTime"
@@ -652,20 +666,23 @@ function Patelfullmenu() {
                 required
               />
             </label> */}
-              <div className="timeSelection_div">
-                <label htmlFor="meal_name">Meal Name</label>
+              <div className="timeSelection_div" style={{display:"flex", flexDirection:"column" ,justifyContent:"center", alignItems:"center"}}>
+                <label htmlFor="meal_name" >Meal Name</label>
                 <select
                   name="meal_name"
                   id="meal_name"
-                  onChange={(e) => setMealName(e.target.value)}
-                  value={mealName}
+                  onChange={(e) => {
+                    setMenuItemIndex(e.target.value)
+                    setMealName(allItems[e.target.value].title)
+                  }}
+                  value={menuItemIndex}
                   required
                 >
-                  <option value="" disabled selected hidden>
+                  <option value="-1" disabled selected hidden>
                     Select meal
                   </option>
                   {allItems.map((item, index) => (
-                    <option key={index} value={item.title}>
+                    <option key={index} value={index}>
                       {item.title}
                     </option>
                   ))}
@@ -713,7 +730,7 @@ function Patelfullmenu() {
               Go to Grocery
             </Link>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

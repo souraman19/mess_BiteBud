@@ -1,0 +1,37 @@
+.outermost-div-calorie-chart-view-page{
+    
+}
+
+.swiper-slide-div-calorie-view-page{
+    border: 2px solid red;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.day-wise-calorie-view-calorie-view-page{
+    border: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    border: 2px solid red;
+}
+.meal-lottie-calorie-view-page{
+    /* border: 2px solid black; */
+}
+
+.single-slot-calorie-view-page{
+    display: flex;
+    flex-direction: column;
+}
+.single-day-calorie-view-page{
+}
+
+.swiper-slide-calorie-view-page {
+    text-align: center;
+    font-size: 17px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px solid red; */
+  }

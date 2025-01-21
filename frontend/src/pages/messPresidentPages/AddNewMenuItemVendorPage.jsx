@@ -118,13 +118,20 @@ function AddNewMenuItemVendorPage() {
                 >
                   <option value="">Select Unit</option>
                   <option value="gram">Gram</option>
+                  <option value="100 gram">100 Gram</option>
+                  <option value="200 gram">200 Gram</option>
                   <option value="ounce">Ounce</option>
                   <option value="kilogram">Kilogram</option>
                   <option value="pound">Pound</option>
                   <option value="milliliter">Milliliter</option>
+                  <option value="100 milliliter">100 Millilitre</option>
+                  <option value="200 milliliter">200 Millilitre</option>
                   <option value="liter">Liter</option>
                   <option value="cup">Cup</option>
                   <option value="piece">Piece</option>
+                  <option value="10 piece">10 Piece</option>
+                  <option value="5 piece">5 Piece</option>
+                  <option value="plate">Plate</option>
                 </select>
               </div>
 

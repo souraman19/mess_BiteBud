@@ -27,7 +27,7 @@ const dropdownOptions = [
   [
     { label: "Menu Items", path: "/menu-item" },
     { label: "Full Menu", path: "/full-menu-page" },
-    { label: "Option L", path: "/l" },
+    { label: "Calorie Chart", path: "/calorie-view" },
   ],
   [
     { label: "Option A", path: "/a" },

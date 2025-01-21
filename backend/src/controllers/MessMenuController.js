@@ -20,6 +20,8 @@ const addMessMenu = async (req, res) => {
     const title = req.body.name;
     const slot = req.body.mealTime;
     const hostel = req.body.hostel;
+    const calorie_amount = req.body.calorie_amount;
+    const calorie_unit = req.body.calorie_unit;
 
     const newMealItem = new MessMenuPerSlot({
       day,
@@ -28,9 +30,12 @@ const addMessMenu = async (req, res) => {
       menuItem: {
         title: title,
         menuItemId: null,
+        calorie: {
+          amount: calorie_amount,
+          unit: calorie_unit,
+        },
       },
     });
-
     await newMealItem.save();
 
     res.json({ message: "new meal Item added" });

@@ -37,6 +37,7 @@ import ExtraDetailsForm from './pages/loginPages/ExtraDetailsForm.jsx';
 import Grocery from './pages/accountantPages/Grocery.jsx';
 import AddNewExpense from './components/accountantComponents/AddNewExpensePage.jsx';
 import AddNewMenuItem from './pages/messPresidentPages/AddNewMenuItemVendorPage.jsx';
+import CalorieViewPage from './pages/messPresidentPages/CalorieViewPage.jsx';
 
 function App() {
     return (
@@ -65,6 +66,8 @@ function App() {
 
 
           <Route path="/full-menu-page" element={<FullMessMenuPage />} />
+          <Route path="/menu-item" element={<AddNewMenuItem />} />
+          <Route path="/calorie-view" element={<CalorieViewPage />} />
 
 
 
@@ -73,7 +76,6 @@ function App() {
           <Route path="/add-new-expense" element={<AddNewExpense />} />
 
 
-          <Route path="/menu-item" element={<AddNewMenuItem />} />
 
 
 ////---------------------------------------------------------------------------------------

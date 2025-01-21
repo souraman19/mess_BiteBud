@@ -23,6 +23,11 @@ const messMenuPerSlotSchema = new mongoose.Schema({
     },
     menuItem:{
         title: {type: String, required: true},
+        menuImage : {type: String, default: "https://cdn-icons-png.flaticon.com/512/5235/5235253.png"},
+        calorie:{
+            amount:{type: Number, required: true},
+            unit:{type: String, required: true},
+        },
         menuItemId: {type: mongoose.Schema.Types.ObjectId, ref: 'MenuItem'}
     },
     averageRating:{  //update it as you need

@@ -34,6 +34,7 @@ function AddNewMenuItemVendorPage() {
   const [calorie, setCalorie] = useState("");
   const [caloriePerUnit, setCaloriePerUnit] = useState("");
   const [itemName, setItemName] = useState("");
+  const [averageIntakePerMeal, setAverageIntakePerMeal] = useState("");
   const [allItems, setAllItems] = useState([]);
 
 
@@ -66,6 +67,7 @@ function AddNewMenuItemVendorPage() {
           calorie: calorie,
           caloriePerUnit: caloriePerUnit,
           hostel: hostel,
+          averageIntakePerMeal: averageIntakePerMeal,
         },
         { withCredentials: true }
       );
@@ -74,6 +76,7 @@ function AddNewMenuItemVendorPage() {
       setCalorie("");
       setCaloriePerUnit("");
       fetchItems();
+      setAverageIntakePerMeal("");
     } catch (err) {
       console.error("Error adding grocery item:", err);
     }
@@ -134,7 +137,16 @@ function AddNewMenuItemVendorPage() {
                   <option value="plate">Plate</option>
                 </select>
               </div>
-
+              <div>
+                <label htmlFor="average-intake">Average Intake Per Meal</label>
+                <input
+                  type="text"
+                  placeholder="Enter Intake in factor of chosen unit like 1.0, 0.50, 1.75"
+                  value={averageIntakePerMeal}
+                  required
+                  onChange={(e) => setAverageIntakePerMeal(e.target.value)}
+                />
+              </div>
               <button type="submit">Submit</button>
             </form>
           </div>

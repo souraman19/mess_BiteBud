@@ -1,37 +1,108 @@
-.outermost-div-calorie-chart-view-page{
-    
+.outermost-div-calorie-chart-view-page {
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Arial", sans-serif;
 }
 
-.swiper-slide-div-calorie-view-page{
-    border: 2px solid red;
+  .swiper-slide-div-calorie-view-page {
+    border: 2px solid transparent;
+    /* border: 2px solid red; */
+    border-radius: 15px;
     display: flex;
     flex-direction: row;
-    width: 100%;
-}
-
-.day-wise-calorie-view-calorie-view-page{
-    border: 2px solid black;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 15px auto;
+    overflow: hidden;
+    max-height: 100%;  /* Fit dynamically to content */
+    height: auto;      /* Auto-adjust for content size */
+    box-sizing: border-box; 
+    min-height: 300px; /* Ensure a minimum height */
+  }
+  
+  .day-wise-calorie-view-calorie-view-page {
     display: flex;
     flex-direction: row;
-    border: 2px solid red;
-}
-.meal-lottie-calorie-view-page{
-    /* border: 2px solid black; */
-}
-
-.single-slot-calorie-view-page{
-    display: flex;
-    flex-direction: column;
-}
-.single-day-calorie-view-page{
-}
-
-.swiper-slide-calorie-view-page {
-    text-align: center;
-    font-size: 17px;
-    background: #fff;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding: 10px;
+    justify-content: center;
+  }
+  
+  .meal-lottie-calorie-view-page {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* border: 2px solid red; */
   }
+  
+  .single-slot-calorie-view-page {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 10px;
+    background: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  }
+  
+  .single-slot-calorie-view-page img {
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+  
+  .single-slot-calorie-view-page img:hover {
+    transform: scale(1.1);
+  }
+  
+  .single-slot-calorie-view-page p {
+    margin: 5px 0;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .single-day-calorie-view-page {
+    padding: 10px;
+    flex: 1;
+  }
+  
+  .swiper-slide-calorie-view-page {
+    text-align: center;
+    font-size: 18px;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .swiper-slide-calorie-view-page h2 {
+    color: #ff6f61;
+    margin-bottom: 10px;
+  }
+  
+  .swiper-pagination-bullet {
+    background: #ff6f61 !important;
+  }
+  
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #ff6f61;
+    transition: color 0.3s ease;
+  }
+  
+  .swiper-button-next:hover,
+  .swiper-button-prev:hover {
+    color: #ff3d3d;
+  }
+  

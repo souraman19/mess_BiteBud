@@ -22,6 +22,7 @@ const addMessMenu = async (req, res) => {
     const hostel = req.body.hostel;
     const calorie_amount = req.body.calorie_amount;
     const calorie_unit = req.body.calorie_unit;
+    const calorie_intake = req.body.calorie_intake;
 
     const newMealItem = new MessMenuPerSlot({
       day,
@@ -33,6 +34,7 @@ const addMessMenu = async (req, res) => {
         calorie: {
           amount: calorie_amount,
           unit: calorie_unit,
+          calorie_intake: calorie_intake,
         },
       },
     });
@@ -84,6 +86,7 @@ const addMenuItem = async (req, res) => {
     const calorie = req.body.calorie;
     const caloriePerUnit = req.body.caloriePerUnit;
     const hostel = req.body.hostel;
+    const averageIntakePerMeal = req.body.averageIntakePerMeal;
 
     const newMenuItem = new MenuItem({
       title,
@@ -91,6 +94,7 @@ const addMenuItem = async (req, res) => {
       calorie: {
         amount: calorie,
         unit: caloriePerUnit,
+        averageIntakePerMeal: averageIntakePerMeal,
       },
     });
 

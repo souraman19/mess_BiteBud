@@ -27,6 +27,7 @@ const messMenuPerSlotSchema = new mongoose.Schema({
         calorie:{
             amount:{type: Number, required: true},
             unit:{type: String, required: true},
+            calorie_intake:{type: Number, required: true},
         },
         menuItemId: {type: mongoose.Schema.Types.ObjectId, ref: 'MenuItem'}
     },

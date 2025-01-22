@@ -22,6 +22,7 @@ const menuItemSchema = new mongoose.Schema({
     calorie:{
         amount:{type: Number, required: true},
         unit:{type: String, required: true},
+        averageIntakePerMeal: {type: Number, required: true},
     },
     cookedBy: {
         type:[{

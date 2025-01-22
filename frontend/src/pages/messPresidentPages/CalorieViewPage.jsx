@@ -99,6 +99,7 @@ function CalorieViewPage() {
             pagination={{
               clickable: true,
             }}
+            autoHeight={true}
             modules={[FreeMode, Pagination, Autoplay, Navigation]}
             // autoplay={{
             //   delay: 10000,

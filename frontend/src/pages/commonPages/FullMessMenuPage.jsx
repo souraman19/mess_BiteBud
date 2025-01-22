@@ -172,6 +172,7 @@ function Patelfullmenu() {
     formData.append("mealTime", mealTime);
     formData.append("calorie_amount", allItems[menuItemIndex].calorie.amount);
     formData.append("calorie_unit", allItems[menuItemIndex].calorie.unit);
+    formData.append("calorie_intake", allItems[menuItemIndex].calorie.averageIntakePerMeal * allItems[menuItemIndex].calorie.amount);
     formData.append("name", mealName);
     formData.append("hostel", hostel);
 

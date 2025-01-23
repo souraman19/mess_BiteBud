@@ -2,7 +2,7 @@ import React from "react";
 import "./../../styles/PieChartSlide.css";
 import ExpensePieChart from "./ExpensePieChart";
 
-function PieChartSlide({data, heading}){
+function PieChartSlide({data, heading, unit}){
     return (<>
         <div className="chart-wrapper">
           <h2 className="chart-title">{heading}</h2>
@@ -13,7 +13,7 @@ function PieChartSlide({data, heading}){
               justifyContent: "center",
             }}
           >
-            <ExpensePieChart data={data} />
+            <ExpensePieChart data={data} unit={unit} />
           </div>
         </div>
     </>)

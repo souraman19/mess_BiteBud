@@ -9,7 +9,7 @@ const COLORS = [
   '#B2912F', '#B276B2', '#DECF3F', '#F15854', '#8E8E38'
 ];
 
-function ExpensesPieChart({data}) {
+function ExpensesPieChart({data, unit}) {
   return (
     <PieChart width={580} height={420}>
       <Pie
@@ -25,7 +25,7 @@ function ExpensesPieChart({data}) {
         ))}
       </Pie>
       <Tooltip 
-        formatter={(value) => `${value}₹`} 
+        formatter={(value) => `${value}${unit}`} 
       />
       <Legend />  
     </PieChart>

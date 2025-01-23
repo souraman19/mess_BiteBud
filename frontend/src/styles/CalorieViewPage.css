@@ -1,10 +1,19 @@
-.outermost-div-calorie-chart-view-page {
+.first-upper-block-calorie-chart-view-page{
+  border: 2px solid red;
+}
+
+.first-upper-block-inner-div-calorie-chart-view-page {
     padding: 20px;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: "Arial", sans-serif;
+    /* background-color: pink; */
+}
+
+.heading-calorie-chart-view-page{
+  text-align: center;
 }
 
   .swiper-slide-div-calorie-view-page {

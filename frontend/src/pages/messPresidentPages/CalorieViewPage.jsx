@@ -5,6 +5,7 @@ import axios from "axios";
 import { useStateProvider } from "../../context/StateContext";
 import "./../../styles/CalorieViewPage.css";
 import { Swiper, SwiperSlide } from "swiper/react";
+import PieChartSlide from "../../components/commonComponents/PieChartSlide.jsx";
 
 // Import Swiper styles
 import "swiper/css";
@@ -16,6 +17,24 @@ import "swiper/swiper-bundle.css";
 // import required modules
 import { FreeMode, Pagination, Navigation, Autoplay } from "swiper/modules";
 import { width } from "@mui/system";
+
+const week_days = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+
+const sampledata = [
+  { name: "Rent", value: 15000 },
+  { name: "Groceries", value: 8000 },
+  { name: "Utilities", value: 4000 },
+  { name: "Transportation", value: 3000 },
+  { name: "Entertainment", value: 2000 },
+];
 
 function CalorieViewPage() {
   const [{ userInfo }] = useStateProvider();
@@ -38,6 +57,7 @@ function CalorieViewPage() {
     //console.log("zkhdvcjvj????????????", response.data);
     const gotMenus = response.data;
     let tempDaySlotWiseMenu = [];
+    let tempDaySlotWiseCalorieCount = [];
     gotMenus.forEach((singleMenu) => {
       const day = singleMenu.day;
       const slot = singleMenu.slot;
@@ -55,6 +75,16 @@ function CalorieViewPage() {
         };
         tempDaySlotWiseMenu.push(checkIfDayExist);
       }
+      let checkIfDayExistCalorie = tempDaySlotWiseCalorieCount.find(
+        (item) => item.day === day
+      );
+      if (!checkIfDayExistCalorie) {
+        checkIfDayExistCalorie = {
+          day: day,
+          slots: [],
+        };
+        tempDaySlotWiseCalorieCount.push(checkIfDayExistCalorie);
+      }
 
       let checkIfSlotExists = checkIfDayExist.slots.find(
         (item) => item.slot === slot
@@ -66,16 +96,52 @@ function CalorieViewPage() {
         };
         checkIfDayExist.slots.push(checkIfSlotExists);
       }
-
       checkIfSlotExists.menuItems.push({
         title: title,
         image: image,
         calorie: calorie,
       });
+
+      let checkIfSlotExistsCalorie = checkIfDayExistCalorie.slots.find(
+        (item) => item.name === slot
+      );
+      if (!checkIfSlotExistsCalorie) {
+        checkIfSlotExistsCalorie = {
+          name: slot,
+          value: 0,
+        };
+        checkIfDayExistCalorie.slots.push(checkIfSlotExistsCalorie);
+      }
+      checkIfSlotExistsCalorie.value += calorie.calorie_intake;
     });
-    console.log("sm", tempDaySlotWiseMenu);
-    console.log("Mess menu fetched successfully", gotMenus);
+    // console.log("sm", tempDaySlotWiseMenu);
+
+    tempDaySlotWiseCalorieCount.sort((a, b) => {
+      const day_a = a.day;
+      const day_b = b.day;
+      const index_a = week_days.findIndex((day) => day === day_a);
+      const index_b = week_days.findIndex((day) => day === day_b);
+      return index_a - index_b;
+    });
+
+    setDaySlotWiseCalorieCount(tempDaySlotWiseCalorieCount);
+    // console.log("sm43", tempDaySlotWiseCalorieCount[0].day);
+    // console.log("sm44", tempDaySlotWiseCalorieCount[0].slots);
+    // console.log("sm5", tempDataForPieChart[0][1]);
+
+    tempDaySlotWiseMenu.sort((a, b) => {
+      const day_a = a.day;
+      const day_b = b.day;
+      const index_a = week_days.findIndex((day) => day === day_a);
+      const index_b = week_days.findIndex((day) => day === day_b);
+
+      return index_a - index_b;
+    });
+    // console.log("sm3", tempDaySlotWiseMenu);
+
+    // setStructuredCalorieDataForPieChart(tempDataForPieChart);
     setDaySlotWiseMenu(tempDaySlotWiseMenu);
+    // console.log("Mess menu fetched successfully", gotMenus);
     console.log("Mess menu fetched successfully");
   };
 
@@ -86,77 +152,93 @@ function CalorieViewPage() {
     console.log("dayslt", daySlotWiseMenu);
   }, [daySlotWiseMenu]);
 
+  // useEffect(()=>{
+  //   console.log("sm4", structuredCalorieDataForPieChart[0][1]);
+  //   console.log("sm5", structuredCalorieDataForPieChart);
+  // }, [structuredCalorieDataForPieChart])
+
   return (
     <>
       <Navbar />
       <div className="outermost-div-calorie-chart-view-page">
-        {daySlotWiseMenu.length > 0 && (
-          <Swiper
-            slidesPerView={1}
-            spaceBetween={0}
-            freeMode={true}
-            navigation={true}
-            pagination={{
-              clickable: true,
-            }}
-            autoHeight={true}
-            modules={[FreeMode, Pagination, Autoplay, Navigation]}
-            // autoplay={{
-            //   delay: 10000,
-            //   disableOnInteraction: true,
-            // }}
-            className="mySwiper"
-          >
-            {daySlotWiseMenu.map((singleDayMenu) => {
-              // console.log("se", selectedIndex);
-              return (
-                <SwiperSlide
-                  key={singleDayMenu.day}
-                  className="swiper-slide-calorie-view-page"
-                >
+        <div className="first-upper-block-calorie-chart-view-page">
+          <div className="heading-calorie-chart-view-page">
+            See daily calorie intake per meal
+          </div>
+          <div className="first-upper-block-inner-div-calorie-chart-view-page">
+            {daySlotWiseMenu.length > 0 && (
+              <Swiper
+                slidesPerView={1}
+                spaceBetween={0}
+                freeMode={true}
+                navigation={true}
+                pagination={{
+                  clickable: true,
+                }}
+                autoHeight={true}
+                modules={[FreeMode, Pagination, Autoplay, Navigation]}
+                // autoplay={{
+                //   delay: 10000,
+                //   disableOnInteraction: true,
+                // }}
+                className="mySwiper"
+              >
+                {daySlotWiseMenu.map((singleDayMenu, index) => {
+                  // console.log("se", selectedIndex);
+                  return (
+                    <SwiperSlide
+                      key={singleDayMenu.day}
+                      className="swiper-slide-calorie-view-page"
+                    >
                       Day: {singleDayMenu.day}
-                  <div className="swiper-slide-div-calorie-view-page">
-                    <div className="meal-lottie-calorie-view-page">
-                      <dotlottie-player
-                        src="https://lottie.host/fa6adfff-9fa3-4014-9be3-a3b8b8a5061e/jV4o3gim0B.lottie"
-                        background="transparent"
-                        speed="1"
-                        style={{ height: "200px", width: "200px" }}
-                        loop
-                        autoplay
-                      ></dotlottie-player>
-                    </div>
-                    <div className="day-wise-calorie-view-calorie-view-page">
-                      {singleDayMenu.slots.map((singleSlot) => (
-                        <div className="single-day-calorie-view-page">
-                          {singleSlot.slot}
-                          <div className="single-slot-calorie-view-page">
-                            {singleSlot.menuItems.map((singleMenuItem) => (
-                              <div>
-                                <img
-                                  height="100"
-                                  width="100"
-                                  src={singleMenuItem.image}
-                                  alt="menu Image"
-                                  srcset=""
-                                />
-                                <p>{singleMenuItem.title}</p>
-                                <p>
-                                  {singleMenuItem.calorie.amount} cal per{" "}
-                                  {singleMenuItem.calorie.unit}
-                                </p>
-                              </div>
-                            ))}
-                          </div>
+                      <div className="swiper-slide-div-calorie-view-page">
+                        <div className="meal-lottie-calorie-view-page">
+                          {daySlotWiseCalorieCount.length > 0 && (
+                            <div>
+                              <PieChartSlide
+                                data={daySlotWiseCalorieCount[index].slots}
+                                heading={""}
+                                unit=" cal"
+                              />
+                            </div>
+                          )}
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-        )}
+                        <div className="day-wise-calorie-view-calorie-view-page">
+                          {singleDayMenu.slots.map((singleSlot) => (
+                            <div className="single-day-calorie-view-page">
+                              {singleSlot.slot}
+                              <div className="single-slot-calorie-view-page">
+                                {singleSlot.menuItems.map((singleMenuItem) => (
+                                  <div>
+                                    <img
+                                      height="100"
+                                      width="100"
+                                      src={singleMenuItem.image}
+                                      alt="menu Image"
+                                      srcset=""
+                                    />
+                                    <p>{singleMenuItem.title}</p>
+                                    <p>
+                                      {singleMenuItem.calorie.amount} cal per{" "}
+                                      {singleMenuItem.calorie.unit}
+                                    </p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
+            )}
+          </div>
+        </div>
+        <div className="second-upper-block-calorie-chart-view-page">
+            
+        </div>
       </div>
     </>
   );

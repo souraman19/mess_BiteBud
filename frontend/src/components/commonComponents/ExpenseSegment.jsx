@@ -97,12 +97,14 @@ function ExpenseSegment() {
           <PieChartSlide
             data={currentMonthExpensesByCategory}
             heading="By Category"
+             unit=" cal"
           />
         </div>
         <div className="expense-charts-piechartslide-div">
           <PieChartSlide
             data={currentMonthExpensesByVendor}
             heading="By Vendors"
+            unit=" cal"
           />
         </div>
       </div>

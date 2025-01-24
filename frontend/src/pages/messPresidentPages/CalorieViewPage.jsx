@@ -48,12 +48,15 @@ function CalorieViewPage() {
   const [daySlotWiseMenu, setDaySlotWiseMenu] = useState([]);
   const [daySlotWiseCalorieCount, setDaySlotWiseCalorieCount] = useState([]);
 
+  const [allTotalExpensesInWeek, setAllTotalExpensesInWeek] = useState([]);
+
   const fetchData = async () => {
     const response = await axios.get(GET_MESS_MENU, {
       params: { hostel },
       withCrediantials: true,
     });
     setAllMenus(response.data);
+    let tempAllTotalExpensesInWeek = [];
     //console.log("zkhdvcjvj????????????", response.data);
     const gotMenus = response.data;
     let tempDaySlotWiseMenu = [];
@@ -86,6 +89,17 @@ function CalorieViewPage() {
         tempDaySlotWiseCalorieCount.push(checkIfDayExistCalorie);
       }
 
+      let checkIfDayExistWeek = tempAllTotalExpensesInWeek.find(
+        (item) => item.day === day
+      );
+      if (!checkIfDayExistWeek) {
+        checkIfDayExistWeek = {
+          day: day,
+          calorie: 0,
+        };
+        tempAllTotalExpensesInWeek.push(checkIfDayExistWeek);
+      }
+
       let checkIfSlotExists = checkIfDayExist.slots.find(
         (item) => item.slot === slot
       );
@@ -113,6 +127,7 @@ function CalorieViewPage() {
         checkIfDayExistCalorie.slots.push(checkIfSlotExistsCalorie);
       }
       checkIfSlotExistsCalorie.value += calorie.calorie_intake;
+      checkIfDayExistWeek.calorie += calorie.calorie_intake;
     });
     // console.log("sm", tempDaySlotWiseMenu);
 
@@ -124,8 +139,17 @@ function CalorieViewPage() {
       return index_a - index_b;
     });
 
+    tempAllTotalExpensesInWeek.sort((a, b) => {
+      const day_a = a.day;
+      const day_b = b.day;
+      const index_a = week_days.findIndex((day) => day === day_a);
+      const index_b = week_days.findIndex((day) => day === day_b);
+      return index_a - index_b;
+    });
+
     setDaySlotWiseCalorieCount(tempDaySlotWiseCalorieCount);
-    // console.log("sm43", tempDaySlotWiseCalorieCount[0].day);
+    setAllTotalExpensesInWeek(tempAllTotalExpensesInWeek);
+    // console.log("sm43", tempAllTotalExpensesInWeek);
     // console.log("sm44", tempDaySlotWiseCalorieCount[0].slots);
     // console.log("sm5", tempDataForPieChart[0][1]);
 
@@ -236,8 +260,40 @@ function CalorieViewPage() {
             )}
           </div>
         </div>
-        <div className="second-upper-block-calorie-chart-view-page">
-            
+        <div className="second-upper-block-calorie-chart-view-page">  
+            {allTotalExpensesInWeek.length > 0 && (
+              <div>
+              <h2 className="anydayExpense_heading">Daywise calorie barplot</h2>
+              <div className="bar-graph-container">
+                {allTotalExpensesInWeek.map((weekData) => {
+                  const maxCalorie = Math.max(
+                    ...allTotalExpensesInWeek.map((item) => item.calorie)
+                  );
+                  const barHeight = (weekData.calorie / maxCalorie) * 100;
+                  // console.log(monthData.month, " ", `${100-barHeight}%`);
+                  return (
+                    <div key={weekData.day} className="bar-container">
+                      <div className="bar">
+                        <div
+                          className="bar-empty-part"
+                          style={{ height: `${100-barHeight}%` }}
+                        >
+                          
+                        </div>
+                        <div
+                          className="bar-fill-part"
+                          style={{ height: `${barHeight}%` }}
+                        >
+                          
+                        </div>
+                      </div>
+                      <span className="month-label">{weekData.day}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>

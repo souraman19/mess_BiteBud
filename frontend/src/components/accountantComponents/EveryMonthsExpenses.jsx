@@ -36,10 +36,13 @@ const months = [
   "Dec",
 ];
 
-const sampledata = {
-  labels: ["Category 1", "Category 2", "Category 3", "Category 4"], // X-axis labels
-  values: [12, 19, 3, 5], // Y-axis values (frequency counts)
-};
+const sampledata = [
+  { name: 'Rent', value: 15000 },
+  { name: 'Groceries', value: 8000 },
+  { name: 'Utilities', value: 4000 },
+  { name: 'Transportation', value: 3000 },
+  { name: 'Entertainment', value: 2000 },
+];
 
 function EveryMonthsExpenses() {
   const [{ userInfo, newUser }, dispatch] = useStateProvider();
@@ -252,6 +255,7 @@ function EveryMonthsExpenses() {
                       <PieChartSlide
                         data={singleMonthExpenses.expensesByCategory}
                         heading={singleMonthExpenses.month}
+                        unit ="₹"
                       />
                     </SwiperSlide>
                   );

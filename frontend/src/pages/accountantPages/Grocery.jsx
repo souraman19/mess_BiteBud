@@ -140,6 +140,7 @@ function Grocery() {
       <Navbar />
       <div className="outermost-container-grocery-page">
         <div className="grocery-item-container">
+          <div className="anydayExpense_heading">Add New Groceries</div>
           <div className="form-container">
             <form onSubmit={handleGroceryItemSubmit} className="grocery-form">
               <div>
@@ -183,7 +184,7 @@ function Grocery() {
           </div>
 
           <div className="swiper-container">
-            <h2 className="swiper-container-grocery-heading">Grocery Items</h2>
+            <div  className="anydayExpense_heading">Existing Grocery Items</div>
             {allItems.length > 0 ? (
               <Swiper
                 slidesPerView={4}
@@ -221,13 +222,26 @@ function Grocery() {
                 ))}
               </Swiper>
             ) : (
-              <p>No items found</p>
+              <div className="empty-expense-section">
+          <dotlottie-player
+            src="https://lottie.host/97a9b4e6-6ab2-4b73-ae71-1b044a633b01/TRe6Jrifl1.lottie"
+            background="transparent"
+            speed="1"
+            style={{ width:"300px", height: "300px"}}
+            loop
+            autoplay
+          ></dotlottie-player>
+          <p className="no-expense-message">
+            No item found. Add now!
+          </p>
+        </div>
             )}
           </div>
         </div>
 
         <div className="vendor-container">
           <div className="form-container">
+          <div className="anydayExpense_heading">Add New Vendors</div>
             <form onSubmit={handleVendorDetailsSubmit} className="grocery-form">
               <div>
                 <label htmlFor="vendor-name">Vendor Name</label>
@@ -322,7 +336,7 @@ function Grocery() {
             </form>
           </div>
           <div className="swiper-container">
-            <h2 className="swiper-container-vendor-heading">Vendors</h2>
+            <div  className="anydayExpense_heading">Existing Vendors</div>
             {vendors.length > 0 ? (
               <Swiper
                 slidesPerView={4}
@@ -360,7 +374,19 @@ function Grocery() {
                 ))}
               </Swiper>
             ) : (
-              <p>No vendor found</p>
+              <div className="empty-expense-section">
+          <dotlottie-player
+            src="https://lottie.host/97a9b4e6-6ab2-4b73-ae71-1b044a633b01/TRe6Jrifl1.lottie"
+            background="transparent"
+            speed="1"
+            style={{ width:"300px", height: "300px"}}
+            loop
+            autoplay
+          ></dotlottie-player>
+          <p className="no-expense-message">
+            No vendor found. Add now!
+          </p>
+        </div>
             )}
           </div>
         </div>

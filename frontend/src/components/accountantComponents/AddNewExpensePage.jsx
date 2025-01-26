@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useStateProvider } from "../../context/StateContext";
 import Histogram from "../commonComponents/Histogram";
+import Navbar from "./../../components/commonComponents/Navbar.jsx"
 import {
   GET_GROCERY_ITEMS,
   GET_VENDORS,
@@ -158,10 +159,10 @@ function AddNewExpense() {
   }
 
   return (
-    <>
-      {identity === "Student" && (
+    <div >
+      <Navbar />
         <div className="add_new_expense_section">
-          <h2>Add new expense</h2>
+          <div className="anydayExpense_heading">Add new expense</div>
           {allWantToAddItems.length > 0 && (
             <form onSubmit={handleExpenseSubmit}>
               <div className="todays_expense_allWantToAddItems">
@@ -285,8 +286,7 @@ function AddNewExpense() {
             <button type="submit">Add Item to Expense List</button>
           </form>
         </div>
-      )}
-    </>
+    </div>
   );
 }
 

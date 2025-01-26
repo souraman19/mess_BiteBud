@@ -100,7 +100,7 @@ const messWorkerSchema = new mongoose.Schema({
 });
 
 const MessWorker = new mongoose.model('Messworker', messWorkerSchema);
-const cookSchema = new mongoose.Schema({
+const CookSchema = new mongoose.Schema({
     startDateAsCook: {type: Date},
     activeStatusAsCook: {type: Boolean, required: true},
     cookPosition: {
@@ -108,5 +108,5 @@ const cookSchema = new mongoose.Schema({
         enum: ["General", "HeadCook"]
     }
 })
-const Cook = MessWorker.discriminator('Cook', cookSchema);
+const Cook = MessWorker.discriminator('Cook', CookSchema);
 export {MessWorker, Cook};

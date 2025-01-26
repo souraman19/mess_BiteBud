@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-import {MessWorker, Cook} from "../person/MessWorker";
+import mongoose from "mongoose";;
 
 const menuItemSchema = new mongoose.Schema({
     menuItemId:{
@@ -12,6 +11,10 @@ const menuItemSchema = new mongoose.Schema({
         required: true,
         unique: true ,//no to menu Items can have same name
     },
+    hostel: {
+        type: String,
+        required: true,
+    },
     image: {
         type: String, 
         default: "https://cdn-icons-png.flaticon.com/512/5235/5235253.png",
@@ -19,10 +22,7 @@ const menuItemSchema = new mongoose.Schema({
     calorie:{
         amount:{type: Number, required: true},
         unit:{type: String, required: true},
-    },
-    avgCookingTime:{
-        amount:{type: Number, required: true},
-        unit:{type: String, required: true},
+        averageIntakePerMeal: {type: Number, required: true},
     },
     cookedBy: {
         type:[{

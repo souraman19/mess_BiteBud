@@ -38,8 +38,35 @@ import Grocery from './pages/accountantPages/Grocery.jsx';
 import AddNewExpense from './components/accountantComponents/AddNewExpensePage.jsx';
 import AddNewMenuItem from './pages/messPresidentPages/AddNewMenuItemVendorPage.jsx';
 import CalorieViewPage from './pages/messPresidentPages/CalorieViewPage.jsx';
+import { useStateProvider } from "./context/StateContext.jsx";
+import { useEffect } from 'react';
+import { reducerCases } from "./context/Constants";
 
 function App() {
+
+    const [{ userInfo, newUser }, dispatch] = useStateProvider();
+
+    useEffect(() => {
+      // Check if user data is present in localStorage
+      const savedUser = localStorage.getItem('user');
+  
+      if (savedUser) {
+        const user = JSON.parse(savedUser);
+  
+        // Dispatch to set the global user state
+        dispatch({
+          type: reducerCases.SET_USER_INFO,
+          userInfo: user,
+        });
+  
+        dispatch({
+          type: reducerCases.SET_NEW_USER,
+          newUser: true,
+        });
+      }
+    }, [dispatch]);  // Add dispatch as dependency
+
+
     return (
         <Router>
         {/* <Navigation /> */}

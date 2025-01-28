@@ -25,6 +25,7 @@ function SignIn() {
           navigate('/register-form');
         } 
         if(response.status === 200){
+          localStorage.setItem('user', JSON.stringify(response.data.user));
           dispatch({
             //Dispatch an action to set the newUser state to true.
             type: reducerCases.SET_NEW_USER,

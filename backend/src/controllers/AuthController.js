@@ -13,7 +13,7 @@ const saltRounds = 5;
 
 //login using passport local
 const loginUser = (req, res, next)=>{
-    console.log("sldsnls", req.body);
+    // console.log("sldsnls", req.body);
     passport.authenticate("local", (err, user, info)=>{
         if (err) {
             return res.status(500).json({ message: "An error occurred during authentication." });
@@ -29,7 +29,7 @@ const loginUser = (req, res, next)=>{
             }
             const foundUser = user;
             foundUser.password = ""; //making the password(got from database) null before send the data to client side
-            console.log("found User", foundUser);
+            // console.log("found User", foundUser);
             return res.status(200).json({ message: "Login successful", user: user});
         });
     })(req, res, next);
@@ -215,7 +215,7 @@ const registerUser = async (req, res) => {
 passport.use('local', new Strategy(async function(email, password, cb){
     try{
         const result = await User.findOne({collegeMail: email});
-        if(result === undefined) {
+        if(!result) {
             return cb("User not found");
         }
         console.log("got you");

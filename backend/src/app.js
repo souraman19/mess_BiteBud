@@ -9,6 +9,7 @@ import {Strategy} from "passport-local";
 import path from "path";
 import { fileURLToPath } from 'url';
 import bodyParser from "body-parser";
+import cookieParser from 'cookie-parser';
 
 // Get __dirname equivalent in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -16,6 +17,8 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config({path: './../.env'});
 const app = express();
+app.use(cookieParser()); 
+
 app.use(express.json()); 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,17 +31,18 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 //session initialize
+// console.log("sdnfb");
 app.use(session({
     secret: process.env.TOPSECRETKEY || "TOPSECRETKEY",
     resave: false, //ensures the session isn't saved to the store if it wasn't modified.
-    saveUninitialized: false, //Sessions won't be saved unless they’re modified,
-    store: MongoStore.create({ //Configures MongoDB to store sessions, so they persist across server restarts
-        mongoUrl: process.env.MONGO_URI2, // check Mongo URI accuracy
+    saveUninitialized: false, 
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI2,
         collectionName: 'sessions',
-        ttl: 5 * 60, //  session expiration in seconds (5 minutes)
+        ttl: 5 * 60, // Session expiration (5 minutes)
     }),
     cookie: {
-        maxAge: 5000 * 60 * 60* 24, // 5 hour
+        maxAge: 60 * 60 * 1000, // 6 min
         sameSite: "lax", // "lax" allows cross-site requests only for GET
         secure: false //et to false here for development (over HTTP). For production (HTTPS), this should be true to enhance security.
     }

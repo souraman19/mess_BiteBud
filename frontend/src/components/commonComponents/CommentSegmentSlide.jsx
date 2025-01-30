@@ -47,7 +47,8 @@ function CommentSegmentSlide({
     try {
       // console.log("my id",_id);      
       await axios.delete(
-        `${DELETE_COMMENT_ROUTE}/${commentId}`
+        `${DELETE_COMMENT_ROUTE}/${commentId}`,
+        {withCredentials: true}
       );
       console.log("Comment deleted successfully");
       updateAllComments(

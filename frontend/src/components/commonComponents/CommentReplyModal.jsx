@@ -31,7 +31,7 @@ function CommentModal({ onClose, commentId}) {
   useEffect(() => {
     try{
       const fetchData = async() => {
-        const response = await axios.get(`${GET_COMMENTS_UNDER_COMMENT_ROUTE}/${commentId}`);
+        const response = await axios.get(`${GET_COMMENTS_UNDER_COMMENT_ROUTE}/${commentId}`, {withCredentials: true});
         // console.log("ioabd =>  ", response.data.commentsOnComplaint);
         const allCommentsOfComment = response.data.commentsUnderComment;
         const myCommentsOfComment = allCommentsOfComment.filter((comment) =>  comment.commentedBy.userId === myUserId  );
@@ -65,7 +65,7 @@ function CommentModal({ onClose, commentId}) {
 
 
       try{
-        const response = await axios.post(`${ADD_COMMENT_UNDER_COMMENT_ROUTE}/${commentId}`, newComment);
+        const response = await axios.post(`${ADD_COMMENT_UNDER_COMMENT_ROUTE}/${commentId}`, newComment, {withCredentials: true});
         // setAllComments([...allComments, newComment]);
         setSingleComment("");
         const allCommentsOfComment = response.data.commentsOnComment;
@@ -86,7 +86,7 @@ function CommentModal({ onClose, commentId}) {
       console.log("kkdshv");
       // console.log(commentId);
       // console.log(complId);
-      const response = await axios.post(`${DELETE_COMMENT_UNDER_COMMENT_ROUTE}`, {originalCommentId: commentId, commentId: reCommentId});
+      const response = await axios.post(`${DELETE_COMMENT_UNDER_COMMENT_ROUTE}`, {originalCommentId: commentId, commentId: reCommentId}, {withCredentials: true});
       console.log("Comment deleted successfully");
       console.log(response.data.updatedComment.commentsOnComment);
       const allCommentsOfComment = response.data.updatedComment.commentsOnComment;

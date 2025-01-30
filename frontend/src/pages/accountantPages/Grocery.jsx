@@ -110,7 +110,9 @@ function Grocery() {
           phoneNo,
         },
         hostel: hostel,
-      });
+      },
+      { withCredentials: true,}
+    );
       setName("");
       setAddress({
         country: "",

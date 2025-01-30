@@ -88,7 +88,7 @@ function Patelfullmenu() {
   const fetchData = async () => {
     const response = await axios.get(GET_MESS_MENU, {
       params: { hostel },
-      withCrediantials: true,
+      withCredentials: true,
     });
     setAllMenus(response.data);
     //console.log("zkhdvcjvj????????????", response.data);
@@ -103,6 +103,7 @@ function Patelfullmenu() {
     try {
       const response = await axios.delete(DELETE_MESS_MENU, {
         params: { menuId },
+        withCredentials: true,
       });
       fetchData();
     } catch (err) {
@@ -142,7 +143,7 @@ function Patelfullmenu() {
   const handleConfirmEdit = async (day, mealTime, mealName, menuId) => {
     try {
       const data = { menuId: menuId, newMealName: foodName };
-      const response = await axios.post(EDIT_MESS_MENU, data);
+      const response = await axios.post(EDIT_MESS_MENU, data, {withCredentials: true,});
       fetchData();
 
       setIsEditing(false);
@@ -187,6 +188,7 @@ function Patelfullmenu() {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
+        withCredentials: true,
       });
       console.log("response data ", response.data);
       setMealDay("");

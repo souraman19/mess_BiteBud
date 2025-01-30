@@ -22,7 +22,7 @@ function ResolveMessage({onClose, complaintId}) {
                 resolvedTime: new Date(),
                 resolvedMessage: message,
             }
-            const response = await axios.patch(`http://localhost:5000/api/complaintRoutes/resolvecomplaint/${complaintId}`, updatedPortionWithData);
+            const response = await  (`http://localhost:5000/api/complaintRoutes/resolvecomplaint/${complaintId}`, updatedPortionWithData, {withCredentials: true});
             console.log("Updated data after resolving complaint", response.data);
             onClose();
         }catch(err){
@@ -38,7 +38,7 @@ function ResolveMessage({onClose, complaintId}) {
                 resolvedTime: new Date(),
                 resolvedMessage: "No Message",
             }
-            const response = await axios.patch(`http://localhost:5000/api/complaintRoutes/resolvecomplaint/${complaintId}`, updatedPortionWithData);
+            const response = await axios.patch(`http://localhost:5000/api/complaintRoutes/resolvecomplaint/${complaintId}`, updatedPortionWithData, {withCredentials: true});
             console.log("Updated data after resolving complaint", response.data);
             onClose();
         }catch(err){

@@ -11,7 +11,7 @@ function CommentSegmentSlideWithButtons({ _id, name, username, regNo, year, comm
     const handleDelete = async() => {
         try{
             // console.log("my id",_id);
-            await axios.delete(`http://localhost:5000/api/deletecomment/${_id}`);
+            await axios.delete(`http://localhost:5000/api/deletecomment/${_id}`, {withCredentials: true});
             console.log("Comment deleted successfully");
             updateAllComments(allComments.filter(comment => comment._id !== _id))
         }catch(error){
@@ -21,7 +21,7 @@ function CommentSegmentSlideWithButtons({ _id, name, username, regNo, year, comm
 
     const handleEdit = async() =>{
         try{
-            await axios.put(`http://localhost:5000/api/updatecomment/${_id}`, {comment: editedComment});
+            await axios.put(`http://localhost:5000/api/updatecomment/${_id}`, {comment: editedComment}, {withCredentials: true});
             console.log("Coment edited successfully");
             updateAllComments(
                 allComments.map((myComment) => 

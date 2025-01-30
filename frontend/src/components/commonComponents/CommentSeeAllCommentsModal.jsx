@@ -20,7 +20,7 @@ function CommentModal({ onClose, complaintId, commentsOnComplaint}) {
   useEffect(() => {
     try{
       const fetchData = async() => {
-        const response = await axios.get(`http://localhost:5000/api/commentsofcomplaint/${complaintId}`);
+        const response = await axios.get(`http://localhost:5000/api/commentsofcomplaint/${complaintId}`, {withCredentials: true});
         console.log("ioabd =>  ", response.data.commentsOnComplaint);
         setAllComments(response.data.commentsOnComplaint);
       };
@@ -50,7 +50,7 @@ function CommentModal({ onClose, complaintId, commentsOnComplaint}) {
       };
 
       try{
-        const response = await axios.post(`http://localhost:5000/api/addcommentsofcomplaint/${complaintId}`, newComment);
+        const response = await axios.post(`http://localhost:5000/api/addcommentsofcomplaint/${complaintId}`, newComment, {withCredentials: true});
         setAllComments([...allComments, newComment]);
         setSingleComment("");
         setAllComments(response.data.commentsOnComplaint);

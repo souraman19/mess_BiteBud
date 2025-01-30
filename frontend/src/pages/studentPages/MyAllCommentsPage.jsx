@@ -69,7 +69,7 @@ function Commentlist() {
       };
 
       try {
-        const response = await axios.post(ADD_COMMENT_ROUTE, newComment);
+        const response = await axios.post(ADD_COMMENT_ROUTE, newComment, {withCredentials: true });
         fetchData();
         setSingleComment("");
       } catch (error) {

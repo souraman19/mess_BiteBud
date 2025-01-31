@@ -40,7 +40,7 @@ function Comment() {
   const fetchData = async () => {
     const response = await axios.get(GET_MESS_MENU, {
       params: { hostel },
-      withCrediantials: true,
+      withCredentials: true,
     });
     const today = new Date();
     const dayOfWeek = today.toLocaleString("en-US", { weekday: "long" });

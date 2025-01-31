@@ -88,6 +88,7 @@ export default function SignIn() {
           email: data.get('email'),
           password: data.get('password'),
         }),
+        credentials: 'include',
       });
 
       const result = await response.json();

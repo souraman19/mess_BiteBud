@@ -57,7 +57,7 @@ function Complaintlist() {
       };
 
       try {
-        const response = await axios.post(ADD_COMPLAINT_ROUTE, newComplaint);
+        const response = await axios.post(ADD_COMPLAINT_ROUTE, newComplaint, {withCredentials: true});
         try {
           fetchData();
         } catch (error) {

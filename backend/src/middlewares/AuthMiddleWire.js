@@ -3,7 +3,8 @@ import {User} from "./../models2.0/person/User.js";
 
 //session-check middlewire
 const sessionCheck = (req, res, next) => {
-    if(req.session && req.session.user){
+    console.log("req ses", req.session);
+    if(req.session){
         next();
     } else {
         res.status(401).json({message: "Session expired, please login again"});
@@ -111,9 +112,9 @@ const checkUser = async (req, res, next) => {
         if(username === "" || password === ""){
             console.log("Email or Password no one can empty");
         }
-        console.log(username, password);
+        // console.log(username, password);
         const result = await User.findOne({collegeMail: username});
-        console.log(result);
+        // console.log(result);
         if(result === null){
             console.log("User not found. Redirecting to register.");
             return res.status(201).json({message: "User not found"});
@@ -124,5 +125,30 @@ const checkUser = async (req, res, next) => {
     }
 }
 
-export {checkUser, validateUserData, sessionCheck};
+
+
+
+const authMiddleware = (req, res, next) => {
+    // console.log("Checking authentication...");
+    // console.log("reeq:", req);
+    // console.log("Session Data:", req.session);
+    // console.log("req.cookies['connect.sid']:", req.cookies['connect.sid']);
+    // console.log("req.cookies:", req.cookies);
+    // console.log("Cookies Received:", req);
+
+    // return;
+
+    if (!req.cookies || !req.cookies['connect.sid']) {
+        return res.status(401).json({ message: "User not logged in. Session expired or missing." });
+    }
+
+    if (!req.isAuthenticated()) {
+        return res.status(401).json({ message: "User not logged in. Session expired or missing." });
+    }
+
+    next(); // Proceed to the next middleware or route handler if authenticated
+};
+
+
+export {checkUser, validateUserData, sessionCheck, authMiddleware};
 

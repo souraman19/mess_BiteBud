@@ -53,7 +53,7 @@ function CalorieViewPage() {
   const fetchData = async () => {
     const response = await axios.get(GET_MESS_MENU, {
       params: { hostel },
-      withCrediantials: true,
+      withCredentials: true,
     });
     setAllMenus(response.data);
     let tempAllTotalExpensesInWeek = [];

@@ -122,7 +122,7 @@ function ComplaintSlide({
       await axios.put(`${EDIT_COMPLAINT_ROUTE}/${complaintId}`, {
         complaint: editedComplaint,
         complaintHeading: editedHeading,
-      });
+      }, {withCredentials: true});
       console.log("Complaint editing success");
       fetchData();
       setIsEditing(false);
@@ -133,7 +133,7 @@ function ComplaintSlide({
 
   const handleComplaintDelete = async () => {
     try {
-      await axios.delete(`${DELETE_COMPLAINT_ROUTE}/${complaintId}`);
+      await axios.delete(`${DELETE_COMPLAINT_ROUTE}/${complaintId}`, {withCredentials: true});
       console.log("complaint deletion successful");
       fetchData();
     } catch (error) {

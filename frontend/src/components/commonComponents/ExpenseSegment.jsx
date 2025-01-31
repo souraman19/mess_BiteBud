@@ -26,6 +26,7 @@ function ExpenseSegment() {
     try {
       const response = await axios.get(GET_EXPENSES_PREV_CURR_MONTH, {
         params: { hostel: hostel },
+        withCredentials: true,
       });
       // console.log("response date", response.data);
       const receivedData = response.data;

@@ -179,7 +179,7 @@ function ResponsiveAppBar() {
             <Tooltip title="Go to Profile">
               <IconButton sx={{ p: 0 }}>
                 <Link
-                  to="/myprofilepage"
+                  to="/log-out"
                   style={{ color: "inherit", textDecoration: "none" }}
                 >
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />

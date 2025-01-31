@@ -73,7 +73,7 @@ function Complaintlist() {
         },
       };
       try {
-        await axios.post(ADD_COMPLAINT_ROUTE, newComplaint);
+        await axios.post(ADD_COMPLAINT_ROUTE, newComplaint, {withCredentials: true});
         setSingleComplaint("");
         setHeading("");
         fetchData();

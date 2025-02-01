@@ -60,6 +60,7 @@ function App() {
           userInfo: user,
         });
       }
+      setLoading(false);
     }, []);  // Add dispatch as dependency
 
     //!!!!VVI NOTE ########

@@ -39,12 +39,13 @@ import AddNewExpense from './components/accountantComponents/AddNewExpensePage.j
 import AddNewMenuItem from './pages/messPresidentPages/AddNewMenuItemVendorPage.jsx';
 import CalorieViewPage from './pages/messPresidentPages/CalorieViewPage.jsx';
 import { useStateProvider } from "./context/StateContext.jsx";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { reducerCases } from "./context/Constants";
 
 function App() {
 
     const [{ userInfo, newUser }, dispatch] = useStateProvider();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
       // Check if user data is present in localStorage
@@ -58,14 +59,17 @@ function App() {
           type: reducerCases.SET_USER_INFO,
           userInfo: user,
         });
-  
-        dispatch({
-          type: reducerCases.SET_NEW_USER,
-          newUser: true,
-        });
       }
-    }, [dispatch]);  // Add dispatch as dependency
+    }, []);  // Add dispatch as dependency
 
+    //!!!!VVI NOTE ########
+    //upper runs after the first render, causing an empty state issue. to solve this 
+    //   we are adding a loading screen while app waits for restored state
+    //dispatch({ type: SET_USER_INFO, userInfo: user }) updates state.
+    //React detects state has changed and automatically re-renders the components using useState
+    //The page re-renders with the actual global state
+    
+    if (loading) return <div>Loading...</div>; // Prevent rendering pages until state loads
 
     return (
         <Router>

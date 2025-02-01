@@ -22,7 +22,7 @@ import MyAllComplaintsPage from "./pages/studentPages/MyAllComplaintsPage.jsx";
 import MyAllImagesPage from "./pages/studentPages/MyAllImagesPage.jsx";
 import ForgotPassword from './components/commonComponents/ForgotPassword.jsx';
 // import {UserProvider} from "./UserContext.js";
-import MyProfilePage from './pages/commonPages/MyProfilePage.jsx';
+// import MyProfilePage from './pages/commonPages/MyProfilePage.jsx';
 import "./styles/globalstyles.css";
 import AdminPage from './pages/developersPages/AdminPage.jsx';
 import SeeUser from "./pages/developersPages/SeeUsers.jsx";
@@ -41,6 +41,7 @@ import CalorieViewPage from './pages/messPresidentPages/CalorieViewPage.jsx';
 import { useStateProvider } from "./context/StateContext.jsx";
 import { useEffect, useState } from 'react';
 import { reducerCases } from "./context/Constants";
+import ProfilePage from './pages/commonPages/ProfilePage.jsx';
 
 function App() {
 
@@ -109,13 +110,13 @@ function App() {
 
 
 
+          <Route path="/profile-page" element={<ProfilePage />} />
 
 ////---------------------------------------------------------------------------------------
 
           <Route path="/test" element={<Test />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<ProtectedRoute element={<Home />}/>} />
-          <Route path="/myprofilepage" element={<ProtectedRoute element={<MyProfilePage />}/>} />
           <Route path="/adminpage" element={<ProtectedRoute element={<AdminPage />}/>} />
           <Route path="/see-users" element={<ProtectedRoute element={<SeeUser />}/>} />
           <Route path="/delete-user" element={<ProtectedRoute element={<DeleteUser />}/>} />

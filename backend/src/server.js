@@ -6,6 +6,7 @@ import CommentRoutes from "./routes2.0/CommentRoutes.js";
 import ComplaintRoutes from "./routes2.0/ComplaintRoutes.js";
 import galleryRoutes from "./routes2.0/galleryRoutes.js";
 import messMenuRoutes from "./routes2.0/MessMenuRoutes.js";
+import userProfileRoutes from "./routes2.0/userProfileRoutes.js";
 import expenseRoutes from "./routes2.0/ExpenseRoutes.js";
 import groceryRoutes from "./routes2.0/GroceryRoutes.js";
 import { authMiddleware } from "./middlewares/AuthMiddleWire.js";
@@ -54,6 +55,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/auth', AuthRoutes);
+app.use('/api/user-profile', userProfileRoutes);
 app.use("/api/comment", CommentRoutes);
 app.use("/api/complaint", ComplaintRoutes);
 app.use("/api/gallery", galleryRoutes);

@@ -20,6 +20,14 @@ const reducer = (state, action) => {
                 ...state,
                 newUser: action.newUser,
             };
+        case reducerCases.SET_NEW_PROFILE_PICTURE:  //Action to set the newUser state to true.
+            return {
+                ...state,
+                userInfo: {
+                    ...state.userInfo,
+                    profilePicture: action.profilePicture,
+                },
+            };
         default: 
             return state;
     }

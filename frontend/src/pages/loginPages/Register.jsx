@@ -113,11 +113,16 @@ const RegistrationPage = () => {
         },
       });
       console.log("My foot", userInfo);
+      
       const response = await axios.post(GET_OTP_ROUTE, formData, {
         withCredentials: true,
       });
       console.log("Registration successful:", response);
       console.log(response);
+      const redirectLink = response.data.redirect;
+      if(redirectLink == '/'){
+        alert("User already registered, try log in");
+      }
       if (response.data.redirect) {
         navigate(response.data.redirect);
       } else {

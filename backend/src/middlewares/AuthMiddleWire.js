@@ -16,7 +16,7 @@ const sessionCheck = (req, res, next) => {
 
 //validate if all user data make correct sense or not
 const validateUserData = (req, res, next) => {
-    console.log("here");
+    // console.log("here");
     const { firstName, lastName, phone, permanentAddress, nationality, hostel, gender, dateOfBirth, collegeMail, extraMail, bloodGroup } = req.body;
 
     // // Validate first name and last name
@@ -139,7 +139,7 @@ const authMiddleware = (req, res, next) => {
     // return;
 
     if (!req.cookies || !req.cookies['connect.sid']) {
-        return res.status(401).json({ message: "User not logged in. Session expired or missing." });
+        return res.status(401).json({ message: "User not logged in. Session expired or missing."});
     }
 
     if (!req.isAuthenticated()) {

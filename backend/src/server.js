@@ -6,6 +6,7 @@ import CommentRoutes from "./routes2.0/CommentRoutes.js";
 import ComplaintRoutes from "./routes2.0/ComplaintRoutes.js";
 import galleryRoutes from "./routes2.0/galleryRoutes.js";
 import messMenuRoutes from "./routes2.0/MessMenuRoutes.js";
+import userProfileRoutes from "./routes2.0/userProfileRoutes.js";
 import expenseRoutes from "./routes2.0/ExpenseRoutes.js";
 import groceryRoutes from "./routes2.0/GroceryRoutes.js";
 import { authMiddleware } from "./middlewares/AuthMiddleWire.js";
@@ -43,6 +44,7 @@ app.get('/api/check-session', (req, res) => {
 
 app.use((req, res, next) => {
     // return;
+    // console.log(req.path);
     if (req.path === "/api/auth/login" || req.path === "/api/auth/verify-otp" || req.path === "/api/auth/get-otp" || req.path === "/api/auth/register-user") {
         // console.log(req.path);
         return next(); // Skip auth check for login & signup
@@ -54,6 +56,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/auth', AuthRoutes);
+app.use('/api/user-profile', userProfileRoutes);
 app.use("/api/comment", CommentRoutes);
 app.use("/api/complaint", ComplaintRoutes);
 app.use("/api/gallery", galleryRoutes);

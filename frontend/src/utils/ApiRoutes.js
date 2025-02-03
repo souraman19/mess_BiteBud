@@ -7,6 +7,7 @@ export const GALLERY_ROUTES = `${HOST}/api/gallery`;
 export const MESSMENU_ROUTES = `${HOST}/api/mess-menu`;
 export const GROCERY_ROUTES = `${HOST}/api/grocery`;
 export const EXPENSE_ROUTES = `${HOST}/api/expense`;
+export const USER_PROFILE_ROUTES = `${HOST}/api/user-profile`;
 
 
 
@@ -55,3 +56,7 @@ export const GET_EXPENSES = `${EXPENSE_ROUTES}/get-expenses`;
 export const GET_EXPENSES_PREV_CURR_MONTH = `${EXPENSE_ROUTES}/get-expenses-prev-curr-month`;
 export const DELETE_EXPENSE = `${EXPENSE_ROUTES}/delete-expense`;
 export const EDIT_EXPENSE = `${EXPENSE_ROUTES}/edit-expense`;    //not used till yet
+
+export const CHANGE_PROFILE_PICTURE = `${USER_PROFILE_ROUTES}/change-profile-picture`;    //not used till yet
+export const LOG_OUT_ROUTE = `${USER_PROFILE_ROUTES}/log-out`;    //not used till yet
+

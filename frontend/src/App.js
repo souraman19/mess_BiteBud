@@ -22,7 +22,7 @@ import MyAllComplaintsPage from "./pages/studentPages/MyAllComplaintsPage.jsx";
 import MyAllImagesPage from "./pages/studentPages/MyAllImagesPage.jsx";
 import ForgotPassword from './components/commonComponents/ForgotPassword.jsx';
 // import {UserProvider} from "./UserContext.js";
-import MyProfilePage from './pages/commonPages/MyProfilePage.jsx';
+// import MyProfilePage from './pages/commonPages/MyProfilePage.jsx';
 import "./styles/globalstyles.css";
 import AdminPage from './pages/developersPages/AdminPage.jsx';
 import SeeUser from "./pages/developersPages/SeeUsers.jsx";
@@ -39,12 +39,14 @@ import AddNewExpense from './components/accountantComponents/AddNewExpensePage.j
 import AddNewMenuItem from './pages/messPresidentPages/AddNewMenuItemVendorPage.jsx';
 import CalorieViewPage from './pages/messPresidentPages/CalorieViewPage.jsx';
 import { useStateProvider } from "./context/StateContext.jsx";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { reducerCases } from "./context/Constants";
+import ProfilePage from './pages/commonPages/ProfilePage.jsx';
 
 function App() {
 
     const [{ userInfo, newUser }, dispatch] = useStateProvider();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
       // Check if user data is present in localStorage
@@ -58,14 +60,18 @@ function App() {
           type: reducerCases.SET_USER_INFO,
           userInfo: user,
         });
-  
-        dispatch({
-          type: reducerCases.SET_NEW_USER,
-          newUser: true,
-        });
       }
-    }, [dispatch]);  // Add dispatch as dependency
+      setLoading(false);
+    }, []);  // Add dispatch as dependency
 
+    //!!!!VVI NOTE ########
+    //upper runs after the first render, causing an empty state issue. to solve this 
+    //   we are adding a loading screen while app waits for restored state
+    //dispatch({ type: SET_USER_INFO, userInfo: user }) updates state.
+    //React detects state has changed and automatically re-renders the components using useState
+    //The page re-renders with the actual global state
+    
+    if (loading) return <div>Loading...</div>; // Prevent rendering pages until state loads
 
     return (
         <Router>
@@ -77,40 +83,40 @@ function App() {
           <Route path="/extradetails-form" element={<ExtraDetailsForm />} />
 
 
-          <Route path="/student-home-page"  element={<StudentHomePage />} />
+          <Route path="/student-home-page"  element = {< ProtectedRoute element={<StudentHomePage />} /> }/>
 
 
-          <Route path="/comment-page" element={<AllComments /> } />
-          <Route path="/myallcomments-page" element={<MyAllCommentsPage />}/>
+          <Route path="/comment-page" element = {< ProtectedRoute element={<AllComments /> } /> } />
+          <Route path="/myallcomments-page" element = {< ProtectedRoute element={<MyAllCommentsPage />}/> } />
 
 
-          <Route path="/complaint-page" element={<AllComplaints/>} />
-          <Route path="/myallcomplaints-page" element={<MyAllComplaintsPage/>} />
+          <Route path="/complaint-page" element = {< ProtectedRoute element={<AllComplaints/>} /> } />
+          <Route path="/myallcomplaints-page" element = {< ProtectedRoute element={<MyAllComplaintsPage/>} /> } />
 
 
-          <Route path="/gallery-page" element={<GalleryPage />} />
-          <Route path="/myallimages" element={<MyAllImagesPage />} />
+          <Route path="/gallery-page" element = {< ProtectedRoute element={<GalleryPage />} /> } />
+          <Route path="/myallimages" element = {< ProtectedRoute element={<MyAllImagesPage />} /> } />
+ 
 
-
-          <Route path="/full-menu-page" element={<FullMessMenuPage />} />
-          <Route path="/menu-item" element={<AddNewMenuItem />} />
-          <Route path="/calorie-view" element={<CalorieViewPage />} />
-
-
-
-          <Route path="/expense-page"  element={<EditExpensePage/>} />
-          <Route path="/grocery" element={<Grocery />} />
-          <Route path="/add-new-expense" element={<AddNewExpense />} />
+          <Route path="/full-menu-page" element = {< ProtectedRoute element={<FullMessMenuPage />} /> } />
+          <Route path="/menu-item" element = {< ProtectedRoute element={<AddNewMenuItem />} /> } />
+          <Route path="/calorie-view" element = {< ProtectedRoute element={<CalorieViewPage />} /> } />
 
 
 
+          <Route path="/expense-page" element = {< ProtectedRoute element={<EditExpensePage/>} /> } />
+          <Route path="/grocery" element = {< ProtectedRoute element={<Grocery />} /> } />
+          <Route path="/add-new-expense" element = {< ProtectedRoute element={<AddNewExpense />} /> } />
+
+
+
+          <Route path="/profile-page" element = {< ProtectedRoute element={<ProfilePage />} /> } />
 
 ////---------------------------------------------------------------------------------------
 
           <Route path="/test" element={<Test />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<ProtectedRoute element={<Home />}/>} />
-          <Route path="/myprofilepage" element={<ProtectedRoute element={<MyProfilePage />}/>} />
           <Route path="/adminpage" element={<ProtectedRoute element={<AdminPage />}/>} />
           <Route path="/see-users" element={<ProtectedRoute element={<SeeUser />}/>} />
           <Route path="/delete-user" element={<ProtectedRoute element={<DeleteUser />}/>} />

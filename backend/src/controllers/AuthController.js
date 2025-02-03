@@ -66,6 +66,10 @@ const loginUser = (req, res, next)=>{
 const otpSendingService = async (req, res) => {
   const { collegeMail } = req.body;
   try {
+    const check_already_exist = await User.findOne({collegeMail: collegeMail});
+    if(check_already_exist){
+      return res.status(200).json({ redirect: "/" });
+    }
     const otp = OTPService.generateOTP();
     await OTPService.sendOTP(collegeMail, otp);
     req.session.userInfo = req.body;

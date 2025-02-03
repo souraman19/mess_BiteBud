@@ -44,6 +44,7 @@ app.get('/api/check-session', (req, res) => {
 
 app.use((req, res, next) => {
     // return;
+    // console.log(req.path);
     if (req.path === "/api/auth/login" || req.path === "/api/auth/verify-otp" || req.path === "/api/auth/get-otp" || req.path === "/api/auth/register-user") {
         // console.log(req.path);
         return next(); // Skip auth check for login & signup

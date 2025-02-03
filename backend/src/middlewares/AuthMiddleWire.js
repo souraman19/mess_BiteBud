@@ -16,7 +16,7 @@ const sessionCheck = (req, res, next) => {
 
 //validate if all user data make correct sense or not
 const validateUserData = (req, res, next) => {
-    console.log("here");
+    // console.log("here");
     const { firstName, lastName, phone, permanentAddress, nationality, hostel, gender, dateOfBirth, collegeMail, extraMail, bloodGroup } = req.body;
 
     // // Validate first name and last name

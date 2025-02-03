@@ -139,7 +139,7 @@ const authMiddleware = (req, res, next) => {
     // return;
 
     if (!req.cookies || !req.cookies['connect.sid']) {
-        return res.status(401).json({ message: "User not logged in. Session expired or missing." });
+        return res.status(401).json({ message: "User not logged in. Session expired or missing."});
     }
 
     if (!req.isAuthenticated()) {

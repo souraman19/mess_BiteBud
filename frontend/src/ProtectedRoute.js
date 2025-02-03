@@ -1,12 +1,13 @@
 // ProtectedRoute.js
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useUser } from './UserContext'; // Adjust the path as needed
+import { useStateProvider } from "./context/StateContext.jsx";
 
 function ProtectedRoute({ element }) {
-  const { user } = useUser();
+  const { userInfo } = useStateProvider();
 
-  if (!user.isSignedIn) {
+
+  if (!userInfo) {
     return <Navigate to="/" />;
   }
 

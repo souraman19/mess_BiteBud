@@ -83,34 +83,34 @@ function App() {
           <Route path="/extradetails-form" element={<ExtraDetailsForm />} />
 
 
-          <Route path="/student-home-page"  element={<StudentHomePage />} />
+          <Route path="/student-home-page"  element = {< ProtectedRoute element={<StudentHomePage />} /> }/>
 
 
-          <Route path="/comment-page" element={<AllComments /> } />
-          <Route path="/myallcomments-page" element={<MyAllCommentsPage />}/>
+          <Route path="/comment-page" element = {< ProtectedRoute element={<AllComments /> } /> } />
+          <Route path="/myallcomments-page" element = {< ProtectedRoute element={<MyAllCommentsPage />}/> } />
 
 
-          <Route path="/complaint-page" element={<AllComplaints/>} />
-          <Route path="/myallcomplaints-page" element={<MyAllComplaintsPage/>} />
+          <Route path="/complaint-page" element = {< ProtectedRoute element={<AllComplaints/>} /> } />
+          <Route path="/myallcomplaints-page" element = {< ProtectedRoute element={<MyAllComplaintsPage/>} /> } />
 
 
-          <Route path="/gallery-page" element={<GalleryPage />} />
-          <Route path="/myallimages" element={<MyAllImagesPage />} />
+          <Route path="/gallery-page" element = {< ProtectedRoute element={<GalleryPage />} /> } />
+          <Route path="/myallimages" element = {< ProtectedRoute element={<MyAllImagesPage />} /> } />
+ 
 
-
-          <Route path="/full-menu-page" element={<FullMessMenuPage />} />
-          <Route path="/menu-item" element={<AddNewMenuItem />} />
-          <Route path="/calorie-view" element={<CalorieViewPage />} />
-
-
-
-          <Route path="/expense-page"  element={<EditExpensePage/>} />
-          <Route path="/grocery" element={<Grocery />} />
-          <Route path="/add-new-expense" element={<AddNewExpense />} />
+          <Route path="/full-menu-page" element = {< ProtectedRoute element={<FullMessMenuPage />} /> } />
+          <Route path="/menu-item" element = {< ProtectedRoute element={<AddNewMenuItem />} /> } />
+          <Route path="/calorie-view" element = {< ProtectedRoute element={<CalorieViewPage />} /> } />
 
 
 
-          <Route path="/profile-page" element={<ProfilePage />} />
+          <Route path="/expense-page" element = {< ProtectedRoute element={<EditExpensePage/>} /> } />
+          <Route path="/grocery" element = {< ProtectedRoute element={<Grocery />} /> } />
+          <Route path="/add-new-expense" element = {< ProtectedRoute element={<AddNewExpense />} /> } />
+
+
+
+          <Route path="/profile-page" element = {< ProtectedRoute element={<ProfilePage />} /> } />
 
 ////---------------------------------------------------------------------------------------
 

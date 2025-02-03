@@ -36,8 +36,14 @@ export default function ProfilePage() {
         // updateUser({ profilePic: `/uploads/${response.data.filename}` });
         dispatch({
           type: reducerCases.SET_NEW_PROFILE_PICTURE, // Action to set user information in the state.
-          profilePicture: `/uploads/${response.data.filename}` ,
+          profilePicture: `/uploads/${response.data.filename}`,
         });
+        const storedUser = JSON.parse(localStorage.getItem("user")); // Get existing user
+        if (storedUser) {
+          storedUser.profilePicture = `/uploads/${response.data.filename}`; // Update profile picture
+          localStorage.setItem("user", JSON.stringify(storedUser)); // Save back to localStorage
+        }
+
       } catch (error) {
         console.error("Error uploading profile picture:", error);
       }

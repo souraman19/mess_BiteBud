@@ -33,4 +33,18 @@ const changeProfilePicture = async (req, res) => {
   }
 };
 
-export { changeProfilePicture };
+const logOut = async(req, res) => {
+  if (req.session) {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ error: "Logout failed" });
+      }
+      res.clearCookie("connect.sid"); // Clear session cookie
+      return res.status(200).json({ message: "Logged out successfully" });
+    });
+  } else {
+    res.status(200).json({ message: "No active session" });
+  }
+}
+
+export { changeProfilePicture, logOut};

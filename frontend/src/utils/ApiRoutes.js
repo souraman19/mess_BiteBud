@@ -58,4 +58,5 @@ export const DELETE_EXPENSE = `${EXPENSE_ROUTES}/delete-expense`;
 export const EDIT_EXPENSE = `${EXPENSE_ROUTES}/edit-expense`;    //not used till yet
 
 export const CHANGE_PROFILE_PICTURE = `${USER_PROFILE_ROUTES}/change-profile-picture`;    //not used till yet
+export const LOG_OUT_ROUTE = `${USER_PROFILE_ROUTES}/log-out`;    //not used till yet
 

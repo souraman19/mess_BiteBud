@@ -3,7 +3,7 @@ import { useStateProvider } from "../../context/StateContext";
 import Navbar from "./../../components/commonComponents/Navbar.jsx";
 import axios from "axios";
 import "./../../styles/ProfilePage.css";
-import { CHANGE_PROFILE_PICTURE } from "./../../utils/ApiRoutes.js";
+import { CHANGE_PROFILE_PICTURE, LOG_OUT_ROUTE } from "./../../utils/ApiRoutes.js";
 import { reducerCases } from "../../context/Constants.js";
 
 export default function ProfilePage() {
@@ -43,12 +43,33 @@ export default function ProfilePage() {
           storedUser.profilePicture = `/uploads/${response.data.filename}`; // Update profile picture
           localStorage.setItem("user", JSON.stringify(storedUser)); // Save back to localStorage
         }
-
       } catch (error) {
         console.error("Error uploading profile picture:", error);
       }
     }
   };
+
+  const handleLogout = async () => {
+    try {
+      // 1. Remove user from localStorage
+      localStorage.removeItem("user");
+  
+      // 2. Clear user session/cookies (optional, handled by backend)
+      await axios.post(`${LOG_OUT_ROUTE}`, {}, { withCredentials: true });
+  
+      // 3. Reset user state in context/redux
+      dispatch({
+        type: reducerCases.SET_USER_INFO,
+        userInfo: {},
+      });
+  
+      // 4. Redirect to login page
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+  
 
   return (
     <>
@@ -80,9 +101,20 @@ export default function ProfilePage() {
           </p>
         </div>
         <div
+          onClick={handleLogout}
           style={{
             cursor: "pointer",
-          }} /*onClick={() => updateUser({isSignedIn: false})} */
+            padding: "10px 20px",
+            backgroundColor: "#ff4d4d",
+            color: "white",
+            borderRadius: "5px",
+            textAlign: "center",
+            marginTop: "20px",
+            fontWeight: "bold",
+            transition: "background-color 0.3s ease",
+          }}
+          onMouseOver={(e) => (e.target.style.backgroundColor = "#cc0000")}
+          onMouseOut={(e) => (e.target.style.backgroundColor = "#ff4d4d")}
         >
           Log Out
         </div>
